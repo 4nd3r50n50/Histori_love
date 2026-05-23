@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestros Recuerdos | Anderson & Jessie ❤️</title>
+    
+    <!-- Google Fonts para una tipografía premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- DISEÑO DEL SISTEMA DE ESTILOS --- */
+        :root {
+            --primary: #ec4899;      /* Rosa vibrante */
+            --primary-hover: #db2777;
+            --primary-light: #fbcfe8;
+            --secondary: #8b5cf6;    /* Violeta mágico */
+            --accent: #f43f5e;       /* Rojo amor */
+            --bg-gradient: linear-gradient(135deg, #fff1f2 0%, #fae8ff 50%, #e0e7ff 100%);
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --text-dark: #1e1b4b;    /* Índigo oscuro */
+            --text-muted: #475569;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 25px -5px rgba(236, 72, 153, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- SISTEMA DE TEMAS ADICIONALES --- */
+        body.theme-estrellada {
+            --primary: #a78bfa;
+            --primary-hover: #8b5cf6;
+            --primary-light: #ddd6fe;
+            --secondary: #60a5fa;
+            --accent: #f43f5e;
+            --bg-gradient: linear-gradient(135deg, #09090b 0%, #0f0f2d 50%, #1e1b4b 100%);
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-dark: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body.theme-bosque {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --primary-light: #a7f3d0;
+            --secondary: #d97706;
+            --accent: #e11d48;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #064e3b 50%, #14532d 100%);
+            --glass-bg: rgba(15, 23, 42, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-dark: #f8fafc;
+            --text-muted: #a7f3d0;
+        }
+
+        body.theme-vintage {
+            --primary: #b45309;
+            --primary-hover: #92400e;
+            --primary-light: #fef3c7;
+            --secondary: #991b1b;
+            --accent: #b91c1c;
+            --bg-gradient: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 50%, #e7e5e4 100%);
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(120, 113, 108, 0.25);
+            --text-dark: #451a03;
+            --text-muted: #57534e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 0.8s ease, color 0.5s ease;
+        }
+
+        /* Corazones flotantes de fondo */
+        .decoraciones {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .corazon-flotante {
+            position: absolute;
+            display: block;
+            font-size: 24px;
+            color: var(--primary);
+            opacity: 0.15;
+            animation: flotar 12s infinite linear;
+            bottom: -50px;
+        }
+
+        @keyframes flotar {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.2;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .wrapper {
+            max-width: 900px;
+            width: 100%;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 10px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* --- PERFILES DE LA PAREJA --- */
+        .perfil-pareja-contenedor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 20px 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            gap: 16px;
+            animation: fadeIn 1s ease 0.15s both;
+        }
+
+        .perfil-tarjeta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+        }
+
+        .perfil-emoji {
+            font-size: 2.2rem;
+            background: rgba(255, 255, 255, 0.25);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .perfil-datos {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .perfil-nombre {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary-hover);
+        }
+
+        .perfil-info {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .perfil-hobby {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .perfil-corazon-medio {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            animation: palpitacion 1.2s infinite ease-in-out;
+        }
+
+        /* --- RELOJ DE ANIVERSARIO --- */
+        .reloj-aniversario-contenedor {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            gap: 12px;
+            animation: fadeIn 1s ease 0.1s both;
+            overflow: hidden;
+        }
+
+        .reloj-corazon {
+            font-size: 2.2rem;
+            animation: palpitacion 1.2s infinite ease-in-out;
+            cursor: pointer;
+        }
+
+        @keyframes palpitacion {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.15); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.15); }
+            70% { transform: scale(1); }
+        }
+
+        .reloj-titulo-interna {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+        }
+
+        .reloj-contador {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .reloj-segmento {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 8px 4px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .reloj-segmento .num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .reloj-segmento .label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .btn-editar-fecha {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-editar-fecha:hover {
+            opacity: 1;
+            transform: rotate(45deg) scale(1.1);
+        }
+
+        /* --- BARRA DE PROGRESO DE RECUERDOS --- */
+        .progreso-contenedor {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 20px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeIn 1s ease 0.2s both;
+        }
+
+        .progreso-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .progreso-info span {
+            color: var(--primary-hover);
+        }
+
+        .barra-progreso-bg {
+            background: rgba(0, 0, 0, 0.05);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .barra-progreso-llena {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            height: 100%;
+            width: 0%;
+            border-radius: 6px;
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- CUADRÍCULA DE CAJAS --- */
+        .caja-contenedor {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease 0.4s both;
+            perspective: 1000px;
+        }
+
+        .caja {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: box-shadow 0.4s ease, transform 0.15s ease-out;
+            position: relative;
+            overflow: hidden;
+            min-height: 240px;
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+        }
+
+        .caja::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.05), rgba(139, 92, 246, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .caja:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+
+        .caja:hover::before {
+            opacity: 1;
+        }
+
+        .caja.bloqueada {
+            border-style: solid;
+        }
+
+        .caja.desbloqueada {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .icono-caja {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            display: inline-block;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+            transform: translateZ(30px);
+        }
+
+        .caja:hover .icono-caja {
+            transform: scale(1.15) rotate(5deg) translateZ(35px);
+        }
+
+        .caja.bloqueada:hover .icono-caja {
+            animation: temblarCandado 0.5s ease;
+        }
+
+        @keyframes temblarCandado {
+            0%, 100% { transform: scale(1.15) rotate(0deg) translateZ(30px); }
+            20%, 60% { transform: scale(1.15) rotate(-8deg) translateZ(30px); }
+            40%, 80% { transform: scale(1.15) rotate(8deg) translateZ(30px); }
+        }
+
+        .caja h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            z-index: 1;
+            transform: translateZ(20px);
+        }
+
+        .estado-candado {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            z-index: 1;
+            transition: var(--transition-smooth);
+        }
+
+        .bloqueada .estado-candado {
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--primary);
+        }
+
+        .desbloqueada .estado-candado {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+        }
+
+        .pista-texto {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-style: italic;
+            z-index: 1;
+            opacity: 0.8;
+        }
+
+        /* Botón Añadir Recuerdos */
+        .acciones-adicionales-contenedor {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
+
+        .btn-anadir-recuerdo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 220px;
+        }
+
+        /* --- SECCIÓN DE LA CARTA SECRETA Y SOBRE 3D --- */
+        .seccion-carta-secreta {
+            margin-top: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 40px 20px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+            position: relative;
+            animation: fadeIn 1.2s ease 0.5s both;
+        }
+
+        .carta-bloqueada-mensaje {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .carta-bloqueada-mensaje h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .sobre-contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .sobre {
+            position: relative;
+            width: 300px;
+            height: 180px;
+            background-color: #f1e4d3;
+            border-radius: 6px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .sobre:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .sobre-solapa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #e5d4be;
+            transform-origin: top;
+            transition: transform 0.6s ease;
+            z-index: 4;
+        }
+
+        .sobre-cuerpo {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid #e1ceb6;
+            border-right: 150px solid #e1ceb6;
+            border-bottom: 90px solid #dfc7ab;
+            border-top: 90px solid transparent;
+            border-radius: 0 0 6px 6px;
+            z-index: 3;
+        }
+
+        .sobre-sello {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) scale(1);
+            font-size: 2.2rem;
+            color: var(--accent);
+            z-index: 5;
+            transition: transform 0.4s ease;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.15));
+        }
+
+        .sobre.abierto .sobre-sello {
+            transform: translateX(-50%) scale(0) rotate(360deg);
+        }
+
+        .sobre.abierto .sobre-solapa {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .sobre-carta-interna {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            width: 270px;
+            height: 160px;
+            background: #fcfcf9;
+            padding: 18px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 2;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.15), height 0.8s ease, width 0.8s ease, top 0.8s ease, left 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow: hidden;
+        }
+
+        .sobre.abierto .sobre-carta-interna {
+            transform: translateY(-160px) translateZ(10px);
+            height: 380px;
+            width: 320px;
+            left: -10px;
+            top: 10px;
+            z-index: 10;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            overflow-y: auto;
+        }
+
+        .sobre-carta-cabecera {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(236,72,153,0.2);
+            padding-bottom: 6px;
+            flex-shrink: 0;
+        }
+
+        .carta-fecha {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .btn-editar-carta {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .btn-editar-carta:hover {
+            opacity: 1;
+        }
+
+        .sobre-carta-contenido {
+            font-family: 'Caveat', cursive;
+            font-size: 1.55rem;
+            color: var(--text-dark);
+            line-height: 1.4;
+            white-space: pre-wrap;
+            outline: none;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .btn-guardar-carta-editada {
+            margin-top: 10px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .sobre-ayuda-texto {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            animation: saltarTexto 2s infinite;
+            text-align: center;
+        }
+
+        @keyframes saltarTexto {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* --- SELECTOR DE TEMAS FLOTANTE --- */
+        .tema-selector-contenedor {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .btn-tema-principal {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-tema-principal:hover {
+            transform: scale(1.1) rotate(15deg);
+            border-color: var(--primary);
+        }
+
+        .tema-opciones-dropdown {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 8px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transform: translateY(-10px) scale(0.95);
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .tema-opciones-dropdown.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .tema-opcion {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tema-opcion:hover {
+            transform: scale(1.15);
+        }
+
+        .tema-opcion.amor-clasico { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+        .tema-opcion.noche-estrellada { background: linear-gradient(135deg, #09090b, #1e1b4b); }
+        .tema-opcion.bosque-encantado { background: linear-gradient(135deg, #064e3b, #14532d); }
+        .tema-opcion.oro-rose { background: linear-gradient(135deg, #fafaf9, #e7e5e4); }
+
+        /* --- REPRODUCTOR DE MÚSICA FLOTANTE --- */
+        .musica-reproductor {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow-lg);
+            z-index: 99;
+            transition: var(--transition-smooth);
+            max-width: 60px;
+            overflow: hidden;
+            height: 60px;
+        }
+
+        .musica-reproductor.expandido {
+            max-width: 320px;
+            padding: 8px 18px 8px 8px;
+            border-radius: 30px;
+            height: auto;
+        }
+
+        .musica-disco-container {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .musica-disco-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #000;
+        }
+
+        .musica-disco-img.rotando {
+            animation: rotarDisco 6s infinite linear;
+        }
+
+        @keyframes rotarDisco {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .musica-disco-centro {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #fcfcf9;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #000;
+        }
+
+        .musica-info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-left: 12px;
+            width: 220px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .musica-reproductor.expandido .musica-info-panel {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .musica-detalles {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .musica-titulo {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .musica-artista {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .musica-controles {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-musica-control {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-musica-control:hover {
+            transform: scale(1.2);
+        }
+
+        .btn-musica-control.play {
+            font-size: 1.25rem;
+        }
+
+        .musica-barra-progreso-contenedor {
+            background: rgba(0,0,0,0.1);
+            height: 4px;
+            border-radius: 2px;
+            width: 100%;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .musica-barra-progreso {
+            background: var(--primary);
+            height: 100%;
+            width: 0%;
+            border-radius: 2px;
+        }
+
+        .musica-volumen-contenedor {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            margin-top: 2px;
+        }
+
+        .musica-volumen-slider {
+            flex: 1;
+            height: 3px;
+            accent-color: var(--primary);
+            outline: none;
+        }
+
+        /* --- MODALES PREMIUM --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 27, 75, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 460px;
+            padding: 36px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            transform: scale(0.9) translateY(20px);
+            transition: var(--transition-smooth);
+            text-align: center;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .input-contenedor {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .input-contrasena {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            border: 2px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition-smooth);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .input-contrasena:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.15);
+        }
+
+        .opcion-trivia-label:hover {
+            background: var(--primary-light) !important;
+        }
+
+        .opcion-trivia-label input[type="radio"]:checked + span {
+            color: var(--primary-hover) !important;
+            font-weight: 700 !important;
+        }
+
+        .modal-acciones {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: var(--transition-smooth);
+            flex: 1;
+        }
+
+        .btn-primario {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25);
+        }
+
+        .btn-primario:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-primario:active {
+            transform: translateY(0);
+        }
+
+        .btn-secundario {
+            background: #f1f5f9;
+            color: var(--text-muted);
+        }
+
+        .btn-secundario:hover {
+            background: #e2e8f0;
+            color: var(--text-dark);
+        }
+
+        .modal-content.error-shake {
+            animation: errorShake 0.4s ease;
+            border: 2px solid var(--accent);
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        /* --- VISUALIZADOR DE RECUERDO ABIERTO (POLAROID) --- */
+        .carta-recuerdo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 27, 75, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 101;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .carta-recuerdo-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .polaroid-wrapper {
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            max-width: 440px;
+        }
+
+        .polaroid-cinta {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 120px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(2px);
+            border-left: 1px dashed rgba(0,0,0,0.1);
+            border-right: 1px dashed rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .carta-recuerdo {
+            background: #fcfcf9;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            padding: 16px 16px 36px 16px;
+            box-shadow: 0 20px 45px rgba(30, 27, 75, 0.3);
+            transform: rotate(-3deg) scale(0.8) translateY(50px);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .carta-recuerdo-overlay.active .carta-recuerdo {
+            transform: rotate(0deg) scale(1) translateY(0);
+        }
+
+        .polaroid-foto-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #e2e8f0;
+            border: 1px solid rgba(0,0,0,0.08);
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .polaroid-foto {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .polaroid-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #fae8ff 50%, #e0e7ff 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            color: var(--primary);
+            text-shadow: 0 4px 10px rgba(236, 72, 153, 0.15);
+        }
+
+        .polaroid-caption {
+            width: 100%;
+            padding-top: 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .polaroid-fecha {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            color: var(--primary-hover);
+            font-weight: 700;
+        }
+
+        .polaroid-titulo {
+            font-family: 'Caveat', cursive;
+            font-size: 2.3rem;
+            color: var(--text-dark);
+            line-height: 1.1;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .polaroid-texto {
+            font-family: 'Caveat', cursive;
+            font-size: 1.55rem;
+            color: var(--text-muted);
+            line-height: 1.35;
+            max-width: 95%;
+            white-space: pre-wrap;
+            margin-bottom: 12px;
+        }
+
+        .btn-cerrar-carta {
+            width: auto;
+            min-width: 160px;
+            margin-top: 10px;
+        }
+
+        /* --- BOTONES DEL PIE --- */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            animation: fadeIn 1.2s ease 0.6s both;
+            z-index: 1;
+        }
+
+        .btn-reiniciar {
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border: 1px dashed rgba(0,0,0,0.15);
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: 500;
+        }
+
+        .btn-reiniciar:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(244, 63, 94, 0.05);
+        }
+
+        /* --- ANIMACIONES GLOBALES --- */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsividad adaptada */
+        /* Responsividad adaptada para celulares y tablets */
+        @media (max-width: 750px) {
+            h1 {
+                font-size: 2.1rem;
+            }
+            body {
+                padding: 16px 10px;
+            }
+            .wrapper {
+                gap: 20px;
+            }
+            .reloj-contador {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .reloj-segmento {
+                padding: 6px 2px;
+            }
+            .reloj-segmento .num {
+                font-size: 1.35rem;
+            }
+            .reloj-segmento .label {
+                font-size: 0.7rem;
+            }
+            .perfil-pareja-contenedor {
+                flex-direction: column;
+                gap: 12px;
+                padding: 14px 18px;
+            }
+            .perfil-tarjeta {
+                flex-direction: row !important;
+                align-items: center;
+                text-align: left !important;
+                width: 100%;
+                gap: 10px;
+            }
+            .perfil-datos {
+                align-items: flex-start !important;
+                text-align: left !important;
+            }
+            .perfil-emoji {
+                width: 46px;
+                height: 46px;
+                font-size: 1.5rem;
+                flex-shrink: 0;
+            }
+            .perfil-nombre {
+                font-size: 1.1rem;
+            }
+            .perfil-info {
+                font-size: 0.8rem;
+            }
+            .perfil-hobby {
+                font-size: 0.72rem;
+            }
+            .perfil-corazon-medio {
+                margin: 2px 0;
+                font-size: 1.2rem;
+            }
+            .caja-contenedor {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            .caja {
+                min-height: 170px;
+                padding: 16px 12px;
+                border-radius: var(--radius-md);
+            }
+            .icono-caja {
+                font-size: 2.4rem;
+                margin-bottom: 8px;
+            }
+            .caja h3 {
+                font-size: 0.95rem;
+                margin-bottom: 4px;
+            }
+            .caja p {
+                font-size: 0.8rem !important;
+            }
+            .estado-candado {
+                font-size: 0.72rem;
+                padding: 4px 10px;
+                margin-top: 6px;
+            }
+            .pista-texto {
+                font-size: 0.7rem;
+                margin-top: 4px;
+            }
+            .btn-anadir-recuerdo {
+                width: 100%;
+                font-size: 0.9rem;
+                padding: 12px 20px;
+            }
+            /* Sobre de carta 3D adaptado a pantallas móviles */
+            .sobre {
+                width: 280px;
+                height: 160px;
+            }
+            .sobre-solapa {
+                border-left-width: 140px;
+                border-right-width: 140px;
+                border-top-width: 90px;
+            }
+            .sobre-cuerpo {
+                border-left-width: 140px;
+                border-right-width: 140px;
+                border-bottom-width: 80px;
+                border-top-width: 80px;
+            }
+            .sobre-sello {
+                top: 70px;
+                font-size: 1.9rem;
+            }
+            .sobre-carta-interna {
+                width: 250px;
+                height: 140px;
+            }
+            .sobre.abierto .sobre-carta-interna {
+                transform: translateY(-135px) translateZ(10px);
+                height: 310px;
+                width: 270px;
+                left: -5px;
+                top: 5px;
+            }
+            .sobre-carta-contenido {
+                font-size: 1.25rem;
+            }
+            .polaroid-wrapper {
+                max-width: 320px;
+            }
+            .polaroid-titulo {
+                font-size: 1.8rem;
+            }
+            .polaroid-texto {
+                font-size: 1.3rem;
+            }
+            /* Ajustes del reproductor de música y selector de tema */
+            .musica-reproductor {
+                bottom: 16px;
+                left: 16px;
+                height: 48px;
+                max-width: 48px;
+            }
+            .musica-reproductor.expandido {
+                max-width: 280px;
+                height: auto;
+            }
+            .musica-disco-container {
+                width: 32px;
+                height: 32px;
+            }
+            .musica-info-panel {
+                width: 190px;
+                margin-left: 8px;
+            }
+            .musica-titulo {
+                font-size: 0.75rem;
+            }
+            .musica-artista {
+                font-size: 0.65rem;
+            }
+            .btn-musica-control {
+                font-size: 0.85rem;
+            }
+            .btn-musica-control.play {
+                font-size: 1rem;
+            }
+            .tema-selector-contenedor {
+                top: 16px;
+                right: 16px;
+            }
+            .btn-tema-principal {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            .tema-opcion {
+                width: 32px;
+                height: 32px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Ajustes específicos para pantallas ultra pequeñas */
+        @media (max-width: 400px) {
+            .caja-contenedor {
+                grid-template-columns: 1fr;
+            }
+            .sobre {
+                width: 250px;
+                height: 145px;
+            }
+            .sobre-solapa {
+                border-left-width: 125px;
+                border-right-width: 125px;
+                border-top-width: 80px;
+            }
+            .sobre-cuerpo {
+                border-left-width: 125px;
+                border-right-width: 125px;
+                border-bottom-width: 70px;
+                border-top-width: 70px;
+            }
+            .sobre-sello {
+                top: 60px;
+                font-size: 1.6rem;
+            }
+            .sobre-carta-interna {
+                width: 220px;
+                height: 125px;
+            }
+            .sobre.abierto .sobre-carta-interna {
+                transform: translateY(-115px) translateZ(10px);
+                height: 270px;
+                width: 240px;
+                left: -5px;
+                top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas para la lluvia de confeti y corazones -->
+    <canvas id="canvas-confeti"></canvas>
+
+    <!-- Corazones en movimiento de fondo -->
+    <div class="decoraciones" id="decoraciones-bg"></div>
+
+    <!-- SELECTOR DE TEMAS FLOTANTE -->
+    <div class="tema-selector-contenedor">
+        <button class="btn-tema-principal" onclick="toggleMenuTemas()" title="Cambiar tema de diseño">🎨</button>
+        <div class="tema-opciones-dropdown" id="tema-dropdown">
+            <button class="tema-opcion amor-clasico" onclick="cambiarTema('clasico')" title="Amor Clásico">❤️</button>
+            <button class="tema-opcion noche-estrellada" onclick="cambiarTema('estrellada')" title="Noche Estrellada">🌌</button>
+            <button class="tema-opcion bosque-encantado" onclick="cambiarTema('bosque')" title="Bosque Encantado">🌲</button>
+            <button class="tema-opcion oro-rose" onclick="cambiarTema('vintage')" title="Oro Rosa Vintage">✨</button>
+        </div>
+    </div>
+
+    <!-- REPRODUCTOR DE MÚSICA FLOTANTE -->
+    <div class="musica-reproductor" id="musica-widget">
+        <div class="musica-disco-container" onclick="toggleExpandirMusica()">
+            <!-- Nota: Puedes cambiar 'imagenes/portada_musica.jpg' por la ruta de tu foto de pareja en la carpeta imagenes -->
+            <img src="imagenes/portada_musica.jpg" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop'" class="musica-disco-img" id="musica-disco-girando" alt="Vinyl">
+            <div class="musica-disco-centro"></div>
+        </div>
+        <div class="musica-info-panel" id="musica-info-panel">
+            <div class="musica-detalles">
+                <span class="musica-titulo" id="musica-titulo-cancion">Cargando melodía...</span>
+                <span class="musica-artista" id="musica-artista-cancion">Instrumental</span>
+            </div>
+            <div class="musica-controles">
+                <button class="btn-musica-control" onclick="anteriorCancion()">⏮️</button>
+                <button class="btn-musica-control play" id="btn-play-pause" onclick="togglePlayMusica()">▶️</button>
+                <button class="btn-musica-control" onclick="siguienteCancion()">⏭️</button>
+            </div>
+            <div class="musica-barra-progreso-contenedor" onclick="cambiarTiempoMusica(event)">
+                <div class="musica-barra-progreso" id="musica-progreso"></div>
+            </div>
+            <div class="musica-volumen-contenedor">
+                <span>🔈</span>
+                <input type="range" class="musica-volumen-slider" id="musica-volumen" min="0" max="1" step="0.05" value="0.5" oninput="cambiarVolumenMusica(this.value)">
+                <span>🔊</span>
+            </div>
+        </div>
+        <audio id="audio-elemento" loop></audio>
+    </div>
+
+    <div class="wrapper">
+        <header>
+            <h1>Anderson & Jessie ❤️</h1>
+            <p>Nuestro cofre digital de momentos memorables, código y amor.</p>
+        </header>
+
+        <!-- Perfiles de la Pareja -->
+        <div class="perfil-pareja-contenedor">
+            <div class="perfil-tarjeta">
+                <div class="perfil-emoji">🛻💻</div>
+                <div class="perfil-datos">
+                    <span class="perfil-nombre">Anderson</span>
+                    <span class="perfil-info">Ing. Ciencias de la Computación | 28 años</span>
+                    <span class="perfil-hobby">Apasionado por la Datsun 1200 pickup y el código</span>
+                </div>
+            </div>
+            <div class="perfil-corazon-medio">⚡❤️🎮</div>
+            <div class="perfil-tarjeta" style="text-align: right; flex-direction: row-reverse;">
+                <div class="perfil-emoji">🎮💻</div>
+                <div class="perfil-datos" style="align-items: flex-end;">
+                    <span class="perfil-nombre">Jessie</span>
+                    <span class="perfil-info">Ing. Ciencias de la Computación | 26 años</span>
+                    <span class="perfil-hobby">Amante de los videojuegos y la tecnología</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reloj de Aniversario Juntos -->
+        <div class="reloj-aniversario-contenedor">
+            <div class="reloj-corazon" onclick="lanzarConfeti()" title="¡Púlsame!">❤️</div>
+            <div class="reloj-titulo-interna">Tiempo Juntos</div>
+            <div class="reloj-contador">
+                <div class="reloj-segmento"><span class="num" id="reloj-anos">00</span><span class="label">Años</span></div>
+                <div class="reloj-segmento"><span class="num" id="reloj-meses">00</span><span class="label">Meses</span></div>
+                <div class="reloj-segmento"><span class="num" id="reloj-dias">00</span><span class="label">Días</span></div>
+                <div class="reloj-segmento"><span class="num" id="reloj-horas">00</span><span class="label">Horas</span></div>
+                <div class="reloj-segmento"><span class="num" id="reloj-minutos">00</span><span class="label">Min</span></div>
+                <div class="reloj-segmento"><span class="num" id="reloj-segundos">00</span><span class="label">Seg</span></div>
+            </div>
+            <button class="btn-editar-fecha" onclick="abrirConfigFecha()" title="Editar fecha de aniversario">⚙️</button>
+        </div>
+
+        <!-- Barra de Progreso de Desbloqueo -->
+        <div class="progreso-contenedor">
+            <div class="progreso-info">
+                <span>Tu Progreso</span>
+                <span id="progreso-texto">0 / 5 cajas abiertas</span>
+            </div>
+            <div class="barra-progreso-bg">
+                <div class="barra-progreso-llena" id="barra-progreso"></div>
+            </div>
+        </div>
+
+        <!-- Contenedor de las Cajas -->
+        <div class="caja-contenedor" id="caja-contenedor">
+            <!-- Cargado por JavaScript para interactividad flexible -->
+        </div>
+
+        <!-- Acciones Adicionales (Añadir Recuerdos) -->
+        <div class="acciones-adicionales-contenedor">
+            <button class="btn btn-primario btn-anadir-recuerdo" onclick="abrirModalAnadir()">➕ Añadir Nuevo Recuerdo</button>
+        </div>
+
+        <!-- SECCIÓN DE CARTA DE AMOR SECRETA -->
+        <div class="seccion-carta-secreta" id="seccion-carta-secreta">
+            <div class="carta-bloqueada-mensaje" id="carta-mensaje-bloqueada">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 8px;">🔒</span>
+                <h3>Carta de Amor Secreta</h3>
+                <p>Se desbloqueará automáticamente al abrir todos los recuerdos (100% de progreso).</p>
+            </div>
+            
+            <div class="sobre-contenedor escondido" id="sobre-interactivo-contenedor">
+                <div class="sobre" id="sobre-postal" onclick="abrirSobre3D()">
+                    <div class="sobre-solapa" id="sobre-solapa"></div>
+                    <div class="sobre-cuerpo"></div>
+                    <div class="sobre-sello">❤️</div>
+                    <div class="sobre-carta-interna" id="sobre-carta-interna">
+                        <div class="sobre-carta-cabecera">
+                            <span class="carta-fecha" id="carta-fecha-actual">Para Mi Amor</span>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn-editar-carta" onclick="activarEdicionCarta(event)" title="Editar carta">✏️</button>
+                                <button class="btn-editar-carta" onclick="cerrarSobre3D(event)" title="Cerrar carta">❌</button>
+                            </div>
+                        </div>
+                        <div class="sobre-carta-contenido" id="sobre-carta-texto" contenteditable="false">Querida Jessie,
+
+Hoy que has abierto cada cofre y recordado nuestros momentos especiales, quiero entregarte esta carta. 
+
+Desde aquel 25 de diciembre de 2021, cada día a tu lado ha sido el código más perfecto de mi vida. Gracias por tus risas, por compartir partidas de videojuegos conmigo, por apoyarme en mi pasión por la Datsun 1200 y por ser la mejor ingeniera del mundo.
+
+Eres mi persona favorita y lo mejor de mi vida entera. Sigamos compilando más recuerdos hermosos juntos.
+
+Con todo mi amor,
+Anderson. ❤️</div>
+                        <button class="btn btn-primario btn-guardar-carta-editada escondido" id="btn-guardar-carta" onclick="guardarCartaEditada(event)">Guardar Cambios</button>
+                    </div>
+                </div>
+                <p class="sobre-ayuda-texto" id="sobre-ayuda-texto">📬 ¡Tienes una carta de amor! Haz clic en el sobre para abrirla</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA CONFIGURAR FECHA ANIVERSARIO -->
+    <div class="modal-overlay" id="modal-fecha-aniversario">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="modal-icon">📅</span>
+            <h2>Fecha de Aniversario</h2>
+            <p>Introduce el día especial en que comenzó su hermosa historia.</p>
+            
+            <div class="input-contenedor">
+                <input type="date" class="input-contrasena" id="input-fecha-aniversario" style="padding: 12px;">
+            </div>
+
+            <div class="modal-acciones">
+                <button class="btn btn-secundario" onclick="cerrarConfigFecha()">Cancelar</button>
+                <button class="btn btn-primario" onclick="guardarConfigFecha()">Guardar Fecha</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA AÑADIR NUEVO RECUERDO -->
+    <div class="modal-overlay" id="modal-anadir-recuerdo">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="modal-icon">✍️</span>
+            <h2>Añadir Nuevo Recuerdo</h2>
+            <p>Completa los detalles para guardar un nuevo momento especial en este cofre digital.</p>
+            
+            <div class="form-contenedor" style="display: flex; flex-direction: column; gap: 12px; text-align: left; margin-bottom: 20px;">
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Título del Recuerdo</label>
+                    <input type="text" class="input-contrasena" id="anadir-titulo" placeholder="Ej: Nuestro Primer Concierto" style="padding: 10px; font-size: 0.95rem; text-align: left;" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Fecha</label>
+                        <input type="text" class="input-contrasena" id="anadir-fecha" placeholder="Ej: 14 Febrero 2024" style="padding: 10px; font-size: 0.95rem; text-align: left;" required>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Contraseña para abrir</label>
+                        <input type="text" class="input-contrasena" id="anadir-clave" placeholder="Ej: amor123" style="padding: 10px; font-size: 0.95rem; text-align: left;" required>
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Pista para la contraseña</label>
+                    <input type="text" class="input-contrasena" id="anadir-pista" placeholder="Ej: La contraseña es..." style="padding: 10px; font-size: 0.95rem; text-align: left;" required>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Descripción del Recuerdo</label>
+                    <textarea class="input-contrasena" id="anadir-texto" placeholder="Escribe aquí los detalles hermosos de este recuerdo..." style="padding: 10px; font-size: 0.95rem; text-align: left; height: 80px; resize: none; font-family: inherit;" required></textarea>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Imagen (Opcional - sube archivo)</label>
+                    <input type="file" id="anadir-imagen" accept="image/*" style="font-size: 0.85rem; margin-top: 4px; display: block;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px;">*Nota: Para mejor rendimiento, se recomiendan fotos ligeras. Si no seleccionas una, se usará un hermoso fondo degradado.</span>
+                </div>
+            </div>
+
+            <div class="modal-acciones">
+                <button class="btn btn-secundario" onclick="cerrarModalAnadir()">Cancelar</button>
+                <button class="btn btn-primario" onclick="guardarNuevoRecuerdo()">Guardar Recuerdo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE TRIVIA DE AMOR (CAJA MISTERIOSA) -->
+    <div class="modal-overlay" id="modal-trivia">
+        <div class="modal-content" style="max-width: 450px;">
+            <span class="modal-icon">🏆</span>
+            <h2>Quiz de Nuestro Amor</h2>
+            <p>Demuestra cuánto sabes de nuestra historia para abrir esta caja especial.</p>
+            
+            <div id="trivia-cuerpo" style="text-align: left; margin-bottom: 24px;">
+                <!-- Cargado dinámicamente por JavaScript -->
+            </div>
+
+            <div class="modal-acciones">
+                <button class="btn btn-secundario" onclick="cerrarTrivia()">Rendirse</button>
+                <button class="btn btn-primario" id="btn-siguiente-trivia" onclick="siguientePreguntaTrivia()">Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA INTRODUCIR LA CONTRASEÑA -->
+    <div class="modal-overlay" id="modal-contrasena">
+        <div class="modal-content" id="modal-content-panel">
+            <span class="modal-icon" id="modal-icono">🔒</span>
+            <h2 id="modal-titulo">Desbloquear Caja</h2>
+            <p id="modal-pista">Ingresa la clave correcta para revelar este recuerdo.</p>
+            
+            <div class="input-contenedor">
+                <input type="text" class="input-contrasena" id="input-password" placeholder="Escribe aquí..." autocomplete="off">
+            </div>
+
+            <div class="modal-acciones">
+                <button class="btn btn-secundario" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn-primario" onclick="validarContrasena()">Desbloquear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA MOSTRAR EL RECUERDO DESBLOQUEADO -->
+    <div class="carta-recuerdo-overlay" id="modal-recuerdo">
+        <div class="polaroid-wrapper">
+            <div class="polaroid-cinta"></div>
+            <div class="carta-recuerdo">
+                <div class="polaroid-foto-container" id="recuerdo-foto-container">
+                    <!-- Cargado por JavaScript -->
+                </div>
+                <div class="polaroid-caption">
+                    <span class="polaroid-fecha" id="recuerdo-fecha">Fecha</span>
+                    <h2 class="polaroid-titulo" id="recuerdo-titulo">Título</h2>
+                    <p class="polaroid-texto" id="recuerdo-texto">Texto del recuerdo...</p>
+                    <button class="btn btn-primario btn-cerrar-carta" onclick="cerrarRecuerdo()" style="margin-top: 15px; font-family: 'Plus Jakarta Sans', sans-serif;">Guardar recuerdo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <button class="btn-reiniciar" onclick="confirmarReiniciar()">🔒 Cerrar todas las cajas (Reiniciar)</button>
+    </footer>
+
+    <script>
+        // --- BASE DE DATOS DE RECUERDOS POR DEFECTO ---
+        const baseDeDatosRecuerdosDefecto = {
+            'caja1': {
+                titulo: "Nuestro algoritmo de amor",
+                pista: "El año en que compilamos nuestro primer día juntos (Intenta: 2021)",
+                clave: "2021",
+                fecha: "25 de Diciembre de 2021",
+                texto: "Ese día mágico en que decidimos empezar a escribir nuestra historia juntos. Dos ingenieros en ciencias de la computación que encontraron el algoritmo perfecto para el amor. ❤️",
+                imagen: "imagenes/primer_recuerdo.png"
+            },
+            'caja2': {
+                titulo: "Febreros especiales",
+                pista: "El mes en que ambos celebramos cumpleaños",
+                clave: "febrero",
+                fecha: "Nuestros Cumpleaños",
+                texto: "Nacidos en el mes del amor y la tecnología: Anderson el 13 de febrero y Jessie el 7 de febrero. ¡La combinación de código perfecta!",
+                imagen: "imagenes/lugar_especial.png"
+            },
+            'caja3': {
+                titulo: "Nuestras Pasiones",
+                pista: "La camioneta clásica favorita de Anderson",
+                clave: "datsun",
+                fecha: "Gaming & Pickup",
+                texto: "Un balance perfecto: Jessie conquistando mundos virtuales en los videojuegos y Anderson apasionado por los fierros clásicos con la legendaria Datsun 1200 pickup. Dos mundos unidos con amor.",
+                imagen: "imagenes/nuestra_cancion.png"
+            },
+            'caja4': {
+                titulo: "Nuestra Próxima Compilación",
+                pista: "Nuestra carrera profesional en común",
+                clave: "computacion",
+                fecha: "Sueños Juntos",
+                texto: "El viaje de nuestros sueños. Seguir programando nuestro futuro, viajar juntos, y compartir infinitas partidas de videojuegos y paseos en pickup. ¡Compilando amor!",
+                imagen: "imagenes/proxima_aventura.png"
+            },
+            'cajaSecret': {
+                titulo: "La Caja Misteriosa",
+                pista: "Cofre dorado especial. Requiere pasar el quiz de la pareja.",
+                clave: "trivia_desbloqueado",
+                fecha: "Premio al Amor",
+                texto: "¡Eres increíble! Demostraste conocer cada detalle de nuestra historia de amor. Este es un cupón digital válido por un 'Día de Spa Juntos + Cena Romántica'. Te amo con todo mi corazón. ❤️",
+                imagen: null,
+                esTrivia: true
+            }
+        };
+
+        // Estado local
+        let baseDeDatosRecuerdos = {};
+        let cajasDesbloqueadas = JSON.parse(localStorage.getItem('cajasDesbloqueadas')) || {};
+        let cajaSeleccionadaId = null;
+
+        // --- INICIALIZACIÓN ---
+        window.addEventListener('DOMContentLoaded', () => {
+            inicializarTema();
+            cargarRecuerdosDeLocalStorage();
+            generarDecoraciones();
+            renderizarCajas();
+            actualizarProgreso();
+            inicializarReloj();
+            inicializarAudio();
+            inicializarCartaDeAmor();
+
+            // Permitir presionar "Enter" para enviar contraseña
+            document.getElementById('input-password').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    validarContrasena();
+                }
+            });
+        });
+
+        // Cargar recuerdos personalizados y unirlos a los de defecto
+        function cargarRecuerdosDeLocalStorage() {
+            const guardados = JSON.parse(localStorage.getItem('recuerdosPersonalizados')) || {};
+            baseDeDatosRecuerdos = { ...baseDeDatosRecuerdosDefecto, ...guardados };
+        }
+
+        // Crear corazones animados flotando en el fondo de manera aleatoria
+        function generarDecoraciones() {
+            const container = document.getElementById('decoraciones-bg');
+            container.innerHTML = '';
+            const corazones = ['❤️', '💖', '✨', '🌸', '💕'];
+            
+            for (let i = 0; i < 15; i++) {
+                const corazon = document.createElement('span');
+                corazon.classList.add('corazon-flotante');
+                corazon.innerText = corazones[Math.floor(Math.random() * corazones.length)];
+                corazon.style.left = Math.random() * 100 + 'vw';
+                corazon.style.animationDelay = Math.random() * 8 + 's';
+                corazon.style.animationDuration = (Math.random() * 6 + 8) + 's';
+                corazon.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                container.appendChild(corazon);
+            }
+        }
+
+        // Renderizar dinámicamente las cajas
+        function renderizarCajas() {
+            const container = document.getElementById('caja-contenedor');
+            container.innerHTML = '';
+
+            Object.keys(baseDeDatosRecuerdos).forEach((key, index) => {
+                const datos = baseDeDatosRecuerdos[key];
+                const estaDesbloqueada = cajasDesbloqueadas[key];
+                
+                const card = document.createElement('div');
+                card.className = `caja ${estaDesbloqueada ? 'desbloqueada' : 'bloqueada'}`;
+                card.id = `card-${key}`;
+                card.onclick = () => abrirCaja(key);
+
+                // Configurar icono y candado
+                let icono = estaDesbloqueada ? '🎁' : '🔒';
+                if (datos.esTrivia && !estaDesbloqueada) {
+                    icono = '🏆';
+                }
+                const textoCandado = estaDesbloqueada ? '🔓 Abierto' : '🔒 Cerrado';
+                const tituloMostrar = datos.esTrivia ? datos.titulo : `Caja ${index + 1}`;
+                
+                card.innerHTML = `
+                    <span class="icono-caja" id="icono-${key}">${icono}</span>
+                    <h3>${tituloMostrar}</h3>
+                    <p style="font-size: 0.95rem; font-weight: 500; color: var(--text-muted);">${datos.esTrivia ? 'Quiz Especial' : datos.titulo}</p>
+                    <span class="estado-candado" id="candado-${key}">${textoCandado}</span>
+                    ${!estaDesbloqueada ? `<p class="pista-texto">Pista: ${datos.pista}</p>` : ''}
+                `;
+                
+                container.appendChild(card);
+            });
+            inicializarEfectoTilt();
+        }
+
+        // Actualizar porcentaje e info de progreso
+        function actualizarProgreso() {
+            const keys = Object.keys(baseDeDatosRecuerdos);
+            const total = keys.length;
+            const desbloqueadasCount = keys.filter(k => cajasDesbloqueadas[k]).length;
+            
+            const porcentaje = total > 0 ? (desbloqueadasCount / total) * 100 : 0;
+            
+            document.getElementById('progreso-texto').innerText = `${desbloqueadasCount} / ${total} cajas abiertas`;
+            document.getElementById('barra-progreso').style.width = `${porcentaje}%`;
+
+            // Verificar si todo está abierto para revelar sobre 3D
+            const mensajeBloqueado = document.getElementById('carta-mensaje-bloqueada');
+            const sobreContenedor = document.getElementById('sobre-interactivo-contenedor');
+            
+            if (desbloqueadasCount === total && total > 0) {
+                mensajeBloqueado.classList.add('escondido');
+                sobreContenedor.classList.remove('escondido');
+            } else {
+                mensajeBloqueado.classList.remove('escondido');
+                sobreContenedor.classList.add('escondido');
+                document.getElementById('sobre-postal').classList.remove('abierto');
+            }
+        }
+
+        // Abrir modal o directamente mostrar recuerdo si ya está desbloqueado
+        function abrirCaja(idCaja) {
+            if (cajasDesbloqueadas[idCaja]) {
+                mostrarRecuerdo(idCaja);
+            } else {
+                cajaSeleccionadaId = idCaja;
+                const datos = baseDeDatosRecuerdos[idCaja];
+                
+                if (datos.esTrivia) {
+                    iniciarTrivia();
+                } else {
+                    document.getElementById('modal-titulo').innerText = `Desbloquear: ${datos.titulo}`;
+                    document.getElementById('modal-pista').innerText = `Pista: ${datos.pista}`;
+                    document.getElementById('input-password').value = '';
+                    document.getElementById('modal-icono').innerText = '🔒';
+                    
+                    document.getElementById('modal-contrasena').classList.add('active');
+                    setTimeout(() => {
+                        document.getElementById('input-password').focus();
+                    }, 100);
+                }
+            }
+        }
+
+        // Cerrar modal de contraseña
+        function cerrarModal() {
+            document.getElementById('modal-contrasena').classList.remove('active');
+            cajaSeleccionadaId = null;
+        }
+
+        // Validar contraseña ingresada en el modal personalizado
+        function validarContrasena() {
+            if (!cajaSeleccionadaId) return;
+
+            const inputPass = document.getElementById('input-password').value.trim();
+            const datos = baseDeDatosRecuerdos[cajaSeleccionadaId];
+            const modalContent = document.getElementById('modal-content-panel');
+
+            if (inputPass.toLowerCase() === datos.clave.toLowerCase()) {
+                cajasDesbloqueadas[cajaSeleccionadaId] = true;
+                localStorage.setItem('cajasDesbloqueadas', JSON.stringify(cajasDesbloqueadas));
+                
+                document.getElementById('modal-icono').innerText = '🎉';
+                document.getElementById('modal-titulo').innerText = "¡Desbloqueado!";
+                
+                lanzarConfeti();
+                
+                setTimeout(() => {
+                    cerrarModal();
+                    renderizarCajas();
+                    actualizarProgreso();
+                    mostrarRecuerdo(cajaSeleccionadaId);
+                }, 800);
+            } else {
+                modalContent.classList.add('error-shake');
+                document.getElementById('modal-icono').innerText = '❌';
+                
+                setTimeout(() => {
+                    modalContent.classList.remove('error-shake');
+                    document.getElementById('modal-icono').innerText = '🔒';
+                }, 500);
+            }
+        }
+
+        // Mostrar la ventana emergente con el texto del recuerdo (Estilo Polaroid)
+        function mostrarRecuerdo(idCaja) {
+            const recuerdo = baseDeDatosRecuerdos[idCaja];
+            const fotoContainer = document.getElementById('recuerdo-foto-container');
+            
+            if (recuerdo.imagen) {
+                fotoContainer.innerHTML = `<img src="${recuerdo.imagen}" class="polaroid-foto" alt="${recuerdo.titulo}">`;
+            } else {
+                fotoContainer.innerHTML = `<div class="polaroid-placeholder" style="background: linear-gradient(135deg, var(--primary-light), var(--primary));">✨❤️</div>`;
+            }
+            
+            document.getElementById('recuerdo-fecha').innerText = recuerdo.fecha || 'NUESTRO RECUERDO';
+            document.getElementById('recuerdo-titulo').innerText = recuerdo.titulo;
+            document.getElementById('recuerdo-texto').innerText = recuerdo.texto;
+            
+            document.getElementById('modal-recuerdo').classList.add('active');
+        }
+
+        // Cerrar el modal del recuerdo
+        function cerrarRecuerdo() {
+            document.getElementById('modal-recuerdo').classList.remove('active');
+        }
+
+        // Reiniciar todas las cajas
+        function confirmarReiniciar() {
+            if (confirm("¿Estás seguro de que quieres volver a cerrar todas las cajas? Tendrás que introducir las contraseñas de nuevo.")) {
+                cajasDesbloqueadas = {};
+                localStorage.removeItem('cajasDesbloqueadas');
+                renderizarCajas();
+                actualizarProgreso();
+            }
+        }
+
+        // --- SISTEMA DE CONFETI Y CORAZONES ---
+        let animacionConfetiId = null;
+        const canvasConfeti = document.getElementById('canvas-confeti');
+        const ctxConfeti = canvasConfeti?.getContext('2d');
+        let particulasConfeti = [];
+
+        function ajustarCanvasConfeti() {
+            if (canvasConfeti) {
+                canvasConfeti.width = window.innerWidth;
+                canvasConfeti.height = window.innerHeight;
+            }
+        }
+        window.addEventListener('resize', ajustarCanvasConfeti);
+        ajustarCanvasConfeti();
+
+        class ParticulaConfeti {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 6;
+                this.color = ['#ec4899', '#8b5cf6', '#f43f5e', '#ff007f', '#a855f7', '#f472b6', '#38bdf8'][Math.floor(Math.random() * 7)];
+                this.speedX = Math.random() * 12 - 6;
+                this.speedY = Math.random() * -15 - 10;
+                this.gravity = 0.45;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 10 - 5;
+                this.opacity = 1;
+                this.decay = Math.random() * 0.015 + 0.01;
+                this.esCorazon = Math.random() > 0.4;
+            }
+
+            actualizar() {
+                this.speedY += this.gravity;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                this.opacity -= this.decay;
+            }
+
+            dibujar() {
+                if (this.opacity <= 0 || !ctxConfeti) return;
+                ctxConfeti.save();
+                ctxConfeti.translate(this.x, this.y);
+                ctxConfeti.rotate(this.rotation * Math.PI / 180);
+                ctxConfeti.globalAlpha = this.opacity;
+                ctxConfeti.fillStyle = this.color;
+
+                if (this.esCorazon) {
+                    ctxConfeti.beginPath();
+                    const d = this.size;
+                    ctxConfeti.moveTo(0, d / 4);
+                    ctxConfeti.quadraticCurveTo(0, 0, d / 2, 0);
+                    ctxConfeti.quadraticCurveTo(d, 0, d, d / 2);
+                    ctxConfeti.quadraticCurveTo(d, d, 0, d * 1.5);
+                    ctxConfeti.quadraticCurveTo(-d, d, -d, d / 2);
+                    ctxConfeti.quadraticCurveTo(-d, 0, -d / 2, 0);
+                    ctxConfeti.quadraticCurveTo(0, 0, 0, d / 4);
+                    ctxConfeti.closePath();
+                    ctxConfeti.fill();
+                } else {
+                    ctxConfeti.fillRect(-this.size / 2, -this.size / 2, this.size, this.size / 2);
+                }
+                ctxConfeti.restore();
+            }
+        }
+
+        function lanzarConfeti() {
+            ajustarCanvasConfeti();
+            particulasConfeti = [];
+            
+            const origenX = window.innerWidth / 2;
+            const origenY = window.innerHeight * 0.6;
+
+            for (let i = 0; i < 150; i++) {
+                particulasConfeti.push(new ParticulaConfeti(origenX, origenY));
+            }
+
+            if (!animacionConfetiId) {
+                bucleConfeti();
+            }
+        }
+
+        function bucleConfeti() {
+            if (!ctxConfeti || !canvasConfeti) return;
+            ctxConfeti.clearRect(0, 0, canvasConfeti.width, canvasConfeti.height);
+            
+            particulasConfeti.forEach((p, index) => {
+                p.actualizar();
+                p.dibujar();
+                if (p.opacity <= 0) {
+                    particulasConfeti.splice(index, 1);
+                }
+            });
+
+            if (particulasConfeti.length > 0) {
+                animacionConfetiId = requestAnimationFrame(bucleConfeti);
+            } else {
+                cancelAnimationFrame(animacionConfetiId);
+                animacionConfetiId = null;
+                ctxConfeti.clearRect(0, 0, canvasConfeti.width, canvasConfeti.height);
+            }
+        }
+
+        // --- EFECTO 3D TILT EN LAS TARJETAS ---
+        function inicializarEfectoTilt() {
+            const cajas = document.querySelectorAll('.caja');
+            
+            cajas.forEach(caja => {
+                caja.addEventListener('mousemove', (e) => {
+                    const rect = caja.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const width = rect.width;
+                    const height = rect.height;
+                    
+                    const rotarY = ((x - width / 2) / (width / 2)) * 12;
+                    const rotarX = -((y - height / 2) / (height / 2)) * 12;
+                    
+                    caja.style.transform = `perspective(1000px) rotateX(${rotarX}deg) rotateY(${rotarY}deg) scale3d(1.04, 1.04, 1.04)`;
+                });
+                
+                caja.addEventListener('mouseleave', () => {
+                    caja.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+        }
+
+        // --- LÓGICA DEL CONTADOR DE ANIVERSARIO ---
+        let intervaloReloj = null;
+
+        function inicializarReloj() {
+            let fechaGuardada = localStorage.getItem('fechaAniversario');
+            
+            // Forzar fecha de aniversario real si es nula o la del valor de plantilla anterior
+            if (!fechaGuardada || fechaGuardada === '2025-01-01' || fechaGuardada === '2019-06-20') {
+                fechaGuardada = '2021-12-25';
+                localStorage.setItem('fechaAniversario', '2021-12-25');
+            }
+            
+            document.getElementById('input-fecha-aniversario').value = fechaGuardada;
+            
+            if (intervaloReloj) clearInterval(intervaloReloj);
+            
+            actualizarReloj();
+            intervaloReloj = setInterval(actualizarReloj, 1000);
+        }
+
+        function actualizarReloj() {
+            const fechaInicioStr = localStorage.getItem('fechaAniversario') || '2021-12-25';
+            const fechaInicio = new Date(fechaInicioStr + "T00:00:00");
+            const ahora = new Date();
+            
+            let diferenciaMs = ahora - fechaInicio;
+            if (diferenciaMs < 0) diferenciaMs = 0;
+            
+            let anos = ahora.getFullYear() - fechaInicio.getFullYear();
+            let meses = ahora.getMonth() - fechaInicio.getMonth();
+            let dias = ahora.getDate() - fechaInicio.getDate();
+            
+            if (dias < 0) {
+                const ultimoDiaMesAnterior = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
+                dias += ultimoDiaMesAnterior;
+                meses--;
+            }
+            
+            if (meses < 0) {
+                meses += 12;
+                anos--;
+            }
+
+            const horas = ahora.getHours();
+            const minutos = ahora.getMinutes();
+            const segundos = ahora.getSeconds();
+            
+            document.getElementById('reloj-anos').innerText = String(anos).padStart(2, '0');
+            document.getElementById('reloj-meses').innerText = String(meses).padStart(2, '0');
+            document.getElementById('reloj-dias').innerText = String(dias).padStart(2, '0');
+            document.getElementById('reloj-horas').innerText = String(horas).padStart(2, '0');
+            document.getElementById('reloj-minutos').innerText = String(minutos).padStart(2, '0');
+            document.getElementById('reloj-segundos').innerText = String(segundos).padStart(2, '0');
+        }
+
+        function abrirConfigFecha() {
+            document.getElementById('modal-fecha-aniversario').classList.add('active');
+        }
+
+        function cerrarConfigFecha() {
+            document.getElementById('modal-fecha-aniversario').classList.remove('active');
+        }
+
+        function guardarConfigFecha() {
+            const nuevaFecha = document.getElementById('input-fecha-aniversario').value;
+            if (nuevaFecha) {
+                localStorage.setItem('fechaAniversario', nuevaFecha);
+                cerrarConfigFecha();
+                inicializarReloj();
+                
+                // Reiniciar quiz por si cambió el mes
+                triviaPaso = 0;
+            }
+        }
+
+        // --- LÓGICA DE TEMAS ---
+        function toggleMenuTemas() {
+            const dropdown = document.getElementById('tema-dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const container = document.querySelector('.tema-selector-contenedor');
+            if (container && !container.contains(e.target)) {
+                document.getElementById('tema-dropdown').classList.remove('active');
+            }
+        });
+
+        function cambiarTema(nombreTema) {
+            document.body.classList.remove('theme-estrellada', 'theme-bosque', 'theme-vintage');
+            if (nombreTema !== 'clasico') {
+                document.body.classList.add(`theme-${nombreTema}`);
+            }
+            localStorage.setItem('temaActual', nombreTema);
+            toggleMenuTemas();
+        }
+
+        function inicializarTema() {
+            const temaGuardado = localStorage.getItem('temaActual') || 'clasico';
+            if (temaGuardado !== 'clasico') {
+                document.body.classList.add(`theme-${temaGuardado}`);
+            }
+        }
+
+        // --- LÓGICA DEL REPRODUCTOR DE MÚSICA ---
+        const listaCanciones = [
+            {
+                titulo: "Melodía de Amor (Piano)",
+                artista: "SoundHelix Piano Loop",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            },
+            {
+                titulo: "Ensueño Acústico",
+                artista: "SoundHelix Guitar",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+            },
+            {
+                titulo: "Brisa Romántica",
+                artista: "SoundHelix Synth",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+            }
+        ];
+        
+        let indiceCancionActual = 0;
+        let musicaReproduciendo = false;
+        let audio = null;
+        
+        function inicializarAudio() {
+            audio = document.getElementById('audio-elemento');
+            cargarCancion(indiceCancionActual);
+            
+            audio.addEventListener('timeupdate', actualizarProgresoMusica);
+            audio.addEventListener('ended', siguienteCancion);
+            
+            const volGuardado = localStorage.getItem('musicaVolumen') || 0.5;
+            audio.volume = parseFloat(volGuardado);
+            document.getElementById('musica-volumen').value = volGuardado;
+        }
+        
+        function cargarCancion(indice) {
+            if (!audio) return;
+            const cancion = listaCanciones[indice];
+            audio.src = cancion.url;
+            document.getElementById('musica-titulo-cancion').innerText = cancion.titulo;
+            document.getElementById('musica-artista-cancion').innerText = cancion.artista;
+        }
+        
+        function togglePlayMusica() {
+            if (musicaReproduciendo) {
+                pausarMusica();
+            } else {
+                reproducirMusica();
+            }
+        }
+        
+        function reproducirMusica() {
+            if (!audio) return;
+            audio.play().then(() => {
+                musicaReproduciendo = true;
+                document.getElementById('btn-play-pause').innerText = "⏸️";
+                document.getElementById('musica-disco-girando').classList.add('rotando');
+            }).catch(err => {
+                console.log("Interacción requerida por el navegador para reproducir audio:", err);
+            });
+        }
+        
+        function pausarMusica() {
+            if (!audio) return;
+            audio.pause();
+            musicaReproduciendo = false;
+            document.getElementById('btn-play-pause').innerText = "▶️";
+            document.getElementById('musica-disco-girando').classList.remove('rotando');
+        }
+        
+        function anteriorCancion() {
+            indiceCancionActual = (indiceCancionActual - 1 + listaCanciones.length) % listaCanciones.length;
+            cargarCancion(indiceCancionActual);
+            if (musicaReproduciendo) reproducirMusica();
+        }
+        
+        function siguienteCancion() {
+            indiceCancionActual = (indiceCancionActual + 1) % listaCanciones.length;
+            cargarCancion(indiceCancionActual);
+            if (musicaReproduciendo) reproducirMusica();
+        }
+        
+        function actualizarProgresoMusica() {
+            if (!audio) return;
+            const { duration, currentTime } = audio;
+            if (duration) {
+                const porcentaje = (currentTime / duration) * 100;
+                document.getElementById('musica-progreso').style.width = `${porcentaje}%`;
+            }
+        }
+        
+        function cambiarTiempoMusica(e) {
+            if (!audio) return;
+            const width = e.currentTarget.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            if (duration) {
+                audio.currentTime = (clickX / width) * duration;
+            }
+        }
+        
+        function cambiarVolumenMusica(vol) {
+            if (!audio) return;
+            audio.volume = vol;
+            localStorage.setItem('musicaVolumen', vol);
+        }
+        
+        function toggleExpandirMusica() {
+            const widget = document.getElementById('musica-widget');
+            widget.classList.toggle('expandido');
+        }
+
+        // --- CREADOR DE RECUERDOS ---
+        function abrirModalAnadir() {
+            document.getElementById('modal-anadir-recuerdo').classList.add('active');
+        }
+
+        function cerrarModalAnadir() {
+            document.getElementById('modal-anadir-recuerdo').classList.remove('active');
+            document.getElementById('anadir-titulo').value = '';
+            document.getElementById('anadir-fecha').value = '';
+            document.getElementById('anadir-clave').value = '';
+            document.getElementById('anadir-pista').value = '';
+            document.getElementById('anadir-texto').value = '';
+            document.getElementById('anadir-imagen').value = '';
+        }
+
+        function compressAndSave(file, callback) {
+            if (!file) {
+                callback(null);
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const max_size = 400;
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                    callback(dataUrl);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function guardarNuevoRecuerdo() {
+            const titulo = document.getElementById('anadir-titulo').value.trim();
+            const fecha = document.getElementById('anadir-fecha').value.trim();
+            const clave = document.getElementById('anadir-clave').value.trim();
+            const pista = document.getElementById('anadir-pista').value.trim();
+            const texto = document.getElementById('anadir-texto').value.trim();
+            const file = document.getElementById('anadir-imagen').files[0];
+
+            if (!titulo || !fecha || !clave || !pista || !texto) {
+                alert("Por favor completa todos los campos requeridos.");
+                return;
+            }
+
+            const nuevaKey = `cajaPersonalizada_${Date.now()}`;
+
+            const guardarDatos = (imageDataUrl) => {
+                const nuevosRecuerdos = JSON.parse(localStorage.getItem('recuerdosPersonalizados')) || {};
+                
+                nuevosRecuerdos[nuevaKey] = {
+                    titulo,
+                    pista,
+                    clave,
+                    fecha,
+                    texto,
+                    imagen: imageDataUrl
+                };
+
+                try {
+                    localStorage.setItem('recuerdosPersonalizados', JSON.stringify(nuevosRecuerdos));
+                    cargarRecuerdosDeLocalStorage();
+                    renderizarCajas();
+                    actualizarProgreso();
+                    cerrarModalAnadir();
+                    lanzarConfeti();
+                } catch(e) {
+                    alert("Error: la imagen puede ser muy grande. Intenta una más ligera.");
+                }
+            };
+
+            if (file) {
+                compressAndSave(file, (compressedDataUrl) => {
+                    guardarDatos(compressedDataUrl);
+                });
+            } else {
+                guardarDatos(null);
+            }
+        }
+
+        // --- CARTA DE AMOR SECRETA EN SOBRE 3D ---
+        function abrirSobre3D() {
+            const sobre = document.getElementById('sobre-postal');
+            if (!sobre.classList.contains('abierto')) {
+                sobre.classList.add('abierto');
+                document.getElementById('sobre-ayuda-texto').innerHTML = "💖 ¡Has abierto la carta de amor! Puedes editar el texto pulsando el lápiz ✏️.";
+            }
+        }
+
+        function cerrarSobre3D(e) {
+            e.stopPropagation();
+            const sobre = document.getElementById('sobre-postal');
+            sobre.classList.remove('abierto');
+            document.getElementById('sobre-ayuda-texto').innerText = "📬 ¡Tienes una carta de amor! Haz clic en el sobre para abrirla";
+            
+            const campoTexto = document.getElementById('sobre-carta-texto');
+            const btnGuardar = document.getElementById('btn-guardar-carta');
+            campoTexto.contentEditable = "false";
+            btnGuardar.classList.add('escondido');
+        }
+
+        function inicializarCartaDeAmor() {
+            const textoCartaGuardado = localStorage.getItem('textoCartaAmor');
+            if (textoCartaGuardado) {
+                document.getElementById('sobre-carta-texto').innerText = textoCartaGuardado;
+            }
+        }
+
+        function activarEdicionCarta(e) {
+            e.stopPropagation();
+            const campoTexto = document.getElementById('sobre-carta-texto');
+            const btnGuardar = document.getElementById('btn-guardar-carta');
+            
+            campoTexto.contentEditable = "true";
+            campoTexto.focus();
+            btnGuardar.classList.remove('escondido');
+        }
+
+        function guardarCartaEditada(e) {
+            e.stopPropagation();
+            const campoTexto = document.getElementById('sobre-carta-texto');
+            const btnGuardar = document.getElementById('btn-guardar-carta');
+            
+            localStorage.setItem('textoCartaAmor', campoTexto.innerText);
+            campoTexto.contentEditable = "false";
+            btnGuardar.classList.add('escondido');
+            alert("¡Carta de amor guardada con éxito! ❤️");
+        }
+
+        // --- TRIVIA DE AMOR (CAJA MISTERIOSA PERSONALIZADA) ---
+        let triviaPaso = 0;
+        let triviaRespuestasCorrectas = 0;
+        let preguntasTriviaBarajadas = [];
+
+        const triviaPreguntas = [
+            {
+                getPregunta: () => "¿En qué año es nuestro aniversario de novios?",
+                getOpciones: () => [
+                    { texto: "2021", correcta: true },
+                    { texto: "2019", correcta: false },
+                    { texto: "2020", correcta: false }
+                ]
+            },
+            {
+                getPregunta: () => "¿Cuál es el carro clásico de los sueños de Anderson?",
+                getOpciones: () => [
+                    { texto: "Datsun 1200 pickup 🛻", correcta: true },
+                    { texto: "Toyota Corolla clásico 🚗", correcta: false },
+                    { texto: "Ford Mustang 1969 🏎️", correcta: false }
+                ]
+            },
+            {
+                getPregunta: () => "¿Qué le apasiona jugar a Jessie en sus tiempos libres?",
+                getOpciones: () => [
+                    { texto: "Videojuegos 🎮", correcta: true },
+                    { texto: "Ajedrez ♟️", correcta: false },
+                    { texto: "Monopoly 🎲", correcta: false }
+                ]
+            }
+        ];
+
+        function iniciarTrivia() {
+            triviaPaso = 0;
+            triviaRespuestasCorrectas = 0;
+            
+            // Barajamos solo las opciones internas para mantener el orden de las preguntas
+            preguntasTriviaBarajadas = triviaPreguntas.map(p => {
+                return {
+                    pregunta: p.getPregunta(),
+                    opciones: p.getOpciones().sort(() => Math.random() - 0.5)
+                };
+            });
+            
+            mostrarPreguntaTrivia();
+            document.getElementById('modal-trivia').classList.add('active');
+        }
+
+        function cerrarTrivia() {
+            document.getElementById('modal-trivia').classList.remove('active');
+        }
+
+        // Mostrar pregunta de trivia
+        function mostrarPreguntaTrivia() {
+            const cuerpo = document.getElementById('trivia-cuerpo');
+            const datosPregunta = preguntasTriviaBarajadas[triviaPaso];
+            
+            let htmlOpciones = '';
+            datosPregunta.opciones.forEach((opcion, index) => {
+                htmlOpciones += `
+                    <div style="margin-bottom: 10px;">
+                        <label class="opcion-trivia-label" style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.03); padding: 12px 16px; border-radius: var(--radius-md); cursor: pointer; transition: background 0.2s;">
+                            <input type="radio" name="trivia-opcion" value="${index}">
+                            <span style="font-size: 0.95rem; font-weight: 500; color: var(--text-dark);">${opcion.texto}</span>
+                        </label>
+                    </div>
+                `;
+            });
+
+            cuerpo.innerHTML = `
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 6px;">Pregunta ${triviaPaso + 1} de ${preguntasTriviaBarajadas.length}</div>
+                <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin-bottom: 16px;">${datosPregunta.pregunta}</h3>
+                <div class="opciones-trivia-contenedor">
+                    ${htmlOpciones}
+                </div>
+            `;
+            
+            document.getElementById('btn-siguiente-trivia').innerText = triviaPaso === preguntasTriviaBarajadas.length - 1 ? "Finalizar Quiz" : "Siguiente";
+        }
+
+        function siguientePreguntaTrivia() {
+            const seleccionado = document.querySelector('input[name="trivia-opcion"]:checked');
+            if (!seleccionado) {
+                alert("Por favor selecciona una opción.");
+                return;
+            }
+
+            const indiceOpcion = parseInt(seleccionado.value);
+            const datosPregunta = preguntasTriviaBarajadas[triviaPaso];
+            
+            if (datosPregunta.opciones[indiceOpcion].correcta) {
+                triviaRespuestasCorrectas++;
+            }
+
+            if (triviaPaso < preguntasTriviaBarajadas.length - 1) {
+                triviaPaso++;
+                mostrarPreguntaTrivia();
+            } else {
+                cerrarTrivia();
+                
+                if (triviaRespuestasCorrectas === preguntasTriviaBarajadas.length) {
+                    cajasDesbloqueadas['cajaSecret'] = true;
+                    localStorage.setItem('cajasDesbloqueadas', JSON.stringify(cajasDesbloqueadas));
+                    
+                    lanzarConfeti();
+                    alert("¡Excelente! Has respondido todo de forma correcta. La Caja Misteriosa ha sido abierta. 🎁");
+                    
+                    renderizarCajas();
+                    actualizarProgreso();
+                    mostrarRecuerdo('cajaSecret');
+                } else {
+                    alert(`Has acertado ${triviaRespuestasCorrectas} de ${preguntasTriviaBarajadas.length} preguntas. ¡Inténtalo de nuevo para abrir la caja secreta! 💕`);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
