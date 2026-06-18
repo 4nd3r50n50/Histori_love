@@ -20,6 +20,7 @@
             --accent: #f43f5e;       /* Rojo amor */
             --bg-gradient: linear-gradient(135deg, #fff1f2 0%, #fae8ff 50%, #e0e7ff 100%);
             --glass-bg: rgba(255, 255, 255, 0.45);
+            --unlocked-bg: rgba(255, 255, 255, 0.7);
             --glass-border: rgba(255, 255, 255, 0.4);
             --text-dark: #1e1b4b;    /* Índigo oscuro */
             --text-muted: #475569;
@@ -40,6 +41,7 @@
             --accent: #f43f5e;
             --bg-gradient: linear-gradient(135deg, #09090b 0%, #0f0f2d 50%, #1e1b4b 100%);
             --glass-bg: rgba(15, 23, 42, 0.6);
+            --unlocked-bg: rgba(15, 23, 42, 0.75);
             --glass-border: rgba(255, 255, 255, 0.15);
             --text-dark: #f8fafc;
             --text-muted: #94a3b8;
@@ -53,6 +55,7 @@
             --accent: #e11d48;
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #064e3b 50%, #14532d 100%);
             --glass-bg: rgba(15, 23, 42, 0.55);
+            --unlocked-bg: rgba(10, 30, 20, 0.7);
             --glass-border: rgba(255, 255, 255, 0.12);
             --text-dark: #f8fafc;
             --text-muted: #a7f3d0;
@@ -66,6 +69,7 @@
             --accent: #b91c1c;
             --bg-gradient: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 50%, #e7e5e4 100%);
             --glass-bg: rgba(255, 255, 255, 0.6);
+            --unlocked-bg: rgba(253, 251, 247, 0.85);
             --glass-border: rgba(120, 113, 108, 0.25);
             --text-dark: #451a03;
             --text-muted: #57534e;
@@ -423,8 +427,14 @@
         }
 
         .caja.desbloqueada {
-            background: rgba(255, 255, 255, 0.8);
-            border-color: rgba(34, 197, 94, 0.3);
+            background: var(--unlocked-bg);
+            border-color: rgba(34, 197, 94, 0.45);
+            box-shadow: var(--shadow-md), inset 0 0 15px rgba(34, 197, 94, 0.08);
+        }
+
+        .caja.desbloqueada:hover {
+            border-color: rgba(34, 197, 94, 0.65);
+            box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.2), inset 0 0 15px rgba(34, 197, 94, 0.1);
         }
 
         .icono-caja {
@@ -1505,6 +1515,574 @@
                 top: 5px;
             }
         }
+
+        /* --- ESTILOS DE PESTAÑAS (TABS) --- */
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 8px;
+            animation: fadeInDown 0.8s ease;
+            width: 100%;
+        }
+        .tab-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+            box-shadow: var(--shadow-md);
+        }
+        .tab-content {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .tab-content.active {
+            display: flex;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        /* --- ESTILOS DE GALERÍA DE FOTOS --- */
+        .galeria-contenedor {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 28px;
+            width: 100%;
+        }
+        .polaroid-galeria {
+            background: #fcfcf9;
+            border: 1px solid #e2e8f0;
+            padding: 14px 14px 28px 14px;
+            box-shadow: var(--shadow-md);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .polaroid-galeria:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: var(--shadow-lg);
+            z-index: 10;
+        }
+        .polaroid-galeria:nth-child(even) {
+            transform: rotate(-1.5deg);
+        }
+        .polaroid-galeria:nth-child(odd) {
+            transform: rotate(1.5deg);
+        }
+        .polaroid-galeria:hover:nth-child(even) {
+            transform: scale(1.05) rotate(-3deg);
+        }
+        .polaroid-galeria-foto-container {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background: #e2e8f0;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .polaroid-galeria-foto {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .polaroid-galeria:hover .polaroid-galeria-foto {
+            transform: scale(1.08);
+        }
+        .polaroid-galeria-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            margin-top: 14px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .polaroid-galeria-fecha {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        /* Lightbox modal */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            border: 8px solid white;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+        }
+        .lightbox.active .lightbox-img {
+            transform: scale(1);
+        }
+        .lightbox-caption {
+            font-family: 'Caveat', cursive;
+            color: white;
+            font-size: 2rem;
+            margin-top: 16px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            transition: transform 0.2s;
+        }
+        .lightbox-close:hover {
+            transform: scale(1.2);
+        }
+        .acciones-galeria {
+            display: flex;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        /* --- ESTILOS DE RETOS DE AMOR --- */
+        .retos-cabecera {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            text-align: center;
+        }
+        .retos-progreso-contenedor {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .retos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        .reto-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        .reto-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        .reto-card.completed {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        .reto-card.completed::after {
+            content: '✅';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1rem;
+            opacity: 0.75;
+        }
+        .reto-icon {
+            font-size: 2.2rem;
+            background: rgba(255, 255, 255, 0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: var(--shadow-sm);
+        }
+        .reto-card.completed .reto-icon {
+            background: rgba(34, 197, 94, 0.15);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        .reto-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex-grow: 1;
+        }
+        .reto-titulo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .reto-card.completed .reto-titulo {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        .reto-descripcion {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+        .reto-checkbox-custom {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .reto-card.completed .reto-checkbox-custom {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .reto-checkbox-custom::after {
+            content: '✓';
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: none;
+        }
+        .reto-card.completed .reto-checkbox-custom::after {
+            display: block;
+        }
+
+        /* Adaptaciones móviles para galería */
+        @media (max-width: 750px) {
+            .galeria-contenedor {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .polaroid-galeria {
+                padding: 8px 8px 16px 8px;
+            }
+            .polaroid-galeria-caption {
+                font-size: 1.25rem;
+                margin-top: 8px;
+            }
+            .retos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- ESTILOS DE LÍNEA DE TIEMPO (TIMELINE) --- */
+        .timeline-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 32px 24px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            animation: fadeIn 1.2s ease 0.4s both;
+            margin-top: 12px;
+        }
+        .timeline-title-container {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .timeline-title-container h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+        .timeline-title-container p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            padding: 10px 30px;
+            position: relative;
+            background-color: transparent;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .timeline-item.left {
+            left: 0;
+            text-align: right;
+        }
+        .timeline-item.right {
+            left: 50%;
+            text-align: left;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            top: 24px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-sm);
+        }
+        .timeline-item.right::after {
+            left: -8px;
+        }
+        .timeline-item:hover::after {
+            transform: scale(1.3);
+            background-color: var(--secondary);
+            border-color: white;
+        }
+        .timeline-content {
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+        body.theme-estrellada .timeline-content,
+        body.theme-bosque .timeline-content {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .timeline-item:hover .timeline-content {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.45);
+        }
+        body.theme-estrellada .timeline-item:hover .timeline-content,
+        body.theme-bosque .timeline-item:hover .timeline-content {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .timeline-date {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 4px;
+            display: block;
+        }
+        .timeline-h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .timeline-item.left .timeline-h3 {
+            justify-content: flex-end;
+        }
+        .timeline-item.right .timeline-h3 {
+            justify-content: flex-start;
+        }
+        .timeline-p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        .timeline-content::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            border: medium solid transparent;
+        }
+        .timeline-item.left .timeline-content::before {
+            right: -8px;
+            border-left-color: rgba(255, 255, 255, 0.25);
+            border-width: 8px 0 8px 8px;
+        }
+        .timeline-item.right .timeline-content::before {
+            left: -8px;
+            border-right-color: rgba(255, 255, 255, 0.25);
+            border-width: 8px 8px 8px 0;
+        }
+        body.theme-estrellada .timeline-item.left .timeline-content::before,
+        body.theme-bosque .timeline-item.left .timeline-content::before {
+            border-left-color: rgba(15, 23, 42, 0.4);
+        }
+        body.theme-estrellada .timeline-item.right .timeline-content::before,
+        body.theme-bosque .timeline-item.right .timeline-content::before {
+            border-right-color: rgba(15, 23, 42, 0.4);
+        }
+
+        /* --- MINI-JUEGO Y AJUSTES EXTRA CSS --- */
+        .ajuste-tab-content {
+            animation: fadeIn 0.4s ease;
+        }
+        .ajustes-song-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.03);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+        }
+        body.theme-estrellada .ajustes-song-row,
+        body.theme-bosque .ajustes-song-row {
+            background: rgba(255,255,255,0.05);
+        }
+        .btn-delete-song {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        .btn-delete-song:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 750px) {
+            .timeline-container::after {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 40px;
+                padding-right: 10px;
+            }
+            .timeline-item.left {
+                text-align: left;
+                left: 0;
+            }
+            .timeline-item.right {
+                left: 0;
+            }
+            .timeline-item.left::after, .timeline-item.right::after {
+                left: 12px;
+            }
+            .timeline-item.left .timeline-content::before, .timeline-item.right .timeline-content::before {
+                left: 32px;
+                border: medium solid transparent;
+                border-right-color: rgba(255, 255, 255, 0.25);
+                border-width: 8px 8px 8px 0;
+            }
+            body.theme-estrellada .timeline-item.left .timeline-content::before,
+            body.theme-estrellada .timeline-item.right .timeline-content::before,
+            body.theme-bosque .timeline-item.left .timeline-content::before,
+            body.theme-bosque .timeline-item.right .timeline-content::before {
+                border-right-color: rgba(15, 23, 42, 0.4);
+            }
+            .timeline-item.left .timeline-h3 {
+                justify-content: flex-start;
+            }
+            #game-controls-mobile {
+                display: flex !important;
+            }
+        }
+
+        /* Canvas de confeti flotante como overlay */
+        #canvas-confeti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
@@ -1515,8 +2093,9 @@
     <!-- Corazones en movimiento de fondo -->
     <div class="decoraciones" id="decoraciones-bg"></div>
 
-    <!-- SELECTOR DE TEMAS FLOTANTE -->
+    <!-- SELECTOR DE TEMAS Y AJUSTES FLOTANTE -->
     <div class="tema-selector-contenedor">
+        <button class="btn-tema-principal" onclick="abrirModalAjustes()" title="Ajustes y Personalización" style="margin-bottom: 8px;">⚙️</button>
         <button class="btn-tema-principal" onclick="toggleMenuTemas()" title="Cambiar tema de diseño">🎨</button>
         <div class="tema-opciones-dropdown" id="tema-dropdown">
             <button class="tema-opcion amor-clasico" onclick="cambiarTema('clasico')" title="Amor Clásico">❤️</button>
@@ -1561,41 +2140,49 @@
             <p>Nuestro cofre digital de momentos memorables, código y amor.</p>
         </header>
 
-        <!-- Perfiles de la Pareja -->
-        <div class="perfil-pareja-contenedor">
-            <div class="perfil-tarjeta">
-                <div class="perfil-emoji">🛻💻</div>
-                <div class="perfil-datos">
-                    <span class="perfil-nombre">Anderson</span>
-                    <span class="perfil-info">Ing. Ciencias de la Computación | 28 años</span>
-                    <span class="perfil-hobby">Apasionado por la Datsun 1200 pickup y el código</span>
-                </div>
-            </div>
-            <div class="perfil-corazon-medio">⚡❤️🎮</div>
-            <div class="perfil-tarjeta" style="text-align: right; flex-direction: row-reverse;">
-                <div class="perfil-emoji">🎮💻</div>
-                <div class="perfil-datos" style="align-items: flex-end;">
-                    <span class="perfil-nombre">Jessie</span>
-                    <span class="perfil-info">Ing. Ciencias de la Computación | 26 años</span>
-                    <span class="perfil-hobby">Amante de los videojuegos y la tecnología</span>
-                </div>
-            </div>
-        </div>
+        <!-- NAVEGACIÓN POR PESTAÑAS -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="cambiarPestaña('recuerdos')" id="btn-tab-recuerdos">💖 Recuerdos</button>
+            <button class="tab-btn" onclick="cambiarPestaña('galeria')" id="btn-tab-galeria">📸 Galería</button>
+            <button class="tab-btn" onclick="cambiarPestaña('retos')" id="btn-tab-retos">🎯 Retos</button>
+            <button class="tab-btn" onclick="cambiarPestaña('juego')" id="btn-tab-juego">🎮 Juego</button>
+        </nav>
 
-        <!-- Reloj de Aniversario Juntos -->
-        <div class="reloj-aniversario-contenedor">
-            <div class="reloj-corazon" onclick="lanzarConfeti()" title="¡Púlsame!">❤️</div>
-            <div class="reloj-titulo-interna">Tiempo Juntos</div>
-            <div class="reloj-contador">
-                <div class="reloj-segmento"><span class="num" id="reloj-anos">00</span><span class="label">Años</span></div>
-                <div class="reloj-segmento"><span class="num" id="reloj-meses">00</span><span class="label">Meses</span></div>
-                <div class="reloj-segmento"><span class="num" id="reloj-dias">00</span><span class="label">Días</span></div>
-                <div class="reloj-segmento"><span class="num" id="reloj-horas">00</span><span class="label">Horas</span></div>
-                <div class="reloj-segmento"><span class="num" id="reloj-minutos">00</span><span class="label">Min</span></div>
-                <div class="reloj-segmento"><span class="num" id="reloj-segundos">00</span><span class="label">Seg</span></div>
+        <div id="tab-recuerdos" class="tab-content active">
+            <!-- Perfiles de la Pareja -->
+            <div class="perfil-pareja-contenedor">
+                <div class="perfil-tarjeta">
+                    <div class="perfil-emoji">🛻💻</div>
+                    <div class="perfil-datos">
+                        <span class="perfil-nombre">Anderson</span>
+                        <span class="perfil-info">Ing. Ciencias de la Computación | 28 años</span>
+                        <span class="perfil-hobby">Apasionado por la Datsun 1200 pickup y el código</span>
+                    </div>
+                </div>
+                <div class="perfil-corazon-medio">⚡❤️🎮</div>
+                <div class="perfil-tarjeta" style="text-align: right; flex-direction: row-reverse;">
+                    <div class="perfil-emoji">🎮💻</div>
+                    <div class="perfil-datos" style="align-items: flex-end;">
+                        <span class="perfil-nombre">Jessie</span>
+                        <span class="perfil-info">Ing. Ciencias de la Computación | 26 años</span>
+                        <span class="perfil-hobby">Amante de los videojuegos y la tecnología</span>
+                    </div>
+                </div>
             </div>
-            <button class="btn-editar-fecha" onclick="abrirConfigFecha()" title="Editar fecha de aniversario">⚙️</button>
-        </div>
+
+            <!-- Reloj de Aniversario Juntos -->
+            <div class="reloj-aniversario-contenedor">
+                <div class="reloj-corazon" onclick="lanzarConfeti()" title="¡Púlsame!">❤️</div>
+                <div class="reloj-titulo-interna">Tiempo Juntos</div>
+                <div class="reloj-contador">
+                    <div class="reloj-segmento"><span class="num" id="reloj-anos">00</span><span class="label">Años</span></div>
+                    <div class="reloj-segmento"><span class="num" id="reloj-meses">00</span><span class="label">Meses</span></div>
+                    <div class="reloj-segmento"><span class="num" id="reloj-dias">00</span><span class="label">Días</span></div>
+                    <div class="reloj-segmento"><span class="num" id="reloj-horas">00</span><span class="label">Horas</span></div>
+                    <div class="reloj-segmento"><span class="num" id="reloj-minutos">00</span><span class="label">Min</span></div>
+                    <div class="reloj-segmento"><span class="num" id="reloj-segundos">00</span><span class="label">Seg</span></div>
+                </div>
+            </div>
 
         <!-- Barra de Progreso de Desbloqueo -->
         <div class="progreso-contenedor">
@@ -1616,6 +2203,17 @@
         <!-- Acciones Adicionales (Añadir Recuerdos) -->
         <div class="acciones-adicionales-contenedor">
             <button class="btn btn-primario btn-anadir-recuerdo" onclick="abrirModalAnadir()">➕ Añadir Nuevo Recuerdo</button>
+        </div>
+
+        <!-- LÍNEA DE TIEMPO (TIMELINE) -->
+        <div class="timeline-section">
+            <div class="timeline-title-container">
+                <h3>Nuestra Línea de Tiempo</h3>
+                <p>Un recorrido por los hitos más importantes de nuestra compilación de amor 💖</p>
+            </div>
+            <div class="timeline-container" id="timeline-contenedor-hitos">
+                <!-- Los hitos se cargarán dinámicamente con JavaScript -->
+            </div>
         </div>
 
         <!-- SECCIÓN DE CARTA DE AMOR SECRETA -->
@@ -1643,7 +2241,7 @@
 
 Hoy que has abierto cada cofre y recordado nuestros momentos especiales, quiero entregarte esta carta. 
 
-Desde aquel 25 de diciembre de 2021, cada día a tu lado ha sido el código más perfecto de mi vida. Gracias por tus risas, por compartir partidas de videojuegos conmigo, por apoyarme en mi pasión por la Datsun 1200 y por ser la mejor ingeniera del mundo.
+Desde aquel 20 de junio de 2019, cada día a tu lado ha sido el código más perfecto de mi vida. Gracias por tus risas, por compartir partidas de videojuegos conmigo, por apoyarme en mi pasión por la Datsun 1200 y por ser la mejor ingeniera del mundo.
 
 Eres mi persona favorita y lo mejor de mi vida entera. Sigamos compilando más recuerdos hermosos juntos.
 
@@ -1655,23 +2253,232 @@ Anderson. ❤️</div>
                 <p class="sobre-ayuda-texto" id="sobre-ayuda-texto">📬 ¡Tienes una carta de amor! Haz clic en el sobre para abrirla</p>
             </div>
         </div>
+        </div> <!-- Fin de tab-recuerdos -->
+
+        <!-- PESTAÑA: GALERÍA DE FOTOS -->
+        <div id="tab-galeria" class="tab-content">
+            <div class="retos-cabecera">
+                <span style="font-size: 2.5rem;">📸</span>
+                <h3>Nuestra Galería de Fotos</h3>
+                <p>Momentos capturados llenos de amor, risas y complicidad.</p>
+            </div>
+            
+            <div class="galeria-contenedor" id="galeria-grid">
+                <!-- Se cargará dinámicamente con JavaScript -->
+            </div>
+
+            <div class="acciones-galeria">
+                <button class="btn btn-primario" onclick="abrirModalAnadirFoto()">➕ Subir Foto a la Galería</button>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: RETOS DE AMOR -->
+        <div id="tab-retos" class="tab-content">
+            <div class="retos-cabecera">
+                <span style="font-size: 2.5rem;">🏆</span>
+                <h3>Retos de Amor en Pareja</h3>
+                <p>Completen retos juntos y demuestren la fuerza de su algoritmo.</p>
+                <div class="retos-progreso-contenedor">
+                    <div class="progreso-info">
+                        <span>Progreso de Retos</span>
+                        <span id="retos-progreso-texto">0% (0 / 0 completados)</span>
+                    </div>
+                    <div class="barra-progreso-bg">
+                        <div class="barra-progreso-llena" id="retos-barra-progreso" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="retos-grid" id="retos-grid-container">
+                <!-- Se cargará dinámicamente con JavaScript -->
+            </div>
+        </div>
+
+        <!-- PESTAÑA: MINI-JUEGO DATSUN RUN -->
+        <div id="tab-juego" class="tab-content">
+            <div class="retos-cabecera">
+                <span style="font-size: 2.5rem;">🎮</span>
+                <h3>Datsun Run: El Algoritmo del Amor</h3>
+                <p>Ayuda a Anderson a conducir su Datsun 1200, esquivar los Bugs de programación y recolectar elementos que aumentan su amor por Jessie. ¡Consigue 2019 puntos para una gran sorpresa!</p>
+                <div style="font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-top: 4px;">Puntaje Máximo: <span id="game-highscore">0</span></div>
+            </div>
+            
+            <div id="juego-contenedor-canvas" style="position: relative; width: 100%; max-width: 600px; margin: 0 auto; background: #111827; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--primary-light);">
+                <!-- Marcador en pantalla -->
+                <div style="position: absolute; top: 15px; left: 20px; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
+                    Score: <span id="game-score" style="color: #ec4899;">0</span>
+                </div>
+                
+                <!-- Pantalla de inicio/fin del juego overlay -->
+                <div id="game-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 15; color: white; padding: 20px; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif;">
+                    <span id="game-overlay-icon" style="font-size: 3rem; margin-bottom: 10px; animation: palpitacion 1.5s infinite;">🛻</span>
+                    <h2 id="game-overlay-title" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 10px; color: var(--primary);">Datsun Run</h2>
+                    <p id="game-overlay-text" style="font-size: 0.9rem; max-width: 320px; color: #94a3b8; margin-bottom: 20px;">Usa la tecla ESPACIO o Flecha Arriba en PC, o pulsa la pantalla en celular para saltar.</p>
+                    <button class="btn btn-primario" id="btn-juego-play" onclick="iniciarOReiniciarJuego()" style="min-width: 160px;">Jugar 🎮</button>
+                </div>
+                
+                <canvas id="game-canvas" width="600" height="300" style="display: block; width: 100%; height: auto;"></canvas>
+            </div>
+            
+            <!-- Controles en pantalla para móviles -->
+            <div id="game-controls-mobile" style="display: none; justify-content: center; gap: 16px; margin-top: 10px;">
+                <button class="btn btn-primario" onclick="hacerSaltarDatsun()" style="width: 100%; max-width: 250px; padding: 16px; font-size: 1.1rem; border-radius: 40px; box-shadow: var(--shadow-md);">🛻 ¡SALTAR! ⚡</button>
+            </div>
+        </div>
+    </div> <!-- Fin de wrapper -->
+
+    <!-- MODAL DE CONFIGURACIÓN Y AJUSTES -->
+    <div class="modal-overlay" id="modal-ajustes">
+        <div class="modal-content" style="max-width: 500px; text-align: left;">
+            <span class="modal-icon" style="display: block; text-align: center;">⚙️</span>
+            <h2 style="text-align: center; margin-bottom: 8px;">Ajustes del Algoritmo</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Personaliza la música, la trivia y la línea de tiempo sin tocar el código.</p>
+            
+            <!-- Tabs internos en el modal -->
+            <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+                <button class="btn btn-primario" id="btn-ajuste-musica" onclick="cambiarTabAjustes('musica')" style="padding: 8px 12px; font-size: 0.85rem; flex: 1;">🎵 Música</button>
+                <button class="btn btn-secundario" id="btn-ajuste-trivia" onclick="cambiarTabAjustes('trivia')" style="padding: 8px 12px; font-size: 0.85rem; flex: 1;">🏆 Trivia</button>
+                <button class="btn btn-secundario" id="btn-ajuste-timeline" onclick="cambiarTabAjustes('timeline')" style="padding: 8px 12px; font-size: 0.85rem; flex: 1;">📅 Hitos</button>
+            </div>
+            
+            <!-- Contenedor Música -->
+            <div id="ajuste-tab-musica" class="ajuste-tab-content">
+                <h4 style="margin-bottom: 10px; color: var(--primary);">Añadir Nueva Canción</h4>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="nueva-cancion-titulo" class="input-contrasena" placeholder="Título de la canción" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                    <input type="text" id="nueva-cancion-artista" class="input-contrasena" placeholder="Artista" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                    <input type="text" id="nueva-cancion-url" class="input-contrasena" placeholder="URL del archivo MP3" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                    <button class="btn btn-primario" onclick="agregarCancionAjustes()" style="padding: 10px; font-size: 0.85rem;">Agregar Canción</button>
+                </div>
+                <h4 style="margin-bottom: 10px; color: var(--text-dark);">Playlist Actual</h4>
+                <div id="ajustes-playlist-lista" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Se cargará dinámicamente -->
+                </div>
+            </div>
+            
+            <!-- Contenedor Trivia -->
+            <div id="ajuste-tab-trivia" class="ajuste-tab-content" style="display: none;">
+                <div style="margin-bottom: 12px;">
+                    <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-muted);">Seleccionar pregunta a editar:</label>
+                    <select id="ajuste-trivia-select" class="input-contrasena" onchange="cargarPreguntaAjustes(this.value)" style="padding: 8px 12px; text-align: left; font-size: 0.9rem; font-family: inherit; width: 100%;">
+                        <option value="0">Pregunta 1</option>
+                        <option value="1">Pregunta 2</option>
+                        <option value="2">Pregunta 3</option>
+                    </select>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div>
+                        <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-dark);">Pregunta:</label>
+                        <input type="text" id="ajuste-trivia-pregunta" class="input-contrasena" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-dark);">Opción A (Correcta):</label>
+                        <input type="text" id="ajuste-trivia-opcionA" class="input-contrasena" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-dark);">Opción B:</label>
+                        <input type="text" id="ajuste-trivia-opcionB" class="input-contrasena" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-dark);">Opción C:</label>
+                        <input type="text" id="ajuste-trivia-opcionC" class="input-contrasena" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                    </div>
+                    <button class="btn btn-primario" onclick="guardarPreguntaAjustes()" style="padding: 10px; font-size: 0.85rem;">Guardar Pregunta</button>
+                </div>
+            </div>
+            
+            <!-- Contenedor Timeline -->
+            <div id="ajuste-tab-timeline" class="ajuste-tab-content" style="display: none;">
+                <div style="margin-bottom: 12px;">
+                    <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-muted);">Seleccionar Hito a editar:</label>
+                    <select id="ajuste-timeline-select" class="input-contrasena" onchange="cargarHitoAjustes(this.value)" style="padding: 8px 12px; text-align: left; font-size: 0.9rem; font-family: inherit; width: 100%;">
+                        <option value="0">Hito 1 (2019)</option>
+                        <option value="1">Hito 2 (2021)</option>
+                        <option value="2">Hito 3 (2023)</option>
+                        <option value="3">Hito 4 (2024-2026)</option>
+                    </select>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+                        <div>
+                            <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-dark);">Año/Fecha:</label>
+                            <input type="text" id="ajuste-timeline-fecha" class="input-contrasena" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                        </div>
+                        <div>
+                            <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-dark);">Icono/Emoji:</label>
+                            <input type="text" id="ajuste-timeline-icono" class="input-contrasena" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-dark);">Título:</label>
+                        <input type="text" id="ajuste-timeline-titulo" class="input-contrasena" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="font-weight: 700; font-size: 0.85rem; color: var(--text-dark);">Descripción:</label>
+                        <textarea id="ajuste-timeline-desc" class="input-contrasena" style="padding: 8px 12px; text-align: left; font-size: 0.9rem; height: 60px; resize: none; font-family: inherit;"></textarea>
+                    </div>
+                    <button class="btn btn-primario" onclick="guardarHitoAjustes()" style="padding: 10px; font-size: 0.85rem;">Guardar Hito</button>
+                </div>
+            </div>
+            
+            <div class="modal-acciones" style="margin-top: 24px;">
+                <button class="btn btn-secundario" onclick="cerrarModalAjustes()">Cerrar Ajustes</button>
+            </div>
+        </div>
     </div>
 
-    <!-- MODAL PARA CONFIGURAR FECHA ANIVERSARIO -->
-    <div class="modal-overlay" id="modal-fecha-aniversario">
-        <div class="modal-content" style="max-width: 400px;">
-            <span class="modal-icon">📅</span>
-            <h2>Fecha de Aniversario</h2>
-            <p>Introduce el día especial en que comenzó su hermosa historia.</p>
+    <!-- MODAL DE HITO 2019 ALCANZADO EN EL JUEGO -->
+    <div class="modal-overlay" id="modal-hito-juego">
+        <div class="modal-content" style="max-width: 450px; background: linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%); border: 3px solid var(--primary);">
+            <span class="modal-icon" style="font-size: 3.5rem; animation: palpitacion 1s infinite; display: inline-block;">💝</span>
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--primary-hover); font-size: 1.8rem; margin-bottom: 8px;">¡Felicidades, Compiladores del Amor!</h2>
+            <h3 style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 12px;">Lograron 2019 Puntos</h3>
             
-            <div class="input-contenedor">
-                <input type="date" class="input-contrasena" id="input-fecha-aniversario" style="padding: 12px;">
+            <p style="font-family: 'Caveat', cursive; font-size: 1.6rem; line-height: 1.4; color: #451a03; margin-bottom: 20px;">
+                "2019: El año en que Anderson y Jessie iniciaron su gran historia de amor (20 de junio de 2019). Su código compiló a la perfección y han superado todos los bugs de la vida. ¡Feliz aniversario de código y corazón!"
+            </p>
+            
+            <div class="modal-acciones">
+                <button class="btn btn-primario" onclick="cerrarHitoJuego()">Continuar Jugando 🎮</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA AÑADIR FOTO A LA GALERÍA -->
+    <div class="modal-overlay" id="modal-anadir-foto">
+        <div class="modal-content" style="max-width: 450px;">
+            <span class="modal-icon">📸</span>
+            <h2>Añadir Foto a la Galería</h2>
+            <p>Sube un lindo recuerdo para que forme parte de nuestra galería polaroid.</p>
+            
+            <div class="form-contenedor" style="display: flex; flex-direction: column; gap: 12px; text-align: left; margin-bottom: 20px;">
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Título de la Foto</label>
+                    <input type="text" class="input-contrasena" id="foto-titulo" placeholder="Ej: Nuestra tarde de helados" style="padding: 10px; font-size: 0.95rem; text-align: left;" required>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Fecha del Momento</label>
+                    <input type="text" class="input-contrasena" id="foto-fecha" placeholder="Ej: Junio 2024" style="padding: 10px; font-size: 0.95rem; text-align: left;" required>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark);">Imagen</label>
+                    <input type="file" id="foto-archivo" accept="image/*" style="font-size: 0.85rem; margin-top: 4px; display: block;" required>
+                </div>
             </div>
 
             <div class="modal-acciones">
-                <button class="btn btn-secundario" onclick="cerrarConfigFecha()">Cancelar</button>
-                <button class="btn btn-primario" onclick="guardarConfigFecha()">Guardar Fecha</button>
+                <button class="btn btn-secundario" onclick="cerrarModalAnadirFoto()">Cancelar</button>
+                <button class="btn btn-primario" onclick="guardarFotoGaleria()">Guardar Foto</button>
             </div>
+        </div>
+    </div>
+
+    <!-- VISUALIZADOR LIGHTBOX PARA LA GALERÍA -->
+    <div class="lightbox" id="lightbox-modal" onclick="cerrarLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <button class="lightbox-close" onclick="cerrarLightbox()">❌</button>
+            <img class="lightbox-img" id="lightbox-img" src="" alt="Vista ampliada">
+            <div class="lightbox-caption" id="lightbox-caption">Pie de foto</div>
         </div>
     </div>
 
@@ -1782,35 +2589,35 @@ Anderson. ❤️</div>
         // --- BASE DE DATOS DE RECUERDOS POR DEFECTO ---
         const baseDeDatosRecuerdosDefecto = {
             'caja1': {
-                titulo: "Nuestro algoritmo de amor",
-                pista: "El año en que compilamos nuestro primer día juntos (Intenta: 2021)",
-                clave: "2021",
-                fecha: "25 de Diciembre de 2021",
-                texto: "Ese día mágico en que decidimos empezar a escribir nuestra historia juntos. Dos ingenieros en ciencias de la computación que encontraron el algoritmo perfecto para el amor. ❤️",
+                titulo: "El inicio de nuestro algoritmo",
+                pista: "El día de la semana en que cayó nuestro aniversario (en minúsculas, ej: lunes)",
+                clave: "jueves",
+                fecha: "20 de Junio de 2019",
+                texto: "Ese hermoso día jueves 20 de junio de 2019 en que decidimos iniciar este gran viaje. El inicio de nuestro algoritmo de amor. ❤️",
                 imagen: "imagenes/primer_recuerdo.png"
             },
             'caja2': {
-                titulo: "Febreros especiales",
-                pista: "El mes en que ambos celebramos cumpleaños",
-                clave: "febrero",
-                fecha: "Nuestros Cumpleaños",
-                texto: "Nacidos en el mes del amor y la tecnología: Anderson el 13 de febrero y Jessie el 7 de febrero. ¡La combinación de código perfecta!",
+                titulo: "El cumpleaños de Jessie",
+                pista: "El día del cumpleaños de Jessie en febrero (ej: 7)",
+                clave: "7",
+                fecha: "7 de Febrero",
+                texto: "El cumpleaños de la ingeniera de mi vida. La combinación perfecta de dulzura, inteligencia y código. 🎂",
                 imagen: "imagenes/lugar_especial.png"
             },
             'caja3': {
-                titulo: "Nuestras Pasiones",
-                pista: "La camioneta clásica favorita de Anderson",
-                clave: "datsun",
-                fecha: "Gaming & Pickup",
-                texto: "Un balance perfecto: Jessie conquistando mundos virtuales en los videojuegos y Anderson apasionado por los fierros clásicos con la legendaria Datsun 1200 pickup. Dos mundos unidos con amor.",
+                titulo: "Nuestros Favoritos",
+                pista: "El personaje favorito de Jessie y la camioneta de Anderson (ej: xxxx y xxxx)",
+                clave: "kuromi y 1200",
+                fecha: "Pasiones Compartidas",
+                texto: "Kuromi con su toque travieso y tierno, y la clásica Datsun 1200 pickup. Dos gustos diferentes pero que combinan de manera perfecta en nuestra vida juntos. 🛻🖤",
                 imagen: "imagenes/nuestra_cancion.png"
             },
             'caja4': {
-                titulo: "Nuestra Próxima Compilación",
-                pista: "Nuestra carrera profesional en común",
+                titulo: "Nuestra Compilación",
+                pista: "Nuestra carrera y lenguaje profesional en común (ej: computacion)",
                 clave: "computacion",
-                fecha: "Sueños Juntos",
-                texto: "El viaje de nuestros sueños. Seguir programando nuestro futuro, viajar juntos, y compartir infinitas partidas de videojuegos y paseos en pickup. ¡Compilando amor!",
+                fecha: "Universidad & Código",
+                texto: "Ingeniería en Ciencias de la Computación, la universidad y la tecnología. El lenguaje en común que nos une profesional y personalmente. ¡Compilando un futuro increíble juntos! 💻",
                 imagen: "imagenes/proxima_aventura.png"
             },
             'cajaSecret': {
@@ -1829,16 +2636,70 @@ Anderson. ❤️</div>
         let cajasDesbloqueadas = JSON.parse(localStorage.getItem('cajasDesbloqueadas')) || {};
         let cajaSeleccionadaId = null;
 
+        // Estado de música, trivia e hitos personalizables
+        let listaCanciones = [];
+        const listaCancionesPorDefecto = [
+            {
+                titulo: "Melodía de Amor (Piano)",
+                artista: "SoundHelix Piano Loop",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            },
+            {
+                titulo: "Ensueño Acústico",
+                artista: "SoundHelix Guitar",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+            },
+            {
+                titulo: "Brisa Romántica",
+                artista: "SoundHelix Synth",
+                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+            }
+        ];
+
+        let triviaPreguntas = [];
+        const triviaPreguntasPorDefecto = [
+            {
+                pregunta: "¿Cuál es la comida favorita de Jessie?",
+                opciones: [
+                    { texto: "Camarones apanados 🍤", correcta: true },
+                    { texto: "Pizza de peperoni 🍕", correcta: false },
+                    { texto: "Hamburguesa clásica 🍔", correcta: false }
+                ]
+            },
+            {
+                pregunta: "¿Cuál es el color favorito de Jessie?",
+                opciones: [
+                    { texto: "Colores neón ⚡", correcta: true },
+                    { texto: "Tonos pastel 🌸", correcta: false },
+                    { texto: "Negro clásico 🖤", correcta: false }
+                ]
+            },
+            {
+                pregunta: "¿Cuál es nuestra posición favorita?",
+                opciones: [
+                    { texto: "Ella arriba 📈", correcta: true },
+                    { texto: "Misionero ⛪", correcta: false },
+                    { texto: "Cucharita 🥄", correcta: false }
+                ]
+            }
+        ];
+
         // --- INICIALIZACIÓN ---
         window.addEventListener('DOMContentLoaded', () => {
             inicializarTema();
             cargarRecuerdosDeLocalStorage();
+            cargarPlaylist();
+            cargarTrivia();
+            cargarHitos();
             generarDecoraciones();
             renderizarCajas();
             actualizarProgreso();
             inicializarReloj();
             inicializarAudio();
             inicializarCartaDeAmor();
+            cargarGaleria();
+            renderizarHitos();
+            inicializarJuego();
 
             // Permitir presionar "Enter" para enviar contraseña
             document.getElementById('input-password').addEventListener('keypress', (e) => {
@@ -2019,13 +2880,18 @@ Anderson. ❤️</div>
             document.getElementById('modal-recuerdo').classList.remove('active');
         }
 
-        // Reiniciar todas las cajas
+        // Reiniciar todas las cajas y retos
         function confirmarReiniciar() {
-            if (confirm("¿Estás seguro de que quieres volver a cerrar todas las cajas? Tendrás que introducir las contraseñas de nuevo.")) {
+            if (confirm("¿Estás seguro de que quieres volver a cerrar todas las cajas y reiniciar los retos de pareja?")) {
                 cajasDesbloqueadas = {};
+                retosCompletados = {};
                 localStorage.removeItem('cajasDesbloqueadas');
+                localStorage.removeItem('retosCompletados');
                 renderizarCajas();
                 actualizarProgreso();
+                if (document.getElementById('tab-retos').classList.contains('active')) {
+                    renderizarRetos();
+                }
             }
         }
 
@@ -2157,28 +3023,17 @@ Anderson. ❤️</div>
             });
         }
 
-        // --- LÓGICA DEL CONTADOR DE ANIVERSARIO ---
+        // --- LÓGICA DEL CONTADOR DE ANIVERSARIO (FIJO: 20 DE JUNIO DE 2019) ---
         let intervaloReloj = null;
 
         function inicializarReloj() {
-            let fechaGuardada = localStorage.getItem('fechaAniversario');
-            
-            // Forzar fecha de aniversario real si es nula o la del valor de plantilla anterior
-            if (!fechaGuardada || fechaGuardada === '2025-01-01' || fechaGuardada === '2019-06-20') {
-                fechaGuardada = '2021-12-25';
-                localStorage.setItem('fechaAniversario', '2021-12-25');
-            }
-            
-            document.getElementById('input-fecha-aniversario').value = fechaGuardada;
-            
             if (intervaloReloj) clearInterval(intervaloReloj);
-            
             actualizarReloj();
             intervaloReloj = setInterval(actualizarReloj, 1000);
         }
 
         function actualizarReloj() {
-            const fechaInicioStr = localStorage.getItem('fechaAniversario') || '2021-12-25';
+            const fechaInicioStr = '2019-06-20';
             const fechaInicio = new Date(fechaInicioStr + "T00:00:00");
             const ahora = new Date();
             
@@ -2212,26 +3067,6 @@ Anderson. ❤️</div>
             document.getElementById('reloj-segundos').innerText = String(segundos).padStart(2, '0');
         }
 
-        function abrirConfigFecha() {
-            document.getElementById('modal-fecha-aniversario').classList.add('active');
-        }
-
-        function cerrarConfigFecha() {
-            document.getElementById('modal-fecha-aniversario').classList.remove('active');
-        }
-
-        function guardarConfigFecha() {
-            const nuevaFecha = document.getElementById('input-fecha-aniversario').value;
-            if (nuevaFecha) {
-                localStorage.setItem('fechaAniversario', nuevaFecha);
-                cerrarConfigFecha();
-                inicializarReloj();
-                
-                // Reiniciar quiz por si cambió el mes
-                triviaPaso = 0;
-            }
-        }
-
         // --- LÓGICA DE TEMAS ---
         function toggleMenuTemas() {
             const dropdown = document.getElementById('tema-dropdown');
@@ -2262,23 +3097,14 @@ Anderson. ❤️</div>
         }
 
         // --- LÓGICA DEL REPRODUCTOR DE MÚSICA ---
-        const listaCanciones = [
-            {
-                titulo: "Melodía de Amor (Piano)",
-                artista: "SoundHelix Piano Loop",
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-            },
-            {
-                titulo: "Ensueño Acústico",
-                artista: "SoundHelix Guitar",
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
-            },
-            {
-                titulo: "Brisa Romántica",
-                artista: "SoundHelix Synth",
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+        function cargarPlaylist() {
+            const guardado = JSON.parse(localStorage.getItem('playlistPersonalizada'));
+            if (guardado && guardado.length > 0) {
+                listaCanciones = guardado;
+            } else {
+                listaCanciones = [...listaCancionesPorDefecto];
             }
-        ];
+        }
         
         let indiceCancionActual = 0;
         let musicaReproduciendo = false;
@@ -2526,42 +3352,23 @@ Anderson. ❤️</div>
         let triviaRespuestasCorrectas = 0;
         let preguntasTriviaBarajadas = [];
 
-        const triviaPreguntas = [
-            {
-                getPregunta: () => "¿En qué año es nuestro aniversario de novios?",
-                getOpciones: () => [
-                    { texto: "2021", correcta: true },
-                    { texto: "2019", correcta: false },
-                    { texto: "2020", correcta: false }
-                ]
-            },
-            {
-                getPregunta: () => "¿Cuál es el carro clásico de los sueños de Anderson?",
-                getOpciones: () => [
-                    { texto: "Datsun 1200 pickup 🛻", correcta: true },
-                    { texto: "Toyota Corolla clásico 🚗", correcta: false },
-                    { texto: "Ford Mustang 1969 🏎️", correcta: false }
-                ]
-            },
-            {
-                getPregunta: () => "¿Qué le apasiona jugar a Jessie en sus tiempos libres?",
-                getOpciones: () => [
-                    { texto: "Videojuegos 🎮", correcta: true },
-                    { texto: "Ajedrez ♟️", correcta: false },
-                    { texto: "Monopoly 🎲", correcta: false }
-                ]
+        function cargarTrivia() {
+            const guardado = JSON.parse(localStorage.getItem('triviaPersonalizada'));
+            if (guardado && guardado.length === 3) {
+                triviaPreguntas = guardado;
+            } else {
+                triviaPreguntas = JSON.parse(JSON.stringify(triviaPreguntasPorDefecto));
             }
-        ];
+        }
 
         function iniciarTrivia() {
             triviaPaso = 0;
             triviaRespuestasCorrectas = 0;
             
-            // Barajamos solo las opciones internas para mantener el orden de las preguntas
             preguntasTriviaBarajadas = triviaPreguntas.map(p => {
                 return {
-                    pregunta: p.getPregunta(),
-                    opciones: p.getOpciones().sort(() => Math.random() - 0.5)
+                    pregunta: p.pregunta,
+                    opciones: [...p.opciones].sort(() => Math.random() - 0.5)
                 };
             });
             
@@ -2634,6 +3441,1033 @@ Anderson. ❤️</div>
                 } else {
                     alert(`Has acertado ${triviaRespuestasCorrectas} de ${preguntasTriviaBarajadas.length} preguntas. ¡Inténtalo de nuevo para abrir la caja secreta! 💕`);
                 }
+            }
+        }
+
+        // --- SISTEMA DE PESTAÑAS (TABS) ---
+        function cambiarPestaña(pestañaId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(`tab-${pestañaId}`).classList.add('active');
+            document.getElementById(`btn-tab-${pestañaId}`).classList.add('active');
+            
+            if (pestañaId === 'galeria') {
+                renderizarGaleria();
+            } else if (pestañaId === 'retos') {
+                renderizarRetos();
+            } else if (pestañaId === 'juego') {
+                // Iniciar o reiniciar juego al cambiar a la pestaña de juego
+                document.getElementById('game-overlay-icon').innerText = '🛻';
+                document.getElementById('game-overlay-title').innerText = "Datsun Run";
+                document.getElementById('game-overlay-text').innerHTML = "Usa ESPACIO o Flecha Arriba en PC, o pulsa la pantalla en celular para saltar.";
+                document.getElementById('btn-juego-play').innerText = "Jugar 🎮";
+                document.getElementById('game-overlay').style.display = 'flex';
+                gameScore = 0;
+                document.getElementById('game-score').innerText = '0';
+                if (gameCanvas) {
+                    gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+                    dibujarFondoJuego();
+                }
+            }
+            
+            // Pausar juego si se sale de la pestaña juego
+            if (pestañaId !== 'juego') {
+                gameIsPlaying = false;
+                if (gameAnimationId) {
+                    cancelAnimationFrame(gameAnimationId);
+                    gameAnimationId = null;
+                }
+            }
+        }
+
+        // --- LÓGICA DE GALERÍA DE FOTOS ---
+        const galeriaPorDefecto = [
+            { id: 'g1', titulo: "El inicio del algoritmo", fecha: "20 de Junio de 2019", url: "imagenes/primer_recuerdo.png" },
+            { id: 'g2', titulo: "Cumpleaños de Jessie", fecha: "7 de Febrero", url: "imagenes/lugar_especial.png" },
+            { id: 'g3', titulo: "Kuromi & 1200", fecha: "Nuestros Favoritos", url: "imagenes/nuestra_cancion.png" },
+            { id: 'g4', titulo: "Nuestra compilación", fecha: "Computación", url: "imagenes/proxima_aventura.png" }
+        ];
+
+        let fotosGaleria = [];
+
+        function cargarGaleria() {
+            const guardadas = JSON.parse(localStorage.getItem('fotosGaleriaPersonalizadas')) || [];
+            fotosGaleria = [...galeriaPorDefecto, ...guardadas];
+        }
+
+        function renderizarGaleria() {
+            cargarGaleria();
+            const grid = document.getElementById('galeria-grid');
+            grid.innerHTML = '';
+            
+            fotosGaleria.forEach(foto => {
+                const polaroid = document.createElement('div');
+                polaroid.className = 'polaroid-galeria';
+                polaroid.onclick = () => abrirLightbox(foto.url, foto.titulo, foto.fecha);
+                
+                polaroid.innerHTML = `
+                    <div class="polaroid-galeria-foto-container">
+                        <img src="${foto.url}" class="polaroid-galeria-foto" alt="${foto.titulo}" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=400&auto=format&fit=crop'">
+                    </div>
+                    <span class="polaroid-galeria-caption">${foto.titulo}</span>
+                    <span class="polaroid-galeria-fecha">${foto.fecha}</span>
+                `;
+                
+                grid.appendChild(polaroid);
+            });
+        }
+
+        function abrirLightbox(url, titulo, fecha) {
+            const modal = document.getElementById('lightbox-modal');
+            const img = document.getElementById('lightbox-img');
+            const caption = document.getElementById('lightbox-caption');
+            
+            img.src = url;
+            caption.innerText = `${titulo} (${fecha})`;
+            modal.classList.add('active');
+        }
+
+        function cerrarLightbox() {
+            document.getElementById('lightbox-modal').classList.remove('active');
+        }
+
+        function abrirModalAnadirFoto() {
+            document.getElementById('modal-anadir-foto').classList.add('active');
+        }
+
+        document.getElementById('modal-anadir-foto')?.addEventListener('click', (e) => {
+            if (e.target.id === 'modal-anadir-foto') cerrarModalAnadirFoto();
+        });
+
+        function cerrarModalAnadirFoto() {
+            document.getElementById('modal-anadir-foto').classList.remove('active');
+            document.getElementById('foto-titulo').value = '';
+            document.getElementById('foto-fecha').value = '';
+            document.getElementById('foto-archivo').value = '';
+        }
+
+        function guardarFotoGaleria() {
+            const titulo = document.getElementById('foto-titulo').value.trim();
+            const fecha = document.getElementById('foto-fecha').value.trim();
+            const file = document.getElementById('foto-archivo').files[0];
+            
+            if (!titulo || !fecha || !file) {
+                alert("Por favor completa todos los campos requeridos.");
+                return;
+            }
+            
+            compressAndSave(file, (dataUrl) => {
+                if (dataUrl) {
+                    const guardadas = JSON.parse(localStorage.getItem('fotosGaleriaPersonalizadas')) || [];
+                    const nuevaFoto = {
+                        id: `foto_${Date.now()}`,
+                        titulo,
+                        fecha,
+                        url: dataUrl
+                    };
+                    
+                    guardadas.push(nuevaFoto);
+                    try {
+                        localStorage.setItem('fotosGaleriaPersonalizadas', JSON.stringify(guardadas));
+                        cerrarModalAnadirFoto();
+                        renderizarGaleria();
+                        lanzarConfeti();
+                    } catch(e) {
+                        alert("La imagen es muy grande. Intenta subir una más ligera.");
+                    }
+                }
+            });
+        }
+
+        // --- ESPACIO DE RETOS DE AMOR ---
+        const retosPredefinidos = [
+            { id: 'r1', titulo: "Preparar camarones apanados juntos", descripcion: "Cocinemos la comida favorita de Jessie en una cena especial. 🍤" },
+            { id: 'r2', titulo: "Paseo nocturno en la Datsun 1200", descripcion: "Un viaje clásico escuchando música favorita en la camioneta. 🛻" },
+            { id: 'r3', titulo: "Noche de videojuegos cooperativos", descripcion: "Completar juntos un nivel difícil jugando en equipo. 🎮" },
+            { id: 'r4', titulo: "Sesión de fotos Polaroid", descripcion: "Tomar fotos divertidas de nuestro día para subirlas a la galería. 📸" },
+            { id: 'r5', titulo: "Maratón bajo luces neón", descripcion: "Comprar snacks, encender las luces neón y ver películas retro. ⚡" },
+            { id: 'r6', titulo: "Mirar las estrellas juntos", descripcion: "Escapar a un lugar tranquilo y contemplar el cielo nocturno. 🌌" },
+            { id: 'r7', titulo: "Compilar un proyecto divertido", descripcion: "Escribir código juntos en una tarde de lluvia y computación. 💻" }
+        ];
+
+        let retosCompletados = JSON.parse(localStorage.getItem('retosCompletados')) || {};
+
+        function renderizarRetos() {
+            const grid = document.getElementById('retos-grid-container');
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            let completadosCount = 0;
+            retosPredefinidos.forEach(reto => {
+                const estaCompletado = retosCompletados[reto.id];
+                if (estaCompletado) completadosCount++;
+                
+                const card = document.createElement('div');
+                card.className = `reto-card ${estaCompletado ? 'completed' : ''}`;
+                card.onclick = () => toggleReto(reto.id);
+                
+                let icon = '🎯';
+                if (reto.id === 'r1') icon = '🍤';
+                else if (reto.id === 'r2') icon = '🛻';
+                else if (reto.id === 'r3') icon = '🎮';
+                else if (reto.id === 'r4') icon = '📸';
+                else if (reto.id === 'r5') icon = '⚡';
+                else if (reto.id === 'r6') icon = '🌌';
+                else if (reto.id === 'r7') icon = '💻';
+                
+                card.innerHTML = `
+                    <div class="reto-icon">${icon}</div>
+                    <div class="reto-info">
+                        <span class="reto-titulo">${reto.titulo}</span>
+                        <span class="reto-descripcion">${reto.descripcion}</span>
+                    </div>
+                    <div class="reto-checkbox-custom"></div>
+                `;
+                
+                grid.appendChild(card);
+            });
+            
+            actualizarProgresoRetos(completadosCount);
+        }
+
+        function toggleReto(retoId) {
+            retosCompletados[retoId] = !retosCompletados[retoId];
+            localStorage.setItem('retosCompletados', JSON.stringify(retosCompletados));
+            
+            const total = retosPredefinidos.length;
+            const completados = retosPredefinidos.filter(r => retosCompletados[r.id]).length;
+            
+            if (completados === total && retosCompletados[retoId]) {
+                lanzarConfeti();
+                setTimeout(() => {
+                    alert("🎉 ¡Increíble! Han completado todos los retos de pareja de su algoritmo. ¡Sigan sumando momentos! ❤️");
+                }, 400);
+            }
+            
+            renderizarRetos();
+        }
+
+        function actualizarProgresoRetos(completadosCount) {
+            const total = retosPredefinidos.length;
+            const porcentaje = total > 0 ? (completadosCount / total) * 100 : 0;
+            
+            const textoEl = document.getElementById('retos-progreso-texto');
+            const barraEl = document.getElementById('retos-barra-progreso');
+            if (textoEl) textoEl.innerText = `${Math.round(porcentaje)}% (${completadosCount} / ${total} completados)`;
+            if (barraEl) barraEl.style.width = `${porcentaje}%`;
+        }
+
+        // --- BASE DE DATOS DE HITOS POR DEFECTO ---
+        const hitosPorDefecto = [
+            {
+                fecha: "2019",
+                icono: "💖",
+                titulo: "El inicio de la compilación",
+                desc: "El 20 de junio de 2019 decidimos iniciar este gran viaje. Comenzamos nuestro noviazgo y el algoritmo de amor más perfecto."
+            },
+            {
+                fecha: "2021",
+                icono: "🚀",
+                titulo: "Nuevos proyectos y retos",
+                desc: "Adaptándonos a nuevos caminos, apoyando mutuamente nuestras carreras en Computación y creciendo día a día ante cualquier desafío."
+            },
+            {
+                fecha: "2023",
+                icono: "🎓",
+                titulo: "Logros académicos y código",
+                desc: "Consolidando nuestras metas universitarias en Ingeniería de Ciencias de la Computación, compartiendo el gusto por la tecnología."
+            },
+            {
+                fecha: "2024 - 2026",
+                icono: "🛻",
+                titulo: "Metas futuras y aventuras",
+                desc: "Proyectos conjuntos, paseos inolvidables en la Datsun 1200 y planeando un futuro lleno de amor, risas y compilaciones exitosas."
+            }
+        ];
+
+        let listaHitos = [];
+
+        function cargarHitos() {
+            const guardado = JSON.parse(localStorage.getItem('timelinePersonalizada'));
+            if (guardado && guardado.length > 0) {
+                listaHitos = guardado;
+            } else {
+                listaHitos = [...hitosPorDefecto];
+            }
+        }
+
+        function renderizarHitos() {
+            const contenedor = document.getElementById('timeline-contenedor-hitos');
+            if (!contenedor) return;
+            contenedor.innerHTML = '';
+
+            listaHitos.forEach((hito, index) => {
+                const item = document.createElement('div');
+                const lado = index % 2 === 0 ? 'left' : 'right';
+                item.className = `timeline-item ${lado}`;
+                
+                item.innerHTML = `
+                    <div class="timeline-content">
+                        <span class="timeline-date">${hito.fecha}</span>
+                        <h3 class="timeline-h3"><span>${hito.icono}</span> ${hito.titulo}</h3>
+                        <p class="timeline-p">${hito.desc}</p>
+                    </div>
+                `;
+                contenedor.appendChild(item);
+            });
+
+            // Registrar intersección para animación premium al hacer scroll
+            const items = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            items.forEach(item => observer.observe(item));
+        }
+
+        // --- AJUSTES Y CONFIGURACIÓN ---
+        function abrirModalAjustes() {
+            document.getElementById('modal-ajustes').classList.add('active');
+            cambiarTabAjustes('musica');
+        }
+
+        function cerrarModalAjustes() {
+            document.getElementById('modal-ajustes').classList.remove('active');
+        }
+
+        function cambiarTabAjustes(tabId) {
+            document.querySelectorAll('.ajuste-tab-content').forEach(el => el.style.display = 'none');
+            document.getElementById(`ajuste-tab-${tabId}`).style.display = 'block';
+            
+            const btnMusica = document.getElementById('btn-ajuste-musica');
+            const btnTrivia = document.getElementById('btn-ajuste-trivia');
+            const btnTimeline = document.getElementById('btn-ajuste-timeline');
+            
+            btnMusica.className = 'btn btn-secundario';
+            btnTrivia.className = 'btn btn-secundario';
+            btnTimeline.className = 'btn btn-secundario';
+            
+            if (tabId === 'musica') {
+                btnMusica.className = 'btn btn-primario';
+                cargarAjustesPlaylist();
+            } else if (tabId === 'trivia') {
+                btnTrivia.className = 'btn btn-primario';
+                cargarPreguntaAjustes(0);
+                document.getElementById('ajuste-trivia-select').value = "0";
+            } else if (tabId === 'timeline') {
+                btnTimeline.className = 'btn btn-primario';
+                cargarHitoAjustes(0);
+                document.getElementById('ajuste-timeline-select').value = "0";
+            }
+        }
+
+        // Música Ajustes
+        function cargarAjustesPlaylist() {
+            const listaDiv = document.getElementById('ajustes-playlist-lista');
+            if (!listaDiv) return;
+            listaDiv.innerHTML = '';
+            listaCanciones.forEach((cancion, index) => {
+                const row = document.createElement('div');
+                row.className = 'ajustes-song-row';
+                row.innerHTML = `
+                    <div style="display:flex; flex-direction:column;">
+                        <span style="font-weight:700;">${cancion.titulo}</span>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">${cancion.artista}</span>
+                    </div>
+                    <button class="btn-delete-song" onclick="eliminarCancionAjustes(${index})" title="Eliminar">❌</button>
+                `;
+                listaDiv.appendChild(row);
+            });
+        }
+
+        function agregarCancionAjustes() {
+            const titulo = document.getElementById('nueva-cancion-titulo').value.trim();
+            const artista = document.getElementById('nueva-cancion-artista').value.trim();
+            const url = document.getElementById('nueva-cancion-url').value.trim();
+            
+            if (!titulo || !artista || !url) {
+                alert("Completa todos los campos de la canción.");
+                return;
+            }
+            
+            listaCanciones.push({ titulo, artista, url });
+            localStorage.setItem('playlistPersonalizada', JSON.stringify(listaCanciones));
+            
+            document.getElementById('nueva-cancion-titulo').value = '';
+            document.getElementById('nueva-cancion-artista').value = '';
+            document.getElementById('nueva-cancion-url').value = '';
+            
+            cargarAjustesPlaylist();
+            // Recargar audio
+            indiceCancionActual = listaCanciones.length - 1;
+            cargarCancion(indiceCancionActual);
+            alert("¡Canción añadida a la playlist! 🎵");
+        }
+
+        function eliminarCancionAjustes(index) {
+            if (listaCanciones.length <= 1) {
+                alert("Debes tener al menos una canción en la playlist.");
+                return;
+            }
+            listaCanciones.splice(index, 1);
+            localStorage.setItem('playlistPersonalizada', JSON.stringify(listaCanciones));
+            cargarAjustesPlaylist();
+            
+            indiceCancionActual = 0;
+            cargarCancion(0);
+            if (musicaReproduciendo) pausarMusica();
+        }
+
+        // Trivia Ajustes
+        function cargarPreguntaAjustes(index) {
+            const q = triviaPreguntas[index];
+            if (!q) return;
+            document.getElementById('ajuste-trivia-pregunta').value = q.pregunta;
+            
+            const correcta = q.opciones.find(o => o.correcta);
+            const incorrectas = q.opciones.filter(o => !o.correcta);
+            
+            document.getElementById('ajuste-trivia-opcionA').value = correcta ? correcta.texto : '';
+            document.getElementById('ajuste-trivia-opcionB').value = incorrectas[0] ? incorrectas[0].texto : '';
+            document.getElementById('ajuste-trivia-opcionC').value = incorrectas[1] ? incorrectas[1].texto : '';
+        }
+
+        function guardarPreguntaAjustes() {
+            const select = document.getElementById('ajuste-trivia-select');
+            const idx = parseInt(select.value);
+            
+            const pregunta = document.getElementById('ajuste-trivia-pregunta').value.trim();
+            const opA = document.getElementById('ajuste-trivia-opcionA').value.trim();
+            const opB = document.getElementById('ajuste-trivia-opcionB').value.trim();
+            const opC = document.getElementById('ajuste-trivia-opcionC').value.trim();
+            
+            if (!pregunta || !opA || !opB || !opC) {
+                alert("Completa todos los campos de la trivia.");
+                return;
+            }
+            
+            triviaPreguntas[idx] = {
+                pregunta,
+                opciones: [
+                    { texto: opA, correcta: true },
+                    { texto: opB, correcta: false },
+                    { texto: opC, correcta: false }
+                ]
+            };
+            
+            localStorage.setItem('triviaPersonalizada', JSON.stringify(triviaPreguntas));
+            alert("¡Pregunta de trivia guardada con éxito! 🏆");
+        }
+
+        // Timeline Ajustes
+        function cargarHitoAjustes(index) {
+            const h = listaHitos[index];
+            if (!h) return;
+            document.getElementById('ajuste-timeline-fecha').value = h.fecha;
+            document.getElementById('ajuste-timeline-icono').value = h.icono;
+            document.getElementById('ajuste-timeline-titulo').value = h.titulo;
+            document.getElementById('ajuste-timeline-desc').value = h.desc;
+        }
+
+        function guardarHitoAjustes() {
+            const select = document.getElementById('ajuste-timeline-select');
+            const idx = parseInt(select.value);
+            
+            const fecha = document.getElementById('ajuste-timeline-fecha').value.trim();
+            const icono = document.getElementById('ajuste-timeline-icono').value.trim();
+            const titulo = document.getElementById('ajuste-timeline-titulo').value.trim();
+            const desc = document.getElementById('ajuste-timeline-desc').value.trim();
+            
+            if (!fecha || !icono || !titulo || !desc) {
+                alert("Completa todos los campos del hito.");
+                return;
+            }
+            
+            listaHitos[idx] = { fecha, icono, titulo, desc };
+            localStorage.setItem('timelinePersonalizada', JSON.stringify(listaHitos));
+            renderizarHitos();
+            alert("¡Hito de la línea de tiempo guardado! 📅");
+        }
+
+        // --- MINI-JUEGO DATSUN RUN ---
+        let gameCanvas = null;
+        let gameCtx = null;
+        let gameScore = 0;
+        let gameHighscore = parseInt(localStorage.getItem('datsunRunHighScore')) || 0;
+        let gameIsPlaying = false;
+        let gameAnimationId = null;
+        let gameShownMilestoneThisRun = false;
+        
+        let datsun = null;
+        let gameObstacles = [];
+        let gameCollectibles = [];
+        let gameParticles = [];
+        
+        let gameSpeed = 5;
+        let gameRoadOffset = 0;
+        let gameLastSpawnTime = 0;
+        let gameBaseY = 220; 
+        let gameStars = [];
+        let gameMountains = [];
+        
+        function inicializarJuego() {
+            gameCanvas = document.getElementById('game-canvas');
+            if (!gameCanvas) return;
+            gameCtx = gameCanvas.getContext('2d');
+            
+            document.getElementById('game-highscore').innerText = gameHighscore;
+            
+            gameStars = [];
+            for (let i = 0; i < 30; i++) {
+                gameStars.push({
+                    x: Math.random() * gameCanvas.width,
+                    y: Math.random() * 120,
+                    size: Math.random() * 2 + 1,
+                    speed: Math.random() * 0.2 + 0.05
+                });
+            }
+            
+            gameMountains = [];
+            for (let i = 0; i < 3; i++) {
+                gameMountains.push({
+                    x: i * 250,
+                    width: 300,
+                    height: Math.random() * 60 + 40,
+                    speed: 0.5
+                });
+            }
+            
+            window.addEventListener('keydown', (e) => {
+                if ((e.code === 'Space' || e.code === 'ArrowUp') && gameIsPlaying) {
+                    e.preventDefault();
+                    hacerSaltarDatsun();
+                }
+            });
+            
+            gameCanvas.addEventListener('touchstart', (e) => {
+                if (gameIsPlaying) {
+                    e.preventDefault();
+                    hacerSaltarDatsun();
+                }
+            });
+        }
+
+        function iniciarOReiniciarJuego() {
+            // Ocultar el overlay de inicio/game over
+            document.getElementById('game-overlay').style.display = 'none';
+            
+            // Reiniciar variables de estado del juego
+            gameScore = 0;
+            document.getElementById('game-score').innerText = '0';
+            gameSpeed = 5;
+            gameRoadOffset = 0;
+            gameShownMilestoneThisRun = false;
+            
+            // Instanciar Datsun y limpiar arreglos
+            datsun = new DatsunTruck();
+            gameObstacles = [];
+            gameCollectibles = [];
+            gameParticles = [];
+            
+            // Activar estado de juego
+            gameIsPlaying = true;
+            gameLastSpawnTime = Date.now();
+            
+            // Detener cualquier animación previa para evitar duplicación
+            if (gameAnimationId) {
+                cancelAnimationFrame(gameAnimationId);
+            }
+            
+            // Iniciar bucle del juego
+            bucleJuego();
+        }
+        
+        class DatsunTruck {
+            constructor() {
+                this.x = 80;
+                this.y = gameBaseY - 35;
+                this.ancho = 64;
+                this.alto = 35;
+                this.vy = 0;
+                this.gravity = 0.6;
+                this.jumpStrength = -11;
+                this.doubleJumpStrength = -9;
+                this.jumpsCount = 0;
+                this.wheelRotation = 0;
+            }
+            
+            actualizar() {
+                this.vy += this.gravity;
+                this.y += this.vy;
+                
+                if (this.y >= gameBaseY - this.alto) {
+                    this.y = gameBaseY - this.alto;
+                    this.vy = 0;
+                    this.jumpsCount = 0;
+                }
+                
+                if (this.y === gameBaseY - this.alto) {
+                    this.wheelRotation += gameSpeed * 0.05;
+                }
+                
+                if (gameIsPlaying && Math.random() < 0.15) {
+                    gameParticles.push(new SmokeParticle(this.x + 2, this.y + this.alto * 0.7));
+                }
+            }
+            
+            saltar() {
+                if (this.jumpsCount === 0) {
+                    this.vy = this.jumpStrength;
+                    this.jumpsCount = 1;
+                    lanzarHumoSalto(this.x + 8, this.y + this.alto);
+                } else if (this.jumpsCount === 1) {
+                    this.vy = this.doubleJumpStrength;
+                    this.jumpsCount = 2;
+                    lanzarHumoSalto(this.x + 8, this.y + this.alto);
+                }
+            }
+            
+            dibujar() {
+                dibujarDatsun1200(gameCtx, this.x, this.y, this.ancho, this.alto, this.wheelRotation);
+            }
+        }
+        
+        class SmokeParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 3;
+                this.vx = -Math.random() * 2 - 1;
+                this.vy = -Math.random() * 1;
+                this.alpha = 0.6;
+                this.decay = Math.random() * 0.02 + 0.01;
+            }
+            
+            actualizar() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+                this.size += 0.15;
+            }
+            
+            dibujar() {
+                gameCtx.save();
+                gameCtx.globalAlpha = this.alpha;
+                gameCtx.fillStyle = '#64748b'; 
+                gameCtx.beginPath();
+                gameCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                gameCtx.fill();
+                gameCtx.restore();
+            }
+        }
+        
+        function lanzarHumoSalto(x, y) {
+            for (let i = 0; i < 8; i++) {
+                gameParticles.push(new SmokeParticle(x, y));
+            }
+        }
+        
+        class Obstacle {
+            constructor() {
+                this.ancho = 28;
+                this.alto = 28;
+                this.x = gameCanvas.width + 20;
+                this.isFlying = Math.random() > 0.7;
+                this.y = this.isFlying ? gameBaseY - 60 - Math.random() * 30 : gameBaseY - this.alto;
+                this.speed = gameSpeed;
+                this.emojis = ['👾', '🐛', '🐞', '⚠️'];
+                this.emoji = this.emojis[Math.floor(Math.random() * this.emojis.length)];
+            }
+            
+            actualizar() {
+                this.x -= this.speed;
+            }
+            
+            dibujar() {
+                gameCtx.save();
+                gameCtx.font = '24px Arial';
+                gameCtx.textAlign = 'center';
+                gameCtx.textBaseline = 'middle';
+                gameCtx.fillText(this.emoji, this.x + this.ancho / 2, this.y + this.alto / 2);
+                gameCtx.restore();
+            }
+        }
+        
+        class Collectible {
+            constructor() {
+                this.ancho = 26;
+                this.alto = 26;
+                this.x = gameCanvas.width + 20;
+                this.y = gameBaseY - 40 - Math.random() * 60;
+                this.speed = gameSpeed;
+                
+                const rand = Math.random();
+                if (rand < 0.5) {
+                    this.type = 'heart';
+                    this.emoji = '❤️';
+                    this.points = 50;
+                } else if (rand < 0.8) {
+                    this.type = 'coffee';
+                    this.emoji = '☕';
+                    this.points = 30;
+                } else {
+                    this.type = 'diskette';
+                    this.emoji = '💾';
+                    this.points = 100;
+                }
+            }
+            
+            actualizar() {
+                this.x -= this.speed;
+            }
+            
+            dibujar() {
+                gameCtx.save();
+                gameCtx.font = '22px Arial';
+                gameCtx.textAlign = 'center';
+                gameCtx.textBaseline = 'middle';
+                
+                const bounce = Math.sin(Date.now() * 0.007 + this.x * 0.05) * 3;
+                gameCtx.fillText(this.emoji, this.x + this.ancho / 2, this.y + this.alto / 2 + bounce);
+                gameCtx.restore();
+            }
+        }
+        
+        function hacerSaltarDatsun() {
+            if (datsun) {
+                datsun.saltar();
+            }
+        }
+        
+        function bucleJuego() {
+            if (!gameIsPlaying) return;
+            
+            gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+            
+            dibujarFondoJuego();
+            
+            datsun.actualizar();
+            datsun.dibujar();
+            
+            const ahora = Date.now();
+            if (ahora - gameLastSpawnTime > Math.max(1000 - gameSpeed * 50, 600)) {
+                if (Math.random() < 0.45) {
+                    gameObstacles.push(new Obstacle());
+                } else {
+                    gameCollectibles.push(new Collectible());
+                }
+                gameLastSpawnTime = ahora;
+            }
+            
+            for (let i = gameObstacles.length - 1; i >= 0; i--) {
+                const obs = gameObstacles[i];
+                obs.actualizar();
+                obs.dibujar();
+                
+                if (obs.x < -40) {
+                    gameObstacles.splice(i, 1);
+                    continue;
+                }
+            }
+            
+            for (let i = gameCollectibles.length - 1; i >= 0; i--) {
+                const col = gameCollectibles[i];
+                col.actualizar();
+                col.dibujar();
+                
+                if (col.x < -40) {
+                    gameCollectibles.splice(i, 1);
+                    continue;
+                }
+            }
+            
+            for (let i = gameParticles.length - 1; i >= 0; i--) {
+                const p = gameParticles[i];
+                p.actualizar();
+                p.dibujar();
+                
+                if (p.alpha <= 0) {
+                    gameParticles.splice(i, 1);
+                }
+            }
+            
+            comprobarColisiones();
+            
+            if (Math.random() < 0.15) {
+                gameScore += 1;
+                document.getElementById('game-score').innerText = gameScore;
+                
+                if (gameScore > 0 && gameScore % 300 === 0) {
+                    gameSpeed += 0.5;
+                }
+                
+                if (gameScore >= 2019 && !gameShownMilestoneThisRun) {
+                    gameShownMilestoneThisRun = true;
+                    mostrarHitoJuego();
+                }
+            }
+            
+            gameAnimationId = requestAnimationFrame(bucleJuego);
+        }
+        
+        function dibujarFondoJuego() {
+            let grad = gameCtx.createLinearGradient(0, 0, 0, gameCanvas.height);
+            grad.addColorStop(0, '#090514'); 
+            grad.addColorStop(0.6, '#1e1b4b'); 
+            grad.addColorStop(1, '#311042'); 
+            gameCtx.fillStyle = grad;
+            gameCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+            
+            gameCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            gameStars.forEach(star => {
+                gameCtx.fillRect(star.x, star.y, star.size, star.size);
+                if (gameIsPlaying) {
+                    star.x -= star.speed * (gameSpeed * 0.2);
+                    if (star.x < 0) star.x = gameCanvas.width;
+                }
+            });
+            
+            gameCtx.fillStyle = '#17112b';
+            gameMountains.forEach(mount => {
+                gameCtx.beginPath();
+                gameCtx.moveTo(mount.x, gameBaseY);
+                gameCtx.lineTo(mount.x + mount.width / 2, gameBaseY - mount.height);
+                gameCtx.lineTo(mount.x + mount.width, gameBaseY);
+                gameCtx.closePath();
+                gameCtx.fill();
+                
+                if (gameIsPlaying) {
+                    mount.x -= mount.speed * (gameSpeed * 0.1);
+                    if (mount.x < -mount.width) mount.x = gameCanvas.width;
+                }
+            });
+            
+            gameCtx.strokeStyle = '#ec4899'; 
+            gameCtx.lineWidth = 3;
+            gameCtx.beginPath();
+            gameCtx.moveTo(0, gameBaseY);
+            gameCtx.lineTo(gameCanvas.width, gameBaseY);
+            gameCtx.stroke();
+            
+            gameCtx.fillStyle = '#1f2937';
+            gameCtx.fillRect(0, gameBaseY, gameCanvas.width, gameCanvas.height - gameBaseY);
+            
+            gameCtx.strokeStyle = '#fde047'; 
+            gameCtx.lineWidth = 2;
+            gameCtx.setLineDash([20, 15]);
+            gameRoadOffset = gameIsPlaying ? gameRoadOffset - gameSpeed : gameRoadOffset;
+            if (gameRoadOffset < -35) gameRoadOffset = 0;
+            gameCtx.lineDashOffset = gameRoadOffset;
+            gameCtx.beginPath();
+            gameCtx.moveTo(0, gameBaseY + 30);
+            gameCtx.lineTo(gameCanvas.width, gameBaseY + 30);
+            gameCtx.stroke();
+            gameCtx.setLineDash([]); 
+        }
+        
+        function comprobarColisiones() {
+            const truckBox = {
+                left: datsun.x + 8,
+                right: datsun.x + datsun.ancho - 4,
+                top: datsun.y + 4,
+                bottom: datsun.y + datsun.alto
+            };
+            
+            for (let i = gameObstacles.length - 1; i >= 0; i--) {
+                const obs = gameObstacles[i];
+                const obsBox = {
+                    left: obs.x + 4,
+                    right: obs.x + obs.ancho - 4,
+                    top: obs.y + 4,
+                    bottom: obs.y + obs.alto - 4
+                };
+                
+                if (truckBox.right > obsBox.left &&
+                    truckBox.left < obsBox.right &&
+                    truckBox.bottom > obsBox.top &&
+                    truckBox.top < obsBox.bottom) {
+                    
+                    finalizarJuego();
+                    return;
+                }
+            }
+            
+            for (let i = gameCollectibles.length - 1; i >= 0; i--) {
+                const col = gameCollectibles[i];
+                const colBox = {
+                    left: col.x,
+                    right: col.x + col.ancho,
+                    top: col.y,
+                    bottom: col.y + col.alto
+                };
+                
+                if (truckBox.right > colBox.left &&
+                    truckBox.left < colBox.right &&
+                    truckBox.bottom > colBox.top &&
+                    truckBox.top < colBox.bottom) {
+                    
+                    gameScore += col.points;
+                    document.getElementById('game-score').innerText = gameScore;
+                    
+                    lanzarParticulasRecogida(col.x + col.ancho/2, col.y + col.alto/2, col.type === 'heart' ? '#ec4899' : (col.type === 'coffee' ? '#d97706' : '#60a5fa'));
+                    
+                    gameCollectibles.splice(i, 1);
+                }
+            }
+        }
+        
+        class CollectEffectParticle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 4 + 2;
+                this.vx = Math.random() * 6 - 3;
+                this.vy = Math.random() * -6 - 1;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.04 + 0.02;
+                this.color = color;
+            }
+            
+            actualizar() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+            }
+            
+            dibujar() {
+                gameCtx.save();
+                gameCtx.globalAlpha = this.alpha;
+                gameCtx.fillStyle = this.color;
+                gameCtx.beginPath();
+                gameCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                gameCtx.fill();
+                gameCtx.restore();
+            }
+        }
+        
+        function lanzarParticulasRecogida(x, y, color) {
+            for (let i = 0; i < 10; i++) {
+                gameParticles.push(new CollectEffectParticle(x, y, color));
+            }
+        }
+        
+        function finalizarJuego() {
+            gameIsPlaying = false;
+            if (gameAnimationId) cancelAnimationFrame(gameAnimationId);
+            
+            if (gameScore > gameHighscore) {
+                gameHighscore = gameScore;
+                localStorage.setItem('datsunRunHighScore', gameHighscore);
+                document.getElementById('game-highscore').innerText = gameHighscore;
+            }
+            
+            document.getElementById('game-overlay-icon').innerText = '💥';
+            document.getElementById('game-overlay-title').innerText = "Game Over";
+            document.getElementById('game-overlay-text').innerHTML = `Los Bugs detuvieron la Datsun 1200.<br>Puntaje obtenido: <span style="font-weight: bold; color:#ec4899; font-size: 1.15rem;">${gameScore}</span>`;
+            document.getElementById('btn-juego-play').innerText = "Reintentar 🔁";
+            document.getElementById('game-overlay').style.display = 'flex';
+        }
+        
+        function mostrarHitoJuego() {
+            gameIsPlaying = false;
+            if (gameAnimationId) cancelAnimationFrame(gameAnimationId);
+            
+            document.getElementById('modal-hito-juego').classList.add('active');
+            lanzarConfeti();
+        }
+        
+        function cerrarHitoJuego() {
+            document.getElementById('modal-hito-juego').classList.remove('active');
+            
+            gameIsPlaying = true;
+            gameLastSpawnTime = Date.now();
+            gameAnimationId = requestAnimationFrame(bucleJuego);
+        }
+
+        function dibujarDatsun1200(ctx, x, y, ancho, alto, rotacionRuedas) {
+            ctx.save();
+            ctx.translate(x, y);
+
+            ctx.fillStyle = '#60a5fa'; 
+            
+            ctx.fillRect(0, alto * 0.45, ancho * 0.55, alto * 0.3);
+            
+            ctx.beginPath();
+            ctx.moveTo(ancho * 0.55, alto * 0.75);
+            ctx.lineTo(ancho * 0.55, alto * 0.3); 
+            ctx.lineTo(ancho * 0.75, alto * 0.3); 
+            ctx.lineTo(ancho * 0.88, alto * 0.55); 
+            ctx.lineTo(ancho * 0.98, alto * 0.55); 
+            ctx.lineTo(ancho * 0.98, alto * 0.75); 
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.fillStyle = '#1e293b'; 
+            ctx.fillRect(ancho * 0.1, alto * 0.72, ancho * 0.22, alto * 0.08);
+            ctx.fillRect(ancho * 0.68, alto * 0.72, ancho * 0.22, alto * 0.08);
+            
+            ctx.fillStyle = '#e2e8f0'; 
+            ctx.beginPath();
+            ctx.moveTo(ancho * 0.58, alto * 0.35);
+            ctx.lineTo(ancho * 0.72, alto * 0.35);
+            ctx.lineTo(ancho * 0.82, alto * 0.52);
+            ctx.lineTo(ancho * 0.58, alto * 0.52);
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.strokeStyle = '#2563eb';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(ancho * 0.58, alto * 0.35);
+            ctx.lineTo(ancho * 0.58, alto * 0.75);
+            ctx.stroke();
+
+            ctx.fillStyle = '#fde047'; 
+            ctx.beginPath();
+            ctx.arc(ancho * 0.98, alto * 0.59, 4, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#ef4444';
+            ctx.fillRect(0, alto * 0.48, 3, 8);
+
+            ctx.save();
+            ctx.translate(ancho * 0.21, alto * 0.75);
+            ctx.rotate(rotacionRuedas);
+            dibujarRueda(ctx, 11);
+            ctx.restore();
+
+            ctx.save();
+            ctx.translate(ancho * 0.8, alto * 0.75);
+            ctx.rotate(rotacionRuedas);
+            dibujarRueda(ctx, 11);
+            ctx.restore();
+
+            ctx.restore();
+        }
+
+        function dibujarRueda(ctx, radio) {
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.arc(0, 0, radio, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#94a3b8';
+            ctx.beginPath();
+            ctx.arc(0, 0, radio * 0.55, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 1.5;
+            for (let i = 0; i < 4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(Math.cos(i * Math.PI / 2) * radio * 0.55, Math.sin(i * Math.PI / 2) * radio * 0.55);
+                ctx.stroke();
             }
         }
     </script>
