@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestros Recuerdos | Anderson & Jessie ❤️</title>
+    <title>Nuestros Recuerdos | Andy & Jessie ❤️</title>
     
     <!-- Google Fonts para una tipografía premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* --- DISEÑO DEL SISTEMA DE ESTILOS --- */
@@ -709,8 +709,8 @@
         }
 
         .sobre-carta-contenido {
-            font-family: 'Caveat', cursive;
-            font-size: 1.55rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.65rem;
             color: var(--text-dark);
             line-height: 1.4;
             white-space: pre-wrap;
@@ -1260,15 +1260,15 @@
         }
 
         .polaroid-fecha {
-            font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.7rem;
             color: var(--primary-hover);
             font-weight: 700;
         }
 
         .polaroid-titulo {
-            font-family: 'Caveat', cursive;
-            font-size: 2.3rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
             color: var(--text-dark);
             line-height: 1.1;
             margin-bottom: 6px;
@@ -1276,8 +1276,8 @@
         }
 
         .polaroid-texto {
-            font-family: 'Caveat', cursive;
-            font-size: 1.55rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.65rem;
             color: var(--text-muted);
             line-height: 1.35;
             max-width: 95%;
@@ -1668,8 +1668,8 @@
             transform: scale(1.08);
         }
         .polaroid-galeria-caption {
-            font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.7rem;
             color: var(--text-dark);
             margin-top: 14px;
             text-align: center;
@@ -1725,9 +1725,9 @@
             transform: scale(1);
         }
         .lightbox-caption {
-            font-family: 'Caveat', cursive;
+            font-family: 'Great Vibes', cursive;
             color: white;
-            font-size: 2rem;
+            font-size: 2.6rem;
             margin-top: 16px;
             text-align: center;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
@@ -2144,6 +2144,232 @@
             pointer-events: none;
             z-index: 999;
         }
+
+        /* Estilos de perfil personalizados */
+        .perfil-avatar-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+        }
+        .perfil-avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .escondido {
+            display: none !important;
+        }
+
+        /* --- BOTÓN DE REPRODUCIR ANIVERSARIO --- */
+        .btn-reproducir-aniversario {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #ff4d6d 0%, #ff85a1 100%);
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            animation: pulse-glow 2s infinite;
+        }
+        .btn-reproducir-aniversario:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 77, 109, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); }
+        }
+
+        /* --- MODAL SORPRESA 7 AÑOS --- */
+        .modal-aniversario-content {
+            background: linear-gradient(135deg, #fff0f3 0%, #ffe5ec 50%, #ffc2d1 100%);
+            border: 4px solid #ff4d6d;
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 550px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        
+        .modal-aniversario-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #ff4d6d;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin: 0 0 5px 0;
+        }
+        
+        .modal-aniversario-subtitle {
+            font-size: 1.1rem;
+            color: #c9184a;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .modal-aniversario-mensaje {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            line-height: 1.5;
+            color: #590d22;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.45);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px dashed rgba(255, 77, 109, 0.3);
+        }
+
+        /* --- PASE DE VIAJE --- */
+        .pase-viaje-ticket {
+            background: #fff;
+            border: 2px solid #ff758f;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 25px;
+            text-align: left;
+            position: relative;
+            background-image: radial-gradient(circle at 0px 50%, transparent 10px, #fff 11px), radial-gradient(circle at 100% 50%, transparent 10px, #fff 11px);
+        }
+        
+        .pase-header {
+            background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .pase-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+        }
+        
+        .pase-flight {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .pase-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+        
+        .pase-info-col {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pase-label {
+            font-size: 0.65rem;
+            color: #a8a29e;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: -2px;
+        }
+
+        .pase-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #33272a;
+        }
+        
+        .pase-destinos {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px dashed #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            grid-column: span 2;
+        }
+        
+        .pase-aeropuerto {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pase-codigo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #c9184a;
+        }
+        
+        .pase-nombre-aeropuerto {
+            font-size: 0.7rem;
+            color: #78716c;
+        }
+        
+        .pase-corazon-avion {
+            font-size: 1.5rem;
+            color: #ff4d6d;
+            animation: fly-pulse 2s infinite ease-in-out;
+        }
+        
+        @keyframes fly-pulse {
+            0% { transform: scale(1) translateX(0); }
+            50% { transform: scale(1.1) translateX(5px); }
+            100% { transform: scale(1) translateX(0); }
+        }
+        
+        .pase-detalles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .pase-barcode {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-left: 1px dashed #e2e8f0;
+            padding-left: 15px;
+        }
+        
+        .barcode-lines {
+            height: 45px;
+            width: 100%;
+            background: repeating-linear-gradient(90deg, #33272a, #33272a 2px, transparent 2px, transparent 6px, #33272a 6px, #33272a 7px, transparent 7px, transparent 10px);
+        }
+        
+        .barcode-num {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            margin-top: 4px;
+            color: #78716c;
+        }
     </style>
 </head>
 <body>
@@ -2200,8 +2426,8 @@
 
     <div class="wrapper">
         <header>
-            <h1>Anderson & Jessie ❤️</h1>
-            <p>Nuestro cofre digital de momentos memorables, código y amor.</p>
+            <h1>Andy & Jessie ❤️</h1>
+            <p>Nuestro cofre digital de momentos memorables.</p>
         </header>
 
         <!-- NAVEGACIÓN POR PESTAÑAS -->
@@ -2215,21 +2441,21 @@
         <div id="tab-recuerdos" class="tab-content active">
             <!-- Perfiles de la Pareja -->
             <div class="perfil-pareja-contenedor">
-                <div class="perfil-tarjeta">
-                    <div class="perfil-emoji">🛻💻</div>
+                <div class="perfil-tarjeta" id="perfil-tarjeta-andy">
+                    <div class="perfil-avatar-circle" id="avatar-circle-andy">🐧</div>
                     <div class="perfil-datos">
-                        <span class="perfil-nombre">Anderson</span>
-                        <span class="perfil-info">Ing. Ciencias de la Computación | 28 años</span>
-                        <span class="perfil-hobby">Apasionado por la Datsun 1200 pickup y el código</span>
+                        <span class="perfil-nombre" id="nombre-display-andy">Andy</span>
+                        <span class="perfil-info" id="info-display-andy">Ing. en Ciencias de la Computación | 28 años</span>
+                        <span class="perfil-hobby" id="hobby-display-andy">Apasionado por la Datsun 1200 pickup y el código</span>
                     </div>
                 </div>
                 <div class="perfil-corazon-medio">⚡❤️🎮</div>
-                <div class="perfil-tarjeta" style="text-align: right; flex-direction: row-reverse;">
-                    <div class="perfil-emoji">🎮💻</div>
+                <div class="perfil-tarjeta" id="perfil-tarjeta-jessie" style="text-align: right; flex-direction: row-reverse;">
+                    <div class="perfil-avatar-circle" id="avatar-circle-jessie">😈</div>
                     <div class="perfil-datos" style="align-items: flex-end;">
-                        <span class="perfil-nombre">Jessie</span>
-                        <span class="perfil-info">Ing. Ciencias de la Computación | 26 años</span>
-                        <span class="perfil-hobby">Amante de los videojuegos y la tecnología</span>
+                        <span class="perfil-nombre" id="nombre-display-jessie">Jessie</span>
+                        <span class="perfil-info" id="info-display-jessie">Ing. en Ciencias de la Computación | 26 años</span>
+                        <span class="perfil-hobby" id="hobby-display-jessie">Amante de los videojuegos y la tecnología</span>
                     </div>
                 </div>
             </div>
@@ -2246,6 +2472,9 @@
                     <div class="reloj-segmento"><span class="num" id="reloj-minutos">00</span><span class="label">Min</span></div>
                     <div class="reloj-segmento"><span class="num" id="reloj-segundos">00</span><span class="label">Seg</span></div>
                 </div>
+                <button id="btn-reproducir-aniversario-contenedor" class="btn-reproducir-aniversario escondido" onclick="mostrarSorpresaAniversario()">
+                    <span>🎁 Sorpresa Especial</span>
+                </button>
             </div>
 
         <!-- Barra de Progreso de Desbloqueo -->
@@ -2310,7 +2539,7 @@ Desde aquel 20 de junio de 2019, cada día a tu lado ha sido el código más per
 Eres mi persona favorita y lo mejor de mi vida entera. Sigamos compilando más recuerdos hermosos juntos.
 
 Con todo mi amor,
-Anderson. ❤️</div>
+Andy. ❤️</div>
                         <button class="btn btn-primario btn-guardar-carta-editada escondido" id="btn-guardar-carta" onclick="guardarCartaEditada(event)">Guardar Cambios</button>
                     </div>
                 </div>
@@ -2363,7 +2592,7 @@ Anderson. ❤️</div>
             <div class="retos-cabecera">
                 <span style="font-size: 2.5rem;">🎮</span>
                 <h3>Datsun Run: El Algoritmo del Amor</h3>
-                <p>Ayuda a Anderson a conducir su pequeña Datsun 1200 roja, esquivar los Bugs de programación y recolectar corazones y peluches de Kuromi para Jessie. ¡Consigue 2019 puntos para una gran sorpresa! 😈❤️</p>
+                <p>Ayuda a Andy a conducir su pequeña Datsun 1200 roja, esquivar los Bugs de programación y recolectar corazones y peluches de Kuromi para Jessie. ¡Consigue 2019 puntos para una gran sorpresa! 😈❤️</p>
                 <div style="font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-top: 4px;">Puntaje Máximo: <span id="game-highscore">0</span></div>
             </div>
             
@@ -2399,10 +2628,11 @@ Anderson. ❤️</div>
             <p style="text-align: center; margin-bottom: 20px;">Personaliza la música, la trivia y la línea de tiempo sin tocar el código.</p>
             
             <!-- Tabs internos en el modal -->
-            <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
-                <button class="btn btn-primario" id="btn-ajuste-musica" onclick="cambiarTabAjustes('musica')" style="padding: 8px 12px; font-size: 0.85rem; flex: 1;">🎵 Música</button>
-                <button class="btn btn-secundario" id="btn-ajuste-trivia" onclick="cambiarTabAjustes('trivia')" style="padding: 8px 12px; font-size: 0.85rem; flex: 1;">🏆 Trivia</button>
-                <button class="btn btn-secundario" id="btn-ajuste-timeline" onclick="cambiarTabAjustes('timeline')" style="padding: 8px 12px; font-size: 0.85rem; flex: 1;">📅 Hitos</button>
+            <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap;">
+                <button class="btn btn-primario" id="btn-ajuste-musica" onclick="cambiarTabAjustes('musica')" style="padding: 8px 6px; font-size: 0.8rem; flex: 1; min-width: 70px;">🎵 Música</button>
+                <button class="btn btn-secundario" id="btn-ajuste-trivia" onclick="cambiarTabAjustes('trivia')" style="padding: 8px 6px; font-size: 0.8rem; flex: 1; min-width: 70px;">🏆 Trivia</button>
+                <button class="btn btn-secundario" id="btn-ajuste-timeline" onclick="cambiarTabAjustes('timeline')" style="padding: 8px 6px; font-size: 0.8rem; flex: 1; min-width: 70px;">📅 Hitos</button>
+                <button class="btn btn-secundario" id="btn-ajuste-perfiles" onclick="cambiarTabAjustes('perfiles')" style="padding: 8px 6px; font-size: 0.8rem; flex: 1; min-width: 70px;">👥 Perfiles</button>
             </div>
             
             <!-- Contenedor Música -->
@@ -2485,8 +2715,97 @@ Anderson. ❤️</div>
                 </div>
             </div>
             
+            <!-- Contenedor Perfiles -->
+            <div id="ajuste-tab-perfiles" class="ajuste-tab-content" style="display: none;">
+                <h4 style="margin-bottom: 15px; color: var(--primary); font-family: 'Playfair Display', serif;">Personalizar Perfiles</h4>
+                
+                <!-- Andy -->
+                <div style="margin-bottom: 15px; border-bottom: 1px dashed var(--glass-border); padding-bottom: 15px;">
+                    <h5 style="color: var(--primary-hover); margin-bottom: 8px; font-weight: 700;">Perfil de Andy (🐧)</h5>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <input type="text" id="ajuste-perfil-nombre-andy" class="input-contrasena" placeholder="Nombre" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                        <input type="text" id="ajuste-perfil-info-andy" class="input-contrasena" placeholder="Información / Carrera" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                        <input type="text" id="ajuste-perfil-hobby-andy" class="input-contrasena" placeholder="Hobby / Pasiones" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Avatar (Foto):</label>
+                            <input type="file" id="ajuste-perfil-avatar-andy" accept="image/*" style="font-size: 0.8rem; width: 100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jessie -->
+                <div style="margin-bottom: 15px; border-bottom: 1px dashed var(--glass-border); padding-bottom: 15px;">
+                    <h5 style="color: var(--primary-hover); margin-bottom: 8px; font-weight: 700;">Perfil de Jessie (😈)</h5>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <input type="text" id="ajuste-perfil-nombre-jessie" class="input-contrasena" placeholder="Nombre" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                        <input type="text" id="ajuste-perfil-info-jessie" class="input-contrasena" placeholder="Información / Carrera" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                        <input type="text" id="ajuste-perfil-hobby-jessie" class="input-contrasena" placeholder="Hobby / Pasiones" style="padding: 8px 12px; text-align: left; font-size: 0.9rem;">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Avatar (Foto):</label>
+                            <input type="file" id="ajuste-perfil-avatar-jessie" accept="image/*" style="font-size: 0.8rem; width: 100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primario" onclick="guardarPerfilesAjustes()" style="padding: 10px; font-size: 0.85rem; width: 100%;">Guardar Perfiles</button>
+                <button class="btn btn-secundario" type="button" onclick="restablecerAvataresDefault()" style="padding: 10px; font-size: 0.85rem; width: 100%; margin-top: 8px;">Restablecer Avatares (Emojis)</button>
+            </div>
+            
             <div class="modal-acciones" style="margin-top: 24px;">
                 <button class="btn btn-secundario" onclick="cerrarModalAjustes()">Cerrar Ajustes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE SORPRESA DE 7 AÑOS DE ANIVERSARIO -->
+    <div class="modal-overlay" id="modal-aniversario-7">
+        <div class="modal-aniversario-content">
+            <span style="font-size: 3.5rem; display: block; margin-bottom: 5px;">🎉🥂💖</span>
+            <h2 class="modal-aniversario-title">¡Feliz 7mo Aniversario!</h2>
+            <div class="modal-aniversario-subtitle">Andy & Jessie</div>
+            
+            <p class="modal-aniversario-mensaje">
+                "Cada compilación, cada bug superado, cada viaje y cada segundo a tu lado ha sido el código más perfecto que la vida pudo escribir. Hoy celebramos 7 años de compilar amor juntos. ¡Por una eternidad sin errores en nuestro sistema! Te amo con todo mi corazón. 🐧 & 😈"
+            </p>
+            
+            <!-- Pase de Viaje Especial de Aniversario -->
+            <div class="pase-viaje-ticket">
+                <div class="pase-header">
+                    <span class="pase-logo">Boarding Pass</span>
+                    <span class="pase-flight">FLIGHT LOVE-7Y</span>
+                </div>
+                <div class="pase-body">
+                    <div class="pase-destinos">
+                        <div class="pase-aeropuerto">
+                            <span class="pase-codigo">AJ</span>
+                            <span class="pase-nombre-aeropuerto">Andy & Jessie</span>
+                        </div>
+                        <span class="pase-corazon-avion">✈️💖</span>
+                        <div class="pase-aeropuerto" style="text-align: right;">
+                            <span class="pase-codigo" style="color: #ff4d6d;">LOVE</span>
+                            <span class="pase-nombre-aeropuerto">Destino: Futuro Juntos</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pase-info-col">
+                        <span class="pase-label">Pasajeros</span>
+                        <span class="pase-value">Andy & Jessie</span>
+                        
+                        <span class="pase-label">Fecha de Salida</span>
+                        <span class="pase-value">20 de Junio, 2026</span>
+                    </div>
+                    
+                    <div class="pase-barcode">
+                        <div class="barcode-lines"></div>
+                        <span class="barcode-num">2019-06-20 - 2026-06-20</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-acciones" style="margin-top: 15px;">
+                <button class="btn btn-primario" onclick="cerrarSorpresaAniversario()" style="width: 100%; padding: 12px; font-weight: bold; border-radius: 30px; background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%); border: none; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);">
+                    💖 ¡Feliz Aniversario! 💖
+                </button>
             </div>
         </div>
     </div>
@@ -2498,8 +2817,8 @@ Anderson. ❤️</div>
             <h2 style="font-family: 'Playfair Display', serif; color: var(--primary-hover); font-size: 1.8rem; margin-bottom: 8px;">¡Felicidades, Compiladores del Amor!</h2>
             <h3 style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 12px;">Lograron 2019 Puntos</h3>
             
-            <p style="font-family: 'Caveat', cursive; font-size: 1.6rem; line-height: 1.4; color: #451a03; margin-bottom: 20px;">
-                "2019: El año en que Anderson y Jessie iniciaron su gran historia de amor (20 de junio de 2019). Su código compiló a la perfección, esquivando todos los bugs y juntando todo el amor (¡y peluches de Kuromi!) posibles. ¡Feliz aniversario de código y corazón!"
+            <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; line-height: 1.4; color: #451a03; margin-bottom: 20px;">
+                "2019: El año en que Andy y Jessie iniciaron su gran historia de amor (20 de junio de 2019). Su código compiló a la perfección, esquivando todos los bugs y juntando todo el amor (¡y peluches de Kuromi!) posibles. ¡Feliz aniversario de código y corazón!"
             </p>
             
             <div class="modal-acciones">
@@ -2670,7 +2989,7 @@ Anderson. ❤️</div>
             },
             'caja3': {
                 titulo: "Nuestros Favoritos",
-                pista: "El personaje favorito de Jessie y la camioneta de Anderson (ej: xxxx y xxxx)",
+                pista: "El personaje favorito de Jessie y la camioneta de Andy (ej: xxxx y xxxx)",
                 clave: "kuromi y 1200",
                 fecha: "Pasiones Compartidas",
                 texto: "Kuromi con su toque travieso y tierno, y la clásica Datsun 1200 pickup. Dos gustos diferentes pero que combinan de manera perfecta en nuestra vida juntos. 🛻🖤",
@@ -2751,6 +3070,7 @@ Anderson. ❤️</div>
         // --- INICIALIZACIÓN ---
         window.addEventListener('DOMContentLoaded', () => {
             inicializarTema();
+            cargarPerfiles();
             cargarRecuerdosDeLocalStorage();
             cargarPlaylist();
             cargarTrivia();
@@ -3138,6 +3458,199 @@ Anderson. ❤️</div>
             document.getElementById('reloj-horas').innerText = String(horas).padStart(2, '0');
             document.getElementById('reloj-minutos').innerText = String(minutos).padStart(2, '0');
             document.getElementById('reloj-segundos').innerText = String(segundos).padStart(2, '0');
+
+            // Control de Sorpresa de 7 Años
+            const urlParams = new URLSearchParams(window.location.search);
+            const esTest = urlParams.get('testAniv') === '7';
+            if (anos >= 7 || esTest) {
+                const btnReplay = document.getElementById('btn-reproducir-aniversario-contenedor');
+                if (btnReplay) btnReplay.classList.remove('escondido');
+                
+                if (sessionStorage.getItem('aniversario7Mostrado') !== 'true') {
+                    sessionStorage.setItem('aniversario7Mostrado', 'true');
+                    setTimeout(() => {
+                        mostrarSorpresaAniversario();
+                    }, 2000);
+                }
+            }
+        }
+
+        // --- FUNCIONES PARA PERFILES PERSONALIZABLES ---
+        function cargarPerfiles() {
+            // Cargar datos de Andy
+            const perfilAndy = JSON.parse(localStorage.getItem('perfilAndy')) || {
+                nombre: "Andy",
+                info: "Ing. en Ciencias de la Computación | 28 años",
+                hobby: "Apasionado por la Datsun 1200 pickup y el código",
+                avatar: "" // si está vacío, mostrar emoji 🐧
+            };
+
+            // Cargar datos de Jessie
+            const perfilJessie = JSON.parse(localStorage.getItem('perfilJessie')) || {
+                nombre: "Jessie",
+                info: "Ing. en Ciencias de la Computación | 26 años",
+                hobby: "Amante de los videojuegos y la tecnología",
+                avatar: "" // si está vacío, mostrar emoji 😈
+            };
+
+            // Renderizar Andy en la UI
+            const nameAndy = document.getElementById('nombre-display-andy');
+            const infAndy = document.getElementById('info-display-andy');
+            const hobAndy = document.getElementById('hobby-display-andy');
+            const avatarAndy = document.getElementById('avatar-circle-andy');
+
+            if (nameAndy) nameAndy.innerText = perfilAndy.nombre;
+            if (infAndy) infAndy.innerText = perfilAndy.info;
+            if (hobAndy) hobAndy.innerText = perfilAndy.hobby;
+            if (avatarAndy) {
+                if (perfilAndy.avatar) {
+                    avatarAndy.innerHTML = `<img src="${perfilAndy.avatar}" alt="Andy">`;
+                } else {
+                    avatarAndy.innerHTML = "🐧";
+                }
+            }
+
+            // Renderizar Jessie en la UI
+            const nameJessie = document.getElementById('nombre-display-jessie');
+            const infJessie = document.getElementById('info-display-jessie');
+            const hobJessie = document.getElementById('hobby-display-jessie');
+            const avatarJessie = document.getElementById('avatar-circle-jessie');
+
+            if (nameJessie) nameJessie.innerText = perfilJessie.nombre;
+            if (infJessie) infJessie.innerText = perfilJessie.info;
+            if (hobJessie) hobJessie.innerText = perfilJessie.hobby;
+            if (avatarJessie) {
+                if (perfilJessie.avatar) {
+                    avatarJessie.innerHTML = `<img src="${perfilJessie.avatar}" alt="Jessie">`;
+                } else {
+                    avatarJessie.innerHTML = "😈";
+                }
+            }
+
+            // Rellenar campos del formulario en el modal de ajustes (si existen)
+            const inputNameAndy = document.getElementById('ajuste-perfil-nombre-andy');
+            const inputInfoAndy = document.getElementById('ajuste-perfil-info-andy');
+            const inputHobbyAndy = document.getElementById('ajuste-perfil-hobby-andy');
+            if (inputNameAndy) inputNameAndy.value = perfilAndy.nombre;
+            if (inputInfoAndy) inputInfoAndy.value = perfilAndy.info;
+            if (inputHobbyAndy) inputHobbyAndy.value = perfilAndy.hobby;
+
+            const inputNameJessie = document.getElementById('ajuste-perfil-nombre-jessie');
+            const inputInfoJessie = document.getElementById('ajuste-perfil-info-jessie');
+            const inputHobbyJessie = document.getElementById('ajuste-perfil-hobby-jessie');
+            if (inputNameJessie) inputNameJessie.value = perfilJessie.nombre;
+            if (inputInfoJessie) inputInfoJessie.value = perfilJessie.info;
+            if (inputHobbyJessie) inputHobbyJessie.value = perfilJessie.hobby;
+        }
+
+        function guardarPerfilesAjustes() {
+            const nombreAndy = document.getElementById('ajuste-perfil-nombre-andy').value.trim() || "Andy";
+            const infoAndy = document.getElementById('ajuste-perfil-info-andy').value.trim() || "Ing. en Ciencias de la Computación | 28 años";
+            const hobbyAndy = document.getElementById('ajuste-perfil-hobby-andy').value.trim() || "Apasionado por la Datsun 1200 pickup y el código";
+            const fileAndy = document.getElementById('ajuste-perfil-avatar-andy').files[0];
+
+            const nombreJessie = document.getElementById('ajuste-perfil-nombre-jessie').value.trim() || "Jessie";
+            const infoJessie = document.getElementById('ajuste-perfil-info-jessie').value.trim() || "Ing. en Ciencias de la Computación | 26 años";
+            const hobbyJessie = document.getElementById('ajuste-perfil-hobby-jessie').value.trim() || "Amante de los videojuegos y la tecnología";
+            const fileJessie = document.getElementById('ajuste-perfil-avatar-jessie').files[0];
+
+            const anteriorAndy = JSON.parse(localStorage.getItem('perfilAndy')) || {};
+            const anteriorJessie = JSON.parse(localStorage.getItem('perfilJessie')) || {};
+
+            let avatarAndyData = anteriorAndy.avatar || "";
+            let avatarJessieData = anteriorJessie.avatar || "";
+
+            let procesarAndy = new Promise((resolve) => {
+                if (fileAndy) {
+                    compressAndSave(fileAndy, (dataUrl) => {
+                        avatarAndyData = dataUrl;
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
+
+            let procesarJessie = new Promise((resolve) => {
+                if (fileJessie) {
+                    compressAndSave(fileJessie, (dataUrl) => {
+                        avatarJessieData = dataUrl;
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
+
+            Promise.all([procesarAndy, procesarJessie]).then(() => {
+                const perfilAndy = {
+                    nombre: nombreAndy,
+                    info: infoAndy,
+                    hobby: hobbyAndy,
+                    avatar: avatarAndyData
+                };
+                const perfilJessie = {
+                    nombre: nombreJessie,
+                    info: infoJessie,
+                    hobby: hobbyJessie,
+                    avatar: avatarJessieData
+                };
+
+                localStorage.setItem('perfilAndy', JSON.stringify(perfilAndy));
+                localStorage.setItem('perfilJessie', JSON.stringify(perfilJessie));
+
+                cargarPerfiles();
+                lanzarConfeti();
+                alert("¡Perfiles actualizados con éxito!");
+                cerrarModalAjustes();
+            });
+        }
+
+        function restablecerAvataresDefault() {
+            if (confirm("¿Quieres restablecer los avatares a sus emojis originales (🐧 y 😈)?")) {
+                const perfilAndy = JSON.parse(localStorage.getItem('perfilAndy')) || {};
+                const perfilJessie = JSON.parse(localStorage.getItem('perfilJessie')) || {};
+                perfilAndy.avatar = "";
+                perfilJessie.avatar = "";
+                localStorage.setItem('perfilAndy', JSON.stringify(perfilAndy));
+                localStorage.setItem('perfilJessie', JSON.stringify(perfilJessie));
+                
+                // Limpiar inputs de archivo
+                const inputAndy = document.getElementById('ajuste-perfil-avatar-andy');
+                const inputJessie = document.getElementById('ajuste-perfil-avatar-jessie');
+                if (inputAndy) inputAndy.value = '';
+                if (inputJessie) inputJessie.value = '';
+
+                cargarPerfiles();
+                alert("Avatares restablecidos.");
+                cerrarModalAjustes();
+            }
+        }
+
+        // --- LÓGICA DE LA SORPRESA DEL 7MO ANIVERSARIO ---
+        let intervaloLluviaAniversario = null;
+        
+        function mostrarSorpresaAniversario() {
+            document.getElementById('modal-aniversario-7').classList.add('active');
+            lanzarLluviaAniversario();
+        }
+        
+        function cerrarSorpresaAniversario() {
+            document.getElementById('modal-aniversario-7').classList.remove('active');
+            detenerLluviaAniversario();
+        }
+
+        function lanzarLluviaAniversario() {
+            lanzarConfeti();
+            if (intervaloLluviaAniversario) clearInterval(intervaloLluviaAniversario);
+            intervaloLluviaAniversario = setInterval(lanzarConfeti, 2500);
+        }
+        
+        function detenerLluviaAniversario() {
+            if (intervaloLluviaAniversario) {
+                clearInterval(intervaloLluviaAniversario);
+                intervaloLluviaAniversario = null;
+            }
         }
 
         // --- LÓGICA DE TEMAS ---
@@ -3872,10 +4385,12 @@ Anderson. ❤️</div>
             const btnMusica = document.getElementById('btn-ajuste-musica');
             const btnTrivia = document.getElementById('btn-ajuste-trivia');
             const btnTimeline = document.getElementById('btn-ajuste-timeline');
+            const btnPerfiles = document.getElementById('btn-ajuste-perfiles');
             
             btnMusica.className = 'btn btn-secundario';
             btnTrivia.className = 'btn btn-secundario';
             btnTimeline.className = 'btn btn-secundario';
+            if (btnPerfiles) btnPerfiles.className = 'btn btn-secundario';
             
             if (tabId === 'musica') {
                 btnMusica.className = 'btn btn-primario';
@@ -3888,6 +4403,9 @@ Anderson. ❤️</div>
                 btnTimeline.className = 'btn btn-primario';
                 cargarHitoAjustes(0);
                 document.getElementById('ajuste-timeline-select').value = "0";
+            } else if (tabId === 'perfiles') {
+                if (btnPerfiles) btnPerfiles.className = 'btn btn-primario';
+                cargarPerfiles();
             }
         }
 
