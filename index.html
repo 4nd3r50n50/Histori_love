@@ -3985,6 +3985,11 @@ Anderson. ❤️</div>
             
             // Iniciar bucle del juego
             bucleJuego();
+            
+            // Iniciar la música de fondo automáticamente si no está sonando
+            if (!musicaReproduciendo) {
+                reproducirMusica();
+            }
         }
         
         class DatsunTruck {
@@ -4100,25 +4105,38 @@ Anderson. ❤️</div>
         
         class Collectible {
             constructor() {
-                this.ancho = 26;
-                this.alto = 26;
+                this.ancho = 28;
+                this.alto = 28;
                 this.x = gameCanvas.width + 20;
                 this.y = gameBaseY - 40 - Math.random() * 60;
                 this.speed = gameSpeed;
                 
                 const rand = Math.random();
-                if (rand < 0.5) {
-                    this.type = 'heart';
-                    this.emoji = '💖';
-                    this.points = 50;
-                } else if (rand < 0.8) {
-                    this.type = 'kuromi_plush';
-                    this.emoji = '😈';
-                    this.points = 80;
+                if (gameScore < 300) {
+                    // Progreso inicial: corazones y disquetes
+                    if (rand < 0.6) {
+                        this.type = 'heart';
+                        this.emoji = '💖';
+                        this.points = 50;
+                    } else {
+                        this.type = 'diskette';
+                        this.emoji = '💾';
+                        this.points = 100;
+                    }
                 } else {
-                    this.type = 'kuromi_skull';
-                    this.emoji = '💀';
-                    this.points = 150;
+                    // Progreso avanzado (score >= 300): ¡aparece Kuromi!
+                    if (rand < 0.4) {
+                        this.type = 'heart';
+                        this.emoji = '💖';
+                        this.points = 50;
+                    } else if (rand < 0.75) {
+                        this.type = 'diskette';
+                        this.emoji = '💾';
+                        this.points = 100;
+                    } else {
+                        this.type = 'kuromi';
+                        this.points = 250; // ¡Muchos puntos por atrapar a Kuromi!
+                    }
                 }
             }
             
@@ -4128,12 +4146,15 @@ Anderson. ❤️</div>
             
             dibujar() {
                 gameCtx.save();
-                gameCtx.font = '22px Arial';
-                gameCtx.textAlign = 'center';
-                gameCtx.textBaseline = 'middle';
-                
                 const bounce = Math.sin(Date.now() * 0.007 + this.x * 0.05) * 3;
-                gameCtx.fillText(this.emoji, this.x + this.ancho / 2, this.y + this.alto / 2 + bounce);
+                if (this.type === 'kuromi') {
+                    dibujarKuromi(gameCtx, this.x + this.ancho / 2, this.y + this.alto / 2 + bounce, 28);
+                } else {
+                    gameCtx.font = '22px Arial';
+                    gameCtx.textAlign = 'center';
+                    gameCtx.textBaseline = 'middle';
+                    gameCtx.fillText(this.emoji, this.x + this.ancho / 2, this.y + this.alto / 2 + bounce);
+                }
                 gameCtx.restore();
             }
         }
@@ -4260,7 +4281,7 @@ Anderson. ❤️</div>
             gameCtx.strokeStyle = '#fde047'; 
             gameCtx.lineWidth = 2;
             gameCtx.setLineDash([20, 15]);
-            gameRoadOffset = gameIsPlaying ? gameRoadOffset - gameSpeed : gameRoadOffset;
+            gameRoadOffset = gameIsPlaying ? gameRoadOffset - gameSpeed * 0.18 : gameRoadOffset;
             if (gameRoadOffset < -35) gameRoadOffset = 0;
             gameCtx.lineDashOffset = gameRoadOffset;
             gameCtx.beginPath();
@@ -4314,7 +4335,7 @@ Anderson. ❤️</div>
                     gameScore += col.points;
                     document.getElementById('game-score').innerText = gameScore;
                     
-                    lanzarParticulasRecogida(col.x + col.ancho/2, col.y + col.alto/2, col.type === 'heart' ? '#ec4899' : (col.type === 'kuromi_plush' ? '#a855f7' : '#db2777'));
+                    lanzarParticulasRecogida(col.x + col.ancho/2, col.y + col.alto/2, col.type === 'heart' ? '#ec4899' : (col.type === 'kuromi' ? '#f43f5e' : '#60a5fa'));
                     
                     gameCollectibles.splice(i, 1);
                 }
@@ -4513,6 +4534,94 @@ Anderson. ❤️</div>
             ctx.beginPath();
             ctx.arc(-radio * 0.1, -radio * 0.1, radio * 0.1, 0, Math.PI * 2);
             ctx.fill();
+        }
+
+        // Dibuja una cara de Kuromi detallada mediante vectores en el canvas
+        function dibujarKuromi(ctx, x, y, size) {
+            ctx.save();
+            ctx.translate(x, y);
+            
+            // Orejas de Kuromi (triángulos negros en punta)
+            ctx.fillStyle = '#0f172a';
+            
+            // Oreja izquierda
+            ctx.beginPath();
+            ctx.moveTo(-size * 0.4, -size * 0.1);
+            ctx.lineTo(-size * 0.55, -size * 0.85);
+            ctx.lineTo(-size * 0.1, -size * 0.35);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Oreja derecha
+            ctx.beginPath();
+            ctx.moveTo(size * 0.4, -size * 0.1);
+            ctx.lineTo(size * 0.55, -size * 0.85);
+            ctx.lineTo(size * 0.1, -size * 0.35);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Esferas rosa/fucsia en las puntas de las orejas (cascabeles de Kuromi)
+            ctx.fillStyle = '#f43f5e';
+            ctx.beginPath();
+            ctx.arc(-size * 0.55, -size * 0.85, size * 0.08, 0, Math.PI * 2);
+            ctx.arc(size * 0.55, -size * 0.85, size * 0.08, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Cabeza principal (silueta de capucha negra)
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.arc(0, 0, size * 0.45, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Rostro blanco interno (forma del rostro de Kuromi)
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(0, size * 0.05, size * 0.32, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Ojos negros (óvalos verticales estirados)
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.ellipse(-size * 0.12, size * 0.05, size * 0.03, size * 0.06, 0, 0, Math.PI * 2);
+            ctx.ellipse(size * 0.12, size * 0.05, size * 0.03, size * 0.06, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Mejillas sonrosadas rosadas (blush)
+            ctx.fillStyle = '#fbcfe8';
+            ctx.beginPath();
+            ctx.arc(-size * 0.2, size * 0.15, size * 0.05, 0, Math.PI * 2);
+            ctx.arc(size * 0.2, size * 0.15, size * 0.05, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Nariz pequeña negra
+            ctx.fillStyle = '#0f172a';
+            ctx.beginPath();
+            ctx.arc(0, size * 0.11, size * 0.02, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Boca sonriente (pequeña curva)
+            ctx.strokeStyle = '#0f172a';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(0, size * 0.13, size * 0.05, 0, Math.PI);
+            ctx.stroke();
+
+            // Calavera fucsia clásica de Kuromi en su frente
+            ctx.fillStyle = '#f43f5e';
+            // Cabeza de la calavera
+            ctx.beginPath();
+            ctx.arc(0, -size * 0.15, size * 0.08, 0, Math.PI * 2);
+            ctx.fill();
+            // Mandíbula
+            ctx.fillRect(-size * 0.04, -size * 0.09, size * 0.08, size * 0.04);
+            // Ojos de la calavera (blancos)
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(-size * 0.03, -size * 0.15, size * 0.015, 0, Math.PI * 2);
+            ctx.arc(size * 0.03, -size * 0.15, size * 0.015, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.restore();
         }
     </script>
 </body>
