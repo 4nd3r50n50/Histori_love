@@ -2299,7 +2299,7 @@ Anderson. ❤️</div>
             <div class="retos-cabecera">
                 <span style="font-size: 2.5rem;">🎮</span>
                 <h3>Datsun Run: El Algoritmo del Amor</h3>
-                <p>Ayuda a Anderson a conducir su Datsun 1200, esquivar los Bugs de programación y recolectar elementos que aumentan su amor por Jessie. ¡Consigue 2019 puntos para una gran sorpresa!</p>
+                <p>Ayuda a Anderson a conducir su pequeña Datsun 1200 roja, esquivar los Bugs de programación y recolectar corazones y peluches de Kuromi para Jessie. ¡Consigue 2019 puntos para una gran sorpresa! 😈❤️</p>
                 <div style="font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-top: 4px;">Puntaje Máximo: <span id="game-highscore">0</span></div>
             </div>
             
@@ -2435,7 +2435,7 @@ Anderson. ❤️</div>
             <h3 style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 12px;">Lograron 2019 Puntos</h3>
             
             <p style="font-family: 'Caveat', cursive; font-size: 1.6rem; line-height: 1.4; color: #451a03; margin-bottom: 20px;">
-                "2019: El año en que Anderson y Jessie iniciaron su gran historia de amor (20 de junio de 2019). Su código compiló a la perfección y han superado todos los bugs de la vida. ¡Feliz aniversario de código y corazón!"
+                "2019: El año en que Anderson y Jessie iniciaron su gran historia de amor (20 de junio de 2019). Su código compiló a la perfección, esquivando todos los bugs y juntando todo el amor (¡y peluches de Kuromi!) posibles. ¡Feliz aniversario de código y corazón!"
             </p>
             
             <div class="modal-acciones">
@@ -4109,16 +4109,16 @@ Anderson. ❤️</div>
                 const rand = Math.random();
                 if (rand < 0.5) {
                     this.type = 'heart';
-                    this.emoji = '❤️';
+                    this.emoji = '💖';
                     this.points = 50;
                 } else if (rand < 0.8) {
-                    this.type = 'coffee';
-                    this.emoji = '☕';
-                    this.points = 30;
+                    this.type = 'kuromi_plush';
+                    this.emoji = '😈';
+                    this.points = 80;
                 } else {
-                    this.type = 'diskette';
-                    this.emoji = '💾';
-                    this.points = 100;
+                    this.type = 'kuromi_skull';
+                    this.emoji = '💀';
+                    this.points = 150;
                 }
             }
             
@@ -4314,7 +4314,7 @@ Anderson. ❤️</div>
                     gameScore += col.points;
                     document.getElementById('game-score').innerText = gameScore;
                     
-                    lanzarParticulasRecogida(col.x + col.ancho/2, col.y + col.alto/2, col.type === 'heart' ? '#ec4899' : (col.type === 'coffee' ? '#d97706' : '#60a5fa'));
+                    lanzarParticulasRecogida(col.x + col.ancho/2, col.y + col.alto/2, col.type === 'heart' ? '#ec4899' : (col.type === 'kuromi_plush' ? '#a855f7' : '#db2777'));
                     
                     gameCollectibles.splice(i, 1);
                 }
@@ -4393,10 +4393,13 @@ Anderson. ❤️</div>
             ctx.save();
             ctx.translate(x, y);
 
-            ctx.fillStyle = '#60a5fa'; 
+            // Carrocería color Rojo Datsun clásico
+            ctx.fillStyle = '#dc2626'; 
             
+            // Cajón de carga trasero
             ctx.fillRect(0, alto * 0.45, ancho * 0.55, alto * 0.3);
             
+            // Cabina y capó
             ctx.beginPath();
             ctx.moveTo(ancho * 0.55, alto * 0.75);
             ctx.lineTo(ancho * 0.55, alto * 0.3); 
@@ -4407,10 +4410,12 @@ Anderson. ❤️</div>
             ctx.closePath();
             ctx.fill();
             
+            // Pasos de rueda negros más pequeños
             ctx.fillStyle = '#1e293b'; 
-            ctx.fillRect(ancho * 0.1, alto * 0.72, ancho * 0.22, alto * 0.08);
-            ctx.fillRect(ancho * 0.68, alto * 0.72, ancho * 0.22, alto * 0.08);
+            ctx.fillRect(ancho * 0.12, alto * 0.73, ancho * 0.18, alto * 0.04);
+            ctx.fillRect(ancho * 0.71, alto * 0.73, ancho * 0.18, alto * 0.04);
             
+            // Ventana
             ctx.fillStyle = '#e2e8f0'; 
             ctx.beginPath();
             ctx.moveTo(ancho * 0.58, alto * 0.35);
@@ -4420,55 +4425,94 @@ Anderson. ❤️</div>
             ctx.closePath();
             ctx.fill();
             
-            ctx.strokeStyle = '#2563eb';
-            ctx.lineWidth = 1.5;
+            // Línea de la puerta
+            ctx.strokeStyle = '#7f1d1d';
+            ctx.lineWidth = 1.2;
             ctx.beginPath();
             ctx.moveTo(ancho * 0.58, alto * 0.35);
             ctx.lineTo(ancho * 0.58, alto * 0.75);
             ctx.stroke();
 
+            // Parrilla frontal cromada clásica de la Datsun 1200
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(ancho * 0.88, alto * 0.62);
+            ctx.lineTo(ancho * 0.98, alto * 0.62);
+            ctx.stroke();
+
+            // Moldura lateral cromada clásica
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, alto * 0.53);
+            ctx.lineTo(ancho * 0.88, alto * 0.53);
+            ctx.stroke();
+
+            // Parachoques (Bumper) delantero cromado
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillRect(ancho * 0.92, alto * 0.72, ancho * 0.08, alto * 0.05);
+
+            // Parachoques trasero cromado
+            ctx.fillRect(-ancho * 0.02, alto * 0.72, ancho * 0.06, alto * 0.05);
+
+            // Faro delantero amarillo clásico
             ctx.fillStyle = '#fde047'; 
             ctx.beginPath();
-            ctx.arc(ancho * 0.98, alto * 0.59, 4, 0, Math.PI * 2);
+            ctx.arc(ancho * 0.98, alto * 0.59, 3, 0, Math.PI * 2);
             ctx.fill();
             
+            // Faro trasero rojo
             ctx.fillStyle = '#ef4444';
-            ctx.fillRect(0, alto * 0.48, 3, 8);
+            ctx.fillRect(0, alto * 0.48, 2, 6);
 
+            // Peluche de Kuromi de copiloto en el cajón trasero
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('😈', ancho * 0.28, alto * 0.30);
+
+            // Rueda Trasera (Normal, perfil bajo clásica)
             ctx.save();
-            ctx.translate(ancho * 0.21, alto * 0.75);
+            ctx.translate(ancho * 0.21, alto * 0.77);
             ctx.rotate(rotacionRuedas);
-            dibujarRueda(ctx, 11);
+            dibujarRueda(ctx, 8);
             ctx.restore();
 
+            // Rueda Delantera (Normal, perfil bajo clásica)
             ctx.save();
-            ctx.translate(ancho * 0.8, alto * 0.75);
+            ctx.translate(ancho * 0.8, alto * 0.77);
             ctx.rotate(rotacionRuedas);
-            dibujarRueda(ctx, 11);
+            dibujarRueda(ctx, 8);
             ctx.restore();
 
             ctx.restore();
         }
 
         function dibujarRueda(ctx, radio) {
-            ctx.fillStyle = '#0f172a';
+            // Neumático de perfil normal (no 4x4)
+            ctx.fillStyle = '#1e293b';
             ctx.beginPath();
             ctx.arc(0, 0, radio, 0, Math.PI * 2);
             ctx.fill();
             
-            ctx.fillStyle = '#94a3b8';
+            // Rin de metal/acero gris
+            ctx.fillStyle = '#64748b';
             ctx.beginPath();
-            ctx.arc(0, 0, radio * 0.55, 0, Math.PI * 2);
+            ctx.arc(0, 0, radio * 0.65, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Copas/Tapas de cubo cromadas de fábrica de Datsun
+            ctx.fillStyle = '#cbd5e1';
+            ctx.beginPath();
+            ctx.arc(0, 0, radio * 0.35, 0, Math.PI * 2);
             ctx.fill();
             
-            ctx.strokeStyle = '#475569';
-            ctx.lineWidth = 1.5;
-            for (let i = 0; i < 4; i++) {
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.lineTo(Math.cos(i * Math.PI / 2) * radio * 0.55, Math.sin(i * Math.PI / 2) * radio * 0.55);
-                ctx.stroke();
-            }
+            // Brillo blanco en la copa cromada
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(-radio * 0.1, -radio * 0.1, radio * 0.1, 0, Math.PI * 2);
+            ctx.fill();
         }
     </script>
 </body>
