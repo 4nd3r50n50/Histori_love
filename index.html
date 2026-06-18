@@ -75,6 +75,36 @@
             --text-muted: #57534e;
         }
 
+        body.theme-kuromi {
+            --primary: #a855f7;       /* Púrpura Kuromi */
+            --primary-hover: #9333ea;
+            --primary-light: #f3e8ff;
+            --secondary: #ec4899;     /* Rosa/Fucsia acento */
+            --accent: #f43f5e;        /* Fucsia calavera */
+            --bg-gradient: linear-gradient(135deg, #0f051a 0%, #150924 50%, #000000 100%); /* Fondo gótico oscuro */
+            --glass-bg: rgba(21, 9, 36, 0.65); /* Cristales oscuros morados */
+            --unlocked-bg: rgba(36, 17, 56, 0.75);
+            --glass-border: rgba(168, 85, 247, 0.25);
+            --text-dark: #f8fafc;
+            --text-muted: #d8b4fe;
+        }
+
+        /* Estilos específicos de Kuromi para el sobre y trivia */
+        body.theme-kuromi #modal-trivia .modal-content {
+            background: linear-gradient(135deg, #170b24 0%, #090514 100%) !important;
+            border: 3px solid #a855f7 !important;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4) !important;
+        }
+        body.theme-kuromi #modal-trivia h2 {
+            color: #a855f7 !important;
+        }
+        body.theme-kuromi #modal-trivia .opcion-trivia-label:hover {
+            background: rgba(168, 85, 247, 0.15) !important;
+        }
+        body.theme-kuromi #modal-trivia .opcion-trivia-label input[type="radio"]:checked + span {
+            color: #f43f5e !important;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -788,6 +818,30 @@
         .tema-opcion.noche-estrellada { background: linear-gradient(135deg, #09090b, #1e1b4b); }
         .tema-opcion.bosque-encantado { background: linear-gradient(135deg, #064e3b, #14532d); }
         .tema-opcion.oro-rose { background: linear-gradient(135deg, #fafaf9, #e7e5e4); }
+        .tema-opcion.tema-kuromi-btn { background: linear-gradient(135deg, #1e1b4b, #581c87); }
+
+        /* Pegatina animada flotando en el reproductor de música */
+        .musica-sticker-badge {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            font-size: 0.95rem;
+            background: #ffffff;
+            border: 1.5px solid #ec4899;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 10;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .musica-disco-img.rotando ~ .musica-sticker-badge {
+            animation: palpitacion 1.2s infinite;
+        }
 
         /* --- REPRODUCTOR DE MÚSICA FLOTANTE --- */
         .musica-reproductor {
@@ -1935,7 +1989,8 @@
             transition: var(--transition-smooth);
         }
         body.theme-estrellada .timeline-content,
-        body.theme-bosque .timeline-content {
+        body.theme-bosque .timeline-content,
+        body.theme-kuromi .timeline-content {
             background: rgba(15, 23, 42, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -1946,7 +2001,8 @@
             background: rgba(255, 255, 255, 0.45);
         }
         body.theme-estrellada .timeline-item:hover .timeline-content,
-        body.theme-bosque .timeline-item:hover .timeline-content {
+        body.theme-bosque .timeline-item:hover .timeline-content,
+        body.theme-kuromi .timeline-item:hover .timeline-content {
             background: rgba(15, 23, 42, 0.6);
         }
         .timeline-date {
@@ -1998,11 +2054,13 @@
             border-width: 8px 8px 8px 0;
         }
         body.theme-estrellada .timeline-item.left .timeline-content::before,
-        body.theme-bosque .timeline-item.left .timeline-content::before {
+        body.theme-bosque .timeline-item.left .timeline-content::before,
+        body.theme-kuromi .timeline-item.left .timeline-content::before {
             border-left-color: rgba(15, 23, 42, 0.4);
         }
         body.theme-estrellada .timeline-item.right .timeline-content::before,
-        body.theme-bosque .timeline-item.right .timeline-content::before {
+        body.theme-bosque .timeline-item.right .timeline-content::before,
+        body.theme-kuromi .timeline-item.right .timeline-content::before {
             border-right-color: rgba(15, 23, 42, 0.4);
         }
 
@@ -2020,7 +2078,8 @@
             font-size: 0.85rem;
         }
         body.theme-estrellada .ajustes-song-row,
-        body.theme-bosque .ajustes-song-row {
+        body.theme-bosque .ajustes-song-row,
+        body.theme-kuromi .ajustes-song-row {
             background: rgba(255,255,255,0.05);
         }
         .btn-delete-song {
@@ -2062,7 +2121,9 @@
             body.theme-estrellada .timeline-item.left .timeline-content::before,
             body.theme-estrellada .timeline-item.right .timeline-content::before,
             body.theme-bosque .timeline-item.left .timeline-content::before,
-            body.theme-bosque .timeline-item.right .timeline-content::before {
+            body.theme-bosque .timeline-item.right .timeline-content::before,
+            body.theme-kuromi .timeline-item.left .timeline-content::before,
+            body.theme-kuromi .timeline-item.right .timeline-content::before {
                 border-right-color: rgba(15, 23, 42, 0.4);
             }
             .timeline-item.left .timeline-h3 {
@@ -2102,6 +2163,7 @@
             <button class="tema-opcion noche-estrellada" onclick="cambiarTema('estrellada')" title="Noche Estrellada">🌌</button>
             <button class="tema-opcion bosque-encantado" onclick="cambiarTema('bosque')" title="Bosque Encantado">🌲</button>
             <button class="tema-opcion oro-rose" onclick="cambiarTema('vintage')" title="Oro Rosa Vintage">✨</button>
+            <button class="tema-opcion tema-kuromi-btn" onclick="cambiarTema('kuromi')" title="Kuromi Punk">😈</button>
         </div>
     </div>
 
@@ -2111,6 +2173,8 @@
             <!-- Nota: Puedes cambiar 'imagenes/portada_musica.jpg' por la ruta de tu foto de pareja en la carpeta imagenes -->
             <img src="imagenes/portada_musica.jpg" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop'" class="musica-disco-img" id="musica-disco-girando" alt="Vinyl">
             <div class="musica-disco-centro"></div>
+            <!-- Pegatina de tema dinámica en el vinilo -->
+            <div class="musica-sticker-badge" id="musica-sticker-badge">💖</div>
         </div>
         <div class="musica-info-panel" id="musica-info-panel">
             <div class="musica-detalles">
@@ -2228,7 +2292,7 @@
                 <div class="sobre" id="sobre-postal" onclick="abrirSobre3D()">
                     <div class="sobre-solapa" id="sobre-solapa"></div>
                     <div class="sobre-cuerpo"></div>
-                    <div class="sobre-sello">❤️</div>
+                    <div class="sobre-sello" id="sobre-wax-seal">❤️</div>
                     <div class="sobre-carta-interna" id="sobre-carta-interna">
                         <div class="sobre-carta-cabecera">
                             <span class="carta-fecha" id="carta-fecha-actual">Para Mi Amor</span>
@@ -2718,13 +2782,22 @@ Anderson. ❤️</div>
         // Crear corazones animados flotando en el fondo de manera aleatoria
         function generarDecoraciones() {
             const container = document.getElementById('decoraciones-bg');
+            if (!container) return;
             container.innerHTML = '';
-            const corazones = ['❤️', '💖', '✨', '🌸', '💕'];
+            
+            let simbolos = ['❤️', '💖', '✨', '🌸', '💕'];
+            if (document.body.classList.contains('theme-kuromi')) {
+                simbolos = ['😈', '💀', '🖤', '💖', '✨', '💜'];
+            } else if (document.body.classList.contains('theme-estrellada')) {
+                simbolos = ['⭐', '✨', '🌟', '🌙', '🌌'];
+            } else if (document.body.classList.contains('theme-bosque')) {
+                simbolos = ['🌲', '🌸', '🍃', '🌸', '🍀', '✨'];
+            }
             
             for (let i = 0; i < 15; i++) {
                 const corazon = document.createElement('span');
                 corazon.classList.add('corazon-flotante');
-                corazon.innerText = corazones[Math.floor(Math.random() * corazones.length)];
+                corazon.innerText = simbolos[Math.floor(Math.random() * simbolos.length)];
                 corazon.style.left = Math.random() * 100 + 'vw';
                 corazon.style.animationDelay = Math.random() * 8 + 's';
                 corazon.style.animationDuration = (Math.random() * 6 + 8) + 's';
@@ -3081,11 +3154,13 @@ Anderson. ❤️</div>
         });
 
         function cambiarTema(nombreTema) {
-            document.body.classList.remove('theme-estrellada', 'theme-bosque', 'theme-vintage');
+            document.body.classList.remove('theme-estrellada', 'theme-bosque', 'theme-vintage', 'theme-kuromi');
             if (nombreTema !== 'clasico') {
                 document.body.classList.add(`theme-${nombreTema}`);
             }
             localStorage.setItem('temaActual', nombreTema);
+            actualizarElementosTema(nombreTema);
+            generarDecoraciones();
             toggleMenuTemas();
         }
 
@@ -3093,6 +3168,56 @@ Anderson. ❤️</div>
             const temaGuardado = localStorage.getItem('temaActual') || 'clasico';
             if (temaGuardado !== 'clasico') {
                 document.body.classList.add(`theme-${temaGuardado}`);
+            }
+            // Ejecutamos después de cargar el DOM
+            setTimeout(() => {
+                actualizarElementosTema(temaGuardado);
+                generarDecoraciones();
+            }, 100);
+        }
+
+        function actualizarElementosTema(nombreTema) {
+            const waxSeal = document.getElementById('sobre-wax-seal');
+            const musicBadge = document.getElementById('musica-sticker-badge');
+            
+            // Actualizar Sello de Cera
+            if (waxSeal) {
+                if (nombreTema === 'kuromi') {
+                    waxSeal.innerText = '😈';
+                } else if (nombreTema === 'estrellada') {
+                    waxSeal.innerText = '⭐';
+                } else if (nombreTema === 'bosque') {
+                    waxSeal.innerText = '🌸';
+                } else if (nombreTema === 'vintage') {
+                    waxSeal.innerText = '✨';
+                } else {
+                    waxSeal.innerText = '❤️';
+                }
+            }
+            
+            // Actualizar Pegatina de Reproductor
+            if (musicBadge) {
+                if (nombreTema === 'kuromi') {
+                    musicBadge.innerText = '😈';
+                    musicBadge.style.borderColor = '#a855f7';
+                    musicBadge.style.background = '#170b24';
+                } else if (nombreTema === 'estrellada') {
+                    musicBadge.innerText = '⭐';
+                    musicBadge.style.borderColor = '#fde047';
+                    musicBadge.style.background = '#09090b';
+                } else if (nombreTema === 'bosque') {
+                    musicBadge.innerText = '🍃';
+                    musicBadge.style.borderColor = '#10b981';
+                    musicBadge.style.background = '#064e3b';
+                } else if (nombreTema === 'vintage') {
+                    musicBadge.innerText = '✨';
+                    musicBadge.style.borderColor = '#b45309';
+                    musicBadge.style.background = '#fafaf9';
+                } else {
+                    musicBadge.innerText = '💖';
+                    musicBadge.style.borderColor = '#ec4899';
+                    musicBadge.style.background = '#ffffff';
+                }
             }
         }
 
