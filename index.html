@@ -2370,6 +2370,52 @@
             margin-top: 4px;
             color: #78716c;
         }
+        
+        /* Estilos de edición de descripción en perfiles */
+        .perfil-hobby-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            max-width: 100%;
+        }
+        .btn-editar-perfil {
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0.4;
+            transition: opacity 0.2s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        .btn-editar-perfil:hover {
+            opacity: 1 !important;
+            transform: scale(1.2);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .editando-hobby {
+            outline: 2px solid var(--primary) !important;
+            border-radius: 6px;
+            padding: 2px 6px;
+            background: rgba(255, 255, 255, 0.95) !important;
+            color: #1e1b4b !important;
+            font-style: normal !important;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.3) !important;
+            min-width: 120px;
+            display: inline-block;
+        }
+        body.theme-estrellada .editando-hobby {
+            background: rgba(15, 23, 42, 0.95) !important;
+            color: #f8fafc !important;
+            outline-color: var(--primary) !important;
+        }
+        body.theme-kuromi .editando-hobby {
+            background: rgba(23, 11, 36, 0.95) !important;
+            color: #f8fafc !important;
+        }
     </style>
 </head>
 <body>
@@ -2446,7 +2492,10 @@
                     <div class="perfil-datos">
                         <span class="perfil-nombre" id="nombre-display-andy">Andy</span>
                         <span class="perfil-info" id="info-display-andy">Ing. en Ciencias de la Computación | 28 años</span>
-                        <span class="perfil-hobby" id="hobby-display-andy">Apasionado por la Datsun 1200 pickup y el código</span>
+                        <span class="perfil-hobby-wrapper">
+                            <span class="perfil-hobby" id="hobby-display-andy">Apasionado por la Datsun 1200 pickup y el código</span>
+                            <button class="btn-editar-perfil" onclick="activarEdicionPerfil('andy')" title="Editar descripción">✏️</button>
+                        </span>
                     </div>
                 </div>
                 <div class="perfil-corazon-medio">⚡❤️🎮</div>
@@ -2455,7 +2504,10 @@
                     <div class="perfil-datos" style="align-items: flex-end;">
                         <span class="perfil-nombre" id="nombre-display-jessie">Jessie</span>
                         <span class="perfil-info" id="info-display-jessie">Ing. en Ciencias de la Computación | 26 años</span>
-                        <span class="perfil-hobby" id="hobby-display-jessie">Amante de los videojuegos y la tecnología</span>
+                        <span class="perfil-hobby-wrapper" style="flex-direction: row-reverse;">
+                            <span class="perfil-hobby" id="hobby-display-jessie">Amante de los videojuegos y la tecnología</span>
+                            <button class="btn-editar-perfil" onclick="activarEdicionPerfil('jessie')" title="Editar descripción">✏️</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -3625,6 +3677,56 @@ Andy. ❤️</div>
                 alert("Avatares restablecidos.");
                 cerrarModalAjustes();
             }
+        }
+
+        // Activar la edición rápida inline de la descripción/hobby en la tarjeta de perfil
+        function activarEdicionPerfil(persona) {
+            const display = document.getElementById(`hobby-display-${persona}`);
+            if (!display) return;
+            
+            // Hacerlo editable
+            display.contentEditable = "true";
+            display.classList.add('editando-hobby');
+            display.focus();
+            
+            // Mover el cursor al final del texto
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(display);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            
+            // Guardar al perder foco o presionar enter
+            const guardarCambio = () => {
+                display.contentEditable = "false";
+                display.classList.remove('editando-hobby');
+                
+                const nuevoTexto = display.innerText.trim();
+                if (nuevoTexto) {
+                    const personaCapitalized = persona.charAt(0).toUpperCase() + persona.slice(1);
+                    const perfil = JSON.parse(localStorage.getItem(`perfil${personaCapitalized}`)) || {};
+                    perfil.hobby = nuevoTexto;
+                    localStorage.setItem(`perfil${personaCapitalized}`, JSON.stringify(perfil));
+                    
+                    // Sincronizar con el input del modal de ajustes si existe
+                    const inputAjuste = document.getElementById(`ajuste-perfil-hobby-${persona}`);
+                    if (inputAjuste) inputAjuste.value = nuevoTexto;
+                }
+                
+                display.removeEventListener('blur', guardarCambio);
+                display.removeEventListener('keydown', manejarEnter);
+            };
+            
+            const manejarEnter = (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault(); // Evitar salto de línea
+                    display.blur(); // Disparar evento blur para guardar
+                }
+            };
+            
+            display.addEventListener('blur', guardarCambio);
+            display.addEventListener('keydown', manejarEnter);
         }
 
         // --- LÓGICA DE LA SORPRESA DEL 7MO ANIVERSARIO ---
