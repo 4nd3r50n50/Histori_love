@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Histori Love">
-    <link rel="apple-touch-icon" href="imagenes/kuromi_jessie.png">
+    <link rel="apple-touch-icon" href="imagenes/icono_pareja.png">
     
     <!-- Google Fonts para una tipografía premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2221,6 +2221,8 @@
             position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .modal-aniversario-title {
@@ -3070,6 +3072,8 @@ Andy. ❤️</div>
     <!-- MODAL DE SORPRESA DE 7 AÑOS DE ANIVERSARIO -->
     <div class="modal-overlay" id="modal-aniversario-7">
         <div class="modal-aniversario-content">
+            <!-- Botón de cerrar rápido -->
+            <button class="modal-close-btn" onclick="cerrarSorpresaAniversario()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.8rem; cursor: pointer; color: #ff4d6d; z-index: 10; font-weight: bold;" title="Cerrar Anuncio">×</button>
             <span style="font-size: 3.5rem; display: block; margin-bottom: 5px;">🎉🥂💖</span>
             <h2 class="modal-aniversario-title">¡Feliz 7mo Aniversario!</h2>
             <div class="modal-aniversario-subtitle">Andy & Jessie</div>

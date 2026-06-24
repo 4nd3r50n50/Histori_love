@@ -9,12 +9,12 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "imagenes/pinguino_andy.png",
+      "src": "imagenes/icono_pareja.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "imagenes/kuromi_jessie.png",
+      "src": "imagenes/icono_pareja.png",
       "sizes": "512x512",
       "type": "image/png"
     }
