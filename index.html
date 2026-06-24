@@ -2442,7 +2442,7 @@
             <!-- Perfiles de la Pareja -->
             <div class="perfil-pareja-contenedor">
                 <div class="perfil-tarjeta" id="perfil-tarjeta-andy">
-                    <div class="perfil-avatar-circle" id="avatar-circle-andy">🐧</div>
+                    <div class="perfil-avatar-circle" id="avatar-circle-andy"><img src="imagenes/pinguino_andy.png" alt="Andy"></div>
                     <div class="perfil-datos">
                         <span class="perfil-nombre" id="nombre-display-andy">Andy</span>
                         <span class="perfil-info" id="info-display-andy">Ing. en Ciencias de la Computación | 28 años</span>
@@ -2451,7 +2451,7 @@
                 </div>
                 <div class="perfil-corazon-medio">⚡❤️🎮</div>
                 <div class="perfil-tarjeta" id="perfil-tarjeta-jessie" style="text-align: right; flex-direction: row-reverse;">
-                    <div class="perfil-avatar-circle" id="avatar-circle-jessie">😈</div>
+                    <div class="perfil-avatar-circle" id="avatar-circle-jessie"><img src="imagenes/kuromi_jessie.png" alt="Jessie"></div>
                     <div class="perfil-datos" style="align-items: flex-end;">
                         <span class="perfil-nombre" id="nombre-display-jessie">Jessie</span>
                         <span class="perfil-info" id="info-display-jessie">Ing. en Ciencias de la Computación | 26 años</span>
@@ -2596,7 +2596,7 @@ Andy. ❤️</div>
                 <div style="font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-top: 4px;">Puntaje Máximo: <span id="game-highscore">0</span></div>
             </div>
             
-            <div id="juego-contenedor-canvas" style="position: relative; width: 100%; max-width: 600px; margin: 0 auto; background: #111827; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--primary-light);">
+            <div id="juego-contenedor-canvas" style="position: relative; width: 100%; max-width: 600px; margin: 0 auto; background: #111827; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--primary-light); touch-action: none;">
                 <!-- Marcador en pantalla -->
                 <div style="position: absolute; top: 15px; left: 20px; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
                     Score: <span id="game-score" style="color: #ec4899;">0</span>
@@ -2614,8 +2614,8 @@ Andy. ❤️</div>
             </div>
             
             <!-- Controles en pantalla para móviles -->
-            <div id="game-controls-mobile" style="display: none; justify-content: center; gap: 16px; margin-top: 10px;">
-                <button class="btn btn-primario" onclick="hacerSaltarDatsun()" style="width: 100%; max-width: 250px; padding: 16px; font-size: 1.1rem; border-radius: 40px; box-shadow: var(--shadow-md);">🛻 ¡SALTAR! ⚡</button>
+            <div id="game-controls-mobile" style="display: none; justify-content: center; gap: 16px; margin-top: 10px; touch-action: none;">
+                <button class="btn btn-primario" id="btn-juego-saltar" onclick="hacerSaltarDatsun()" style="width: 100%; max-width: 250px; padding: 16px; font-size: 1.1rem; border-radius: 40px; box-shadow: var(--shadow-md);">🛻 ¡SALTAR! ⚡</button>
             </div>
         </div>
     </div> <!-- Fin de wrapper -->
@@ -3482,7 +3482,7 @@ Andy. ❤️</div>
                 nombre: "Andy",
                 info: "Ing. en Ciencias de la Computación | 28 años",
                 hobby: "Apasionado por la Datsun 1200 pickup y el código",
-                avatar: "" // si está vacío, mostrar emoji 🐧
+                avatar: "" // si está vacío, mostrar imagen de pingüino
             };
 
             // Cargar datos de Jessie
@@ -3490,7 +3490,7 @@ Andy. ❤️</div>
                 nombre: "Jessie",
                 info: "Ing. en Ciencias de la Computación | 26 años",
                 hobby: "Amante de los videojuegos y la tecnología",
-                avatar: "" // si está vacío, mostrar emoji 😈
+                avatar: "" // si está vacío, mostrar imagen de Kuromi
             };
 
             // Renderizar Andy en la UI
@@ -3506,7 +3506,7 @@ Andy. ❤️</div>
                 if (perfilAndy.avatar) {
                     avatarAndy.innerHTML = `<img src="${perfilAndy.avatar}" alt="Andy">`;
                 } else {
-                    avatarAndy.innerHTML = "🐧";
+                    avatarAndy.innerHTML = `<img src="imagenes/pinguino_andy.png" alt="Andy">`;
                 }
             }
 
@@ -3523,7 +3523,7 @@ Andy. ❤️</div>
                 if (perfilJessie.avatar) {
                     avatarJessie.innerHTML = `<img src="${perfilJessie.avatar}" alt="Jessie">`;
                 } else {
-                    avatarJessie.innerHTML = "😈";
+                    avatarJessie.innerHTML = `<img src="imagenes/kuromi_jessie.png" alt="Jessie">`;
                 }
             }
 
@@ -3607,7 +3607,7 @@ Andy. ❤️</div>
         }
 
         function restablecerAvataresDefault() {
-            if (confirm("¿Quieres restablecer los avatares a sus emojis originales (🐧 y 😈)?")) {
+            if (confirm("¿Quieres restablecer los avatares a sus imágenes originales (Pingüino y Kuromi)?")) {
                 const perfilAndy = JSON.parse(localStorage.getItem('perfilAndy')) || {};
                 const perfilJessie = JSON.parse(localStorage.getItem('perfilJessie')) || {};
                 perfilAndy.avatar = "";
@@ -4557,11 +4557,14 @@ Andy. ❤️</div>
         let gameBaseY = 220; 
         let gameStars = [];
         let gameMountains = [];
+        const imgKuromi = new Image();
         
         function inicializarJuego() {
             gameCanvas = document.getElementById('game-canvas');
             if (!gameCanvas) return;
             gameCtx = gameCanvas.getContext('2d');
+            
+            imgKuromi.src = 'imagenes/kuromi_jessie.png';
             
             document.getElementById('game-highscore').innerText = gameHighscore;
             
@@ -4597,7 +4600,17 @@ Andy. ❤️</div>
                     e.preventDefault();
                     hacerSaltarDatsun();
                 }
-            });
+            }, { passive: false });
+
+            const btnSaltar = document.getElementById('btn-juego-saltar');
+            if (btnSaltar) {
+                btnSaltar.addEventListener('touchstart', (e) => {
+                    if (gameIsPlaying) {
+                        e.preventDefault();
+                        hacerSaltarDatsun();
+                    }
+                }, { passive: false });
+            }
         }
 
         function iniciarOReiniciarJuego() {
@@ -4791,7 +4804,12 @@ Andy. ❤️</div>
                 gameCtx.save();
                 const bounce = Math.sin(Date.now() * 0.007 + this.x * 0.05) * 3;
                 if (this.type === 'kuromi') {
-                    dibujarKuromi(gameCtx, this.x + this.ancho / 2, this.y + this.alto / 2 + bounce, 28);
+                    if (imgKuromi.complete && imgKuromi.naturalWidth !== 0) {
+                        const kSize = 30; // Un poco más grande para el coleccionable
+                        gameCtx.drawImage(imgKuromi, this.x + this.ancho / 2 - kSize / 2, this.y + this.alto / 2 + bounce - kSize / 2, kSize, kSize);
+                    } else {
+                        dibujarKuromi(gameCtx, this.x + this.ancho / 2, this.y + this.alto / 2 + bounce, 28);
+                    }
                 } else {
                     gameCtx.font = '22px Arial';
                     gameCtx.textAlign = 'center';
@@ -5130,11 +5148,17 @@ Andy. ❤️</div>
             ctx.fillStyle = '#ef4444';
             ctx.fillRect(0, alto * 0.48, 2, 6);
 
-            // Peluche de Kuromi de copiloto en el cajón trasero
-            ctx.font = '14px Arial';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('😈', ancho * 0.28, alto * 0.30);
+            // Peluche de Kuromi de copiloto en el cajón trasero (imagen)
+            if (imgKuromi.complete && imgKuromi.naturalWidth !== 0) {
+                const kWidth = 18;
+                const kHeight = 18;
+                ctx.drawImage(imgKuromi, ancho * 0.28 - kWidth / 2, alto * 0.30 - kHeight / 2, kWidth, kHeight);
+            } else {
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('😈', ancho * 0.28, alto * 0.30);
+            }
 
             // Rueda Trasera (Normal, perfil bajo clásica)
             ctx.save();
