@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestros Recuerdos | Andy & Jessie ❤️</title>
     
+    <!-- PWA manifest y meta-tags para dispositivos móviles -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ec4899">
+    
+    <!-- Meta-tags para iOS (Apple PWA) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Histori Love">
+    <link rel="apple-touch-icon" href="imagenes/kuromi_jessie.png">
+    
     <!-- Google Fonts para una tipografía premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3425,6 +3435,15 @@ Andy. ❤️</div>
             renderizarHitos();
             inicializarJuego();
             actualizarAnillosHistorias();
+
+            // Registrar Service Worker para PWA
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js')
+                        .then(reg => console.log('PWA Service Worker registrado con éxito', reg))
+                        .catch(err => console.error('Error al registrar Service Worker PWA', err));
+                });
+            }
 
             // Permitir presionar "Enter" para enviar contraseña
             document.getElementById('input-password').addEventListener('keypress', (e) => {

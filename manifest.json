@@ -1,0 +1,22 @@
+{
+  "name": "Nuestra Historia A & J",
+  "short_name": "Histori Love",
+  "description": "Cofre digital de momentos memorables de Andy & Jessie.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff1f2",
+  "theme_color": "#ec4899",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "imagenes/pinguino_andy.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "imagenes/kuromi_jessie.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
