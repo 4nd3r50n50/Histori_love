@@ -2621,7 +2621,210 @@
             font-weight: 500;
             line-height: 1.4;
         }
+
+        /* --- NUEVOS ESTILOS V2.0 --- */
+        /* Mejoras visuales Móvil */
+        @media (max-width: 768px) {
+            .wrapper { margin-top: 10px; padding: 10px; }
+            .musica-reproductor { top: 10px; right: 10px; }
+            .musica-disco-container { width: 50px; height: 50px; }
+            .musica-info-panel { width: 280px; }
+        }
+
+        /* Diario de Amor Widget */
+        .diario-amor-widget {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(219, 39, 119, 0.1));
+            border: 1px dashed var(--primary);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(236,72,153,0.05);
+        }
+        .diario-amor-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+        .diario-amor-text {
+            font-style: italic;
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        /* Fechas Especiales (Countdowns) */
+        .fechas-especiales-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+        .fecha-tarjeta {
+            background: var(--card-bg);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-radius: var(--radius-md);
+            padding: 12px 20px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s;
+        }
+        .fecha-tarjeta:hover { transform: translateY(-3px); }
+        .fecha-icono { font-size: 1.8rem; margin-bottom: 5px; display: block; }
+        .fecha-titulo { font-size: 0.85rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 5px; }
+        .fecha-contador { font-size: 1.4rem; font-weight: bold; color: var(--primary); font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Galería Polaroid Efecto */
+        .foto-tarjeta {
+            background: white !important;
+            padding: 10px 10px 40px 10px !important;
+            border-radius: 2px !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+            position: relative;
+            transition: transform 0.3s, z-index 0.3s !important;
+        }
+        .foto-tarjeta:nth-child(even) { transform: rotate(2deg); }
+        .foto-tarjeta:nth-child(odd) { transform: rotate(-2deg); }
+        .foto-tarjeta:hover { transform: scale(1.05) rotate(0deg); z-index: 10; }
+        .foto-tarjeta img { border-radius: 0 !important; }
+        .foto-fecha-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        /* Mapa de Lugares */
+        #mapa-contenedor {
+            height: 400px;
+            width: 100%;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--primary-light);
+            box-shadow: var(--shadow-md);
+            z-index: 1; /* Para no tapar navs */
+        }
+        .mapa-instrucciones {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #64748b;
+        }
+
+        /* Libro de Mensajes (Cartas) */
+        .cartas-contenedor {
+            position: relative;
+            min-height: 300px;
+        }
+        .cartas-bloqueo {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+        .cartas-bloqueo h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 15px; color: var(--primary-dark); }
+        .pin-input {
+            font-size: 2rem;
+            letter-spacing: 15px;
+            padding: 10px 20px;
+            width: 160px;
+            text-align: center;
+            border: 2px solid var(--primary-light);
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            outline: none;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+        .pin-input:focus { border-color: var(--primary); }
+        
+        .cartas-contenido {
+            display: none; /* Oculto hasta desbloquear */
+        }
+        .carta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .carta-item {
+            background: #fffdf2;
+            border: 1px solid #fde047;
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            box-shadow: 2px 3px 10px rgba(0,0,0,0.08);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .carta-item:hover { transform: translateY(-5px); box-shadow: 2px 8px 15px rgba(0,0,0,0.12); }
+        .carta-item::before {
+            content: "📌";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+        html[data-theme='noche-estrellada'] .carta-item, html[data-theme='kuromi-punk'] .carta-item {
+            background: #1e293b;
+            border-color: var(--primary);
+        }
+        .carta-fecha { font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px; }
+        .carta-autor { font-weight: bold; color: var(--primary); font-size: 0.9rem; }
+        .carta-titulo { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin: 10px 0; }
+        .carta-resumen { font-size: 0.9rem; color: #64748b; font-style: italic; }
+
+        /* Visualizador de Audio Animado */
+        .audio-visualizer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 20px;
+            gap: 3px;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+        .audio-bar {
+            width: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            height: 5px; /* Altura inicial */
+            transition: height 0.1s ease;
+        }
+        .audio-bar.playing {
+            animation: bounceBar 1s infinite alternate ease-in-out;
+        }
+        .audio-bar:nth-child(1) { animation-delay: 0.1s; }
+        .audio-bar:nth-child(2) { animation-delay: 0.4s; }
+        .audio-bar:nth-child(3) { animation-delay: 0.2s; }
+        .audio-bar:nth-child(4) { animation-delay: 0.5s; }
+        .audio-bar:nth-child(5) { animation-delay: 0.3s; }
+        
+        @keyframes bounceBar {
+            0% { height: 5px; }
+            100% { height: 20px; }
+        }
+
     </style>
+    
+    <!-- LIBRERÍAS EXTERNAS -->
+    <!-- Leaflet para el Mapa Interactivo -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
 </head>
 <body>
 
@@ -2657,6 +2860,13 @@
             <div class="musica-detalles">
                 <span class="musica-titulo" id="musica-titulo-cancion">Cargando melodía...</span>
                 <span class="musica-artista" id="musica-artista-cancion">Instrumental</span>
+                <div class="audio-visualizer" id="audio-visualizer">
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                    <div class="audio-bar"></div>
+                </div>
             </div>
             <div class="musica-controles">
                 <button class="btn-musica-control" onclick="anteriorCancion()">⏮️</button>
@@ -2687,9 +2897,17 @@
             <button class="tab-btn" onclick="cambiarPestaña('galeria')" id="btn-tab-galeria">📸 Galería</button>
             <button class="tab-btn" onclick="cambiarPestaña('retos')" id="btn-tab-retos">🎯 Retos</button>
             <button class="tab-btn" onclick="cambiarPestaña('juego')" id="btn-tab-juego">🎮 Juego</button>
+            <button class="tab-btn" onclick="cambiarPestaña('mapa')" id="btn-tab-mapa">🗺️ Mapa</button>
+            <button class="tab-btn" onclick="cambiarPestaña('cartas')" id="btn-tab-cartas">💌 Cartas</button>
         </nav>
 
         <div id="tab-recuerdos" class="tab-content active">
+            <!-- Diario de Amor Widget -->
+            <div class="diario-amor-widget" id="diario-amor-contenedor">
+                <div class="diario-amor-title">Pensamiento del Día</div>
+                <div class="diario-amor-text" id="diario-amor-texto">Cargando mensaje de amor...</div>
+            </div>
+
             <!-- Perfiles de la Pareja -->
             <div class="perfil-pareja-contenedor">
                 <div class="perfil-tarjeta" id="perfil-tarjeta-andy">
@@ -2732,6 +2950,11 @@
                 <button id="btn-reproducir-aniversario-contenedor" class="btn-reproducir-aniversario escondido" onclick="mostrarSorpresaAniversario()">
                     <span>🎁 Sorpresa Especial</span>
                 </button>
+            </div>
+
+            <!-- Fechas Especiales -->
+            <div class="fechas-especiales-container" id="fechas-especiales-container">
+                <!-- Se llenará dinámicamente -->
             </div>
 
         <!-- Barra de Progreso de Desbloqueo -->
@@ -2875,6 +3098,46 @@ Andy. ❤️</div>
                 <button class="btn btn-primario" id="btn-juego-saltar" onclick="hacerSaltarDatsun()" style="width: 100%; max-width: 250px; padding: 16px; font-size: 1.1rem; border-radius: 40px; box-shadow: var(--shadow-md);">🛻 ¡SALTAR! ⚡</button>
             </div>
         </div>
+
+        <!-- PESTAÑA: MAPA DE NUESTROS LUGARES -->
+        <div id="tab-mapa" class="tab-content">
+            <div class="retos-cabecera">
+                <span style="font-size: 2.5rem;">🗺️</span>
+                <h3>Mapa de Nuestra Historia</h3>
+                <p>Haz clic en cualquier parte del mapa para agregar un pin con un recuerdo geográfico especial de ustedes.</p>
+            </div>
+            <div class="mapa-instrucciones">Toca el mapa para agregar un nuevo recuerdo 📍</div>
+            <div id="mapa-contenedor"></div>
+        </div>
+
+        <!-- PESTAÑA: LIBRO DE MENSAJES (CARTAS SECRETAS) -->
+        <div id="tab-cartas" class="tab-content">
+            <div class="cartas-contenedor">
+                <!-- Pantalla de Bloqueo -->
+                <div id="cartas-bloqueo" class="cartas-bloqueo">
+                    <h3>🔐 Cofre de Cartas</h3>
+                    <p style="color: #64748b; margin-bottom: 20px;">Ingresa el PIN secreto para abrir los mensajes.</p>
+                    <input type="password" id="cartas-pin" class="pin-input" maxlength="4" placeholder="••••">
+                    <br>
+                    <button class="btn btn-primario" onclick="verificarPinCartas()">Desbloquear</button>
+                    <p id="cartas-error" style="color: #ef4444; margin-top: 10px; font-weight: bold; display: none;">PIN Incorrecto</p>
+                </div>
+                
+                <!-- Contenido Desbloqueado -->
+                <div id="cartas-contenido" class="cartas-contenido">
+                    <div class="retos-cabecera" style="margin-bottom: 10px;">
+                        <span style="font-size: 2.5rem;">💌</span>
+                        <h3>Mensajes para Siempre</h3>
+                        <p>Este es su espacio seguro para dejarse pequeñas cartas y pensamientos.</p>
+                    </div>
+                    <button class="btn btn-primario" onclick="abrirModalNuevaCarta()" style="margin-bottom: 20px; display: inline-block;">+ Escribir Nueva Carta</button>
+                    <div id="cartas-grid" class="carta-grid">
+                        <!-- Las cartas se cargarán aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div> <!-- Fin de wrapper -->
 
     <!-- MODAL DE CONFIGURACIÓN Y AJUSTES -->
@@ -4524,6 +4787,7 @@ Andy. ❤️</div>
                 musicaReproduciendo = true;
                 document.getElementById('btn-play-pause').innerText = "⏸️";
                 document.getElementById('musica-disco-girando').classList.add('rotando');
+                document.querySelectorAll('.audio-bar').forEach(b => b.classList.add('playing'));
             }).catch(err => {
                 console.log("Interacción requerida por el navegador para reproducir audio:", err);
             });
@@ -4535,6 +4799,7 @@ Andy. ❤️</div>
             musicaReproduciendo = false;
             document.getElementById('btn-play-pause').innerText = "▶️";
             document.getElementById('musica-disco-girando').classList.remove('rotando');
+            document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
         }
         
         function anteriorCancion() {
@@ -4883,7 +5148,7 @@ Andy. ❤️</div>
             
             fotosGaleria.forEach(foto => {
                 const polaroid = document.createElement('div');
-                polaroid.className = 'polaroid-galeria';
+                polaroid.className = 'foto-tarjeta polaroid-galeria';
                 polaroid.onclick = () => abrirLightbox(foto.url, foto.titulo, foto.fecha);
                 
                 polaroid.innerHTML = `
@@ -4891,7 +5156,7 @@ Andy. ❤️</div>
                         <img src="${foto.url}" class="polaroid-galeria-foto" alt="${foto.titulo}" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=400&auto=format&fit=crop'">
                     </div>
                     <span class="polaroid-galeria-caption">${foto.titulo}</span>
-                    <span class="polaroid-galeria-fecha">${foto.fecha}</span>
+                    <span class="foto-fecha-tag">${foto.fecha}</span>
                 `;
                 
                 grid.appendChild(polaroid);
@@ -6058,6 +6323,210 @@ Andy. ❤️</div>
             
             ctx.restore();
         }
+        /* --- LÓGICA V2.0: DIARIO, FECHAS, MAPA, CARTAS --- */
+        
+        // DIARIO DE AMOR
+        const frasesAmor = [
+            "Eres el {;} de mi código 💖",
+            "Mi algoritmo de búsqueda siempre te encuentra a ti.",
+            "Si la belleza fuera un bug, serías un error fatal.",
+            "Eres el CSS que le da estilo a mi HTML vacío.",
+            "A tu lado, el tiempo de compilación no importa.",
+            "Nuestro amor es open-source, pero exclusivo para nosotros.",
+            "Juntos hacemos el mejor framework del mundo.",
+            "Eres mi excepción favorita.",
+            "Ni el mejor servidor puede almacenar todo lo que siento por ti.",
+            "Mi corazón hace ping y el tuyo le da pong."
+        ];
+        function actualizarDiarioAmor() {
+            // Genera una frase "aleatoria" pero consistente por cada día del año
+            const hoy = new Date();
+            const start = new Date(hoy.getFullYear(), 0, 0);
+            const diff = hoy - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            const index = dayOfYear % frasesAmor.length;
+            document.getElementById('diario-amor-texto').innerText = frasesAmor[index];
+        }
+
+        // FECHAS ESPECIALES
+        const fechasImportantes = [
+            { titulo: "Cumple de Andy", mes: 10, dia: 15, icono: "🐧" }, // Ejemplo (octubre 15)
+            { titulo: "Cumple de Jessie", mes: 4, dia: 20, icono: "😈" }, // Ejemplo (abril 20)
+            { titulo: "Aniversario Mensual", mes: 0, dia: 15, icono: "💖" } // 0 = todos los meses
+        ];
+
+        function calcularDiasFaltantes(mes, dia) {
+            const hoy = new Date();
+            let proximaFecha = new Date(hoy.getFullYear(), mes - 1, dia);
+            
+            if (mes === 0) {
+                // Mensual: buscar el próximo mes que tenga este día
+                proximaFecha = new Date(hoy.getFullYear(), hoy.getMonth(), dia);
+                if (hoy.getDate() > dia) {
+                    proximaFecha.setMonth(proximaFecha.getMonth() + 1);
+                }
+            } else if (hoy > proximaFecha) {
+                proximaFecha.setFullYear(hoy.getFullYear() + 1);
+            }
+            
+            const diffTime = Math.abs(proximaFecha - hoy);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        function actualizarFechasEspeciales() {
+            const container = document.getElementById('fechas-especiales-container');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            fechasImportantes.forEach(fecha => {
+                const dias = calcularDiasFaltantes(fecha.mes, fecha.dia);
+                let texto = dias === 0 ? "¡ES HOY!" : dias === 1 ? "Mañana" : `${dias} Días`;
+                
+                const card = document.createElement('div');
+                card.className = 'fecha-tarjeta';
+                card.innerHTML = `
+                    <span class="fecha-icono">${fecha.icono}</span>
+                    <div class="fecha-titulo">${fecha.titulo}</div>
+                    <div class="fecha-contador">${texto}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // MAPA INTERACTIVO (LEAFLET)
+        let miMapa = null;
+        let pinesGuardados = JSON.parse(localStorage.getItem('mapaPines')) || [];
+
+        function inicializarMapa() {
+            if (miMapa !== null) return; // Ya inicializado
+            
+            // Centrado en Ecuador (o latitud/longitud general)
+            miMapa = L.map('mapa-contenedor').setView([-0.180653, -78.467834], 6);
+            
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+            }).addTo(miMapa);
+
+            // Cargar pines guardados
+            pinesGuardados.forEach(p => agregarPinAlMapa(p.lat, p.lng, p.texto));
+
+            // Evento clic para agregar pin
+            miMapa.on('click', function(e) {
+                const texto = prompt("¿Qué recuerdo especial pasó aquí? 💖");
+                if (texto) {
+                    agregarPinAlMapa(e.latlng.lat, e.latlng.lng, texto);
+                    pinesGuardados.push({lat: e.latlng.lat, lng: e.latlng.lng, texto: texto});
+                    localStorage.setItem('mapaPines', JSON.stringify(pinesGuardados));
+                }
+            });
+        }
+
+        function agregarPinAlMapa(lat, lng, texto) {
+            const customIcon = L.divIcon({
+                className: 'custom-pin',
+                html: '<div style="font-size:24px; text-shadow:0 0 5px white;">📍❤️</div>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30]
+            });
+            L.marker([lat, lng], {icon: customIcon}).addTo(miMapa).bindPopup(`<b>Recuerdo:</b><br>${texto}`);
+        }
+
+        // LIBRO DE CARTAS (PIN 2006)
+        let cartasGuardadas = JSON.parse(localStorage.getItem('cartasSecreta')) || [];
+        
+        function verificarPinCartas() {
+            const input = document.getElementById('cartas-pin').value;
+            const error = document.getElementById('cartas-error');
+            
+            if (input === '2006') {
+                document.getElementById('cartas-bloqueo').style.display = 'none';
+                document.getElementById('cartas-contenido').style.display = 'block';
+                document.getElementById('cartas-pin').value = '';
+                error.style.display = 'none';
+                renderizarCartas();
+            } else {
+                error.style.display = 'block';
+            }
+        }
+
+        function abrirModalNuevaCarta() {
+            const autor = prompt("¿Quién escribe? (Andy o Jessie)");
+            if (!autor) return;
+            const titulo = prompt("Título de la carta:");
+            if (!titulo) return;
+            const contenido = prompt("Escribe tu mensaje especial:");
+            if (!contenido) return;
+            
+            const nuevaCarta = {
+                id: Date.now(),
+                autor: autor,
+                titulo: titulo,
+                contenido: btoa(unescape(encodeURIComponent(contenido))), // Ofuscación simple
+                fecha: new Date().toLocaleDateString()
+            };
+            
+            cartasGuardadas.push(nuevaCarta);
+            localStorage.setItem('cartasSecreta', JSON.stringify(cartasGuardadas));
+            renderizarCartas();
+        }
+
+        function renderizarCartas() {
+            const grid = document.getElementById('cartas-grid');
+            grid.innerHTML = '';
+            
+            if (cartasGuardadas.length === 0) {
+                grid.innerHTML = '<p style="color:#94a3b8; font-style:italic;">El cofre está vacío. ¡Escribe la primera carta!</p>';
+                return;
+            }
+            
+            cartasGuardadas.forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'carta-item';
+                
+                let textoDecodificado = "Contenido protegido";
+                try {
+                    textoDecodificado = decodeURIComponent(escape(atob(c.contenido)));
+                } catch(e) {}
+                
+                div.innerHTML = `
+                    <div class="carta-fecha">${c.fecha}</div>
+                    <div class="carta-autor">De: ${c.autor}</div>
+                    <div class="carta-titulo">${c.titulo}</div>
+                    <div class="carta-resumen">"${textoDecodificado.substring(0, 40)}..."</div>
+                `;
+                div.onclick = () => alert(`De: ${c.autor}\n\n${c.titulo}\n\n${textoDecodificado}`);
+                grid.appendChild(div);
+            });
+        }
+
+        // Modificar cambiarPestaña para inicializar mapa si es necesario
+        const originalCambiarPestana = window.cambiarPestaña; // No hay manera sencilla de interceptar sin reescribir, así que lo inyectaré:
+        
+        // INICIALIZACIÓN NUEVA
+        window.addEventListener('DOMContentLoaded', () => {
+            actualizarDiarioAmor();
+            actualizarFechasEspeciales();
+            setInterval(actualizarFechasEspeciales, 1000 * 60 * 60); // Actualizar cada hora
+            
+            // Interceptar clic en tab-mapa
+            document.getElementById('btn-tab-mapa').addEventListener('click', () => {
+                setTimeout(() => {
+                    inicializarMapa();
+                    if(miMapa) miMapa.invalidateSize(); // Refrescar para que Leaflet dibuje bien
+                }, 100);
+            });
+            
+            // Re-vincular tab-cartas para que pida PIN cada vez que se entra
+            document.getElementById('btn-tab-cartas').addEventListener('click', () => {
+                document.getElementById('cartas-bloqueo').style.display = 'block';
+                document.getElementById('cartas-contenido').style.display = 'none';
+                document.getElementById('cartas-pin').value = '';
+                document.getElementById('cartas-error').style.display = 'none';
+            });
+        });
+
     </script>
 </body>
 </html>
