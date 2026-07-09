@@ -209,7 +209,43 @@
             font-weight: 500;
         }
 
-        /* --- PERFILES DE LA PAREJA --- */
+        // Fullscreen API Logic
+        function toggleJuegoPantallaCompleta() {
+            const contenedor = document.getElementById('juego-contenedor-canvas');
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                // Entrar a pantalla completa
+                const requestFS = contenedor.requestFullscreen || contenedor.webkitRequestFullscreen || contenedor.msRequestFullscreen;
+                if (requestFS) {
+                    requestFS.call(contenedor).then(() => {
+                        // Intentar bloquear orientación si está disponible
+                        if (screen.orientation && screen.orientation.lock) {
+                            screen.orientation.lock('landscape').catch(e => console.log('Bloqueo de rotación no soportado', e));
+                        }
+                        // Ajustar estilos para fullscreen
+                        contenedor.style.maxWidth = '100vw';
+                        contenedor.style.height = '100vh';
+                        contenedor.style.borderRadius = '0';
+                        contenedor.style.border = 'none';
+                    }).catch(err => {
+                        console.error(`Error de pantalla completa: ${err.message}`);
+                    });
+                }
+            } else {
+                // Salir de pantalla completa
+                const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+                if (exitFS) {
+                    exitFS.call(document).then(() => {
+                        // Restaurar estilos
+                        contenedor.style.maxWidth = '600px';
+                        contenedor.style.height = 'auto';
+                        contenedor.style.borderRadius = 'var(--radius-md)';
+                        contenedor.style.border = '2px solid var(--primary-light)';
+                    });
+                }
+            }
+        }
+        
+        // --- EVENTOS DEL TECLADO PARA EL JUEGO --- */
         .perfil-pareja-contenedor {
             display: flex;
             justify-content: space-between;
@@ -2174,6 +2210,10 @@
         }
 
         /* Estilos de perfil personalizados */
+        .avatar-wrapper {
+            position: relative;
+            display: inline-block;
+        }
         .perfil-avatar-circle {
             width: 60px;
             height: 60px;
@@ -2193,6 +2233,49 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        .avatar-plus-btn {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 2px solid var(--card-bg);
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Estilos Juego Pantalla Completa */
+        .game-controls-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 20;
+            display: flex;
+            gap: 8px;
+        }
+        .game-btn-icon {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+        .game-btn-icon:hover {
+            background: rgba(236, 72, 153, 0.7);
         }
         
         .escondido {
@@ -2893,7 +2976,19 @@
                 <button class="btn-musica-control play" id="btn-play-pause" onclick="togglePlayMusica()">▶️</button>
                 <button class="btn-musica-control" onclick="siguienteCancion()">⏭️</button>
             </div>
-            <div class="musica-barra-progreso-contenedor" onclick="cambiarTiempoMusica(event)">
+            
+            <!-- BUSCADOR YOUTUBE -->
+            <div style="margin-top: 8px; position: relative; width: 100%;">
+                <div style="display: flex; gap: 4px;">
+                    <input type="text" id="yt-search-input" placeholder="🔍 Buscar en YouTube..." style="flex:1; padding: 6px 8px; border-radius: 4px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-dark); font-size: 0.8rem; font-family: inherit;">
+                    <button onclick="buscarEnYouTube()" style="background: var(--primary); color: white; border: none; border-radius: 4px; padding: 0 10px; cursor: pointer; font-size: 0.8rem; font-weight: bold;">Ir</button>
+                </div>
+                <div id="yt-search-status" style="font-size: 0.7rem; color: #64748b; margin-top: 2px; display: none;">Buscando...</div>
+                <ul id="yt-search-results" style="position: absolute; top: 100%; left: 0; width: 100%; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 4px; display: none; flex-direction: column; max-height: 160px; overflow-y: auto; list-style: none; padding: 0; margin: 2px 0 0 0; z-index: 50; box-shadow: var(--shadow-lg);">
+                </ul>
+            </div>
+            
+            <div class="musica-barra-progreso-contenedor" onclick="cambiarTiempoMusica(event)" style="margin-top: 8px;">
                 <div class="musica-barra-progreso" id="musica-progreso"></div>
             </div>
             <div class="musica-volumen-contenedor">
@@ -2902,7 +2997,7 @@
                 <span>🔊</span>
             </div>
         </div>
-        <audio id="audio-elemento" loop></audio>
+        <div id="youtube-player" style="display: none; position: absolute;"></div>
     </div>
 
     <div class="wrapper">
@@ -2931,7 +3026,10 @@
             <!-- Perfiles de la Pareja -->
             <div class="perfil-pareja-contenedor">
                 <div class="perfil-tarjeta" id="perfil-tarjeta-andy">
-                    <div class="perfil-avatar-circle" id="avatar-circle-andy" onclick="clicAvatar('andy')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/pinguino_andy.png" alt="Andy"></div>
+                    <div class="avatar-wrapper">
+                        <div class="perfil-avatar-circle" id="avatar-circle-andy" onclick="clicAvatar('andy')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/pinguino_andy.png" alt="Andy"></div>
+                        <div class="avatar-plus-btn" onclick="abrirModalRapidoHistoria('andy', event)" title="Añadir nuevo estado">+</div>
+                    </div>
                     <div class="perfil-datos">
                         <span class="perfil-nombre" id="nombre-display-andy">Andy</span>
                         <span class="perfil-info" id="info-display-andy">Ing. en Ciencias de la Computación | 28 años</span>
@@ -2943,7 +3041,10 @@
                 </div>
                 <div class="perfil-corazon-medio">⚡❤️🎮</div>
                 <div class="perfil-tarjeta" id="perfil-tarjeta-jessie" style="text-align: right; flex-direction: row-reverse;">
-                    <div class="perfil-avatar-circle" id="avatar-circle-jessie" onclick="clicAvatar('jessie')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/kuromi_jessie.png" alt="Jessie"></div>
+                    <div class="avatar-wrapper">
+                        <div class="perfil-avatar-circle" id="avatar-circle-jessie" onclick="clicAvatar('jessie')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/kuromi_jessie.png" alt="Jessie"></div>
+                        <div class="avatar-plus-btn" onclick="abrirModalRapidoHistoria('jessie', event)" title="Añadir nuevo estado">+</div>
+                    </div>
                     <div class="perfil-datos" style="align-items: flex-end;">
                         <span class="perfil-nombre" id="nombre-display-jessie">Jessie</span>
                         <span class="perfil-info" id="info-display-jessie">Ing. en Ciencias de la Computación | 26 años</span>
@@ -3094,7 +3195,13 @@ Andy. ❤️</div>
                 <div style="font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-top: 4px;">Puntaje Máximo: <span id="game-highscore">0</span></div>
             </div>
             
-            <div id="juego-contenedor-canvas" style="position: relative; width: 100%; max-width: 600px; margin: 0 auto; background: #111827; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--primary-light); touch-action: none;">
+            <div id="juego-contenedor-canvas" style="position: relative; width: 100%; max-width: 600px; margin: 0 auto; background: #111827; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--primary-light); touch-action: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                
+                <!-- Botones de Overlay del juego -->
+                <div class="game-controls-overlay">
+                    <button class="game-btn-icon" onclick="toggleJuegoPantallaCompleta()" title="Pantalla Completa">⛶</button>
+                </div>
+
                 <!-- Marcador en pantalla -->
                 <div style="position: absolute; top: 15px; left: 20px; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
                     Score: <span id="game-score" style="color: #ec4899;">0</span>
@@ -3103,17 +3210,17 @@ Andy. ❤️</div>
                 <!-- Pantalla de inicio/fin del juego overlay -->
                 <div id="game-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 15; color: white; padding: 20px; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif;">
                     <span id="game-overlay-icon" style="font-size: 3rem; margin-bottom: 10px; animation: palpitacion 1.5s infinite;">🛻</span>
-                    <h2 id="game-overlay-title" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 10px; color: var(--primary);">Datsun Run</h2>
-                    <p id="game-overlay-text" style="font-size: 0.9rem; max-width: 320px; color: #94a3b8; margin-bottom: 20px;">Usa la tecla ESPACIO o Flecha Arriba en PC, o pulsa la pantalla en celular para saltar.</p>
-                    <button class="btn btn-primario" id="btn-juego-play" onclick="iniciarOReiniciarJuego()" style="min-width: 160px;">Jugar 🎮</button>
+                    <h2 id="game-overlay-title" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; color: var(--primary);">Datsun Run</h2>
+                    <p id="game-overlay-text" style="font-size: 0.9rem; max-width: 380px; color: #cbd5e1; margin-bottom: 15px; line-height: 1.4;">
+                        <strong>Toca o presiona ESPACIO para saltar.</strong><br>
+                        ✅ Atrapa <span style="color:#ec4899">Corazones</span> y <span style="color:#a855f7">Kuromi</span> (+Puntos)<br>
+                        ❌ Esquiva los <span style="color:#ef4444">Bugs</span> (Pierdes)
+                    </p>
+                    <button class="btn btn-primario" id="btn-juego-play" onclick="iniciarOReiniciarJuego()" style="min-width: 160px; padding: 12px 24px; font-size: 1.1rem;">Jugar Ahora 🎮</button>
+                    <button class="btn btn-secundario" onclick="toggleJuegoPantallaCompleta()" style="margin-top: 10px; padding: 8px 16px; font-size: 0.9rem;">📱 Jugar en Pantalla Completa</button>
                 </div>
                 
-                <canvas id="game-canvas" width="600" height="300" style="display: block; width: 100%; height: auto;"></canvas>
-            </div>
-            
-            <!-- Controles en pantalla para móviles -->
-            <div id="game-controls-mobile" style="display: none; justify-content: center; gap: 16px; margin-top: 10px; touch-action: none;">
-                <button class="btn btn-primario" id="btn-juego-saltar" onclick="hacerSaltarDatsun()" style="width: 100%; max-width: 250px; padding: 16px; font-size: 1.1rem; border-radius: 40px; box-shadow: var(--shadow-md);">🛻 ¡SALTAR! ⚡</button>
+                <canvas id="game-canvas" width="600" height="300" style="display: block; width: 100%; height: auto; object-fit: contain; max-height: 100vh;"></canvas>
             </div>
         </div>
 
@@ -3522,6 +3629,29 @@ Andy. ❤️</div>
         </div>
     </div>
 
+    <!-- MODAL RÁPIDO PARA CREAR HISTORIA (ESTILO WHATSAPP) -->
+    <div class="modal-overlay" id="modal-rapido-historia">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <h3 style="margin-bottom: 15px;">Añadir a mi estado</h3>
+            <input type="hidden" id="rapido-historia-autor">
+            <div style="display: flex; flex-direction: column; gap: 12px; align-items: center;">
+                <label for="rapido-historia-foto" class="btn btn-secundario" style="width: 100%; text-align: center; cursor: pointer; padding: 15px;">
+                    📷 Tomar/Subir Foto
+                </label>
+                <input type="file" id="rapido-historia-foto" accept="image/*" style="display: none;" onchange="previsualizarHistoriaRapida(this)">
+                
+                <img id="rapido-historia-preview" style="max-width: 100%; max-height: 200px; border-radius: var(--radius-sm); display: none; margin: 10px 0;">
+                
+                <input type="text" id="rapido-historia-texto" class="input-contrasena" placeholder="Añade un comentario..." style="width: 100%; padding: 10px;">
+                
+                <div style="display: flex; gap: 10px; width: 100%; margin-top: 10px;">
+                    <button class="btn btn-secundario" onclick="cerrarModalRapidoHistoria()" style="flex: 1;">Cancelar</button>
+                    <button class="btn btn-primario" onclick="guardarHistoriaRapida()" style="flex: 1;">Compartir 🚀</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- VISOR DE HISTORIAS ESTILO WHATSAPP (MODAL FULLSCREEN) -->
     <div class="modal-overlay" id="modal-historias" style="z-index: 1000; background: rgba(0,0,0,0.95);">
         <div class="story-viewer-container" onclick="event.stopPropagation()">
@@ -3658,19 +3788,19 @@ Andy. ❤️</div>
         let listaCanciones = [];
         const listaCancionesPorDefecto = [
             {
-                titulo: "Melodía de Amor (Piano)",
-                artista: "SoundHelix Piano Loop",
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                titulo: "Chicha Ecuatoriana Mix",
+                artista: "YouTube Search",
+                videoId: "cM9w6bY4Z0A" // ID de un mix popular de chicha
             },
             {
-                titulo: "Ensueño Acústico",
-                artista: "SoundHelix Guitar",
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+                titulo: "Corazón Enamorado",
+                artista: "Mix Romántico",
+                videoId: "Qd3wKItLofM"
             },
             {
-                titulo: "Brisa Romántica",
-                artista: "SoundHelix Synth",
-                url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+                titulo: "Lofi Hip Hop (Relajante)",
+                artista: "Lofi Girl",
+                videoId: "jfKfPfyJRdk"
             }
         ];
 
@@ -4744,7 +4874,12 @@ Andy. ❤️</div>
             }
         }
 
-        // --- LÓGICA DEL REPRODUCTOR DE MÚSICA ---
+        // --- LÓGICA DEL REPRODUCTOR DE MÚSICA (YOUTUBE API) ---
+        let ytPlayer = null;
+        let ytPlayerListo = false;
+        let indiceCancionActual = 0;
+        let musicaReproduciendo = false;
+        
         function cargarPlaylist() {
             const guardado = JSON.parse(localStorage.getItem('playlistPersonalizada'));
             if (guardado && guardado.length > 0) {
@@ -4754,75 +4889,120 @@ Andy. ❤️</div>
             }
         }
         
-        let indiceCancionActual = 0;
-        let musicaReproduciendo = false;
-        let audio = null;
-        
         function inicializarAudio() {
-            audio = document.getElementById('audio-elemento');
-            cargarCancion(indiceCancionActual);
-            
-            audio.addEventListener('timeupdate', actualizarProgresoMusica);
-            audio.addEventListener('ended', siguienteCancion);
-            
-            const volGuardado = localStorage.getItem('musicaVolumen') || 0.5;
-            audio.volume = parseFloat(volGuardado);
-            document.getElementById('musica-volumen').value = volGuardado;
-        }
-        
-        function cargarCancion(indice) {
-            if (!audio) return;
-            const cancion = listaCanciones[indice];
-            audio.src = cancion.url;
-            document.getElementById('musica-titulo-cancion').innerText = cancion.titulo;
-            document.getElementById('musica-artista-cancion').innerText = cancion.artista;
-        }
-        
-        function togglePlayMusica() {
-            if (musicaReproduciendo) {
-                pausarMusica();
-            } else {
-                reproducirMusica();
+            // La inicialización real del audio la hace la API de YouTube al cargar
+            // Cargamos el script de la API si no existe
+            if (!document.getElementById('yt-api-script')) {
+                const tag = document.createElement('script');
+                tag.id = 'yt-api-script';
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             }
         }
-        
-        function reproducirMusica() {
-            if (!audio) return;
-            audio.play().then(() => {
+
+        // Esta función es llamada automáticamente por la API de YT cuando descarga su script
+        function onYouTubeIframeAPIReady() {
+            const cancionActual = listaCanciones[indiceCancionActual] || listaCancionesPorDefecto[0];
+            ytPlayer = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: cancionActual.videoId,
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'rel': 0,
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            ytPlayerListo = true;
+            const volGuardado = localStorage.getItem('musicaVolumen') || 0.5;
+            ytPlayer.setVolume(parseFloat(volGuardado) * 100);
+            document.getElementById('musica-volumen').value = volGuardado;
+            
+            cargarInfoCancionUI(indiceCancionActual);
+            
+            setInterval(actualizarProgresoMusica, 1000);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
                 musicaReproduciendo = true;
                 document.getElementById('btn-play-pause').innerText = "⏸️";
                 document.getElementById('musica-disco-girando').classList.add('rotando');
                 document.querySelectorAll('.audio-bar').forEach(b => b.classList.add('playing'));
-            }).catch(err => {
-                console.log("Interacción requerida por el navegador para reproducir audio:", err);
-            });
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                musicaReproduciendo = false;
+                document.getElementById('btn-play-pause').innerText = "▶️";
+                document.getElementById('musica-disco-girando').classList.remove('rotando');
+                document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
+                
+                if (event.data === YT.PlayerState.ENDED) {
+                    siguienteCancion();
+                }
+            }
+        }
+
+        function onPlayerError(event) {
+            console.error("Error en YouTube Player:", event.data);
+            siguienteCancion();
+        }
+
+        function cargarInfoCancionUI(indice) {
+            const cancion = listaCanciones[indice];
+            if(cancion) {
+                document.getElementById('musica-titulo-cancion').innerText = cancion.titulo;
+                document.getElementById('musica-artista-cancion').innerText = cancion.artista;
+            }
+        }
+
+        function cargarCancionYT(indice) {
+            if (!ytPlayerListo) return;
+            const cancion = listaCanciones[indice];
+            cargarInfoCancionUI(indice);
+            ytPlayer.loadVideoById(cancion.videoId);
+            if (!musicaReproduciendo) {
+                // Si estaba pausado, solo cue (cargar sin reproducir)
+                ytPlayer.cueVideoById(cancion.videoId);
+            }
         }
         
-        function pausarMusica() {
-            if (!audio) return;
-            audio.pause();
-            musicaReproduciendo = false;
-            document.getElementById('btn-play-pause').innerText = "▶️";
-            document.getElementById('musica-disco-girando').classList.remove('rotando');
-            document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
+        function togglePlayMusica() {
+            if (!ytPlayerListo) return;
+            if (musicaReproduciendo) {
+                ytPlayer.pauseVideo();
+            } else {
+                ytPlayer.playVideo();
+            }
         }
         
         function anteriorCancion() {
+            if (!ytPlayerListo) return;
             indiceCancionActual = (indiceCancionActual - 1 + listaCanciones.length) % listaCanciones.length;
-            cargarCancion(indiceCancionActual);
-            if (musicaReproduciendo) reproducirMusica();
+            cargarCancionYT(indiceCancionActual);
         }
         
         function siguienteCancion() {
+            if (!ytPlayerListo) return;
             indiceCancionActual = (indiceCancionActual + 1) % listaCanciones.length;
-            cargarCancion(indiceCancionActual);
-            if (musicaReproduciendo) reproducirMusica();
+            cargarCancionYT(indiceCancionActual);
         }
         
         function actualizarProgresoMusica() {
-            if (!audio) return;
-            const { duration, currentTime } = audio;
-            if (duration) {
+            if (!ytPlayerListo || !musicaReproduciendo) return;
+            const duration = ytPlayer.getDuration();
+            const currentTime = ytPlayer.getCurrentTime();
+            if (duration > 0) {
                 const porcentaje = (currentTime / duration) * 100;
                 document.getElementById('musica-progreso').style.width = `${porcentaje}%`;
             }
@@ -6509,10 +6689,87 @@ Andy. ❤️</div>
         // Modificar cambiarPestaña para inicializar mapa si es necesario
         const originalCambiarPestana = window.cambiarPestaña; // No hay manera sencilla de interceptar sin reescribir, así que lo inyectaré:
         
-        // INICIALIZACIÓN NUEVA
+        // --- HISTORIAS: WHATSAPP STYLE & 24H EXPIRATION ---
+        
+        function abrirModalRapidoHistoria(autor, event) {
+            if (event) event.stopPropagation(); // Evitar que abra el visor de historias
+            document.getElementById('rapido-historia-autor').value = autor;
+            document.getElementById('rapido-historia-foto').value = '';
+            document.getElementById('rapido-historia-texto').value = '';
+            document.getElementById('rapido-historia-preview').style.display = 'none';
+            document.getElementById('modal-rapido-historia').classList.add('active');
+        }
+
+        function cerrarModalRapidoHistoria() {
+            document.getElementById('modal-rapido-historia').classList.remove('active');
+        }
+
+        let base64HistoriaTemp = "";
+        function previsualizarHistoriaRapida(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                compressAndSave(file, (base64) => {
+                    base64HistoriaTemp = base64;
+                    const preview = document.getElementById('rapido-historia-preview');
+                    preview.src = base64;
+                    preview.style.display = 'block';
+                });
+            }
+        }
+
+        function guardarHistoriaRapida() {
+            const autor = document.getElementById('rapido-historia-autor').value;
+            const texto = document.getElementById('rapido-historia-texto').value;
+            
+            if (!base64HistoriaTemp && !texto) {
+                alert("Debes subir una foto o escribir algo.");
+                return;
+            }
+            
+            const nuevaHistoria = {
+                id: Date.now(),
+                tipo: base64HistoriaTemp ? 'foto' : 'texto',
+                contenido: base64HistoriaTemp || texto,
+                caption: base64HistoriaTemp ? texto : "",
+                bgColor: "#ec4899", // Por defecto
+                fechaStr: new Date().toLocaleDateString()
+            };
+            
+            const key = autor === 'andy' ? 'historiasAndy' : 'historiasJessie';
+            const historias = JSON.parse(localStorage.getItem(key)) || [];
+            historias.push(nuevaHistoria);
+            localStorage.setItem(key, JSON.stringify(historias));
+            
+            cerrarModalRapidoHistoria();
+            verificarArosHistorias(); // Función ya existente que pone el aro brillante
+            
+            // Lanza confeti para celebrar que subió su estado
+            lanzarConfeti();
+        }
+
+        function limpiarHistorias24h() {
+            const ahora = Date.now();
+            const unDia = 24 * 60 * 60 * 1000;
+            
+            ['historiasAndy', 'historiasJessie'].forEach(key => {
+                let historias = JSON.parse(localStorage.getItem(key)) || [];
+                const lenOriginal = historias.length;
+                
+                // Filtrar solo las que tengan menos de 24 horas
+                historias = historias.filter(h => (ahora - h.id) < unDia);
+                
+                if (historias.length < lenOriginal) {
+                    localStorage.setItem(key, JSON.stringify(historias));
+                }
+            });
+            verificarArosHistorias();
+        }
+
+        // INICIALIZACIÓN NUEVA (Modificada)
         window.addEventListener('DOMContentLoaded', () => {
             actualizarDiarioAmor();
             actualizarFechasEspeciales();
+            limpiarHistorias24h(); // Llama a la limpieza de 24h
             setInterval(actualizarFechasEspeciales, 1000 * 60 * 60); // Actualizar cada hora
             
             // Interceptar clic en tab-mapa
