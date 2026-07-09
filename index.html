@@ -2967,9 +2967,7 @@
                     <div class="reloj-segmento"><span class="num" id="reloj-minutos">00</span><span class="label">Min</span></div>
                     <div class="reloj-segmento"><span class="num" id="reloj-segundos">00</span><span class="label">Seg</span></div>
                 </div>
-                <button id="btn-reproducir-aniversario-contenedor" class="btn-reproducir-aniversario escondido" onclick="mostrarSorpresaAniversario()">
-                    <span>🎁 Sorpresa Especial</span>
-                </button>
+
             </div>
 
             <!-- Fechas Especiales -->
@@ -4104,20 +4102,7 @@ Andy. ❤️</div>
             document.getElementById('reloj-minutos').innerText = String(minutos).padStart(2, '0');
             document.getElementById('reloj-segundos').innerText = String(segundos).padStart(2, '0');
 
-            // Control de Sorpresa de 7 Años
-            const urlParams = new URLSearchParams(window.location.search);
-            const esTest = urlParams.get('testAniv') === '7';
-            if (anos >= 7 || esTest) {
-                const btnReplay = document.getElementById('btn-reproducir-aniversario-contenedor');
-                if (btnReplay) btnReplay.classList.remove('escondido');
-                
-                if (sessionStorage.getItem('aniversario7Mostrado') !== 'true') {
-                    sessionStorage.setItem('aniversario7Mostrado', 'true');
-                    setTimeout(() => {
-                        mostrarSorpresaAniversario();
-                    }, 2000);
-                }
-            }
+            // El Control de Sorpresa de 7 Años ha sido removido porque ya pasó la fecha.
         }
 
         // --- FUNCIONES PARA PERFILES PERSONALIZABLES ---
