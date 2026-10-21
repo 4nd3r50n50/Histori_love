@@ -3077,6 +3077,340 @@
             color: #64748b;
         }
 
+        /* --- RADAR DE CONEXIÓN EN EL MAPA --- */
+        .radar-distancia-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+        .radar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .radar-titulo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .radar-icono {
+            font-size: 1.8rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(236, 72, 153, 0.1);
+        }
+        .radar-titulo {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        .radar-subtitulo {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .radar-distancia-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .radar-detalles {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin: 12px 0;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .radar-acciones {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-radar {
+            flex: 1;
+            min-width: 140px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--glass-border);
+            color: var(--text-dark);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-radar:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* --- MÓDULO DE CUIDADO & SALUD DIARIA --- */
+        .salud-bienestar-container {
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin: 25px 0;
+            box-shadow: var(--shadow-sm);
+        }
+        .salud-cabecera {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .salud-titulo-grupo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .salud-icono {
+            font-size: 1.8rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(16, 185, 129, 0.12);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .salud-cabecera h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        .salud-cabecera p {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .btn-ver-historial-salud {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-dark);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .btn-ver-historial-salud:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .salud-selector-persona {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .salud-persona-btn {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.4);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .salud-persona-btn.active {
+            background: #fff;
+            color: var(--text-dark);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+        .salud-grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+        }
+        .salud-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            transition: var(--transition-smooth);
+        }
+        .salud-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .salud-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .salud-card-icon {
+            font-size: 1.5rem;
+        }
+        .salud-card-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+        .salud-card-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .salud-card-counter {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+        .salud-card-meta {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin: 10px 0;
+            min-height: 20px;
+        }
+        .salud-barra-progreso-bg {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .salud-barra-progreso-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #38bdf8, #0284c7);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+        .salud-btn-accion {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 9px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .salud-btn-accion:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .salud-aviso-cuidado {
+            margin-top: 14px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #065f46;
+            font-size: 0.82rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Modal Historial de Salud */
+        .modal-historial-salud-content {
+            background: #fff;
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 520px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .historial-item-salud {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.88rem;
+        }
+        .historial-item-salud:last-child {
+            border-bottom: none;
+        }
+
+        /* Adaptabilidad para temas oscuros */
+        body.theme-kuromi .salud-card,
+        body.theme-estrellada .salud-card,
+        body.theme-bosque .salud-card {
+            background: rgba(15, 23, 42, 0.65) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        body.theme-kuromi .salud-persona-btn.active,
+        body.theme-estrellada .salud-persona-btn.active,
+        body.theme-bosque .salud-persona-btn.active {
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: #fff !important;
+        }
+        body.theme-kuromi .salud-btn-accion,
+        body.theme-estrellada .salud-btn-accion,
+        body.theme-bosque .salud-btn-accion {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+            border-color: rgba(255, 255, 255, 0.15) !important;
+        }
+        body.theme-kuromi .modal-historial-salud-content,
+        body.theme-estrellada .modal-historial-salud-content {
+            background: #0f172a !important;
+            color: #f8fafc !important;
+        }
+
         /* Libro de Mensajes (Cartas) */
         .cartas-contenedor {
             position: relative;
@@ -3338,6 +3672,93 @@
                 <!-- Se llenará dinámicamente -->
             </div>
 
+            <!-- MÓDULO DE CUIDADO Y SALUD MUTUA -->
+            <div class="salud-bienestar-container" id="salud-bienestar-seccion">
+                <div class="salud-cabecera">
+                    <div class="salud-titulo-grupo">
+                        <span class="salud-icono">🌿</span>
+                        <div>
+                            <h3>Cuidado & Bienestar Mutuo</h3>
+                            <p>Nuestros hábitos diarios para cuidarnos y estar siempre saludables</p>
+                        </div>
+                    </div>
+                    <button class="btn-ver-historial-salud" onclick="abrirModalHistorialSalud()">
+                        📋 Ver Historial
+                    </button>
+                </div>
+
+                <!-- Selector de Persona -->
+                <div class="salud-selector-persona">
+                    <button class="salud-persona-btn active" id="btn-salud-andy" onclick="seleccionarPersonaSalud('andy')">
+                        <span>🐧</span> Andy
+                    </button>
+                    <button class="salud-persona-btn" id="btn-salud-jessie" onclick="seleccionarPersonaSalud('jessie')">
+                        <span>😈</span> Jessie
+                    </button>
+                </div>
+
+                <!-- Tarjetas de Registro Diario -->
+                <div class="salud-grid-cards">
+                    <!-- 1. Baño / Salud Renal y Digestiva -->
+                    <div class="salud-card">
+                        <div class="salud-card-header">
+                            <div>
+                                <div class="salud-card-title">🚽 Salud & Baño</div>
+                                <div class="salud-card-sub">Visitas registradas hoy</div>
+                            </div>
+                            <div class="salud-card-counter" id="contador-bano-hoy">0</div>
+                        </div>
+                        <div class="salud-card-meta" id="salud-bano-meta">
+                            Sin registros hoy
+                        </div>
+                        <button class="salud-btn-accion" onclick="registrarHabitoSalud('bano')">
+                            + Registrar Visita
+                        </button>
+                    </div>
+
+                    <!-- 2. Hidratación / Agua -->
+                    <div class="salud-card">
+                        <div class="salud-card-header">
+                            <div>
+                                <div class="salud-card-title">💧 Hidratación</div>
+                                <div class="salud-card-sub">Meta recomendada: 8 vasos</div>
+                            </div>
+                            <div class="salud-card-counter" id="contador-agua-hoy">0 <small style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">/ 8</small></div>
+                        </div>
+                        <div class="salud-card-meta">
+                            <div class="salud-barra-progreso-bg">
+                                <div class="salud-barra-progreso-fill" id="salud-agua-barra" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        <button class="salud-btn-accion" onclick="registrarHabitoSalud('agua')">
+                            + 1 Vaso de Agua
+                        </button>
+                    </div>
+
+                    <!-- 3. Caminata & Pausas Activas -->
+                    <div class="salud-card">
+                        <div class="salud-card-header">
+                            <div>
+                                <div class="salud-card-title">🚶 Caminata & Movimiento</div>
+                                <div class="salud-card-sub">Pausas activas y paseos</div>
+                            </div>
+                            <div class="salud-card-counter" id="contador-caminata-hoy">0 <small style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">min</small></div>
+                        </div>
+                        <div class="salud-card-meta" id="salud-caminata-meta">
+                            Cuidando el cuerpo y la mente
+                        </div>
+                        <button class="salud-btn-accion" onclick="registrarHabitoSalud('caminata')">
+                            + Registrar Caminata
+                        </button>
+                    </div>
+                </div>
+
+                <div class="salud-aviso-cuidado" id="salud-mensaje-cuidado">
+                    <span>💡</span>
+                    <span id="salud-texto-consejo">Cuidar de tu cuerpo hoy es asegurar muchos años más juntos con salud y plenitud.</span>
+                </div>
+            </div>
+
         <!-- Barra de Progreso de Desbloqueo -->
         <div class="progreso-contenedor">
             <div class="progreso-info">
@@ -3491,9 +3912,38 @@ Andy. ❤️</div>
             <div class="retos-cabecera">
                 <span style="font-size: 2.5rem;">🗺️</span>
                 <h3>Mapa de Nuestra Historia</h3>
-                <p>Haz clic en cualquier parte del mapa para agregar un pin con un recuerdo geográfico especial de ustedes.</p>
+                <p>Nuestros lugares compartidos y la distancia que nos une en todo momento.</p>
             </div>
-            <div class="mapa-instrucciones">Toca el mapa para agregar un nuevo recuerdo 📍</div>
+
+            <!-- RADAR DE CONEXIÓN ENTRE ANDY Y JESSIE -->
+            <div class="radar-distancia-card" id="radar-distancia-panel">
+                <div class="radar-header">
+                    <div class="radar-titulo-wrap">
+                        <span class="radar-icono">📡</span>
+                        <div>
+                            <h4 class="radar-titulo">Radar de Conexión</h4>
+                            <p class="radar-subtitulo">Distancia en tiempo real entre ustedes</p>
+                        </div>
+                    </div>
+                    <div class="radar-distancia-badge" id="radar-km-badge">
+                        <span id="radar-km-valor">--</span>
+                    </div>
+                </div>
+                <div class="radar-detalles" id="radar-info-texto">
+                    <span>📍 Ubicaciones registradas en el mapa</span>
+                    <span id="radar-tiempo-estimado" style="font-weight: 600;">Calculando distancia...</span>
+                </div>
+                <div class="radar-acciones">
+                    <button class="btn-radar" onclick="actualizarUbicacionRadar('andy')">
+                        <span>🐧</span> Actualizar Ubicación de Andy
+                    </button>
+                    <button class="btn-radar" onclick="actualizarUbicacionRadar('jessie')">
+                        <span>😈</span> Actualizar Ubicación de Jessie
+                    </button>
+                </div>
+            </div>
+
+            <div class="mapa-instrucciones">Toca el mapa para agregar un nuevo recuerdo especial 📍</div>
             <div id="mapa-contenedor"></div>
         </div>
 
@@ -3877,6 +4327,38 @@ Andy. ❤️</div>
             
             <div class="modal-acciones">
                 <button class="btn btn-primario" onclick="cerrarHitoJuego()">Continuar Jugando 🎮</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL HISTORIAL DE CUIDADO Y SALUD -->
+    <div class="modal-overlay" id="modal-historial-salud">
+        <div class="modal-historial-salud-content">
+            <button class="modal-close-btn" onclick="cerrarModalHistorialSalud()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.6rem; cursor: pointer; color: var(--text-dark);" title="Cerrar">&times;</button>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <span style="font-size: 1.8rem;">🌿</span>
+                <div>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 0; color: var(--text-dark);">Historial de Bienestar</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin: 2px 0 0 0;">Registro persistente de nuestros hábitos diarios</p>
+                </div>
+            </div>
+
+            <!-- Filtros de Historial -->
+            <div style="display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px;">
+                <button class="btn-radar active" id="filtro-historial-todos" onclick="filtrarHistorialSalud('todos')" style="padding: 6px 12px; font-size: 0.8rem;">Todos</button>
+                <button class="btn-radar" id="filtro-historial-andy" onclick="filtrarHistorialSalud('andy')" style="padding: 6px 12px; font-size: 0.8rem;">🐧 Andy</button>
+                <button class="btn-radar" id="filtro-historial-jessie" onclick="filtrarHistorialSalud('jessie')" style="padding: 6px 12px; font-size: 0.8rem;">😈 Jessie</button>
+                <button class="btn-radar" id="filtro-historial-bano" onclick="filtrarHistorialSalud('bano')" style="padding: 6px 12px; font-size: 0.8rem;">🚽 Baño</button>
+                <button class="btn-radar" id="filtro-historial-agua" onclick="filtrarHistorialSalud('agua')" style="padding: 6px 12px; font-size: 0.8rem;">💧 Agua</button>
+            </div>
+
+            <!-- Lista de Registros -->
+            <div id="historial-salud-lista" style="max-height: 380px; overflow-y: auto; border: 1px solid var(--glass-border); border-radius: 12px; padding: 6px;">
+                <!-- Cargado dinámicamente -->
+            </div>
+
+            <div style="margin-top: 18px; text-align: center;">
+                <button class="btn btn-secundario" onclick="cerrarModalHistorialSalud()" style="padding: 8px 24px; font-size: 0.9rem;">Cerrar</button>
             </div>
         </div>
     </div>
@@ -7182,10 +7664,307 @@ Andy. ❤️</div>
             verificarArosHistorias();
         }
 
-        // INICIALIZACIÓN NUEVA (Modificada)
+        // ==========================================
+        // --- RADAR DE CONEXIÓN EN EL MAPA ---
+        // ==========================================
+        let radarCoords = JSON.parse(localStorage.getItem('coupleRadarCoords')) || {
+            andy: { lat: 0.8124, lng: -77.7188, nombre: 'Andy 🐧', hora: 'Tulcán' },
+            jessie: { lat: -0.1807, lng: -78.4678, nombre: 'Jessie 😈', hora: 'Quito' }
+        };
+        let radarMarcadorAndy = null;
+        let radarMarcadorJessie = null;
+        let radarLinea = null;
+
+        function calcularDistanciaKm(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radio de la Tierra en km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return (R * c).toFixed(1);
+        }
+
+        function actualizarRadarEnMapa() {
+            if (!miMapa) return;
+
+            const cAndy = radarCoords.andy;
+            const cJessie = radarCoords.jessie;
+
+            // Iconos sobrios y elegantes
+            const iconoAndy = L.divIcon({
+                className: 'custom-radar-pin',
+                html: '<div style="background: white; border: 2px solid #3b82f6; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">🐧</div>',
+                iconSize: [36, 36],
+                iconAnchor: [18, 18]
+            });
+            const iconoJessie = L.divIcon({
+                className: 'custom-radar-pin',
+                html: '<div style="background: white; border: 2px solid #ec4899; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">😈</div>',
+                iconSize: [36, 36],
+                iconAnchor: [18, 18]
+            });
+
+            if (radarMarcadorAndy) miMapa.removeLayer(radarMarcadorAndy);
+            if (radarMarcadorJessie) miMapa.removeLayer(radarMarcadorJessie);
+            if (radarLinea) miMapa.removeLayer(radarLinea);
+
+            radarMarcadorAndy = L.marker([cAndy.lat, cAndy.lng], { icon: iconoAndy })
+                .addTo(miMapa)
+                .bindPopup(`<b>Andy</b><br>Última actualización: ${cAndy.hora || 'Registrada'}`);
+
+            radarMarcadorJessie = L.marker([cJessie.lat, cJessie.lng], { icon: iconoJessie })
+                .addTo(miMapa)
+                .bindPopup(`<b>Jessie</b><br>Última actualización: ${cJessie.hora || 'Registrada'}`);
+
+            // Línea que los une
+            radarLinea = L.polyline([[cAndy.lat, cAndy.lng], [cJessie.lat, cJessie.lng]], {
+                color: '#ec4899',
+                weight: 3,
+                opacity: 0.75,
+                dashArray: '6, 8'
+            }).addTo(miMapa);
+
+            // Calcular distancia
+            const dist = parseFloat(calcularDistanciaKm(cAndy.lat, cAndy.lng, cJessie.lat, cJessie.lng));
+            const badgeEl = document.getElementById('radar-km-valor');
+            const infoEl = document.getElementById('radar-tiempo-estimado');
+
+            if (badgeEl) badgeEl.innerText = `${dist} km`;
+
+            if (infoEl) {
+                if (dist < 0.2) {
+                    infoEl.innerText = "¡Están juntos en el mismo lugar! ❤️";
+                    if (badgeEl) badgeEl.innerText = "Juntos ❤️";
+                } else {
+                    const tiempoAprox = Math.round((dist / 55) * 60); // promedio 55km/h
+                    const horas = Math.floor(tiempoAprox / 60);
+                    const mins = tiempoAprox % 60;
+                    const tiempoTexto = horas > 0 ? `${horas}h ${mins}min` : `${mins} min`;
+                    infoEl.innerText = `Tiempo aprox. en camino: ~${tiempoTexto}`;
+                }
+            }
+
+            // Ajustar vista para que quepan ambos
+            try {
+                miMapa.fitBounds(radarLinea.getBounds(), { padding: [50, 50], maxZoom: 14 });
+            } catch (e) {}
+        }
+
+        function actualizarUbicacionRadar(persona) {
+            if (!navigator.geolocation) {
+                alert("La geolocalización no está disponible en este navegador.");
+                return;
+            }
+
+            const nombre = persona === 'andy' ? 'Andy' : 'Jessie';
+            const btn = event?.currentTarget;
+            if (btn) btn.innerText = "Obteniendo GPS...";
+
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    const ahora = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    radarCoords[persona] = {
+                        lat: lat,
+                        lng: lng,
+                        nombre: nombre,
+                        hora: ahora
+                    };
+                    localStorage.setItem('coupleRadarCoords', JSON.stringify(radarCoords));
+
+                    if (btn) btn.innerHTML = `<span>${persona === 'andy' ? '🐧' : '😈'}</span> Ubicación actualizada`;
+                    actualizarRadarEnMapa();
+                },
+                (err) => {
+                    if (btn) btn.innerHTML = `<span>${persona === 'andy' ? '🐧' : '😈'}</span> Actualizar Ubicación de ${nombre}`;
+                    alert("No se pudo obtener la ubicación GPS. Por favor activa los permisos de ubicación en tu navegador o celular.");
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        }
+
+        // ==========================================
+        // --- CONTROL DE CUIDADO Y SALUD MUTUA ---
+        // ==========================================
+        let personaSaludActiva = 'andy';
+        let historialSalud = JSON.parse(localStorage.getItem('registroSaludPareja')) || [];
+        let filtroHistorialActual = 'todos';
+
+        function seleccionarPersonaSalud(persona) {
+            personaSaludActiva = persona;
+            document.getElementById('btn-salud-andy').classList.toggle('active', persona === 'andy');
+            document.getElementById('btn-salud-jessie').classList.toggle('active', persona === 'jessie');
+            actualizarUIHabitosSalud();
+        }
+
+        function registrarHabitoSalud(tipo) {
+            const ahora = new Date();
+            const fechaHoy = ahora.toISOString().split('T')[0];
+            const horaStr = ahora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            let detalle = "";
+            let icono = "🌿";
+
+            if (tipo === 'bano') {
+                detalle = "Visita al baño registrada";
+                icono = "🚽";
+            } else if (tipo === 'agua') {
+                detalle = "1 Vaso de agua (250 ml)";
+                icono = "💧";
+            } else if (tipo === 'caminata') {
+                const minutos = prompt("¿Cuántos minutos caminaste o hiciste de pausa activa?", "20");
+                if (!minutos || isNaN(minutos)) return;
+                detalle = `Caminata de ${minutos} minutos`;
+                icono = "🚶";
+            }
+
+            const nuevoRegistro = {
+                id: Date.now(),
+                persona: personaSaludActiva,
+                tipo: tipo,
+                fecha: fechaHoy,
+                hora: horaStr,
+                detalle: detalle,
+                icono: icono
+            };
+
+            historialSalud.unshift(nuevoRegistro);
+            localStorage.setItem('registroSaludPareja', JSON.stringify(historialSalud));
+            actualizarUIHabitosSalud();
+        }
+
+        function actualizarUIHabitosSalud() {
+            const fechaHoy = new Date().toISOString().split('T')[0];
+            const registrosPersona = historialSalud.filter(r => r.persona === personaSaludActiva);
+            const registrosHoy = registrosPersona.filter(r => r.fecha === fechaHoy);
+
+            // Contadores de hoy
+            const banoHoy = registrosHoy.filter(r => r.tipo === 'bano');
+            const aguaHoy = registrosHoy.filter(r => r.tipo === 'agua').length;
+            const caminataHoy = registrosHoy.filter(r => r.tipo === 'caminata');
+
+            // Actualizar DOM Baño
+            const banoCountEl = document.getElementById('contador-bano-hoy');
+            const banoMetaEl = document.getElementById('salud-bano-meta');
+            if (banoCountEl) banoCountEl.innerText = banoHoy.length;
+
+            if (banoMetaEl) {
+                if (banoHoy.length === 0) {
+                    banoMetaEl.innerText = "Sin registros hoy. Recuerda no aguantar las ganas.";
+                } else {
+                    const ult = banoHoy[0];
+                    banoMetaEl.innerText = `Última visita: ${ult.hora} hrs`;
+                }
+            }
+
+            // Actualizar DOM Agua
+            const aguaCountEl = document.getElementById('contador-agua-hoy');
+            const aguaBarraEl = document.getElementById('salud-agua-barra');
+            if (aguaCountEl) aguaCountEl.innerHTML = `${aguaHoy} <small style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">/ 8 vasos</small>`;
+            if (aguaBarraEl) {
+                const pct = Math.min(100, Math.round((aguaHoy / 8) * 100));
+                aguaBarraEl.style.width = `${pct}%`;
+            }
+
+            // Actualizar DOM Caminata
+            const caminataCountEl = document.getElementById('contador-caminata-hoy');
+            const caminataMetaEl = document.getElementById('salud-caminata-meta');
+            let minutosTotales = 0;
+            caminataHoy.forEach(c => {
+                const match = c.detalle.match(/\d+/);
+                if (match) minutosTotales += parseInt(match[0]);
+            });
+            if (caminataCountEl) caminataCountEl.innerHTML = `${minutosTotales} <small style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">min</small>`;
+            if (caminataMetaEl) {
+                if (minutosTotales === 0) {
+                    caminataMetaEl.innerText = "Una caminata diaria beneficia tu circulación.";
+                } else {
+                    caminataMetaEl.innerText = `${minutosTotales} min de actividad hoy. ¡Excelente!`;
+                }
+            }
+
+            // Mensaje de Cuidado Saludable
+            const consejoEl = document.getElementById('salud-texto-consejo');
+            if (consejoEl) {
+                if (banoHoy.length === 0 && new Date().getHours() >= 14) {
+                    consejoEl.innerText = `Atención amorosa: ${personaSaludActiva === 'andy' ? 'Andy' : 'Jessie'} no ha registrado visita al baño hoy. Recuerda que retener líquidos no es bueno para tus riñones.`;
+                } else if (aguaHoy < 3 && new Date().getHours() >= 15) {
+                    consejoEl.innerText = `Recuerda hidratarte: tu cuerpo necesita agua para sentirse con energía y saludable.`;
+                } else {
+                    consejoEl.innerText = "Cuidar de tu cuerpo hoy es asegurar muchos años más juntos con salud y plenitud.";
+                }
+            }
+        }
+
+        function abrirModalHistorialSalud() {
+            document.getElementById('modal-historial-salud').classList.add('active');
+            renderizarListaHistorialSalud();
+        }
+
+        function cerrarModalHistorialSalud() {
+            document.getElementById('modal-historial-salud').classList.remove('active');
+        }
+
+        function filtrarHistorialSalud(filtro) {
+            filtroHistorialActual = filtro;
+            ['todos', 'andy', 'jessie', 'bano', 'agua'].forEach(f => {
+                const btn = document.getElementById(`filtro-historial-${f}`);
+                if (btn) btn.classList.toggle('active', f === filtro);
+            });
+            renderizarListaHistorialSalud();
+        }
+
+        function renderizarListaHistorialSalud() {
+            const contenedor = document.getElementById('historial-salud-lista');
+            if (!contenedor) return;
+            contenedor.innerHTML = '';
+
+            let lista = [...historialSalud];
+
+            if (filtroHistorialActual === 'andy' || filtroHistorialActual === 'jessie') {
+                lista = lista.filter(r => r.persona === filtroHistorialActual);
+            } else if (filtroHistorialActual === 'bano' || filtroHistorialActual === 'agua') {
+                lista = lista.filter(r => r.tipo === filtroHistorialActual);
+            }
+
+            if (lista.length === 0) {
+                contenedor.innerHTML = '<div style="padding: 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">No hay registros en este filtro. ¡Comiencen a registrar sus hábitos hoy!</div>';
+                return;
+            }
+
+            lista.forEach(reg => {
+                const item = document.createElement('div');
+                item.className = 'historial-item-salud';
+                const nombre = reg.persona === 'andy' ? 'Andy 🐧' : 'Jessie 😈';
+                item.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.3rem;">${reg.icono || '🌿'}</span>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-dark);">${reg.detalle}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">${nombre} • ${reg.fecha} a las ${reg.hora}</div>
+                        </div>
+                    </div>
+                    <button onclick="eliminarRegistroSalud(${reg.id})" style="background: none; border: none; cursor: pointer; color: #cbd5e1; font-size: 0.85rem;" title="Eliminar registro">✕</button>
+                `;
+                contenedor.appendChild(item);
+            });
+        }
+
+        function eliminarRegistroSalud(id) {
+            if (!confirm("¿Deseas eliminar este registro del historial?")) return;
+            historialSalud = historialSalud.filter(r => r.id !== id);
+            localStorage.setItem('registroSaludPareja', JSON.stringify(historialSalud));
+            renderizarListaHistorialSalud();
+            actualizarUIHabitosSalud();
+        }
         window.addEventListener('DOMContentLoaded', () => {
             actualizarDiarioAmor();
             actualizarFechasEspeciales();
+            actualizarUIHabitosSalud();
             limpiarHistorias24h(); // Llama a la limpieza de 24h
             setInterval(actualizarFechasEspeciales, 1000 * 60 * 60); // Actualizar cada hora
             
@@ -7193,6 +7972,7 @@ Andy. ❤️</div>
             document.getElementById('btn-tab-mapa').addEventListener('click', () => {
                 setTimeout(() => {
                     inicializarMapa();
+                    actualizarRadarEnMapa();
                     if(miMapa) miMapa.invalidateSize(); // Refrescar para que Leaflet dibuje bien
                 }, 100);
             });
