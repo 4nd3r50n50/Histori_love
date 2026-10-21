@@ -3411,6 +3411,231 @@
             color: #f8fafc !important;
         }
 
+        /* --- ESTILOS DE FINANZAS & HOGAR Y LISTA DE COMPRAS --- */
+        .finanzas-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .finanzas-subnav {
+            display: flex;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 4px;
+            border: 1px solid var(--glass-border);
+            gap: 6px;
+        }
+        .finanzas-subtab-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .finanzas-subtab-btn.active {
+            background: #fff;
+            color: var(--text-dark);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .finanzas-resumen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+        .finanzas-resumen-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: var(--shadow-sm);
+        }
+        .finanzas-resumen-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+        .finanzas-resumen-monto {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+        .finanzas-resumen-monto.ahorro { color: #059669; }
+        .finanzas-resumen-monto.gasto { color: #db2777; }
+        .finanzas-resumen-monto.servicio { color: #2563eb; }
+
+        /* Lista de Compras y Movimientos */
+        .compras-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .compras-form {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .compras-input {
+            flex: 2;
+            min-width: 180px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.8);
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+        .compras-select {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.8);
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+        .compras-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: var(--transition-smooth);
+        }
+        .compras-item.comprado {
+            opacity: 0.55;
+            background: rgba(255, 255, 255, 0.3);
+            text-decoration: line-through;
+        }
+        .compras-item-check {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        .movimiento-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        .movimiento-badge {
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+        .movimiento-badge.ahorro { background: #d1fae5; color: #065f46; }
+        .movimiento-badge.gasto { background: #fce7f3; color: #9d174d; }
+        .movimiento-badge.servicio-pendiente { background: #fef3c7; color: #92400e; }
+        .movimiento-badge.servicio-pagado { background: #e0e7ff; color: #3730a3; }
+
+        body.theme-kuromi .compras-input,
+        body.theme-kuromi .compras-select,
+        body.theme-estrellada .compras-input,
+        body.theme-estrellada .compras-select {
+            background: rgba(15, 23, 42, 0.8) !important;
+            color: #fff !important;
+        }
+        body.theme-kuromi .compras-item,
+        body.theme-kuromi .movimiento-item,
+        body.theme-estrellada .compras-item,
+        body.theme-estrellada .movimiento-item {
+            background: rgba(15, 23, 42, 0.6) !important;
+            border-color: rgba(255, 255, 255, 0.08) !important;
+        }
+        body.theme-kuromi .finanzas-subtab-btn.active,
+        body.theme-estrellada .finanzas-subtab-btn.active {
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: #fff !important;
+        }
+
+        .btn-finanzas-submit {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-finanzas-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.25);
+        }
+        .btn-compras-limpiar {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .btn-compras-limpiar:hover {
+            background: #dc2626;
+            color: #fff;
+        }
+        .servicio-toggle-btn {
+            background: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 8px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .servicio-toggle-btn:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .servicio-toggle-btn.pagado {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
         /* Libro de Mensajes (Cartas) */
         .cartas-contenedor {
             position: relative;
@@ -3596,15 +3821,19 @@
 
         <!-- NAVEGACIÓN POR PESTAÑAS -->
         <nav class="tab-nav">
-            <button class="tab-btn active" onclick="cambiarPestaña('recuerdos')" id="btn-tab-recuerdos">💖 Recuerdos</button>
+            <button class="tab-btn active" onclick="cambiarPestaña('nosotros')" id="btn-tab-nosotros">💖 Nosotros</button>
+            <button class="tab-btn" onclick="cambiarPestaña('bienestar')" id="btn-tab-bienestar">🌿 Bienestar</button>
+            <button class="tab-btn" onclick="cambiarPestaña('finanzas')" id="btn-tab-finanzas">💰 Finanzas & Hogar</button>
+            <button class="tab-btn" onclick="cambiarPestaña('recuerdos')" id="btn-tab-recuerdos">✨ Recuerdos</button>
+            <button class="tab-btn" onclick="cambiarPestaña('mapa')" id="btn-tab-mapa">🗺️ Radar & Mapa</button>
             <button class="tab-btn" onclick="cambiarPestaña('galeria')" id="btn-tab-galeria">📸 Galería</button>
+            <button class="tab-btn" onclick="cambiarPestaña('cartas')" id="btn-tab-cartas">💌 Cartas</button>
             <button class="tab-btn" onclick="cambiarPestaña('retos')" id="btn-tab-retos">🎯 Retos</button>
             <button class="tab-btn" onclick="cambiarPestaña('juego')" id="btn-tab-juego">🎮 Juego</button>
-            <button class="tab-btn" onclick="cambiarPestaña('mapa')" id="btn-tab-mapa">🗺️ Mapa</button>
-            <button class="tab-btn" onclick="cambiarPestaña('cartas')" id="btn-tab-cartas">💌 Cartas</button>
         </nav>
 
-        <div id="tab-recuerdos" class="tab-content active">
+        <!-- PESTAÑA: NOSOTROS (HOME & HISTORIAS) -->
+        <div id="tab-nosotros" class="tab-content active">
             <!-- Diario de Amor Widget -->
             <div class="diario-amor-widget" id="diario-amor-contenedor">
                 <div class="diario-amor-title">Pensamiento del Día</div>
@@ -3671,8 +3900,10 @@
             <div class="fechas-especiales-container" id="fechas-especiales-container">
                 <!-- Se llenará dinámicamente -->
             </div>
+        </div> <!-- Fin de tab-nosotros -->
 
-            <!-- MÓDULO DE CUIDADO Y SALUD MUTUA -->
+        <!-- PESTAÑA: BIENESTAR & CUIDADO MUTUO -->
+        <div id="tab-bienestar" class="tab-content">
             <div class="salud-bienestar-container" id="salud-bienestar-seccion">
                 <div class="salud-cabecera">
                     <div class="salud-titulo-grupo">
@@ -3758,8 +3989,140 @@
                     <span id="salud-texto-consejo">Cuidar de tu cuerpo hoy es asegurar muchos años más juntos con salud y plenitud.</span>
                 </div>
             </div>
+        </div> <!-- Fin de tab-bienestar -->
 
-        <!-- Barra de Progreso de Desbloqueo -->
+        <!-- PESTAÑA: FINANZAS & HOGAR Y LISTA DE COMPRAS -->
+        <div id="tab-finanzas" class="tab-content">
+            <div class="retos-cabecera">
+                <span style="font-size: 2.5rem;">💰</span>
+                <h3>Finanzas & Hogar Compartido</h3>
+                <p>Nuestros ahorros conjuntos, gastos compartidos, servicios del hogar y lista de compras.</p>
+            </div>
+
+            <div class="finanzas-container">
+                <!-- Subnavegación Finanzas / Compras -->
+                <div class="finanzas-subnav">
+                    <button class="finanzas-subtab-btn active" onclick="cambiarSubtabFinanzas('finanzas')" id="btn-subtab-finanzas">
+                        <span>💳</span> Finanzas & Ahorros
+                    </button>
+                    <button class="finanzas-subtab-btn" onclick="cambiarSubtabFinanzas('compras')" id="btn-subtab-compras">
+                        <span>🛒</span> Lista de Compras
+                    </button>
+                </div>
+
+                <!-- SUBSECCIÓN 1: FINANZAS & AHORROS -->
+                <div id="subseccion-finanzas" class="finanzas-seccion-bloque">
+                    <!-- Resumen en Tarjetas -->
+                    <div class="finanzas-resumen-grid">
+                        <div class="finanzas-resumen-card">
+                            <span class="finanzas-resumen-label">🌱 Ahorro Conjunto Acumulado</span>
+                            <span class="finanzas-resumen-monto ahorro" id="finanzas-total-ahorro">$0.00</span>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Construyendo nuestro futuro juntos</span>
+                        </div>
+                        <div class="finanzas-resumen-card">
+                            <span class="finanzas-resumen-label">🛍️ Gastos Compartidos</span>
+                            <span class="finanzas-resumen-monto gasto" id="finanzas-total-gastos">$0.00</span>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);" id="finanzas-detalle-gastos">Registros compartidos</span>
+                        </div>
+                        <div class="finanzas-resumen-card">
+                            <span class="finanzas-resumen-label">💡 Servicios Básicos</span>
+                            <span class="finanzas-resumen-monto servicio" id="finanzas-total-servicios">$0.00</span>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);" id="finanzas-estado-servicios">0 pendientes</span>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Registro Financiero -->
+                    <div class="compras-card" style="margin-top: 14px;">
+                        <h4 style="margin: 0 0 12px 0; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                            <span>➕</span> Registrar Movimiento o Servicio
+                        </h4>
+                        <form id="form-registro-finanzas" onsubmit="registrarMovimientoFinanzas(event)">
+                            <div class="compras-form">
+                                <input type="text" id="finanzas-input-concepto" class="compras-input" placeholder="Concepto (ej. Supermercado, Luz, Ahorro para viaje...)" required>
+                                <input type="number" id="finanzas-input-monto" class="compras-input" style="flex: 1; min-width: 100px;" placeholder="Monto ($)" step="0.01" min="0.01" required>
+                                <select id="finanzas-select-tipo" class="compras-select" onchange="actualizarCamposServicio()" required>
+                                    <option value="gasto">🛍️ Gasto Compartido</option>
+                                    <option value="ahorro">🌱 Ahorro Juntos</option>
+                                    <option value="servicio">💡 Pago de Servicio (Luz, Agua, Internet, etc.)</option>
+                                </select>
+                                <select id="finanzas-select-persona" class="compras-select" required>
+                                    <option value="ambos">❤️ Ambos (50 / 50)</option>
+                                    <option value="andy">🐧 Andy</option>
+                                    <option value="jessie">😈 Jessie</option>
+                                </select>
+                                <select id="finanzas-select-estado-servicio" class="compras-select" style="display: none;">
+                                    <option value="pendiente">⏳ Pendiente de Pago</option>
+                                    <option value="pagado">✔️ Ya Pagado</option>
+                                </select>
+                                <button type="submit" class="btn-finanzas-submit">
+                                    <span>💾</span> Guardar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Historial de Movimientos -->
+                    <div class="compras-card" style="margin-top: 14px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h4 style="margin: 0; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                                <span>📋</span> Movimientos Recientes
+                            </h4>
+                            <span id="finanzas-conteo-registros" style="font-size: 0.8rem; color: var(--text-muted);">0 registros</span>
+                        </div>
+                        <div id="lista-movimientos-finanzas">
+                            <!-- Se renderizará dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBSECCIÓN 2: LISTA DE COMPRAS -->
+                <div id="subseccion-compras" class="finanzas-seccion-bloque" style="display: none;">
+                    <div class="compras-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                                    <span>🛒</span> Nuestra Lista de Compras
+                                </h4>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);" id="compras-contador-pendientes">Artículos para el hogar y salidas</span>
+                            </div>
+                            <button type="button" class="btn-compras-limpiar" onclick="limpiarComprasRealizadas()">
+                                🧹 Limpiar comprados
+                            </button>
+                        </div>
+
+                        <!-- Formulario para agregar producto -->
+                        <form id="form-item-compra" onsubmit="agregarItemCompra(event)">
+                            <div class="compras-form">
+                                <input type="text" id="compra-input-nombre" class="compras-input" placeholder="¿Qué necesitamos comprar? (ej. Aguacates, Jabón, Snacks...)" required>
+                                <select id="compra-select-categoria" class="compras-select">
+                                    <option value="Despensa & Comida">🍎 Despensa & Comida</option>
+                                    <option value="Hogar & Aseo">🧼 Hogar & Aseo</option>
+                                    <option value="Antojos & Salidas">🍿 Antojos & Salidas</option>
+                                    <option value="Mascotas / Otros">📦 Otros</option>
+                                </select>
+                                <select id="compra-select-persona" class="compras-select">
+                                    <option value="ambos">❤️ Para Ambos</option>
+                                    <option value="andy">🐧 Pidió Andy</option>
+                                    <option value="jessie">😈 Pidió Jessie</option>
+                                </select>
+                                <button type="submit" class="btn-finanzas-submit">
+                                    <span>➕</span> Agregar
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Lista de Ítems -->
+                        <div id="lista-items-compras" style="margin-top: 10px;">
+                            <!-- Se renderizará dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: RECUERDOS (COFRE Y LÍNEA DE TIEMPO) -->
+        <div id="tab-recuerdos" class="tab-content">
+            <!-- Barra de Progreso de Desbloqueo -->
         <div class="progreso-contenedor">
             <div class="progreso-info">
                 <span>Tu Progreso</span>
@@ -6171,13 +6534,29 @@ Andy. ❤️</div>
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             
-            document.getElementById(`tab-${pestañaId}`).classList.add('active');
-            document.getElementById(`btn-tab-${pestañaId}`).classList.add('active');
+            const tabTarget = document.getElementById(`tab-${pestañaId}`);
+            const btnTarget = document.getElementById(`btn-tab-${pestañaId}`);
+            if (tabTarget) tabTarget.classList.add('active');
+            if (btnTarget) btnTarget.classList.add('active');
+            
+            // Scroll suave hacia arriba para que cada pantalla comience organizada
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             
             if (pestañaId === 'galeria') {
                 renderizarGaleria();
             } else if (pestañaId === 'retos') {
                 renderizarRetos();
+            } else if (pestañaId === 'finanzas') {
+                renderizarFinanzas();
+                renderizarCompras();
+            } else if (pestañaId === 'bienestar') {
+                actualizarUIHabitosSalud();
+            } else if (pestañaId === 'mapa') {
+                setTimeout(() => {
+                    inicializarMapa();
+                    actualizarRadarEnMapa();
+                    if (typeof miMapa !== 'undefined' && miMapa) miMapa.invalidateSize();
+                }, 100);
             } else if (pestañaId === 'juego') {
                 // Iniciar o reiniciar juego al cambiar a la pestaña de juego
                 document.getElementById('game-overlay-icon').innerText = '🛻';
@@ -6201,6 +6580,352 @@ Andy. ❤️</div>
                     gameAnimationId = null;
                 }
             }
+        }
+
+        // ==========================================
+        // --- MÓDULO DE FINANZAS Y LISTA DE COMPRAS ---
+        // ==========================================
+        const finanzasPorDefecto = [
+            { id: 1, tipo: 'ahorro', concepto: 'Ahorro para próximo viaje juntos', monto: 120.00, persona: 'ambos', fecha: '20/10/2026', hora: '10:00' },
+            { id: 2, tipo: 'servicio', concepto: 'Servicio de Internet Fibra', monto: 25.00, persona: 'andy', fecha: '18/10/2026', hora: '09:15', estadoServicio: 'pagado' },
+            { id: 3, tipo: 'servicio', concepto: 'Servicio de Energía Eléctrica / Luz', monto: 18.50, persona: 'jessie', fecha: '19/10/2026', hora: '14:20', estadoServicio: 'pendiente' },
+            { id: 4, tipo: 'gasto', concepto: 'Supermercado semanal compartido', monto: 42.80, persona: 'ambos', fecha: '20/10/2026', hora: '18:30' }
+        ];
+
+        const comprasPorDefecto = [
+            { id: 101, nombre: 'Snacks y chocolates para ver películas', categoria: 'Antojos & Salidas', persona: 'jessie', comprado: false, fecha: '21/10/2026' },
+            { id: 102, nombre: 'Café gourmet para las mañanas', categoria: 'Despensa & Comida', persona: 'andy', comprado: true, fecha: '20/10/2026' },
+            { id: 103, nombre: 'Frutas frescas y manzanas verdes', categoria: 'Despensa & Comida', persona: 'ambos', comprado: false, fecha: '21/10/2026' },
+            { id: 104, nombre: 'Jabón y artículos de limpieza para el hogar', categoria: 'Hogar & Aseo', persona: 'ambos', comprado: false, fecha: '21/10/2026' }
+        ];
+
+        let finanzasRegistros = [];
+        let comprasItems = [];
+
+        function cargarFinanzas() {
+            const raw = localStorage.getItem('finanzasPareja');
+            if (raw) {
+                try { finanzasRegistros = JSON.parse(raw); } catch (e) { finanzasRegistros = [...finanzasPorDefecto]; }
+            } else {
+                finanzasRegistros = [...finanzasPorDefecto];
+                localStorage.setItem('finanzasPareja', JSON.stringify(finanzasRegistros));
+            }
+        }
+
+        function guardarFinanzas() {
+            localStorage.setItem('finanzasPareja', JSON.stringify(finanzasRegistros));
+        }
+
+        function cargarCompras() {
+            const raw = localStorage.getItem('comprasPareja');
+            if (raw) {
+                try { comprasItems = JSON.parse(raw); } catch (e) { comprasItems = [...comprasPorDefecto]; }
+            } else {
+                comprasItems = [...comprasPorDefecto];
+                localStorage.setItem('comprasPareja', JSON.stringify(comprasItems));
+            }
+        }
+
+        function guardarCompras() {
+            localStorage.setItem('comprasPareja', JSON.stringify(comprasItems));
+        }
+
+        function cambiarSubtabFinanzas(subtab) {
+            const btnFin = document.getElementById('btn-subtab-finanzas');
+            const btnCom = document.getElementById('btn-subtab-compras');
+            const secFin = document.getElementById('subseccion-finanzas');
+            const secCom = document.getElementById('subseccion-compras');
+
+            if (subtab === 'finanzas') {
+                btnFin.classList.add('active');
+                btnCom.classList.remove('active');
+                secFin.style.display = 'block';
+                secCom.style.display = 'none';
+                renderizarFinanzas();
+            } else {
+                btnCom.classList.add('active');
+                btnFin.classList.remove('active');
+                secFin.style.display = 'none';
+                secCom.style.display = 'block';
+                renderizarCompras();
+            }
+        }
+
+        function actualizarCamposServicio() {
+            const tipo = document.getElementById('finanzas-select-tipo').value;
+            const selectEstado = document.getElementById('finanzas-select-estado-servicio');
+            if (tipo === 'servicio') {
+                selectEstado.style.display = 'inline-block';
+            } else {
+                selectEstado.style.display = 'none';
+            }
+        }
+
+        function renderizarFinanzas() {
+            cargarFinanzas();
+
+            let totalAhorro = 0;
+            let totalGastos = 0;
+            let totalServicios = 0;
+            let serviciosPendientes = 0;
+
+            finanzasRegistros.forEach(item => {
+                const monto = parseFloat(item.monto) || 0;
+                if (item.tipo === 'ahorro') {
+                    totalAhorro += monto;
+                } else if (item.tipo === 'gasto') {
+                    totalGastos += monto;
+                } else if (item.tipo === 'servicio') {
+                    totalServicios += monto;
+                    if (item.estadoServicio === 'pendiente') {
+                        serviciosPendientes++;
+                    }
+                }
+            });
+
+            const elAhorro = document.getElementById('finanzas-total-ahorro');
+            const elGastos = document.getElementById('finanzas-total-gastos');
+            const elServicios = document.getElementById('finanzas-total-servicios');
+            const elEstadoServ = document.getElementById('finanzas-estado-servicios');
+            const elConteo = document.getElementById('finanzas-conteo-registros');
+
+            if (elAhorro) elAhorro.innerText = `$${totalAhorro.toFixed(2)}`;
+            if (elGastos) elGastos.innerText = `$${totalGastos.toFixed(2)}`;
+            if (elServicios) elServicios.innerText = `$${totalServicios.toFixed(2)}`;
+            if (elEstadoServ) {
+                elEstadoServ.innerText = serviciosPendientes > 0 
+                    ? `⚠️ ${serviciosPendientes} servicio${serviciosPendientes > 1 ? 's' : ''} pendiente${serviciosPendientes > 1 ? 's' : ''}`
+                    : `✨ Todos los servicios al día`;
+                elEstadoServ.style.color = serviciosPendientes > 0 ? '#d97706' : '#059669';
+            }
+            if (elConteo) elConteo.innerText = `${finanzasRegistros.length} registro${finanzasRegistros.length !== 1 ? 's' : ''}`;
+
+            const contenedor = document.getElementById('lista-movimientos-finanzas');
+            if (!contenedor) return;
+
+            if (finanzasRegistros.length === 0) {
+                contenedor.innerHTML = `
+                    <div style="text-align: center; padding: 24px 10px; color: var(--text-muted);">
+                        <span>💰</span> No hay movimientos registrados todavía. ¡Añade el primero arriba!
+                    </div>
+                `;
+                return;
+            }
+
+            contenedor.innerHTML = '';
+            // Mostrar los más recientes primero
+            const ordenados = [...finanzasRegistros].sort((a, b) => b.id - a.id);
+
+            ordenados.forEach(item => {
+                const fila = document.createElement('div');
+                fila.className = 'movimiento-item';
+
+                let badgeClass = 'gasto';
+                let badgeTexto = '🛍️ Gasto';
+                let accionExtra = '';
+
+                if (item.tipo === 'ahorro') {
+                    badgeClass = 'ahorro';
+                    badgeTexto = '🌱 Ahorro Juntos';
+                } else if (item.tipo === 'servicio') {
+                    const esPendiente = item.estadoServicio === 'pendiente';
+                    badgeClass = esPendiente ? 'servicio-pendiente' : 'servicio-pagado';
+                    badgeTexto = esPendiente ? '⏳ Servicio Pendiente' : '✔️ Servicio Pagado';
+                    accionExtra = `
+                        <button type="button" class="servicio-toggle-btn ${esPendiente ? '' : 'pagado'}" onclick="toggleEstadoServicio(${item.id})" title="Cambiar estado del servicio">
+                            ${esPendiente ? 'Marcar Pagado' : 'Volver a Pendiente'}
+                        </button>
+                    `;
+                }
+
+                let personaTexto = '❤️ Ambos';
+                if (item.persona === 'andy') personaTexto = '🐧 Andy';
+                if (item.persona === 'jessie') personaTexto = '😈 Jessie';
+
+                fila.innerHTML = `
+                    <div style="display: flex; flex-direction: column; gap: 4px; flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <span style="font-weight: 700; color: var(--text-dark);">${item.concepto}</span>
+                            <span class="movimiento-badge ${badgeClass}">${badgeTexto}</span>
+                        </div>
+                        <div style="font-size: 0.76rem; color: var(--text-muted);">
+                            Pagado por: <strong>${personaTexto}</strong> • ${item.fecha || ''} ${item.hora ? 'a las ' + item.hora : ''}
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 800; color: var(--text-dark);">
+                            $${parseFloat(item.monto).toFixed(2)}
+                        </span>
+                        ${accionExtra}
+                        <button type="button" onclick="eliminarMovimientoFinanzas(${item.id})" style="background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 0.95rem; padding: 4px;" title="Eliminar registro">✕</button>
+                    </div>
+                `;
+                contenedor.appendChild(fila);
+            });
+        }
+
+        function registrarMovimientoFinanzas(e) {
+            e.preventDefault();
+            const inputConcepto = document.getElementById('finanzas-input-concepto');
+            const inputMonto = document.getElementById('finanzas-input-monto');
+            const selectTipo = document.getElementById('finanzas-select-tipo');
+            const selectPersona = document.getElementById('finanzas-select-persona');
+            const selectEstadoServ = document.getElementById('finanzas-select-estado-servicio');
+
+            const concepto = inputConcepto.value.trim();
+            const monto = parseFloat(inputMonto.value);
+
+            if (!concepto || isNaN(monto) || monto <= 0) {
+                alert("Por favor ingresa un concepto válido y un monto mayor a cero.");
+                return;
+            }
+
+            const ahora = new Date();
+            const fechaStr = `${String(ahora.getDate()).padStart(2, '0')}/${String(ahora.getMonth() + 1).padStart(2, '0')}/${ahora.getFullYear()}`;
+            const horaStr = `${String(ahora.getHours()).padStart(2, '0')}:${String(ahora.getMinutes()).padStart(2, '0')}`;
+
+            const nuevo = {
+                id: Date.now(),
+                tipo: selectTipo.value,
+                concepto: concepto,
+                monto: monto,
+                persona: selectPersona.value,
+                fecha: fechaStr,
+                hora: horaStr,
+                estadoServicio: selectTipo.value === 'servicio' ? selectEstadoServ.value : null
+            };
+
+            finanzasRegistros.unshift(nuevo);
+            guardarFinanzas();
+            renderizarFinanzas();
+
+            inputConcepto.value = '';
+            inputMonto.value = '';
+            if (typeof lanzarConfeti === 'function' && nuevo.tipo === 'ahorro') {
+                lanzarConfeti();
+            }
+        }
+
+        function toggleEstadoServicio(id) {
+            const item = finanzasRegistros.find(m => m.id === id);
+            if (!item || item.tipo !== 'servicio') return;
+            item.estadoServicio = item.estadoServicio === 'pendiente' ? 'pagado' : 'pendiente';
+            guardarFinanzas();
+            renderizarFinanzas();
+        }
+
+        function eliminarMovimientoFinanzas(id) {
+            if (!confirm("¿Deseas eliminar este registro de finanzas?")) return;
+            finanzasRegistros = finanzasRegistros.filter(m => m.id !== id);
+            guardarFinanzas();
+            renderizarFinanzas();
+        }
+
+        // --- FUNCIONES DE LISTA DE COMPRAS ---
+        function renderizarCompras() {
+            cargarCompras();
+
+            const contenedor = document.getElementById('lista-items-compras');
+            const contador = document.getElementById('compras-contador-pendientes');
+            if (!contenedor) return;
+
+            const pendientes = comprasItems.filter(i => !i.comprado).length;
+            if (contador) {
+                contador.innerText = `${pendientes} artículo${pendientes !== 1 ? 's' : ''} pendiente${pendientes !== 1 ? 's' : ''}`;
+            }
+
+            if (comprasItems.length === 0) {
+                contenedor.innerHTML = `
+                    <div style="text-align: center; padding: 24px 10px; color: var(--text-muted);">
+                        <span>🛒</span> La lista está vacía. ¡Agrega lo que necesitamos comprar juntos!
+                    </div>
+                `;
+                return;
+            }
+
+            contenedor.innerHTML = '';
+            // Primero no comprados, luego comprados
+            const ordenados = [...comprasItems].sort((a, b) => {
+                if (a.comprado === b.comprado) return b.id - a.id;
+                return a.comprado ? 1 : -1;
+            });
+
+            ordenados.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `compras-item ${item.comprado ? 'comprado' : ''}`;
+
+                let personaTag = '❤️ Ambos';
+                if (item.persona === 'andy') personaTag = '🐧 Andy';
+                if (item.persona === 'jessie') personaTag = '😈 Jessie';
+
+                itemDiv.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                        <input type="checkbox" class="compras-item-check" ${item.comprado ? 'checked' : ''} onchange="toggleItemCompra(${item.id})" title="Marcar como comprado">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-weight: 600; color: var(--text-dark); font-size: 0.95rem;">${item.nombre}</span>
+                            <span style="font-size: 0.74rem; color: var(--text-muted);">
+                                ${item.categoria || 'General'} • Sugerido por ${personaTag}
+                            </span>
+                        </div>
+                    </div>
+                    <button type="button" onclick="eliminarItemCompra(${item.id})" style="background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 0.95rem; padding: 4px;" title="Eliminar artículo">✕</button>
+                `;
+                contenedor.appendChild(itemDiv);
+            });
+        }
+
+        function agregarItemCompra(e) {
+            e.preventDefault();
+            const inputNombre = document.getElementById('compra-input-nombre');
+            const selectCategoria = document.getElementById('compra-select-categoria');
+            const selectPersona = document.getElementById('compra-select-persona');
+
+            const nombre = inputNombre.value.trim();
+            if (!nombre) return;
+
+            const ahora = new Date();
+            const fechaStr = `${String(ahora.getDate()).padStart(2, '0')}/${String(ahora.getMonth() + 1).padStart(2, '0')}/${ahora.getFullYear()}`;
+
+            const nuevoItem = {
+                id: Date.now(),
+                nombre: nombre,
+                categoria: selectCategoria.value,
+                persona: selectPersona.value,
+                comprado: false,
+                fecha: fechaStr
+            };
+
+            comprasItems.unshift(nuevoItem);
+            guardarCompras();
+            renderizarCompras();
+
+            inputNombre.value = '';
+        }
+
+        function toggleItemCompra(id) {
+            const item = comprasItems.find(i => i.id === id);
+            if (!item) return;
+            item.comprado = !item.comprado;
+            guardarCompras();
+            renderizarCompras();
+        }
+
+        function eliminarItemCompra(id) {
+            comprasItems = comprasItems.filter(i => i.id !== id);
+            guardarCompras();
+            renderizarCompras();
+        }
+
+        function limpiarComprasRealizadas() {
+            const comprados = comprasItems.filter(i => i.comprado);
+            if (comprados.length === 0) {
+                alert("No hay artículos marcados como comprados para limpiar.");
+                return;
+            }
+            if (!confirm(`¿Deseas eliminar ${comprados.length} artículo(s) ya comprado(s)?`)) return;
+            comprasItems = comprasItems.filter(i => !i.comprado);
+            guardarCompras();
+            renderizarCompras();
         }
 
         // --- LÓGICA DE GALERÍA DE FOTOS ---
@@ -7965,6 +8690,10 @@ Andy. ❤️</div>
             actualizarDiarioAmor();
             actualizarFechasEspeciales();
             actualizarUIHabitosSalud();
+            cargarFinanzas();
+            cargarCompras();
+            renderizarFinanzas();
+            renderizarCompras();
             limpiarHistorias24h(); // Llama a la limpieza de 24h
             setInterval(actualizarFechasEspeciales, 1000 * 60 * 60); // Actualizar cada hora
             
