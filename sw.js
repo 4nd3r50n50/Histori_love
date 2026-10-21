@@ -1,4 +1,4 @@
-const CACHE_NAME = 'historilove-cache-v3.6';
+const CACHE_NAME = 'historilove-cache-v3.7';
 const ASSETS = [
     './',
     './index.html',
@@ -20,8 +20,15 @@ self.addEventListener('install', (e) => {
     e.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll(ASSETS);
-        }).then(() => self.skipWaiting())
+        })
     );
+});
+
+// Escuchar mensaje del cliente para activar la nueva versión de inmediato
+self.addEventListener('message', (event) => {
+    if (event.data === 'SKIP_WAITING' || (event.data && event.data.action === 'skipWaiting')) {
+        self.skipWaiting();
+    }
 });
 
 // Activar el Service Worker y limpiar caches viejos
