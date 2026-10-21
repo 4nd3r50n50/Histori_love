@@ -1,9 +1,11 @@
-const CACHE_NAME = 'historilove-cache-v3.4';
+const CACHE_NAME = 'historilove-cache-v3.5';
 const ASSETS = [
     './',
     './index.html',
     './manifest.json',
     './imagenes/icono_pareja.png',
+    './imagenes/pinguino_avatar_3d.jpg',
+    './imagenes/kuromi_avatar_3d.jpg',
     './imagenes/pinguino_andy.png',
     './imagenes/kuromi_jessie.png',
     './imagenes/portada_musica.jpg',

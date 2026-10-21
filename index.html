@@ -3034,6 +3034,48 @@
         }
         .fecha-tarjeta:hover { transform: translateY(-3px); }
         .fecha-icono { font-size: 1.8rem; margin-bottom: 5px; display: block; }
+        .fecha-icono-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .fecha-personaje-img {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid rgba(236, 72, 153, 0.35);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.22);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+            background: #fff;
+        }
+        .fecha-tarjeta:hover .fecha-personaje-img {
+            transform: scale(1.12) rotate(4deg);
+            box-shadow: 0 8px 18px rgba(236, 72, 153, 0.38);
+        }
+        .mini-tag-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-right: 5px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            display: inline-block;
+        }
+        .salud-btn-avatar,
+        .radar-btn-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            vertical-align: middle;
+            margin-right: 6px;
+            display: inline-block;
+            border: 1.5px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+        }
         .fecha-titulo { font-size: 0.85rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 5px; }
         .fecha-contador { font-size: 1.4rem; font-weight: bold; color: var(--primary); font-family: 'Plus Jakarta Sans', sans-serif; }
 
@@ -3844,7 +3886,7 @@
             <div class="perfil-pareja-contenedor">
                 <div class="perfil-tarjeta" id="perfil-tarjeta-andy">
                     <div class="avatar-wrapper">
-                        <div class="perfil-avatar-circle" id="avatar-circle-andy" onclick="clicAvatar('andy')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/pinguino_andy.png" alt="Andy"></div>
+                        <div class="perfil-avatar-circle" id="avatar-circle-andy" onclick="clicAvatar('andy')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/pinguino_avatar_3d.jpg" alt="Andy"></div>
                         <div class="avatar-plus-btn" onclick="abrirModalRapidoHistoria('andy', event)" title="Añadir nuevo estado">+</div>
                     </div>
                     <div class="perfil-datos">
@@ -3856,10 +3898,12 @@
                         </span>
                     </div>
                 </div>
-                <div class="perfil-corazon-medio">⚡❤️🎮</div>
+                <div class="perfil-corazon-medio">
+                    <img src="imagenes/icono_pareja.png" alt="Andy & Jessie" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(236,72,153,0.3); border: 2px solid #fff;">
+                </div>
                 <div class="perfil-tarjeta" id="perfil-tarjeta-jessie" style="text-align: right; flex-direction: row-reverse;">
                     <div class="avatar-wrapper">
-                        <div class="perfil-avatar-circle" id="avatar-circle-jessie" onclick="clicAvatar('jessie')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/kuromi_jessie.png" alt="Jessie"></div>
+                        <div class="perfil-avatar-circle" id="avatar-circle-jessie" onclick="clicAvatar('jessie')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/kuromi_avatar_3d.jpg" alt="Jessie"></div>
                         <div class="avatar-plus-btn" onclick="abrirModalRapidoHistoria('jessie', event)" title="Añadir nuevo estado">+</div>
                     </div>
                     <div class="perfil-datos" style="align-items: flex-end;">
@@ -3921,10 +3965,10 @@
                 <!-- Selector de Persona -->
                 <div class="salud-selector-persona">
                     <button class="salud-persona-btn active" id="btn-salud-andy" onclick="seleccionarPersonaSalud('andy')">
-                        <span>🐧</span> Andy
+                        <img src="imagenes/pinguino_avatar_3d.jpg" class="salud-btn-avatar" alt="Andy"> Andy
                     </button>
                     <button class="salud-persona-btn" id="btn-salud-jessie" onclick="seleccionarPersonaSalud('jessie')">
-                        <span>😈</span> Jessie
+                        <img src="imagenes/kuromi_avatar_3d.jpg" class="salud-btn-avatar" alt="Jessie"> Jessie
                     </button>
                 </div>
 
@@ -4298,10 +4342,10 @@ Andy. ❤️</div>
                 </div>
                 <div class="radar-acciones">
                     <button class="btn-radar" onclick="actualizarUbicacionRadar('andy')">
-                        <span>🐧</span> Actualizar Ubicación de Andy
+                        <img src="imagenes/pinguino_avatar_3d.jpg" class="radar-btn-avatar" alt="Andy"> Actualizar Ubicación de Andy
                     </button>
                     <button class="btn-radar" onclick="actualizarUbicacionRadar('jessie')">
-                        <span>😈</span> Actualizar Ubicación de Jessie
+                        <img src="imagenes/kuromi_avatar_3d.jpg" class="radar-btn-avatar" alt="Jessie"> Actualizar Ubicación de Jessie
                     </button>
                 </div>
             </div>
@@ -6739,9 +6783,9 @@ Andy. ❤️</div>
                     `;
                 }
 
-                let personaTexto = '❤️ Ambos';
-                if (item.persona === 'andy') personaTexto = '🐧 Andy';
-                if (item.persona === 'jessie') personaTexto = '😈 Jessie';
+                let personaTexto = '<img src="imagenes/icono_pareja.png" class="mini-tag-avatar" alt="Ambos"> Ambos';
+                if (item.persona === 'andy') personaTexto = '<img src="imagenes/pinguino_avatar_3d.jpg" class="mini-tag-avatar" alt="Andy"> Andy';
+                if (item.persona === 'jessie') personaTexto = '<img src="imagenes/kuromi_avatar_3d.jpg" class="mini-tag-avatar" alt="Jessie"> Jessie';
 
                 fila.innerHTML = `
                     <div style="display: flex; flex-direction: column; gap: 4px; flex: 1;">
@@ -6855,9 +6899,9 @@ Andy. ❤️</div>
                 const itemDiv = document.createElement('div');
                 itemDiv.className = `compras-item ${item.comprado ? 'comprado' : ''}`;
 
-                let personaTag = '❤️ Ambos';
-                if (item.persona === 'andy') personaTag = '🐧 Andy';
-                if (item.persona === 'jessie') personaTag = '😈 Jessie';
+                let personaTag = '<img src="imagenes/icono_pareja.png" class="mini-tag-avatar" alt="Ambos"> Ambos';
+                if (item.persona === 'andy') personaTag = '<img src="imagenes/pinguino_avatar_3d.jpg" class="mini-tag-avatar" alt="Andy"> Andy';
+                if (item.persona === 'jessie') personaTag = '<img src="imagenes/kuromi_avatar_3d.jpg" class="mini-tag-avatar" alt="Jessie"> Jessie';
 
                 itemDiv.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
@@ -8155,9 +8199,9 @@ Andy. ❤️</div>
 
         // FECHAS ESPECIALES
         const fechasImportantes = [
-            { titulo: "Cumple de Andy", mes: 10, dia: 15, icono: "🐧" }, // Octubre 15
-            { titulo: "Cumple de Jessie", mes: 4, dia: 20, icono: "😈" }, // Abril 20
-            { titulo: "Cumplemes (Día 20)", mes: 0, dia: 20, icono: "💖" } // 0 = todos los meses
+            { titulo: "Cumple de Andy", mes: 10, dia: 15, imagen: "imagenes/pinguino_avatar_3d.jpg", alt: "Andy Pingüino 🐧" }, // Octubre 15
+            { titulo: "Cumple de Jessie", mes: 4, dia: 20, imagen: "imagenes/kuromi_avatar_3d.jpg", alt: "Jessie Kuromi 😈" }, // Abril 20
+            { titulo: "Cumplemes (Día 20)", mes: 0, dia: 20, imagen: "imagenes/icono_pareja.png", alt: "Kuromi & Pingüino Juntos" } // 0 = todos los meses
         ];
 
         function calcularDiasFaltantes(mes, dia) {
@@ -8197,7 +8241,9 @@ Andy. ❤️</div>
                 const card = document.createElement('div');
                 card.className = 'fecha-tarjeta';
                 card.innerHTML = `
-                    <span class="fecha-icono">${fecha.icono}</span>
+                    <div class="fecha-icono-wrap">
+                        <img src="${fecha.imagen}" alt="${fecha.alt || fecha.titulo}" class="fecha-personaje-img">
+                    </div>
                     <div class="fecha-titulo">${fecha.titulo}</div>
                     <div class="fecha-contador">${texto}</div>
                 `;
@@ -8418,18 +8464,18 @@ Andy. ❤️</div>
             const cAndy = radarCoords.andy;
             const cJessie = radarCoords.jessie;
 
-            // Iconos sobrios y elegantes
+            // Iconos fotográficos y elegantes 3D
             const iconoAndy = L.divIcon({
                 className: 'custom-radar-pin',
-                html: '<div style="background: white; border: 2px solid #3b82f6; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">🐧</div>',
-                iconSize: [36, 36],
-                iconAnchor: [18, 18]
+                html: '<div style="background: white; border: 2.5px solid #3b82f6; border-radius: 50%; width: 40px; height: 40px; overflow: hidden; box-shadow: 0 4px 12px rgba(59,130,246,0.35);"><img src="imagenes/pinguino_avatar_3d.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
             });
             const iconoJessie = L.divIcon({
                 className: 'custom-radar-pin',
-                html: '<div style="background: white; border: 2px solid #ec4899; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">😈</div>',
-                iconSize: [36, 36],
-                iconAnchor: [18, 18]
+                html: '<div style="background: white; border: 2.5px solid #ec4899; border-radius: 50%; width: 40px; height: 40px; overflow: hidden; box-shadow: 0 4px 12px rgba(236,72,153,0.35);"><img src="imagenes/kuromi_avatar_3d.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>',
+                iconSize: [40, 40],
+                iconAnchor: [20, 20]
             });
 
             if (radarMarcadorAndy) miMapa.removeLayer(radarMarcadorAndy);
@@ -8665,7 +8711,9 @@ Andy. ❤️</div>
             lista.forEach(reg => {
                 const item = document.createElement('div');
                 item.className = 'historial-item-salud';
-                const nombre = reg.persona === 'andy' ? 'Andy 🐧' : 'Jessie 😈';
+                const nombre = reg.persona === 'andy' 
+                    ? '<img src="imagenes/pinguino_avatar_3d.jpg" class="mini-tag-avatar" alt="Andy"> Andy' 
+                    : '<img src="imagenes/kuromi_avatar_3d.jpg" class="mini-tag-avatar" alt="Jessie"> Jessie';
                 item.innerHTML = `
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span style="font-size: 1.3rem;">${reg.icono || '🌿'}</span>
