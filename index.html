@@ -4107,11 +4107,16 @@
 
                     <!-- Historial de Movimientos -->
                     <div class="compras-card" style="margin-top: 14px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
                             <h4 style="margin: 0; color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
                                 <span>📋</span> Movimientos Recientes
                             </h4>
-                            <span id="finanzas-conteo-registros" style="font-size: 0.8rem; color: var(--text-muted);">0 registros</span>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span id="finanzas-conteo-registros" style="font-size: 0.8rem; color: var(--text-muted);">0 registros</span>
+                                <button type="button" class="btn-compras-limpiar" onclick="vaciarFinanzas()" style="padding: 5px 10px; font-size: 0.75rem;" title="Eliminar registros de prueba para empezar desde $0">
+                                    🗑️ Comenzar en $0
+                                </button>
+                            </div>
                         </div>
                         <div id="lista-movimientos-finanzas">
                             <!-- Se renderizará dinámicamente -->
@@ -4129,9 +4134,14 @@
                                 </h4>
                                 <span style="font-size: 0.8rem; color: var(--text-muted);" id="compras-contador-pendientes">Artículos para el hogar y salidas</span>
                             </div>
-                            <button type="button" class="btn-compras-limpiar" onclick="limpiarComprasRealizadas()">
-                                🧹 Limpiar comprados
-                            </button>
+                            <div style="display: flex; gap: 6px;">
+                                <button type="button" class="btn-compras-limpiar" onclick="limpiarComprasRealizadas()">
+                                    🧹 Limpiar comprados
+                                </button>
+                                <button type="button" class="btn-compras-limpiar" onclick="vaciarCompras()" style="border-color: rgba(239, 68, 68, 0.4);" title="Vaciar toda la lista">
+                                    🗑️ Vaciar lista
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Formulario para agregar producto -->
@@ -4767,6 +4777,126 @@ Andy. ❤️</div>
             <div style="margin-top: 18px; text-align: center;">
                 <button class="btn btn-secundario" onclick="cerrarModalHistorialSalud()" style="padding: 8px 24px; font-size: 0.9rem;">Cerrar</button>
             </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDICIÓN DE MOVIMIENTO FINANCIERO -->
+    <div class="modal-overlay" id="modal-editar-finanzas">
+        <div class="modal-historial-salud-content" style="max-width: 460px;">
+            <button class="modal-close-btn" onclick="cerrarModalEditarFinanzas()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.6rem; cursor: pointer; color: var(--text-dark);" title="Cerrar">&times;</button>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <span style="font-size: 1.8rem;">✏️</span>
+                <div>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">Modificar Registro Financiero</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin: 2px 0 0 0;">Actualiza el dinero, concepto o persona de este movimiento</p>
+                </div>
+            </div>
+
+            <form id="form-editar-finanzas" onsubmit="guardarEdicionFinanzas(event)">
+                <input type="hidden" id="edit-finanzas-id">
+                
+                <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+                    <div>
+                        <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 4px;">Concepto o Descripción</label>
+                        <input type="text" id="edit-finanzas-concepto" class="compras-input" style="width: 100%; box-sizing: border-box;" required>
+                    </div>
+
+                    <div>
+                        <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 4px;">Monto en Dólares ($)</label>
+                        <input type="number" id="edit-finanzas-monto" class="compras-input" style="width: 100%; box-sizing: border-box;" step="0.01" min="0.01" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 4px;">Tipo de Registro</label>
+                            <select id="edit-finanzas-tipo" class="compras-select" style="width: 100%;" onchange="actualizarCamposEdicionServicio()" required>
+                                <option value="gasto">🛍️ Gasto Compartido</option>
+                                <option value="ahorro">🌱 Ahorro Juntos</option>
+                                <option value="servicio">💡 Pago de Servicio</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 4px;">¿Quién lo pagó?</label>
+                            <select id="edit-finanzas-persona" class="compras-select" style="width: 100%;" required>
+                                <option value="ambos">❤️ Ambos (50/50)</option>
+                                <option value="andy">🐧 Andy</option>
+                                <option value="jessie">😈 Jessie</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="edit-finanzas-servicio-row" style="display: none;">
+                        <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 4px;">Estado del Servicio</label>
+                        <select id="edit-finanzas-estado-servicio" class="compras-select" style="width: 100%;">
+                            <option value="pendiente">⏳ Pendiente de Pago</option>
+                            <option value="pagado">✔️ Ya Pagado</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button type="submit" class="btn-finanzas-submit" style="flex: 1; justify-content: center;">
+                            💾 Guardar Cambios
+                        </button>
+                        <button type="button" class="btn-radar" onclick="cerrarModalEditarFinanzas()" style="padding: 10px 16px;">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDICIÓN DE ARTÍCULO DE COMPRA -->
+    <div class="modal-overlay" id="modal-editar-compra">
+        <div class="modal-historial-salud-content" style="max-width: 440px;">
+            <button class="modal-close-btn" onclick="cerrarModalEditarCompra()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.6rem; cursor: pointer; color: var(--text-dark);" title="Cerrar">&times;</button>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                <span style="font-size: 1.8rem;">✏️</span>
+                <div>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; margin: 0; color: var(--text-dark);">Modificar Artículo</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin: 2px 0 0 0;">Edita el nombre o categoría del artículo</p>
+                </div>
+            </div>
+
+            <form id="form-editar-compra" onsubmit="guardarEdicionCompra(event)">
+                <input type="hidden" id="edit-compra-id">
+                
+                <div style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+                    <div>
+                        <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 4px;">Artículo</label>
+                        <input type="text" id="edit-compra-nombre" class="compras-input" style="width: 100%; box-sizing: border-box;" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 4px;">Categoría</label>
+                            <select id="edit-compra-categoria" class="compras-select" style="width: 100%;">
+                                <option value="Despensa & Comida">🍎 Despensa</option>
+                                <option value="Hogar & Aseo">🧼 Hogar & Aseo</option>
+                                <option value="Antojos & Salidas">🍿 Antojos</option>
+                                <option value="Mascotas / Otros">📦 Otros</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.82rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 4px;">Sugerido por</label>
+                            <select id="edit-compra-persona" class="compras-select" style="width: 100%;">
+                                <option value="ambos">❤️ Ambos</option>
+                                <option value="andy">🐧 Andy</option>
+                                <option value="jessie">😈 Jessie</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button type="submit" class="btn-finanzas-submit" style="flex: 1; justify-content: center;">
+                            💾 Guardar Cambios
+                        </button>
+                        <button type="button" class="btn-radar" onclick="cerrarModalEditarCompra()" style="padding: 10px 16px;">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -6630,19 +6760,8 @@ Andy. ❤️</div>
         // ==========================================
         // --- MÓDULO DE FINANZAS Y LISTA DE COMPRAS ---
         // ==========================================
-        const finanzasPorDefecto = [
-            { id: 1, tipo: 'ahorro', concepto: 'Ahorro para próximo viaje juntos', monto: 120.00, persona: 'ambos', fecha: '20/10/2026', hora: '10:00' },
-            { id: 2, tipo: 'servicio', concepto: 'Servicio de Internet Fibra', monto: 25.00, persona: 'andy', fecha: '18/10/2026', hora: '09:15', estadoServicio: 'pagado' },
-            { id: 3, tipo: 'servicio', concepto: 'Servicio de Energía Eléctrica / Luz', monto: 18.50, persona: 'jessie', fecha: '19/10/2026', hora: '14:20', estadoServicio: 'pendiente' },
-            { id: 4, tipo: 'gasto', concepto: 'Supermercado semanal compartido', monto: 42.80, persona: 'ambos', fecha: '20/10/2026', hora: '18:30' }
-        ];
-
-        const comprasPorDefecto = [
-            { id: 101, nombre: 'Snacks y chocolates para ver películas', categoria: 'Antojos & Salidas', persona: 'jessie', comprado: false, fecha: '21/10/2026' },
-            { id: 102, nombre: 'Café gourmet para las mañanas', categoria: 'Despensa & Comida', persona: 'andy', comprado: true, fecha: '20/10/2026' },
-            { id: 103, nombre: 'Frutas frescas y manzanas verdes', categoria: 'Despensa & Comida', persona: 'ambos', comprado: false, fecha: '21/10/2026' },
-            { id: 104, nombre: 'Jabón y artículos de limpieza para el hogar', categoria: 'Hogar & Aseo', persona: 'ambos', comprado: false, fecha: '21/10/2026' }
-        ];
+        const finanzasPorDefecto = [];
+        const comprasPorDefecto = [];
 
         let finanzasRegistros = [];
         let comprasItems = [];
@@ -6650,10 +6769,16 @@ Andy. ❤️</div>
         function cargarFinanzas() {
             const raw = localStorage.getItem('finanzasPareja');
             if (raw) {
-                try { finanzasRegistros = JSON.parse(raw); } catch (e) { finanzasRegistros = [...finanzasPorDefecto]; }
+                try {
+                    let parsed = JSON.parse(raw);
+                    // Purgar datos de demostración anteriores (ids 1, 2, 3, 4) para asegurar datos 100% reales
+                    parsed = parsed.filter(item => item.id !== 1 && item.id !== 2 && item.id !== 3 && item.id !== 4);
+                    finanzasRegistros = parsed;
+                } catch (e) {
+                    finanzasRegistros = [];
+                }
             } else {
-                finanzasRegistros = [...finanzasPorDefecto];
-                localStorage.setItem('finanzasPareja', JSON.stringify(finanzasRegistros));
+                finanzasRegistros = [];
             }
         }
 
@@ -6664,10 +6789,16 @@ Andy. ❤️</div>
         function cargarCompras() {
             const raw = localStorage.getItem('comprasPareja');
             if (raw) {
-                try { comprasItems = JSON.parse(raw); } catch (e) { comprasItems = [...comprasPorDefecto]; }
+                try {
+                    let parsed = JSON.parse(raw);
+                    // Purgar artículos de demostración anteriores (ids 101, 102, 103, 104)
+                    parsed = parsed.filter(item => item.id !== 101 && item.id !== 102 && item.id !== 103 && item.id !== 104);
+                    comprasItems = parsed;
+                } catch (e) {
+                    comprasItems = [];
+                }
             } else {
-                comprasItems = [...comprasPorDefecto];
-                localStorage.setItem('comprasPareja', JSON.stringify(comprasItems));
+                comprasItems = [];
             }
         }
 
@@ -6751,7 +6882,7 @@ Andy. ❤️</div>
             if (finanzasRegistros.length === 0) {
                 contenedor.innerHTML = `
                     <div style="text-align: center; padding: 24px 10px; color: var(--text-muted);">
-                        <span>💰</span> No hay movimientos registrados todavía. ¡Añade el primero arriba!
+                        <span>💰</span> No hay movimientos registrados todavía. ¡Añade tu primer gasto, ahorro o servicio arriba!
                     </div>
                 `;
                 return;
@@ -6797,11 +6928,14 @@ Andy. ❤️</div>
                             Pagado por: <strong>${personaTexto}</strong> • ${item.fecha || ''} ${item.hora ? 'a las ' + item.hora : ''}
                         </div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end;">
                         <span style="font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 800; color: var(--text-dark);">
                             $${parseFloat(item.monto).toFixed(2)}
                         </span>
                         ${accionExtra}
+                        <button type="button" class="btn-editar-finanzas" onclick="abrirModalEditarFinanzas(${item.id})" style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.35); color: #7c3aed; border-radius: 8px; font-size: 0.78rem; font-weight: 600; padding: 4px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease;" title="Modificar monto, concepto o pagador">
+                            ✏️ Modificar
+                        </button>
                         <button type="button" onclick="eliminarMovimientoFinanzas(${item.id})" style="background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 0.95rem; padding: 4px;" title="Eliminar registro">✕</button>
                     </div>
                 `;
@@ -6866,6 +7000,82 @@ Andy. ❤️</div>
             renderizarFinanzas();
         }
 
+        // --- FUNCIONES DE EDICIÓN Y VACIADO DE FINANZAS ---
+        function abrirModalEditarFinanzas(id) {
+            const item = finanzasRegistros.find(m => m.id === id);
+            if (!item) return;
+
+            document.getElementById('edit-finanzas-id').value = item.id;
+            document.getElementById('edit-finanzas-concepto').value = item.concepto || '';
+            document.getElementById('edit-finanzas-monto').value = parseFloat(item.monto) || '';
+            document.getElementById('edit-finanzas-tipo').value = item.tipo || 'gasto';
+            document.getElementById('edit-finanzas-persona').value = item.persona || 'ambos';
+            
+            const rowServicio = document.getElementById('edit-finanzas-servicio-row');
+            const selectEstado = document.getElementById('edit-finanzas-estado-servicio');
+            if (item.tipo === 'servicio') {
+                if (rowServicio) rowServicio.style.display = 'block';
+                if (selectEstado) selectEstado.value = item.estadoServicio || 'pendiente';
+            } else {
+                if (rowServicio) rowServicio.style.display = 'none';
+            }
+
+            const modal = document.getElementById('modal-editar-finanzas');
+            if (modal) modal.classList.add('active');
+        }
+
+        function cerrarModalEditarFinanzas() {
+            const modal = document.getElementById('modal-editar-finanzas');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function actualizarCamposEdicionServicio() {
+            const tipo = document.getElementById('edit-finanzas-tipo').value;
+            const rowServicio = document.getElementById('edit-finanzas-servicio-row');
+            if (rowServicio) {
+                rowServicio.style.display = (tipo === 'servicio') ? 'block' : 'none';
+            }
+        }
+
+        function guardarEdicionFinanzas(e) {
+            e.preventDefault();
+            const id = parseInt(document.getElementById('edit-finanzas-id').value);
+            const concepto = document.getElementById('edit-finanzas-concepto').value.trim();
+            const monto = parseFloat(document.getElementById('edit-finanzas-monto').value);
+            const tipo = document.getElementById('edit-finanzas-tipo').value;
+            const persona = document.getElementById('edit-finanzas-persona').value;
+            const estadoServicio = tipo === 'servicio' ? document.getElementById('edit-finanzas-estado-servicio').value : null;
+
+            if (!concepto || isNaN(monto) || monto <= 0) {
+                alert("Por favor ingresa un concepto válido y un monto mayor a cero.");
+                return;
+            }
+
+            const idx = finanzasRegistros.findIndex(m => m.id === id);
+            if (idx === -1) return;
+
+            finanzasRegistros[idx].concepto = concepto;
+            finanzasRegistros[idx].monto = monto;
+            finanzasRegistros[idx].tipo = tipo;
+            finanzasRegistros[idx].persona = persona;
+            finanzasRegistros[idx].estadoServicio = estadoServicio;
+
+            guardarFinanzas();
+            renderizarFinanzas();
+            cerrarModalEditarFinanzas();
+        }
+
+        function vaciarFinanzas() {
+            if (finanzasRegistros.length === 0) {
+                alert("Actualmente ya está en $0.00 y no hay registros que eliminar.");
+                return;
+            }
+            if (!confirm("¿Deseas reiniciar todos los registros financieros para comenzar desde $0.00?")) return;
+            finanzasRegistros = [];
+            guardarFinanzas();
+            renderizarFinanzas();
+        }
+
         // --- FUNCIONES DE LISTA DE COMPRAS ---
         function renderizarCompras() {
             cargarCompras();
@@ -6913,7 +7123,12 @@ Andy. ❤️</div>
                             </span>
                         </div>
                     </div>
-                    <button type="button" onclick="eliminarItemCompra(${item.id})" style="background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 0.95rem; padding: 4px;" title="Eliminar artículo">✕</button>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <button type="button" onclick="abrirModalEditarCompra(${item.id})" style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.3); color: #7c3aed; border-radius: 6px; font-size: 0.78rem; font-weight: 600; padding: 3px 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 3px;" title="Modificar artículo">
+                            ✏️
+                        </button>
+                        <button type="button" onclick="eliminarItemCompra(${item.id})" style="background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 0.95rem; padding: 4px;" title="Eliminar artículo">✕</button>
+                    </div>
                 `;
                 contenedor.appendChild(itemDiv);
             });
@@ -6969,6 +7184,56 @@ Andy. ❤️</div>
             }
             if (!confirm(`¿Deseas eliminar ${comprados.length} artículo(s) ya comprado(s)?`)) return;
             comprasItems = comprasItems.filter(i => !i.comprado);
+            guardarCompras();
+            renderizarCompras();
+        }
+
+        function abrirModalEditarCompra(id) {
+            const item = comprasItems.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('edit-compra-id').value = item.id;
+            document.getElementById('edit-compra-nombre').value = item.nombre || '';
+            document.getElementById('edit-compra-categoria').value = item.categoria || 'Despensa & Comida';
+            document.getElementById('edit-compra-persona').value = item.persona || 'ambos';
+
+            const modal = document.getElementById('modal-editar-compra');
+            if (modal) modal.classList.add('active');
+        }
+
+        function cerrarModalEditarCompra() {
+            const modal = document.getElementById('modal-editar-compra');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function guardarEdicionCompra(e) {
+            e.preventDefault();
+            const id = parseInt(document.getElementById('edit-compra-id').value);
+            const nombre = document.getElementById('edit-compra-nombre').value.trim();
+            const categoria = document.getElementById('edit-compra-categoria').value;
+            const persona = document.getElementById('edit-compra-persona').value;
+
+            if (!nombre) return;
+
+            const idx = comprasItems.findIndex(i => i.id === id);
+            if (idx === -1) return;
+
+            comprasItems[idx].nombre = nombre;
+            comprasItems[idx].categoria = categoria;
+            comprasItems[idx].persona = persona;
+
+            guardarCompras();
+            renderizarCompras();
+            cerrarModalEditarCompra();
+        }
+
+        function vaciarCompras() {
+            if (comprasItems.length === 0) {
+                alert("La lista de compras ya está vacía.");
+                return;
+            }
+            if (!confirm("¿Deseas vaciar toda la lista de compras?")) return;
+            comprasItems = [];
             guardarCompras();
             renderizarCompras();
         }
