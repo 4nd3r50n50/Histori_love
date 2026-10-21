@@ -21,25 +21,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- DISEÑO DEL SISTEMA DE ESTILOS --- */
+        /* --- DISEÑO DEL SISTEMA DE ESTILOS (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
         :root {
-            --primary: #ec4899;      /* Rosa vibrante */
-            --primary-hover: #db2777;
-            --primary-light: #fbcfe8;
-            --secondary: #8b5cf6;    /* Violeta mágico */
-            --accent: #f43f5e;       /* Rojo amor */
-            --bg-gradient: linear-gradient(135deg, #fff1f2 0%, #fae8ff 50%, #e0e7ff 100%);
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --unlocked-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-dark: #1e1b4b;    /* Índigo oscuro */
-            --text-muted: #475569;
+            --primary: #f472b6;          /* Rosa pastel suave */
+            --primary-hover: #ec4899;
+            --primary-light: #fce7f3;    /* Niebla rosa suave */
+            --secondary: #c084fc;        /* Lavanda / Lila pastel */
+            --secondary-light: #f3e8ff;  /* Fondo lila muy sutil */
+            --accent: #fb7185;           /* Coral pastel suave */
+            --bg-gradient: linear-gradient(180deg, #fff5f8 0%, #faf6fd 35%, #f4f7fb 100%);
+            --card-bg: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.94);
+            --unlocked-bg: #ffffff;
+            --glass-border: rgba(241, 235, 246, 0.9);
+            --text-dark: #1e293b;        /* Slate oscuro muy sobrio y elegante */
+            --text-muted: #64748b;       /* Gris suave para subtítulos */
+            --radius-xl: 28px;           /* Contenedores ultra redondeados */
             --radius-lg: 24px;
-            --radius-md: 16px;
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 20px 25px -5px rgba(236, 72, 153, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --radius-md: 18px;
+            --radius-sm: 12px;
+            --radius-pill: 999px;
+            --shadow-sm: 0 2px 10px rgba(148, 163, 184, 0.06);
+            --shadow-md: 0 8px 24px rgba(148, 163, 184, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
+            --shadow-lg: 0 16px 36px rgba(244, 114, 182, 0.09), 0 4px 12px rgba(0, 0, 0, 0.03);
+            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --pastel-pink-bg: #fff1f5;
+            --pastel-purple-bg: #f5f3ff;
+            --pastel-green-bg: #f0fdf4;
+            --pastel-peach-bg: #fff7ed;
+            --pastel-blue-bg: #f0f9ff;
         }
 
         /* --- SISTEMA DE TEMAS ADICIONALES --- */
@@ -218,61 +228,24 @@
         }
 
         header p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-muted);
             font-weight: 500;
         }
 
-        // Fullscreen API Logic
-        function toggleJuegoPantallaCompleta() {
-            const contenedor = document.getElementById('juego-contenedor-canvas');
-            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
-                // Entrar a pantalla completa
-                const requestFS = contenedor.requestFullscreen || contenedor.webkitRequestFullscreen || contenedor.msRequestFullscreen;
-                if (requestFS) {
-                    requestFS.call(contenedor).then(() => {
-                        // Intentar bloquear orientación si está disponible
-                        if (screen.orientation && screen.orientation.lock) {
-                            screen.orientation.lock('landscape').catch(e => console.log('Bloqueo de rotación no soportado', e));
-                        }
-                        // Ajustar estilos para fullscreen
-                        contenedor.style.maxWidth = '100vw';
-                        contenedor.style.height = '100vh';
-                        contenedor.style.borderRadius = '0';
-                        contenedor.style.border = 'none';
-                    }).catch(err => {
-                        console.error(`Error de pantalla completa: ${err.message}`);
-                    });
-                }
-            } else {
-                // Salir de pantalla completa
-                const exitFS = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
-                if (exitFS) {
-                    exitFS.call(document).then(() => {
-                        // Restaurar estilos
-                        contenedor.style.maxWidth = '600px';
-                        contenedor.style.height = 'auto';
-                        contenedor.style.borderRadius = 'var(--radius-md)';
-                        contenedor.style.border = '2px solid var(--primary-light)';
-                    });
-                }
-            }
-        }
-        
-        // --- EVENTOS DEL TECLADO PARA EL JUEGO --- */
+        /* --- CABECERA Y PERFILES (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
         .perfil-pareja-contenedor {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: #ffffff;
             border: 1px solid var(--glass-border);
-            padding: 20px 28px;
-            border-radius: var(--radius-lg);
+            padding: 22px 26px;
+            border-radius: var(--radius-xl);
             box-shadow: var(--shadow-sm);
             gap: 16px;
-            animation: fadeIn 1s ease 0.15s both;
+            animation: fadeIn 0.8s ease 0.15s both;
+            position: relative;
         }
 
         .perfil-tarjeta {
@@ -295,6 +268,28 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
 
+        .perfil-avatar-circle {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #fce7f3;
+            box-shadow: 0 4px 14px rgba(244, 114, 182, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #avatar-circle-andy {
+            border-color: #ede9fe;
+            box-shadow: 0 4px 14px rgba(192, 132, 252, 0.2);
+        }
+        .perfil-avatar-circle:hover {
+            transform: scale(1.05);
+        }
+        .perfil-avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .perfil-datos {
             display: flex;
             flex-direction: column;
@@ -303,46 +298,76 @@
         .perfil-nombre {
             font-size: 1.25rem;
             font-weight: 800;
-            color: var(--primary-hover);
+            color: var(--text-dark);
+            letter-spacing: -0.3px;
         }
 
         .perfil-info {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-dark);
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .perfil-hobby {
             font-size: 0.78rem;
             color: var(--text-muted);
-            font-style: italic;
             font-weight: 500;
         }
 
+        /* Insignia central de distancia estilo Couple360 */
+        .couple360-dist-badge {
+            background: linear-gradient(135deg, #fff0f5 0%, #f5f3ff 100%);
+            border: 1px solid rgba(244, 114, 182, 0.3);
+            border-radius: var(--radius-pill);
+            padding: 8px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.12);
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .couple360-dist-badge:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 16px rgba(244, 114, 182, 0.2);
+        }
+        .couple360-dist-top {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #be185d;
+        }
+        .couple360-dist-sub {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .perfil-corazon-medio {
-            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary);
-            animation: palpitacion 1.2s infinite ease-in-out;
         }
 
-        /* --- RELOJ DE ANIVERSARIO --- */
+        /* --- RELOJ DE ANIVERSARIO (ESTILO COUPLE360: SOBRIO, PASTEL Y REDONDEADO) --- */
         .reloj-aniversario-contenedor {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: #ffffff;
             border: 1px solid var(--glass-border);
             padding: 24px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            gap: 12px;
-            animation: fadeIn 1s ease 0.1s both;
+            gap: 14px;
+            animation: fadeIn 0.8s ease 0.1s both;
             overflow: hidden;
         }
 
@@ -361,42 +386,45 @@
         }
 
         .reloj-titulo-interna {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 0.95rem;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--primary);
+            color: #be185d;
         }
 
         .reloj-contador {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
+            gap: 10px;
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
         }
 
         .reloj-segmento {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255, 255, 255, 0.25);
-            padding: 8px 4px;
+            background: #faf5ff;
+            padding: 10px 6px;
             border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 6px rgba(192, 132, 252, 0.08);
+            border: 1px solid #ede9fe;
         }
 
         .reloj-segmento .num {
-            font-size: 1.6rem;
+            font-size: 1.55rem;
             font-weight: 800;
-            color: var(--text-dark);
+            color: #1e293b;
         }
 
         .reloj-segmento .label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
         }
 
         .btn-editar-fecha {
@@ -1631,60 +1659,64 @@
             }
         }
 
-        /* --- ESTILOS DE PESTAÑAS (TABS) --- */
+        /* --- ESTILOS DE PESTAÑAS (TABS ESTILO COUPLE360: PILL PASTEL Y SOBRIO) --- */
         .tab-nav {
             display: flex;
-            justify-content: flex-start; /* Cambio para scroll horizontal en móvil */
-            gap: 12px;
-            margin-bottom: 8px;
-            animation: fadeInDown 0.8s ease;
+            justify-content: flex-start;
+            gap: 8px;
+            margin-bottom: 12px;
+            animation: fadeInDown 0.6s ease;
             width: 100%;
-            overflow-x: auto; /* Permite scroll horizontal */
-            -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
-            padding-bottom: 5px;
-            scrollbar-width: none; /* Oculta scrollbar en Firefox */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-sm);
+            scrollbar-width: none;
         }
         .tab-nav::-webkit-scrollbar {
-            display: none; /* Oculta scrollbar en Chrome/Safari */
+            display: none;
         }
         
-        /* En escritorio, centrar los tabs */
         @media (min-width: 769px) {
             .tab-nav {
                 justify-content: center;
                 overflow-x: visible;
-                padding-bottom: 0;
+                max-width: 860px;
+                margin: 0 auto 16px auto;
             }
         }
         
         .tab-btn {
-            flex-shrink: 0; /* Previene que los botones se encojan en móvil */
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            padding: 10px 20px;
-            border-radius: 30px;
+            flex-shrink: 0;
+            background: transparent;
+            border: none;
+            padding: 9px 18px;
+            border-radius: var(--radius-pill);
             font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-dark);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
             cursor: pointer;
-            box-shadow: var(--shadow-sm);
             transition: var(--transition-smooth);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         .tab-btn:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary);
+            color: var(--text-dark);
+            background: rgba(255, 240, 245, 0.6);
         }
         .tab-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-color: transparent;
-            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, #fce7f3 0%, #ede9fe 100%);
+            color: #9d174d;
+            font-weight: 700;
+            border: 1px solid rgba(244, 114, 182, 0.25);
+            box-shadow: 0 2px 10px rgba(244, 114, 182, 0.15);
         }
         .tab-content {
             display: none;
@@ -2987,33 +3019,40 @@
             .tab-btn { padding: 8px 16px; font-size: 0.9rem; }
         }
 
-        /* Diario de Amor Widget */
+        /* Diario de Amor Widget (Estilo Couple360: Sobrio y Pastel) */
         .diario-amor-widget {
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(219, 39, 119, 0.1));
-            border: 1px dashed var(--primary);
-            border-radius: var(--radius-md);
-            padding: 15px;
-            margin-bottom: 20px;
+            background: #ffffff;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 20px 24px;
+            margin-bottom: 22px;
             text-align: center;
             position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 10px rgba(236,72,153,0.05);
+            box-shadow: var(--shadow-sm);
         }
         .diario-amor-title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            margin-bottom: 5px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #be185d;
+            background: #fff1f2;
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: var(--radius-pill);
+            margin-bottom: 10px;
         }
         .diario-amor-text {
+            font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: var(--text-color);
-            font-size: 1.1rem;
-            line-height: 1.4;
-            opacity: 0.9;
+            color: var(--text-dark);
+            font-size: 1.15rem;
+            line-height: 1.5;
+            font-weight: 600;
         }
 
-        /* Fechas Especiales (Countdowns) */
+        /* Fechas Especiales (Countdowns Estilo Couple360) */
         .fechas-especiales-container {
             display: flex;
             flex-wrap: wrap;
@@ -3023,16 +3062,19 @@
             margin-bottom: 25px;
         }
         .fecha-tarjeta {
-            background: var(--card-bg);
-            border: 1px solid rgba(236, 72, 153, 0.2);
-            border-radius: var(--radius-md);
-            padding: 12px 20px;
+            background: #ffffff;
+            border: 1px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 16px 22px;
             text-align: center;
-            min-width: 150px;
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.3s;
+            min-width: 155px;
+            box-shadow: 0 2px 10px rgba(148, 163, 184, 0.04);
+            transition: var(--transition-smooth);
         }
-        .fecha-tarjeta:hover { transform: translateY(-3px); }
+        .fecha-tarjeta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
         .fecha-icono { font-size: 1.8rem; margin-bottom: 5px; display: block; }
         .fecha-icono-wrap {
             display: flex;
@@ -3119,15 +3161,13 @@
             color: #64748b;
         }
 
-        /* --- RADAR DE CONEXIÓN EN EL MAPA --- */
+        /* --- RADAR DE CONEXIÓN EN EL MAPA (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
         .radar-distancia-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background: #ffffff;
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
-            padding: 18px 20px;
-            margin-bottom: 18px;
+            border-radius: var(--radius-xl);
+            padding: 22px 24px;
+            margin-bottom: 20px;
             box-shadow: var(--shadow-sm);
             transition: var(--transition-smooth);
         }
@@ -3141,23 +3181,26 @@
         .radar-titulo-wrap {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
         .radar-icono {
             font-size: 1.8rem;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(236, 72, 153, 0.1);
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: #fff1f2;
+            color: #be123c;
+            box-shadow: 0 2px 8px rgba(244, 114, 182, 0.15);
         }
         .radar-titulo {
-            font-size: 1.15rem;
-            font-weight: 700;
+            font-size: 1.2rem;
+            font-weight: 800;
             color: var(--text-dark);
             margin: 0;
+            letter-spacing: -0.2px;
         }
         .radar-subtitulo {
             font-size: 0.82rem;
@@ -3167,23 +3210,23 @@
         .radar-distancia-badge {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: #fff;
-            padding: 6px 14px;
-            border-radius: 20px;
+            padding: 8px 18px;
+            border-radius: var(--radius-pill);
             font-weight: 800;
-            font-size: 1rem;
-            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.25);
+            font-size: 0.95rem;
+            box-shadow: 0 4px 14px rgba(244, 114, 182, 0.25);
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
         .radar-detalles {
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             color: var(--text-muted);
-            margin: 12px 0;
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            margin: 14px 0;
+            padding: 12px 18px;
+            border-radius: var(--radius-md);
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -3192,41 +3235,40 @@
         }
         .radar-acciones {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         .btn-radar {
             flex: 1;
-            min-width: 140px;
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid var(--glass-border);
+            min-width: 150px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             color: var(--text-dark);
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 0.85rem;
+            padding: 11px 18px;
+            border-radius: var(--radius-pill);
+            font-size: 0.86rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition-smooth);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
         }
         .btn-radar:hover {
-            background: var(--primary);
-            color: #fff;
+            background: #ffffff;
+            color: var(--primary-hover);
             border-color: var(--primary);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.18);
         }
 
-        /* --- MÓDULO DE CUIDADO & SALUD DIARIA --- */
+        /* --- MÓDULO DE CUIDADO & SALUD DIARIA (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
         .salud-bienestar-container {
             width: 100%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background: #ffffff;
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-xl);
             padding: 24px;
             margin: 25px 0;
             box-shadow: var(--shadow-sm);
@@ -3235,65 +3277,77 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 12px;
         }
         .salud-titulo-grupo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
         .salud-icono {
             font-size: 1.8rem;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: rgba(16, 185, 129, 0.12);
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: #f0fdf4;
+            color: #16a34a;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 8px rgba(22, 163, 74, 0.1);
         }
         .salud-cabecera h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.35rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
             color: var(--text-dark);
             margin: 0;
+            letter-spacing: -0.3px;
         }
         .salud-cabecera p {
-            font-size: 0.84rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
-            margin-top: 2px;
+            margin-top: 3px;
         }
         .btn-ver-historial-salud {
-            background: transparent;
-            border: 1px solid var(--text-muted);
-            color: var(--text-dark);
-            padding: 6px 14px;
-            border-radius: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            padding: 8px 18px;
+            border-radius: var(--radius-pill);
             font-size: 0.82rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
         .btn-ver-historial-salud:hover {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
+            background: #f1f5f9;
+            color: var(--text-dark);
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
         }
         .salud-selector-persona {
             display: flex;
-            gap: 10px;
-            margin-bottom: 18px;
+            background: #f8fafc;
+            border-radius: var(--radius-pill);
+            padding: 5px;
+            border: 1px solid #f1f5f9;
+            gap: 6px;
+            margin-bottom: 20px;
         }
         .salud-persona-btn {
             flex: 1;
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.4);
+            padding: 10px 18px;
+            border-radius: var(--radius-pill);
+            border: none;
+            background: transparent;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -3303,26 +3357,37 @@
             gap: 8px;
         }
         .salud-persona-btn.active {
-            background: #fff;
+            background: #ffffff;
             color: var(--text-dark);
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         .salud-grid-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
+            gap: 16px;
         }
         .salud-card {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 16px;
-            padding: 16px;
+            background: #faf5ff;
+            border: 1px solid #ede9fe;
+            border-radius: 22px;
+            padding: 18px 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 2px 10px rgba(148, 163, 184, 0.04);
             transition: var(--transition-smooth);
+        }
+        .salud-card:nth-child(1) {
+            background: #faf5ff;
+            border-color: #f3e8ff;
+        }
+        .salud-card:nth-child(2) {
+            background: #f0f9ff;
+            border-color: #e0f2fe;
+        }
+        .salud-card:nth-child(3) {
+            background: #f0fdf4;
+            border-color: #dcfce7;
         }
         .salud-card:hover {
             transform: translateY(-2px);
@@ -3333,75 +3398,83 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 10px;
-            margin-bottom: 10px;
-        }
-        .salud-card-icon {
-            font-size: 1.5rem;
+            margin-bottom: 12px;
         }
         .salud-card-title {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.95rem;
             color: var(--text-dark);
+            letter-spacing: -0.2px;
         }
         .salud-card-sub {
             font-size: 0.75rem;
             color: var(--text-muted);
-            margin-top: 2px;
+            margin-top: 3px;
         }
         .salud-card-counter {
-            font-size: 1.6rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.85rem;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--text-dark);
             line-height: 1;
         }
         .salud-card-meta {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin: 10px 0;
-            min-height: 20px;
+            margin: 12px 0;
+            min-height: 22px;
+            line-height: 1.4;
         }
         .salud-barra-progreso-bg {
             width: 100%;
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 10px;
+            height: 7px;
+            background: rgba(226, 232, 240, 0.8);
+            border-radius: var(--radius-pill);
             overflow: hidden;
-            margin-top: 4px;
+            margin-top: 6px;
         }
         .salud-barra-progreso-fill {
             height: 100%;
             background: linear-gradient(90deg, #38bdf8, #0284c7);
-            border-radius: 10px;
+            border-radius: var(--radius-pill);
             transition: width 0.4s ease;
         }
         .salud-btn-accion {
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 9px;
-            border-radius: 10px;
-            font-size: 0.85rem;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 10px 16px;
+            border-radius: var(--radius-pill);
+            font-size: 0.86rem;
             font-weight: 700;
             color: var(--text-dark);
             cursor: pointer;
             transition: var(--transition-smooth);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
         .salud-btn-accion:hover {
             background: var(--primary);
             color: #fff;
             border-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(244, 114, 182, 0.25);
         }
         .salud-aviso-cuidado {
-            margin-top: 14px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: #065f46;
-            font-size: 0.82rem;
+            margin-top: 18px;
+            padding: 12px 18px;
+            border-radius: var(--radius-md);
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            font-size: 0.84rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            line-height: 1.4;
         }
 
         /* Modal Historial de Salud */
@@ -3453,7 +3526,7 @@
             color: #f8fafc !important;
         }
 
-        /* --- ESTILOS DE FINANZAS & HOGAR Y LISTA DE COMPRAS --- */
+        /* --- ESTILOS DE FINANZAS & HOGAR Y LISTA DE COMPRAS (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
         .finanzas-container {
             width: 100%;
             display: flex;
@@ -3462,22 +3535,21 @@
         }
         .finanzas-subnav {
             display: flex;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 14px;
-            padding: 4px;
-            border: 1px solid var(--glass-border);
+            background: #f8fafc;
+            border-radius: var(--radius-pill);
+            padding: 5px;
+            border: 1px solid #f1f5f9;
             gap: 6px;
         }
         .finanzas-subtab-btn {
             flex: 1;
-            padding: 10px 16px;
+            padding: 10px 18px;
             border: none;
             background: transparent;
             color: var(--text-muted);
             font-size: 0.92rem;
             font-weight: 700;
-            border-radius: 10px;
+            border-radius: var(--radius-pill);
             cursor: pointer;
             transition: var(--transition-smooth);
             display: flex;
@@ -3486,123 +3558,167 @@
             gap: 8px;
         }
         .finanzas-subtab-btn.active {
-            background: #fff;
+            background: #ffffff;
             color: var(--text-dark);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         .finanzas-resumen-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px;
+            gap: 16px;
         }
         .finanzas-resumen-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
-            padding: 18px;
+            border-radius: var(--radius-lg);
+            padding: 22px;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 2px 10px rgba(148, 163, 184, 0.04);
+            border: 1px solid transparent;
+            transition: var(--transition-smooth);
+        }
+        .finanzas-resumen-card:nth-child(1) {
+            background: #f0fdf4;
+            border-color: #dcfce7;
+        }
+        .finanzas-resumen-card:nth-child(2) {
+            background: #fff1f2;
+            border-color: #ffe4e6;
+        }
+        .finanzas-resumen-card:nth-child(3) {
+            background: #f5f3ff;
+            border-color: #ede9fe;
+        }
+        .finanzas-resumen-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
         .finanzas-resumen-label {
             font-size: 0.78rem;
             text-transform: uppercase;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-        .finanzas-resumen-monto {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
             font-weight: 800;
-            color: var(--text-dark);
+            letter-spacing: 0.3px;
         }
-        .finanzas-resumen-monto.ahorro { color: #059669; }
-        .finanzas-resumen-monto.gasto { color: #db2777; }
-        .finanzas-resumen-monto.servicio { color: #2563eb; }
+        .finanzas-resumen-card:nth-child(1) .finanzas-resumen-label { color: #166534; }
+        .finanzas-resumen-card:nth-child(2) .finanzas-resumen-label { color: #9f1239; }
+        .finanzas-resumen-card:nth-child(3) .finanzas-resumen-label { color: #5b21b6; }
+
+        .finanzas-resumen-monto {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        .finanzas-resumen-monto.ahorro { color: #15803d; }
+        .finanzas-resumen-monto.gasto { color: #be123c; }
+        .finanzas-resumen-monto.servicio { color: #6d28d9; }
 
         /* Lista de Compras y Movimientos */
         .compras-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
+            background: #ffffff;
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
-            padding: 20px;
+            border-radius: var(--radius-xl);
+            padding: 24px;
             box-shadow: var(--shadow-sm);
         }
         .compras-form {
             display: flex;
-            gap: 8px;
-            margin-bottom: 18px;
+            gap: 10px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
         .compras-input {
             flex: 2;
             min-width: 180px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.8);
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--text-dark);
+            transition: var(--transition-smooth);
+        }
+        .compras-input:focus {
+            outline: none;
+            background: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
         }
         .compras-select {
             flex: 1;
             min-width: 120px;
-            padding: 10px 12px;
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.8);
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
             font-family: inherit;
             font-size: 0.9rem;
             color: var(--text-dark);
+            transition: var(--transition-smooth);
+        }
+        .compras-select:focus {
+            outline: none;
+            background: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
         }
         .compras-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 14px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 12px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(0, 0, 0, 0.03);
+            padding: 14px 18px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #f1f5f9;
             transition: var(--transition-smooth);
+        }
+        .compras-item:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(148, 163, 184, 0.06);
         }
         .compras-item.comprado {
             opacity: 0.55;
-            background: rgba(255, 255, 255, 0.3);
+            background: #f1f5f9;
             text-decoration: line-through;
         }
         .compras-item-check {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             cursor: pointer;
             accent-color: var(--primary);
+            border-radius: 6px;
         }
         .movimiento-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 14px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 12px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(0, 0, 0, 0.03);
+            padding: 14px 18px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #f1f5f9;
+            transition: var(--transition-smooth);
+        }
+        .movimiento-item:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(148, 163, 184, 0.06);
         }
         .movimiento-badge {
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 12px;
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
             text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
-        .movimiento-badge.ahorro { background: #d1fae5; color: #065f46; }
-        .movimiento-badge.gasto { background: #fce7f3; color: #9d174d; }
+        .movimiento-badge.ahorro { background: #dcfce7; color: #166534; }
+        .movimiento-badge.gasto { background: #ffe4e6; color: #9f1239; }
         .movimiento-badge.servicio-pendiente { background: #fef3c7; color: #92400e; }
-        .movimiento-badge.servicio-pagado { background: #e0e7ff; color: #3730a3; }
+        .movimiento-badge.servicio-pagado { background: #ede9fe; color: #5b21b6; }
 
         body.theme-kuromi .compras-input,
         body.theme-kuromi .compras-select,
@@ -3610,6 +3726,7 @@
         body.theme-estrellada .compras-select {
             background: rgba(15, 23, 42, 0.8) !important;
             color: #fff !important;
+            border-color: rgba(255, 255, 255, 0.15) !important;
         }
         body.theme-kuromi .compras-item,
         body.theme-kuromi .movimiento-item,
@@ -3625,57 +3742,64 @@
         }
 
         .btn-finanzas-submit {
-            padding: 10px 18px;
-            border-radius: 10px;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
             border: none;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: #fff;
-            font-weight: 700;
+            font-weight: 800;
+            font-size: 0.92rem;
             font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(244, 114, 182, 0.25);
+        }
+        .btn-finanzas-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(244, 114, 182, 0.35);
+        }
+        .btn-compras-limpiar {
+            background: #fff1f2;
+            color: #be123c;
+            border: 1px solid #fecdd3;
+            border-radius: var(--radius-pill);
+            padding: 8px 16px;
+            font-size: 0.82rem;
+            font-weight: 700;
             cursor: pointer;
             transition: var(--transition-smooth);
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
-        .btn-finanzas-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.25);
-        }
-        .btn-compras-limpiar {
-            background: rgba(239, 68, 68, 0.1);
-            color: #dc2626;
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 10px;
-            padding: 8px 14px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
         .btn-compras-limpiar:hover {
-            background: #dc2626;
-            color: #fff;
+            background: #ffe4e6;
+            color: #9f1239;
+            transform: translateY(-1px);
         }
         .servicio-toggle-btn {
-            background: rgba(37, 99, 235, 0.1);
-            color: #2563eb;
-            border: 1px solid rgba(37, 99, 235, 0.2);
-            border-radius: 8px;
-            padding: 4px 8px;
+            background: #ede9fe;
+            color: #6d28d9;
+            border: 1px solid #ddd6fe;
+            border-radius: var(--radius-pill);
+            padding: 5px 12px;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             transition: var(--transition-smooth);
         }
         .servicio-toggle-btn:hover {
-            background: #2563eb;
+            background: #6d28d9;
             color: #fff;
+            border-color: #6d28d9;
         }
         .servicio-toggle-btn.pagado {
-            background: rgba(16, 185, 129, 0.1);
-            color: #059669;
-            border-color: rgba(16, 185, 129, 0.2);
+            background: #dcfce7;
+            color: #15803d;
+            border-color: #bbf7d0;
         }
 
         /* Libro de Mensajes (Cartas) */
@@ -3952,7 +4076,14 @@
                     </div>
                 </div>
                 <div class="perfil-corazon-medio">
-                    <img src="imagenes/icono_pareja.png" alt="Andy & Jessie" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(236,72,153,0.3); border: 2px solid #fff;">
+                    <div class="couple360-dist-badge" onclick="cambiarPestaña('mapa')" title="Ver en Radar & Mapa">
+                        <div class="couple360-dist-top">
+                            <span style="font-size: 0.9rem;">📍</span>
+                            <span id="distancia-couple360-val">1 km</span>
+                            <span style="font-size: 0.8rem; animation: palpitacion 1.2s infinite ease-in-out; display: inline-block;">❤️</span>
+                        </div>
+                        <div class="couple360-dist-sub">Distancia</div>
+                    </div>
                 </div>
                 <div class="perfil-tarjeta" id="perfil-tarjeta-jessie" style="text-align: right; flex-direction: row-reverse;">
                     <div class="avatar-wrapper">
@@ -8586,6 +8717,28 @@ Andy. ❤️</div>
             
             ctx.restore();
         }
+
+        function toggleJuegoPantallaCompleta() {
+            const contenedor = document.getElementById('juego-contenedor-canvas');
+            if (!contenedor) return;
+            if (!document.fullscreenElement) {
+                if (contenedor.requestFullscreen) {
+                    contenedor.requestFullscreen();
+                } else if (contenedor.webkitRequestFullscreen) {
+                    contenedor.webkitRequestFullscreen();
+                } else if (contenedor.msRequestFullscreen) {
+                    contenedor.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
         /* --- LÓGICA V2.0: DIARIO, FECHAS, MAPA, CARTAS --- */
         
         // DIARIO DE AMOR
@@ -8919,12 +9072,14 @@ Andy. ❤️</div>
             const badgeEl = document.getElementById('radar-km-valor');
             const infoEl = document.getElementById('radar-tiempo-estimado');
 
-            if (badgeEl) badgeEl.innerText = `${dist} km`;
+            const distTexto = dist < 0.2 ? "Juntos" : `${dist} km`;
+            if (badgeEl) badgeEl.innerText = dist < 0.2 ? "Juntos ❤️" : `${dist} km`;
+            const c360DistEl = document.getElementById('distancia-couple360-val');
+            if (c360DistEl) c360DistEl.innerText = distTexto;
 
             if (infoEl) {
                 if (dist < 0.2) {
                     infoEl.innerText = "¡Están juntos en el mismo lugar! ❤️";
-                    if (badgeEl) badgeEl.innerText = "Juntos ❤️";
                 } else {
                     const tiempoAprox = Math.round((dist / 55) * 60); // promedio 55km/h
                     const horas = Math.floor(tiempoAprox / 60);
