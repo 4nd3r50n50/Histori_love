@@ -99,6 +99,20 @@
             --text-muted: #d8b4fe;
         }
 
+        body.theme-flores-amarillas {
+            --primary: #f59e0b;       /* Amarillo/naranja floral */
+            --primary-hover: #d97706;
+            --primary-light: #fef3c7;
+            --secondary: #fcd34d;     /* Amarillo brillante */
+            --accent: #b45309;        /* Tono tierra/tallo */
+            --bg-gradient: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --unlocked-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(245, 158, 11, 0.35);
+            --text-dark: #78350f;
+            --text-muted: #92400e;
+        }
+
         /* Estilos específicos de Kuromi para el sobre y trivia */
         body.theme-kuromi #modal-trivia .modal-content {
             background: linear-gradient(135deg, #170b24 0%, #090514 100%) !important;
@@ -865,6 +879,7 @@
         .tema-opcion.bosque-encantado { background: linear-gradient(135deg, #064e3b, #14532d); }
         .tema-opcion.oro-rose { background: linear-gradient(135deg, #fafaf9, #e7e5e4); }
         .tema-opcion.tema-kuromi-btn { background: linear-gradient(135deg, #1e1b4b, #581c87); }
+        .tema-opcion.flores-amarillas { background: linear-gradient(135deg, #fcd34d, #f59e0b); }
 
         /* Pegatina animada flotando en el reproductor de música */
         .musica-sticker-badge {
@@ -2530,6 +2545,244 @@
             color: #f8fafc !important;
         }
 
+        /* --- ESTILOS ESPECIALES CUMPLEMES #88 (DOBLE INFINITO) --- */
+        .btn-cumplemes-88 {
+            margin-top: 18px;
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #f59e0b 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite, pulse-glow-88 2s infinite;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4), 0 0 15px rgba(245, 158, 11, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+        .btn-cumplemes-88:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.6), 0 0 20px rgba(245, 158, 11, 0.5);
+        }
+        .icono-infinito-rotando {
+            display: inline-block;
+            font-size: 1.3rem;
+            animation: flotarSuave 2.5s ease-in-out infinite alternate;
+        }
+        .badge-tag-88 {
+            background: #fff;
+            color: #db2777;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        @keyframes pulse-glow-88 {
+            0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7), 0 0 10px rgba(245, 158, 11, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(236, 72, 153, 0), 0 0 18px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0), 0 0 0 rgba(245, 158, 11, 0); }
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes flotarSuave {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-4px) rotate(8deg); }
+        }
+
+        .modal-cumplemes-88-content {
+            background: linear-gradient(135deg, rgba(255, 241, 242, 0.98) 0%, rgba(250, 232, 255, 0.98) 50%, rgba(254, 243, 199, 0.98) 100%);
+            border: 3px solid #f59e0b;
+            border-radius: 28px;
+            padding: 32px 24px;
+            max-width: 580px;
+            width: 92%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(236, 72, 153, 0.25), 0 0 25px rgba(245, 158, 11, 0.3);
+            animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .encabezado-cumplemes-88 {
+            margin-bottom: 15px;
+        }
+        .simbolo-doble-infinito {
+            font-size: 3.5rem;
+            line-height: 1;
+            display: inline-block;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.35));
+            animation: flotarSuave 3s ease-in-out infinite alternate;
+        }
+        .badge-cumplemes-88 {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #b45309;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 6px 0 10px 0;
+            letter-spacing: 1px;
+        }
+        .titulo-cumplemes-88 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.2rem;
+            color: #ec4899;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.08);
+            margin: 0;
+            line-height: 1.1;
+        }
+        .subtitulo-cumplemes-88 {
+            font-size: 1.05rem;
+            color: #8b5cf6;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+        .stats-88-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 18px 0;
+        }
+        .stat-88-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: 10px 6px;
+            border: 1px solid rgba(236, 72, 153, 0.25);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: transform 0.2s;
+        }
+        .stat-88-card:hover { transform: translateY(-3px); }
+        .stat-88-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #db2777;
+            display: block;
+            line-height: 1.2;
+        }
+        .stat-88-label {
+            font-size: 0.72rem;
+            color: #475569;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .modal-cumplemes-88-mensaje {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.55rem;
+            line-height: 1.45;
+            color: #4a044e;
+            margin: 15px 0 20px 0;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px dashed rgba(236, 72, 153, 0.4);
+        }
+        .pase-88-header {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%) !important;
+        }
+        .acciones-88-contenedor {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn-88 {
+            border: none;
+            color: #fff;
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 24px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .btn-88:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+        }
+        .btn-88-lluvia {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        .btn-88-musica {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+        }
+        .btn-88-cartas {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+        }
+        .btn-88-cerrar {
+            background: transparent;
+            border: 2px solid #ec4899;
+            color: #ec4899;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.95rem;
+        }
+        .btn-88-cerrar:hover {
+            background: #ec4899;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Soporte para temas oscuros y alternativos */
+        body.theme-kuromi #modal-cumplemes-88 .modal-cumplemes-88-content,
+        body.theme-estrellada #modal-cumplemes-88 .modal-cumplemes-88-content {
+            background: linear-gradient(135deg, #180a2b 0%, #0d0617 100%) !important;
+            border-color: #a855f7 !important;
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.4) !important;
+        }
+        body.theme-kuromi .stat-88-card,
+        body.theme-estrellada .stat-88-card {
+            background: rgba(30, 15, 45, 0.75) !important;
+            border-color: rgba(168, 85, 247, 0.3) !important;
+        }
+        body.theme-kuromi .stat-88-num,
+        body.theme-estrellada .stat-88-num {
+            color: #f472b6 !important;
+        }
+        body.theme-kuromi .stat-88-label,
+        body.theme-estrellada .stat-88-label {
+            color: #c084fc !important;
+        }
+        body.theme-kuromi .modal-cumplemes-88-mensaje,
+        body.theme-estrellada .modal-cumplemes-88-mensaje {
+            color: #f3e8ff !important;
+            background: rgba(255, 255, 255, 0.05) !important;
+            border-color: rgba(168, 85, 247, 0.3) !important;
+        }
+        body.theme-flores-amarillas #modal-cumplemes-88 .modal-cumplemes-88-content {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%) !important;
+            border-color: #f59e0b !important;
+        }
+
         /* --- VISOR DE HISTORIAS ESTILO WHATSAPP --- */
         .perfil-avatar-circle.tiene-historias {
             border: 3px dashed var(--primary) !important;
@@ -2947,6 +3200,7 @@
             <button class="tema-opcion bosque-encantado" onclick="cambiarTema('bosque')" title="Bosque Encantado">🌲</button>
             <button class="tema-opcion oro-rose" onclick="cambiarTema('vintage')" title="Oro Rosa Vintage">✨</button>
             <button class="tema-opcion tema-kuromi-btn" onclick="cambiarTema('kuromi')" title="Kuromi Punk">😈</button>
+            <button class="tema-opcion flores-amarillas" onclick="cambiarTema('flores-amarillas')" title="Bugambilias Amarillas">🌼</button>
         </div>
     </div>
 
@@ -3069,6 +3323,14 @@
                     <div class="reloj-segmento"><span class="num" id="reloj-segundos">00</span><span class="label">Seg</span></div>
                 </div>
 
+                <!-- Botón Especial Cumplemes 88 (Doble Infinito) -->
+                <div>
+                    <button class="btn-cumplemes-88" onclick="mostrarSorpresa88()" id="btn-cumplemes-88" title="¡Ver sorpresa del Cumplemes 88!">
+                        <span class="icono-infinito-rotando">♾️</span>
+                        <span>¡Especial Cumplemes #88 (∞ ∞)!</span>
+                        <span class="badge-tag-88">¡ES HOY!</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Fechas Especiales -->
@@ -3512,6 +3774,96 @@ Andy. ❤️</div>
         </div>
     </div>
 
+    <!-- MODAL ESPECIAL CUMPLEMES #88 (DOBLE INFINITO) -->
+    <div class="modal-overlay" id="modal-cumplemes-88">
+        <div class="modal-cumplemes-88-content">
+            <!-- Botón de cerrar rápido -->
+            <button class="modal-close-btn" onclick="cerrarSorpresa88()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.8rem; cursor: pointer; color: #ec4899; z-index: 10; font-weight: bold;" title="Cerrar">&times;</button>
+            
+            <div class="encabezado-cumplemes-88">
+                <span class="simbolo-doble-infinito">♾️♾️</span>
+                <br>
+                <span class="badge-cumplemes-88">✨ HITO ESPECIAL • AMOR INFINITO ✨</span>
+                <h2 class="titulo-cumplemes-88">¡Feliz Cumplemes #88!</h2>
+                <div class="subtitulo-cumplemes-88">Andy & Jessie • 🐧 & 😈</div>
+            </div>
+
+            <!-- Estadísticas Conmemorativas de los 88 Meses -->
+            <div class="stats-88-grid">
+                <div class="stat-88-card">
+                    <span class="stat-88-num">88</span>
+                    <span class="stat-88-label">Meses Juntos</span>
+                </div>
+                <div class="stat-88-card">
+                    <span class="stat-88-num">7a 4m</span>
+                    <span class="stat-88-label">Tiempo Total</span>
+                </div>
+                <div class="stat-88-card">
+                    <span class="stat-88-num">∞</span>
+                    <span class="stat-88-label">Amor Infinito</span>
+                </div>
+            </div>
+
+            <!-- Mensaje Conmemorativo -->
+            <p class="modal-cumplemes-88-mensaje">
+                "Hoy celebramos <strong>88 meses</strong> de caminar de la mano. El 88 es el símbolo del <strong>Doble Infinito (∞ ∞)</strong>: dos historias que se encontraron el 20 de junio de 2019 y decidieron compilar una vida llena de complicidad, risas y amor incondicional. Gracias por ser mi lugar seguro, mi inspiración y mi persona favorita en el universo. ¡Te amo con todo mi corazón! 🐧❤️😈"
+            </p>
+
+            <!-- Boleto de Vuelo Infinito 88M -->
+            <div class="pase-viaje-ticket">
+                <div class="pase-header pase-88-header">
+                    <span class="pase-logo">Infinity Pass</span>
+                    <span class="pase-flight">VUELO LOVE-88M</span>
+                </div>
+                <div class="pase-body">
+                    <div class="pase-destinos">
+                        <div class="pase-aeropuerto">
+                            <span class="pase-codigo">2019</span>
+                            <span class="pase-nombre-aeropuerto">20 de Junio, 2019</span>
+                        </div>
+                        <span class="pase-corazon-avion">✈️♾️💖</span>
+                        <div class="pase-aeropuerto" style="text-align: right;">
+                            <span class="pase-codigo" style="color: #ec4899;">∞ ∞</span>
+                            <span class="pase-nombre-aeropuerto">Destino: Toda La Vida</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pase-info-col">
+                        <span class="pase-label">Pasajeros de Honor</span>
+                        <span class="pase-value">Andy 🐧 & Jessie 😈</span>
+                        
+                        <span class="pase-label">Hito Conmemorado</span>
+                        <span class="pase-value">Cumplemes #88 (Doble Infinito)</span>
+                    </div>
+                    
+                    <div class="pase-barcode">
+                        <div class="barcode-lines"></div>
+                        <span class="barcode-num">WHILE(TRUE){AMAR(JESSIE)}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de Acción Interactivos -->
+            <div class="acciones-88-contenedor">
+                <button class="btn-88 btn-88-lluvia" onclick="lanzarLluvia88()" title="¡Lanzar más confeti y corazones!">
+                    <span>🎉</span> ¡Lluvia de Amor!
+                </button>
+                <button class="btn-88 btn-88-musica" onclick="reproducirMusicaDesde88()" title="Poner nuestra canción favorita">
+                    <span>🎵</span> Nuestra Música
+                </button>
+                <button class="btn-88 btn-88-cartas" onclick="abrirCartasDesde88()" title="Ir al sobre 3D de cartas">
+                    <span>💌</span> Ver Cartas
+                </button>
+            </div>
+
+            <div style="margin-top: 18px;">
+                <button class="btn-88-cerrar" onclick="cerrarSorpresa88()">
+                    💖 Guardar en mi corazón 💖
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL DE HITO 2019 ALCANZADO EN EL JUEGO -->
     <div class="modal-overlay" id="modal-hito-juego">
         <div class="modal-content" style="max-width: 450px; background: linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%); border: 3px solid var(--primary);">
@@ -3885,6 +4237,8 @@ Andy. ❤️</div>
                 simbolos = ['⭐', '✨', '🌟', '🌙', '🌌'];
             } else if (document.body.classList.contains('theme-bosque')) {
                 simbolos = ['🌲', '🌸', '🍃', '🌸', '🍀', '✨'];
+            } else if (document.body.classList.contains('theme-flores-amarillas')) {
+                simbolos = ['🌼', '🏵️', '🌻', '💛', '✨'];
             }
             
             for (let i = 0; i < 15; i++) {
@@ -4793,6 +5147,56 @@ Andy. ❤️</div>
             }
         }
 
+        // --- LÓGICA DE LA SORPRESA CUMPLEMES #88 (DOBLE INFINITO) ---
+        let intervaloLluvia88 = null;
+        
+        function mostrarSorpresa88() {
+            const modal = document.getElementById('modal-cumplemes-88');
+            if (modal) {
+                modal.classList.add('active');
+                lanzarLluvia88();
+            }
+        }
+        
+        function cerrarSorpresa88() {
+            const modal = document.getElementById('modal-cumplemes-88');
+            if (modal) modal.classList.remove('active');
+            detenerLluvia88();
+        }
+
+        function lanzarLluvia88() {
+            lanzarConfeti();
+            if (intervaloLluvia88) clearInterval(intervaloLluvia88);
+            intervaloLluvia88 = setInterval(lanzarConfeti, 2200);
+        }
+        
+        function detenerLluvia88() {
+            if (intervaloLluvia88) {
+                clearInterval(intervaloLluvia88);
+                intervaloLluvia88 = null;
+            }
+        }
+
+        function abrirCartasDesde88() {
+            cerrarSorpresa88();
+            cambiarPestaña('cartas');
+            setTimeout(() => {
+                const el = document.getElementById('tab-cartas');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 250);
+        }
+
+        function reproducirMusicaDesde88() {
+            if (!ytPlayerListo) {
+                alert("El reproductor de música se está cargando... Pulsa en unos segundos ❤️");
+                return;
+            }
+            if (!musicaReproduciendo) {
+                togglePlayMusica();
+            }
+            lanzarConfeti();
+        }
+
         // --- LÓGICA DE TEMAS ---
         function toggleMenuTemas() {
             const dropdown = document.getElementById('tema-dropdown');
@@ -4807,7 +5211,7 @@ Andy. ❤️</div>
         });
 
         function cambiarTema(nombreTema) {
-            document.body.classList.remove('theme-estrellada', 'theme-bosque', 'theme-vintage', 'theme-kuromi');
+            document.body.classList.remove('theme-estrellada', 'theme-bosque', 'theme-vintage', 'theme-kuromi', 'theme-flores-amarillas');
             if (nombreTema !== 'clasico') {
                 document.body.classList.add(`theme-${nombreTema}`);
             }
@@ -4843,6 +5247,8 @@ Andy. ❤️</div>
                     waxSeal.innerText = '🌸';
                 } else if (nombreTema === 'vintage') {
                     waxSeal.innerText = '✨';
+                } else if (nombreTema === 'flores-amarillas') {
+                    waxSeal.innerText = '🌼';
                 } else {
                     waxSeal.innerText = '❤️';
                 }
@@ -4866,6 +5272,10 @@ Andy. ❤️</div>
                     musicBadge.innerText = '✨';
                     musicBadge.style.borderColor = '#b45309';
                     musicBadge.style.background = '#fafaf9';
+                } else if (nombreTema === 'flores-amarillas') {
+                    musicBadge.innerText = '🏵️';
+                    musicBadge.style.borderColor = '#f59e0b';
+                    musicBadge.style.background = '#fffbeb';
                 } else {
                     musicBadge.innerText = '💖';
                     musicBadge.style.borderColor = '#ec4899';
@@ -6537,27 +6947,34 @@ Andy. ❤️</div>
 
         // FECHAS ESPECIALES
         const fechasImportantes = [
-            { titulo: "Cumple de Andy", mes: 10, dia: 15, icono: "🐧" }, // Ejemplo (octubre 15)
-            { titulo: "Cumple de Jessie", mes: 4, dia: 20, icono: "😈" }, // Ejemplo (abril 20)
-            { titulo: "Aniversario Mensual", mes: 0, dia: 15, icono: "💖" } // 0 = todos los meses
+            { titulo: "Cumple de Andy", mes: 10, dia: 15, icono: "🐧" }, // Octubre 15
+            { titulo: "Cumple de Jessie", mes: 4, dia: 20, icono: "😈" }, // Abril 20
+            { titulo: "Cumplemes (Día 20)", mes: 0, dia: 20, icono: "💖" } // 0 = todos los meses
         ];
 
         function calcularDiasFaltantes(mes, dia) {
             const hoy = new Date();
-            let proximaFecha = new Date(hoy.getFullYear(), mes - 1, dia);
+            hoy.setHours(0, 0, 0, 0);
             
+            let proximaFecha;
             if (mes === 0) {
-                // Mensual: buscar el próximo mes que tenga este día
+                // Mensual: verificar si hoy es el día del aniversario (día 20)
                 proximaFecha = new Date(hoy.getFullYear(), hoy.getMonth(), dia);
+                proximaFecha.setHours(0, 0, 0, 0);
                 if (hoy.getDate() > dia) {
                     proximaFecha.setMonth(proximaFecha.getMonth() + 1);
                 }
-            } else if (hoy > proximaFecha) {
-                proximaFecha.setFullYear(hoy.getFullYear() + 1);
+            } else {
+                proximaFecha = new Date(hoy.getFullYear(), mes - 1, dia);
+                proximaFecha.setHours(0, 0, 0, 0);
+                if (hoy > proximaFecha) {
+                    proximaFecha.setFullYear(hoy.getFullYear() + 1);
+                }
             }
             
-            const diffTime = Math.abs(proximaFecha - hoy);
-            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const diffTime = proximaFecha - hoy;
+            if (diffTime <= 0) return 0;
+            return Math.round(diffTime / (1000 * 60 * 60 * 24));
         }
 
         function actualizarFechasEspeciales() {
@@ -6787,6 +7204,15 @@ Andy. ❤️</div>
                 document.getElementById('cartas-pin').value = '';
                 document.getElementById('cartas-error').style.display = 'none';
             });
+
+            // Apertura automática de bienvenida para la sorpresa del Cumplemes 88
+            const yaVisto88 = sessionStorage.getItem('vistoCumplemes88');
+            if (!yaVisto88) {
+                setTimeout(() => {
+                    mostrarSorpresa88();
+                    sessionStorage.setItem('vistoCumplemes88', 'true');
+                }, 850);
+            }
         });
 
     </script>
