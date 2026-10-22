@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="referrer" content="no-referrer-when-downgrade">
     <title>Nuestros Recuerdos | Andy & Jessie ❤️</title>
     
     <!-- PWA manifest y meta-tags para dispositivos móviles -->
@@ -1194,6 +1195,22 @@
             height: 4px;
             accent-color: var(--primary);
             outline: none;
+        }
+
+        .btn-sugerencia-musica {
+            background: #fdf2f8;
+            border: 1px solid #fbcfe8;
+            color: #db2777;
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 5px 11px;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        .btn-sugerencia-musica:hover, .btn-sugerencia-musica:active {
+            background: #fce7f3;
+            transform: scale(1.05);
         }
 
         /* --- MODALES PREMIUM --- */
@@ -4939,7 +4956,9 @@
                 </button>
             </div>
         </div>
-        <div id="youtube-player" style="display: none; position: absolute;"></div>
+        <div id="youtube-player-container" style="position: fixed; bottom: -9999px; left: -9999px; width: 200px; height: 200px; opacity: 0.01; pointer-events: none; z-index: -9999; overflow: hidden;">
+            <div id="youtube-player"></div>
+        </div>
     </div>
 
     <!-- MODAL REPRODUCTOR DE MÚSICA COMPLETO (BÚSQUEDA YOUTUBE & AJUSTES) -->
@@ -4977,12 +4996,19 @@
                 <span>🔊</span>
             </div>
 
-            <!-- Buscador YouTube -->
+            <!-- Buscador YouTube y Recomendaciones -->
             <div style="margin-top: 16px; text-align: left;">
                 <label style="font-size: 0.78rem; font-weight: 700; color: #0f172a; margin-bottom: 4px; display: block;">Buscar o pegar canción de YouTube:</label>
                 <div style="display: flex; gap: 6px;">
-                    <input type="text" id="yt-search-input" placeholder="Ej: https://youtu.be/... o nombre de canción" style="flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--glass-border); font-size: 0.85rem; font-family: inherit;">
+                    <input type="text" id="yt-search-input" placeholder="Nombre (ej: Morat) o link de YouTube" style="flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--glass-border); font-size: 0.85rem; font-family: inherit;">
                     <button type="button" onclick="buscarEnYouTube()" style="background: var(--primary); color: white; border: none; border-radius: 8px; padding: 0 14px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Cargar</button>
+                </div>
+                <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">
+                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('1oeD2m2UQAI', 'Besos En Guerra', 'Morat & Juanes')">🎵 Morat</button>
+                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('cMskAbzn0LU', 'Perfect (Acoustic)', 'Boyce Avenue')">🎵 Perfect</button>
+                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('sD9_l3oDOag', 'No Hay Nadie Más', 'Sebastián Yatra')">🎵 Yatra</button>
+                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('2mY7AFTtYwQ', 'Favorito', 'Camilo')">🎵 Camilo</button>
+                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('5GroWAOn8h8', 'Melodía Romántica', 'Guitarra')">🎵 Acústico</button>
                 </div>
                 <div id="yt-search-status" style="font-size: 0.7rem; color: #64748b; margin-top: 3px; display: none;">Buscando...</div>
             </div>
@@ -6545,7 +6571,12 @@ Andy. ❤️</div>
         let listaCanciones = [];
         const listaCancionesPorDefecto = [
             {
-                titulo: "Perfect (Boyce Avenue Acoustic)",
+                titulo: "Besos En Guerra",
+                artista: "Morat & Juanes",
+                videoId: "1oeD2m2UQAI"
+            },
+            {
+                titulo: "Perfect (Acoustic)",
                 artista: "Boyce Avenue",
                 videoId: "cMskAbzn0LU"
             },
@@ -6555,19 +6586,19 @@ Andy. ❤️</div>
                 videoId: "szeA9tvItJY"
             },
             {
-                titulo: "Besos En Guerra",
-                artista: "Morat & Juanes",
-                videoId: "1oeD2m2UQAI"
-            },
-            {
-                titulo: "Melodía Romántica Acústica",
-                artista: "Guitarra Instrumental",
-                videoId: "5GroWAOn8h8"
+                titulo: "No Hay Nadie Más",
+                artista: "Sebastián Yatra",
+                videoId: "sD9_l3oDOag"
             },
             {
                 titulo: "Favorito",
                 artista: "Camilo",
                 videoId: "2mY7AFTtYwQ"
+            },
+            {
+                titulo: "Melodía Romántica Acústica",
+                artista: "Guitarra Instrumental",
+                videoId: "5GroWAOn8h8"
             }
         ];
 
@@ -7937,9 +7968,9 @@ Andy. ❤️</div>
         
         function cargarPlaylist() {
             // Si la versión es antigua, actualizar a la nueva playlist verificada y funcional
-            if (localStorage.getItem('playlistVersion_v4') !== 'v4.2') {
+            if (localStorage.getItem('playlistVersion_v4') !== 'v4.4') {
                 localStorage.setItem('playlistPersonalizada', JSON.stringify(listaCancionesPorDefecto));
-                localStorage.setItem('playlistVersion_v4', 'v4.2');
+                localStorage.setItem('playlistVersion_v4', 'v4.4');
             }
             const guardado = JSON.parse(localStorage.getItem('playlistPersonalizada'));
             if (guardado && guardado.length > 0) {
@@ -7964,8 +7995,8 @@ Andy. ❤️</div>
         function onYouTubeIframeAPIReady() {
             const cancionActual = listaCanciones[indiceCancionActual] || listaCancionesPorDefecto[0];
             ytPlayer = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
+                height: '200',
+                width: '200',
                 videoId: cancionActual.videoId,
                 playerVars: {
                     'autoplay': 0,
@@ -7974,8 +8005,7 @@ Andy. ❤️</div>
                     'fs': 0,
                     'rel': 0,
                     'playsinline': 1,
-                    'enablejsapi': 1,
-                    'origin': window.location.origin || '*'
+                    'enablejsapi': 1
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -8092,13 +8122,22 @@ Andy. ❤️</div>
         
         function togglePlayMusica() {
             if (!ytPlayerListo || !ytPlayer) {
-                alert("El reproductor de música se está conectando a YouTube. Intenta en 3 segundos.");
+                inicializarAudio();
+                alert("Conectando con YouTube... Intenta presionar Play de nuevo en 2 segundos.");
                 return;
             }
             if (musicaReproduciendo) {
-                ytPlayer.pauseVideo();
+                try { ytPlayer.pauseVideo(); } catch(e) {}
             } else {
-                ytPlayer.playVideo();
+                try {
+                    const cancionActual = listaCanciones[indiceCancionActual] || listaCancionesPorDefecto[0];
+                    if (cancionActual && ytPlayer.loadVideoById) {
+                        ytPlayer.loadVideoById(cancionActual.videoId);
+                    }
+                    ytPlayer.playVideo();
+                } catch(e) {
+                    console.warn("Error en playVideo:", e);
+                }
             }
         }
         
@@ -8157,6 +8196,36 @@ Andy. ❤️</div>
             if (modal) modal.classList.toggle('active');
         }
 
+        const cancionesSugeridas = [
+            { query: 'morat', titulo: 'Besos En Guerra', artista: 'Morat & Juanes', videoId: '1oeD2m2UQAI' },
+            { query: 'cuando nadie ve', titulo: 'Cuando Nadie Ve', artista: 'Morat', videoId: 'szeA9tvItJY' },
+            { query: 'perfect', titulo: 'Perfect (Acoustic)', artista: 'Boyce Avenue', videoId: 'cMskAbzn0LU' },
+            { query: 'yatra', titulo: 'No Hay Nadie Más', artista: 'Sebastián Yatra', videoId: 'sD9_l3oDOag' },
+            { query: 'camilo', titulo: 'Favorito', artista: 'Camilo', videoId: '2mY7AFTtYwQ' },
+            { query: 'reik', titulo: 'Noviembre Sin Ti', artista: 'Reik', videoId: 'Ie9g603_fCY' },
+            { query: 'acustico', titulo: 'Melodía Romántica', artista: 'Guitarra Acústica', videoId: '5GroWAOn8h8' }
+        ];
+
+        function reproducirCancionDirecta(videoId, titulo, artista) {
+            const nueva = { titulo, artista, videoId };
+            const idxExistente = listaCanciones.findIndex(c => c.videoId === videoId);
+            if (idxExistente !== -1) {
+                indiceCancionActual = idxExistente;
+            } else {
+                listaCanciones.unshift(nueva);
+                indiceCancionActual = 0;
+            }
+            cargarInfoCancionUI(indiceCancionActual);
+            musicaReproduciendo = true;
+            if (ytPlayer && ytPlayerListo) {
+                try {
+                    ytPlayer.loadVideoById(videoId);
+                    ytPlayer.playVideo();
+                } catch(e) {}
+            }
+            mostrarToastNotificacion("🎵 " + titulo, "Reproduciendo melodía...", "imagenes/icono_pareja.png");
+        }
+
         function buscarEnYouTube() {
             const input = document.getElementById('yt-search-input');
             if (!input) return;
@@ -8170,20 +8239,19 @@ Andy. ❤️</div>
             }
 
             if (videoId.length === 11) {
-                const nuevaCancion = {
-                    titulo: "Canción Personalizada",
-                    artista: "YouTube",
-                    videoId: videoId
-                };
-                listaCanciones.unshift(nuevaCancion);
-                indiceCancionActual = 0;
-                musicaReproduciendo = true;
-                cargarCancionYT(0);
-                if (ytPlayer && ytPlayerListo) ytPlayer.playVideo();
+                reproducirCancionDirecta(videoId, "Canción Personalizada", "YouTube");
                 input.value = '';
-                mostrarToastNotificacion("🎵 Canción cargada", "Reproduciendo tu canción...", "imagenes/icono_pareja.png");
+                return;
+            }
+
+            const termino = query.toLowerCase();
+            const encontrada = cancionesSugeridas.find(s => s.query.includes(termino) || s.titulo.toLowerCase().includes(termino) || s.artista.toLowerCase().includes(termino) || termino.includes(s.query));
+            
+            if (encontrada) {
+                reproducirCancionDirecta(encontrada.videoId, encontrada.titulo, encontrada.artista);
+                input.value = '';
             } else {
-                alert("Ingresa un enlace válido de YouTube (ejemplo: https://youtu.be/... o el ID del video de 11 caracteres).");
+                alert("Para poner cualquier otra canción de YouTube, copia y pega el link del video (ejemplo: https://youtu.be/...).\n\nTambién puedes tocar las canciones sugeridas rápidas abajo.");
             }
         }
 
