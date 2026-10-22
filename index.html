@@ -18,7 +18,9 @@
     <!-- Google Fonts para una tipografía premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Firebase SDK Compat para sincronización en tiempo real en la nube -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     
     <style>
         /* --- DISEÑO DEL SISTEMA DE ESTILOS (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
@@ -231,6 +233,32 @@
             font-size: 1.05rem;
             color: var(--text-muted);
             font-weight: 500;
+        }
+
+        .badge-cloud-online {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #15803d;
+            padding: 5px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-top: 10px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 6px rgba(34, 197, 94, 0.08);
+            transition: var(--transition-smooth);
+        }
+        .cloud-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 6px #22c55e;
+            animation: palpitacion 1.5s infinite ease-in-out;
         }
 
         /* --- CABECERA Y PERFILES (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
@@ -4036,6 +4064,11 @@
         <header>
             <h1>Andy & Jessie ❤️</h1>
             <p>Nuestro cofre digital de momentos memorables.</p>
+            <div>
+                <div id="cloud-sync-status" class="badge-cloud-online" style="display: none;" title="Sincronizado en tiempo real con Google Firebase">
+                    <span class="cloud-dot"></span> Sincronizado en la nube
+                </div>
+            </div>
         </header>
 
         <!-- NAVEGACIÓN POR PESTAÑAS -->
@@ -5307,6 +5340,28 @@ Andy. ❤️</div>
     </footer>
 
     <script>
+        // --- CONFIGURACIÓN E INICIALIZACIÓN DE FIREBASE (SINCRONIZACIÓN EN LA NUBE) ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDxErEk9WRdLQFHO2GVjKZr65GoXXC5g_A",
+            authDomain: "jya200619.firebaseapp.com",
+            databaseURL: "https://jya200619-default-rtdb.firebaseio.com",
+            projectId: "jya200619",
+            storageBucket: "jya200619.firebasestorage.app",
+            messagingSenderId: "58925594659",
+            appId: "1:58925594659:web:e68fc78a7c5cfcc84b1996"
+        };
+
+        let fbDb = null;
+        try {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                fbDb = firebase.database();
+                console.log("🔥 Firebase Realtime Database conectado exitosamente con JYA200619");
+            }
+        } catch (e) {
+            console.warn("Firebase no se pudo inicializar:", e);
+        }
+
         // --- BASE DE DATOS DE RECUERDOS POR DEFECTO ---
         const baseDeDatosRecuerdosDefecto = {
             'caja1': {
@@ -6086,6 +6141,13 @@ Andy. ❤️</div>
                     perfilCompleto.hobby = nuevoTexto;
                     
                     localStorage.setItem(`perfil${personaCapitalized}`, JSON.stringify(perfilCompleto));
+                    if (fbDb) {
+                        try {
+                            fbDb.ref('perfiles/' + persona).set(perfilCompleto);
+                        } catch (e) {
+                            console.warn("Error enviando perfil a Firebase:", e);
+                        }
+                    }
                     
                     // Sincronizar con el input del modal de ajustes si existe
                     const inputAjuste = document.getElementById(`ajuste-perfil-hobby-${persona}`);
@@ -7066,6 +7128,13 @@ Andy. ❤️</div>
 
         function guardarFinanzas() {
             localStorage.setItem('finanzasPareja', JSON.stringify(finanzasRegistros));
+            if (fbDb) {
+                try {
+                    fbDb.ref('finanzas/registros').set(finanzasRegistros);
+                } catch (e) {
+                    console.warn("Error enviando finanzas a Firebase:", e);
+                }
+            }
         }
 
         function cargarCompras() {
@@ -7086,6 +7155,13 @@ Andy. ❤️</div>
 
         function guardarCompras() {
             localStorage.setItem('comprasPareja', JSON.stringify(comprasItems));
+            if (fbDb) {
+                try {
+                    fbDb.ref('compras/items').set(comprasItems);
+                } catch (e) {
+                    console.warn("Error enviando compras a Firebase:", e);
+                }
+            }
         }
 
         function cambiarSubtabFinanzas(subtab) {
@@ -9118,6 +9194,13 @@ Andy. ❤️</div>
                         hora: ahora
                     };
                     localStorage.setItem('coupleRadarCoords', JSON.stringify(radarCoords));
+                    if (fbDb) {
+                        try {
+                            fbDb.ref('radar/' + persona).set(radarCoords[persona]);
+                        } catch (e) {
+                            console.warn("Error enviando radar a Firebase:", e);
+                        }
+                    }
 
                     if (btn) btn.innerHTML = `<span>${persona === 'andy' ? '🐧' : '😈'}</span> Ubicación actualizada`;
                     actualizarRadarEnMapa();
@@ -9136,6 +9219,17 @@ Andy. ❤️</div>
         let personaSaludActiva = 'andy';
         let historialSalud = JSON.parse(localStorage.getItem('registroSaludPareja')) || [];
         let filtroHistorialActual = 'todos';
+
+        function guardarSalud() {
+            localStorage.setItem('registroSaludPareja', JSON.stringify(historialSalud));
+            if (fbDb) {
+                try {
+                    fbDb.ref('salud/historial').set(historialSalud);
+                } catch (e) {
+                    console.warn("Error enviando salud a Firebase:", e);
+                }
+            }
+        }
 
         function seleccionarPersonaSalud(persona) {
             personaSaludActiva = persona;
@@ -9176,7 +9270,7 @@ Andy. ❤️</div>
             };
 
             historialSalud.unshift(nuevoRegistro);
-            localStorage.setItem('registroSaludPareja', JSON.stringify(historialSalud));
+            guardarSalud();
             actualizarUIHabitosSalud();
         }
 
@@ -9302,10 +9396,94 @@ Andy. ❤️</div>
         function eliminarRegistroSalud(id) {
             if (!confirm("¿Deseas eliminar este registro del historial?")) return;
             historialSalud = historialSalud.filter(r => r.id !== id);
-            localStorage.setItem('registroSaludPareja', JSON.stringify(historialSalud));
+            guardarSalud();
             renderizarListaHistorialSalud();
             actualizarUIHabitosSalud();
         }
+
+        // ==============================================================
+        // --- MOTOR DE SINCRONIZACIÓN EN TIEMPO REAL CON FIREBASE ---
+        // ==============================================================
+        function inicializarSincronizacionFirebase() {
+            if (!fbDb) return;
+
+            // 1. Finanzas (Ahorro, Gastos compartidos, Servicios)
+            fbDb.ref('finanzas/registros').on('value', (snap) => {
+                const val = snap.val();
+                if (val && Array.isArray(val)) {
+                    finanzasRegistros = val;
+                    localStorage.setItem('finanzasPareja', JSON.stringify(finanzasRegistros));
+                    renderizarFinanzas();
+                } else if (finanzasRegistros && finanzasRegistros.length > 0 && !val) {
+                    fbDb.ref('finanzas/registros').set(finanzasRegistros);
+                }
+            });
+
+            // 2. Lista de Compras compartida
+            fbDb.ref('compras/items').on('value', (snap) => {
+                const val = snap.val();
+                if (val && Array.isArray(val)) {
+                    comprasItems = val;
+                    localStorage.setItem('comprasPareja', JSON.stringify(comprasItems));
+                    renderizarCompras();
+                } else if (comprasItems && comprasItems.length > 0 && !val) {
+                    fbDb.ref('compras/items').set(comprasItems);
+                }
+            });
+
+            // 3. Cuidado & Salud mutuo (Agua, Baño, Caminata)
+            fbDb.ref('salud/historial').on('value', (snap) => {
+                const val = snap.val();
+                if (val && Array.isArray(val)) {
+                    historialSalud = val;
+                    localStorage.setItem('registroSaludPareja', JSON.stringify(historialSalud));
+                    actualizarUIHabitosSalud();
+                    const modalHist = document.getElementById('modal-historial-salud');
+                    if (modalHist && modalHist.classList.contains('active')) {
+                        renderizarListaHistorialSalud();
+                    }
+                } else if (historialSalud && historialSalud.length > 0 && !val) {
+                    fbDb.ref('salud/historial').set(historialSalud);
+                }
+            });
+
+            // 4. Radar y Distancia en vivo
+            fbDb.ref('radar').on('value', (snap) => {
+                const val = snap.val();
+                if (val) {
+                    if (val.andy) radarCoords.andy = val.andy;
+                    if (val.jessie) radarCoords.jessie = val.jessie;
+                    localStorage.setItem('coupleRadarCoords', JSON.stringify(radarCoords));
+                    if (typeof miMapa !== 'undefined' && miMapa && typeof actualizarRadarEnMapa === 'function') {
+                        actualizarRadarEnMapa();
+                    }
+                }
+            });
+
+            // 5. Perfiles (Hobbies y descripciones de Andy & Jessie)
+            fbDb.ref('perfiles').on('value', (snap) => {
+                const val = snap.val();
+                if (val) {
+                    if (val.andy) {
+                        localStorage.setItem('perfilAndy', JSON.stringify(val.andy));
+                        const elHobbyA = document.getElementById('hobby-display-andy');
+                        if (elHobbyA && val.andy.hobby) elHobbyA.innerText = val.andy.hobby;
+                    }
+                    if (val.jessie) {
+                        localStorage.setItem('perfilJessie', JSON.stringify(val.jessie));
+                        const elHobbyJ = document.getElementById('hobby-display-jessie');
+                        if (elHobbyJ && val.jessie.hobby) elHobbyJ.innerText = val.jessie.hobby;
+                    }
+                }
+            });
+
+            // Indicador en la cabecera
+            const cloudBadge = document.getElementById('cloud-sync-status');
+            if (cloudBadge) {
+                cloudBadge.style.display = 'inline-flex';
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             actualizarDiarioAmor();
             actualizarFechasEspeciales();
@@ -9314,6 +9492,7 @@ Andy. ❤️</div>
             cargarCompras();
             renderizarFinanzas();
             renderizarCompras();
+            inicializarSincronizacionFirebase(); // Inicia la sincronización en vivo con la nube
             limpiarHistorias24h(); // Llama a la limpieza de 24h
             setInterval(actualizarFechasEspeciales, 1000 * 60 * 60); // Actualizar cada hora
             
