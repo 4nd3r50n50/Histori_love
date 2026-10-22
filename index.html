@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Nuestros Recuerdos | Andy & Jessie ❤️</title>
     
     <!-- PWA manifest y meta-tags para dispositivos móviles -->
@@ -147,6 +147,14 @@
             padding: 0;
         }
 
+        html {
+            touch-action: pan-x pan-y;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            overscroll-behavior: none;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg-gradient);
@@ -161,6 +169,17 @@
             overflow-x: hidden;
             position: relative;
             transition: background 0.8s ease, color 0.5s ease;
+            touch-action: pan-x pan-y;
+            overscroll-behavior-y: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Prevenir que inputs causen zoom automático en iOS Safari al tocarlos */
+        input, select, textarea, button {
+            font-size: 16px;
+            touch-action: manipulation;
         }
 
         /* Corazones flotantes de fondo */
@@ -4093,23 +4112,29 @@
             border: 1px solid rgba(244, 114, 182, 0.3);
         }
         .btn-notif-permiso {
-            background: #fdf2f8;
-            border: 1px solid #fbcfe8;
-            color: #be185d;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
             border-radius: var(--radius-pill);
-            padding: 5px 14px;
-            font-size: 0.76rem;
-            font-weight: 700;
+            padding: 4px 10px;
+            font-size: 0.72rem;
+            font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 5px;
             transition: var(--transition-smooth);
-            box-shadow: 0 2px 6px rgba(244, 114, 182, 0.1);
+            box-shadow: 0 1px 4px rgba(148, 163, 184, 0.08);
         }
         .btn-notif-permiso:hover {
-            background: #fce7f3;
+            background: #ffffff;
+            color: var(--text-dark);
             transform: translateY(-1px);
+        }
+        .btn-notif-permiso.activada {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #15803d;
         }
     </style>
     
@@ -4196,19 +4221,19 @@
 
     <div class="wrapper">
         <header>
-            <h1>Andy & Jessie ❤️</h1>
+            <h1 id="app-main-title" onclick="gestionarAdminIdentidad()" style="cursor: pointer; user-select: none;" title="Andy & Jessie ❤️">Andy & Jessie ❤️</h1>
             <p>Nuestro cofre digital de momentos memorables.</p>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 6px;">
                 <div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 8px;">
                     <div id="cloud-sync-status" class="badge-cloud-online" style="display: none;" title="Sincronizado en tiempo real con Google Firebase">
-                        <span class="cloud-dot"></span> Sincronizado en la nube
+                        <span class="cloud-dot"></span> Nube activa
                     </div>
-                    <button class="btn-notif-permiso" id="btn-activar-notif" onclick="solicitarPermisoNotificaciones()" title="Activar notificaciones en este celular">
-                        🔔 Notificaciones
+                    <button class="btn-notif-permiso" id="btn-activar-notif" onclick="solicitarPermisoNotificaciones()" title="Alertas de pareja">
+                        🔔 Alertas
                     </button>
                 </div>
                 <!-- Selector de identidad para saber a quién pertenece este teléfono -->
-                <div class="selector-identidad-bar" title="Selecciona quién usa este celular para personalizar las alertas">
+                <div class="selector-identidad-bar" id="selector-identidad-container" style="display: none;" title="Selecciona quién usa este celular para personalizar las alertas">
                     <span style="font-size: 0.72rem; color: var(--text-muted); padding-left: 8px; font-weight: 600;">Este celular es de:</span>
                     <button class="btn-identidad" id="btn-soy-andy" onclick="cambiarMiIdentidad('andy')">
                         <img src="imagenes/pinguino_avatar_3d.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;"> Andy
@@ -4946,7 +4971,10 @@ Andy. ❤️</div>
                 </div>
             </div>
             
-            <div class="modal-acciones" style="margin-top: 24px;">
+            <div class="modal-acciones" style="margin-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                <button type="button" class="btn btn-secundario" onclick="abrirMenuAdminIdentidad()" style="font-size: 0.76rem; padding: 8px 12px; background: rgba(241, 245, 249, 0.9); border: 1px solid var(--glass-border);">
+                    👑 Modo Admin: Cambiar Celular
+                </button>
                 <button class="btn btn-secundario" onclick="cerrarModalAjustes()">Cerrar Ajustes</button>
             </div>
         </div>
@@ -5565,19 +5593,29 @@ Andy. ❤️</div>
         let listaCanciones = [];
         const listaCancionesPorDefecto = [
             {
-                titulo: "Chicha Ecuatoriana Mix",
-                artista: "YouTube Search",
-                videoId: "cM9w6bY4Z0A" // ID de un mix popular de chicha
+                titulo: "Perfect (Boyce Avenue Acoustic)",
+                artista: "Boyce Avenue",
+                videoId: "cMskAbzn0LU"
             },
             {
-                titulo: "Corazón Enamorado",
-                artista: "Mix Romántico",
-                videoId: "Qd3wKItLofM"
+                titulo: "Cuando Nadie Ve",
+                artista: "Morat",
+                videoId: "szeA9tvItJY"
             },
             {
-                titulo: "Lofi Hip Hop (Relajante)",
-                artista: "Lofi Girl",
-                videoId: "jfKfPfyJRdk"
+                titulo: "Besos En Guerra",
+                artista: "Morat & Juanes",
+                videoId: "1oeD2m2UQAI"
+            },
+            {
+                titulo: "Melodía Romántica Acústica",
+                artista: "Guitarra Instrumental",
+                videoId: "5GroWAOn8h8"
+            },
+            {
+                titulo: "Favorito",
+                artista: "Camilo",
+                videoId: "2mY7AFTtYwQ"
             }
         ];
 
@@ -6801,8 +6839,14 @@ Andy. ❤️</div>
         let ytPlayerListo = false;
         let indiceCancionActual = 0;
         let musicaReproduciendo = false;
+        let erroresConsecutivosMusica = 0;
         
         function cargarPlaylist() {
+            // Si la versión es antigua, actualizar a la nueva playlist verificada y funcional
+            if (localStorage.getItem('playlistVersion_v4') !== 'v4.2') {
+                localStorage.setItem('playlistPersonalizada', JSON.stringify(listaCancionesPorDefecto));
+                localStorage.setItem('playlistVersion_v4', 'v4.2');
+            }
             const guardado = JSON.parse(localStorage.getItem('playlistPersonalizada'));
             if (guardado && guardado.length > 0) {
                 listaCanciones = guardado;
@@ -6812,8 +6856,7 @@ Andy. ❤️</div>
         }
         
         function inicializarAudio() {
-            // La inicialización real del audio la hace la API de YouTube al cargar
-            // Cargamos el script de la API si no existe
+            cargarPlaylist();
             if (!document.getElementById('yt-api-script')) {
                 const tag = document.createElement('script');
                 tag.id = 'yt-api-script';
@@ -6836,7 +6879,9 @@ Andy. ❤️</div>
                     'disablekb': 1,
                     'fs': 0,
                     'rel': 0,
-                    'playsinline': 1
+                    'playsinline': 1,
+                    'enablejsapi': 1,
+                    'origin': window.location.origin || '*'
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -6848,59 +6893,102 @@ Andy. ❤️</div>
 
         function onPlayerReady(event) {
             ytPlayerListo = true;
-            const volGuardado = localStorage.getItem('musicaVolumen') || 0.5;
-            ytPlayer.setVolume(parseFloat(volGuardado) * 100);
-            document.getElementById('musica-volumen').value = volGuardado;
+            const volGuardado = localStorage.getItem('musicaVolumen') || 0.7;
+            try {
+                ytPlayer.setVolume(parseFloat(volGuardado) * 100);
+            } catch(e) {}
+            const volSlider = document.getElementById('musica-volumen');
+            if (volSlider) volSlider.value = volGuardado;
             
             cargarInfoCancionUI(indiceCancionActual);
-            
             setInterval(actualizarProgresoMusica, 1000);
         }
 
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.PLAYING) {
+                erroresConsecutivosMusica = 0; // Se reinicia el contador de errores al reproducir con éxito
                 musicaReproduciendo = true;
-                document.getElementById('btn-play-pause').innerText = "⏸️";
-                document.getElementById('musica-disco-girando').classList.add('rotando');
+                const btn = document.getElementById('btn-play-pause');
+                if (btn) btn.innerText = "⏸️";
+                const disco = document.getElementById('musica-disco-girando');
+                if (disco) disco.classList.add('rotando');
                 document.querySelectorAll('.audio-bar').forEach(b => b.classList.add('playing'));
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+            } else if (event.data === YT.PlayerState.PAUSED) {
                 musicaReproduciendo = false;
-                document.getElementById('btn-play-pause').innerText = "▶️";
-                document.getElementById('musica-disco-girando').classList.remove('rotando');
+                const btn = document.getElementById('btn-play-pause');
+                if (btn) btn.innerText = "▶️";
+                const disco = document.getElementById('musica-disco-girando');
+                if (disco) disco.classList.remove('rotando');
                 document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
-                
-                if (event.data === YT.PlayerState.ENDED) {
-                    siguienteCancion();
-                }
+            } else if (event.data === YT.PlayerState.ENDED) {
+                musicaReproduciendo = false;
+                const disco = document.getElementById('musica-disco-girando');
+                if (disco) disco.classList.remove('rotando');
+                document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
+                siguienteCancion();
             }
         }
 
         function onPlayerError(event) {
-            console.error("Error en YouTube Player:", event.data);
-            siguienteCancion();
+            console.warn("YouTube Player advertencia/error código:", event.data);
+            erroresConsecutivosMusica++;
+            
+            // Freno de emergencia contra bucle infinito: si todas fallan, detenerse
+            if (erroresConsecutivosMusica >= listaCanciones.length) {
+                musicaReproduciendo = false;
+                erroresConsecutivosMusica = 0;
+                const btn = document.getElementById('btn-play-pause');
+                if (btn) btn.innerText = "▶️";
+                const disco = document.getElementById('musica-disco-girando');
+                if (disco) disco.classList.remove('rotando');
+                document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
+                
+                const titEl = document.getElementById('musica-titulo-cancion');
+                if (titEl) titEl.innerText = "Canción no disponible";
+                const artEl = document.getElementById('musica-artista-cancion');
+                if (artEl) artEl.innerText = "Toca ▶️ para reintentar";
+                return;
+            }
+            
+            // Esperar 1.8 segundos antes de probar la siguiente para no saltar canciones de golpe
+            setTimeout(() => {
+                if (musicaReproduciendo) {
+                    siguienteCancion();
+                }
+            }, 1800);
         }
 
         function cargarInfoCancionUI(indice) {
             const cancion = listaCanciones[indice];
-            if(cancion) {
-                document.getElementById('musica-titulo-cancion').innerText = cancion.titulo;
-                document.getElementById('musica-artista-cancion').innerText = cancion.artista;
+            if (cancion) {
+                const titEl = document.getElementById('musica-titulo-cancion');
+                const artEl = document.getElementById('musica-artista-cancion');
+                if (titEl) titEl.innerText = cancion.titulo;
+                if (artEl) artEl.innerText = cancion.artista;
             }
         }
 
         function cargarCancionYT(indice) {
-            if (!ytPlayerListo) return;
+            if (!ytPlayerListo || !ytPlayer) return;
             const cancion = listaCanciones[indice];
+            if (!cancion) return;
             cargarInfoCancionUI(indice);
-            ytPlayer.loadVideoById(cancion.videoId);
-            if (!musicaReproduciendo) {
-                // Si estaba pausado, solo cue (cargar sin reproducir)
-                ytPlayer.cueVideoById(cancion.videoId);
+            try {
+                if (musicaReproduciendo) {
+                    ytPlayer.loadVideoById(cancion.videoId);
+                } else {
+                    ytPlayer.cueVideoById(cancion.videoId);
+                }
+            } catch (e) {
+                console.warn("No se pudo cargar la canción en YT:", e);
             }
         }
         
         function togglePlayMusica() {
-            if (!ytPlayerListo) return;
+            if (!ytPlayerListo || !ytPlayer) {
+                alert("El reproductor de música se está conectando a YouTube. Intenta en 3 segundos.");
+                return;
+            }
             if (musicaReproduciendo) {
                 ytPlayer.pauseVideo();
             } else {
@@ -6909,46 +6997,88 @@ Andy. ❤️</div>
         }
         
         function anteriorCancion() {
-            if (!ytPlayerListo) return;
+            if (!ytPlayerListo || !ytPlayer) return;
+            erroresConsecutivosMusica = 0;
             indiceCancionActual = (indiceCancionActual - 1 + listaCanciones.length) % listaCanciones.length;
             cargarCancionYT(indiceCancionActual);
         }
         
         function siguienteCancion() {
-            if (!ytPlayerListo) return;
+            if (!ytPlayerListo || !ytPlayer) return;
             indiceCancionActual = (indiceCancionActual + 1) % listaCanciones.length;
             cargarCancionYT(indiceCancionActual);
         }
         
         function actualizarProgresoMusica() {
-            if (!ytPlayerListo || !musicaReproduciendo) return;
-            const duration = ytPlayer.getDuration();
-            const currentTime = ytPlayer.getCurrentTime();
-            if (duration > 0) {
-                const porcentaje = (currentTime / duration) * 100;
-                document.getElementById('musica-progreso').style.width = `${porcentaje}%`;
-            }
+            if (!ytPlayerListo || !ytPlayer || !musicaReproduciendo) return;
+            try {
+                const duration = ytPlayer.getDuration ? ytPlayer.getDuration() : 0;
+                const currentTime = ytPlayer.getCurrentTime ? ytPlayer.getCurrentTime() : 0;
+                if (duration > 0) {
+                    const porcentaje = (currentTime / duration) * 100;
+                    const barra = document.getElementById('musica-progreso');
+                    if (barra) barra.style.width = `${porcentaje}%`;
+                }
+            } catch(e) {}
         }
         
         function cambiarTiempoMusica(e) {
-            if (!audio) return;
-            const width = e.currentTarget.clientWidth;
-            const clickX = e.offsetX;
-            const duration = audio.duration;
-            if (duration) {
-                audio.currentTime = (clickX / width) * duration;
-            }
+            if (!ytPlayer || !ytPlayerListo) return;
+            try {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const width = rect.width;
+                const duration = ytPlayer.getDuration ? ytPlayer.getDuration() : 0;
+                if (duration > 0 && width > 0) {
+                    const nuevoTiempo = (clickX / width) * duration;
+                    ytPlayer.seekTo(nuevoTiempo, true);
+                }
+            } catch(e) {}
         }
         
         function cambiarVolumenMusica(vol) {
-            if (!audio) return;
-            audio.volume = vol;
+            if (!ytPlayer || !ytPlayerListo) return;
+            try {
+                if (typeof ytPlayer.setVolume === 'function') {
+                    ytPlayer.setVolume(parseFloat(vol) * 100);
+                }
+            } catch(e) {}
             localStorage.setItem('musicaVolumen', vol);
         }
         
         function toggleExpandirMusica() {
             const widget = document.getElementById('musica-widget');
-            widget.classList.toggle('expandido');
+            if (widget) widget.classList.toggle('expandido');
+        }
+
+        function buscarEnYouTube() {
+            const input = document.getElementById('yt-search-input');
+            if (!input) return;
+            const query = input.value.trim();
+            if (!query) return;
+
+            let videoId = query;
+            const urlMatch = query.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+            if (urlMatch && urlMatch[1]) {
+                videoId = urlMatch[1];
+            }
+
+            if (videoId.length === 11) {
+                const nuevaCancion = {
+                    titulo: "Canción Personalizada",
+                    artista: "YouTube",
+                    videoId: videoId
+                };
+                listaCanciones.unshift(nuevaCancion);
+                indiceCancionActual = 0;
+                musicaReproduciendo = true;
+                cargarCancionYT(0);
+                if (ytPlayer && ytPlayerListo) ytPlayer.playVideo();
+                input.value = '';
+                mostrarToastNotificacion("🎵 Canción cargada", "Reproduciendo tu canción...", "imagenes/icono_pareja.png");
+            } else {
+                alert("Ingresa un enlace válido de YouTube (ejemplo: https://youtu.be/... o el ID del video de 11 caracteres).");
+            }
         }
 
         // --- CREADOR DE RECUERDOS ---
@@ -9587,18 +9717,20 @@ Andy. ❤️</div>
         }
 
         // ==============================================================
-        // --- GESTIÓN DE IDENTIDAD Y SISTEMA DE NOTIFICACIONES ---
+        // --- GESTIÓN DE IDENTIDAD Y MODO ADMIN ---
         // ==============================================================
         function obtenerMiIdentidad() {
             return localStorage.getItem('miIdentidadPareja') || 'andy';
         }
 
-        function cambiarMiIdentidad(persona) {
+        function cambiarMiIdentidad(persona, desdeAdmin = false) {
             localStorage.setItem('miIdentidadPareja', persona);
+            localStorage.setItem('identidadFijada', 'true');
             actualizarSelectorIdentidadUI();
+            
             const nombre = persona === 'andy' ? 'Andy' : 'Jessie';
             const avatar = persona === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
-            mostrarToastNotificacion(`Configurado como ${nombre}`, `Este celular recibirá alertas cuando ${persona === 'andy' ? 'Jessie' : 'Andy'} registre algo.`, avatar);
+            mostrarToastNotificacion(`Configurado como ${nombre}`, `Este celular quedó registrado para ti. Alertas listas.`, avatar);
         }
 
         function actualizarSelectorIdentidadUI() {
@@ -9607,17 +9739,65 @@ Andy. ❤️</div>
             const btnJ = document.getElementById('btn-soy-jessie');
             if (btnA) btnA.classList.toggle('active', miId === 'andy');
             if (btnJ) btnJ.classList.toggle('active', miId === 'jessie');
+
+            // Si la identidad ya fue fijada, ocultar el selector para no ocupar espacio
+            const fijada = localStorage.getItem('identidadFijada') === 'true';
+            const container = document.getElementById('selector-identidad-container');
+            if (container) {
+                container.style.display = fijada ? 'none' : 'inline-flex';
+            }
+        }
+
+        let toquesTituloAdmin = 0;
+        let timerToquesAdmin = null;
+        function gestionarAdminIdentidad() {
+            toquesTituloAdmin++;
+            clearTimeout(timerToquesAdmin);
+            timerToquesAdmin = setTimeout(() => { toquesTituloAdmin = 0; }, 1600);
+            
+            if (toquesTituloAdmin >= 4) {
+                toquesTituloAdmin = 0;
+                abrirMenuAdminIdentidad();
+            }
+        }
+
+        function abrirMenuAdminIdentidad() {
+            const pin = prompt("👑 Panel de Administración de Andy:\nIngresa el PIN de seguridad (2006) para administrar la identidad del celular:");
+            if (pin === null) return;
+            if (pin !== '2006') {
+                alert("PIN incorrecto.");
+                return;
+            }
+            
+            const actual = obtenerMiIdentidad();
+            const nombreActual = actual === 'andy' ? 'Andy 🐧' : 'Jessie 😈';
+            const opcion = prompt(`👑 Gestión de Celular (Admin Andy):\nActualmente configurado como: ${nombreActual}\n\nEscribe el número de la acción:\n1. Cambiar a Andy 🐧\n2. Cambiar a Jessie 😈\n3. Desbloquear selector en pantalla\n4. Cancelar`, "1");
+            
+            if (opcion === '1') {
+                cambiarMiIdentidad('andy', true);
+                alert("Este celular ahora está configurado como Andy.");
+            } else if (opcion === '2') {
+                cambiarMiIdentidad('jessie', true);
+                alert("Este celular ahora está configurado como Jessie.");
+            } else if (opcion === '3') {
+                localStorage.removeItem('identidadFijada');
+                const container = document.getElementById('selector-identidad-container');
+                if (container) {
+                    container.style.display = 'inline-flex';
+                }
+                alert("El selector de identidad ha sido desbloqueado en la pantalla principal.");
+            }
         }
 
         function solicitarPermisoNotificaciones() {
             if (!('Notification' in window)) {
-                alert("Este navegador no soporta notificaciones de sistema. ¡Pero las notificaciones flotantes en pantalla están activas!");
+                alert("Este navegador no soporta notificaciones nativas, pero los avisos flotantes Couple360 en pantalla están completamente activos.");
                 return;
             }
             Notification.requestPermission().then((perm) => {
                 actualizarBotonNotificaciones();
                 if (perm === 'granted') {
-                    mostrarToastNotificacion("🔔 ¡Notificaciones activadas!", "Te avisaremos cuando tu pareja anote algo en su celular.", "imagenes/icono_pareja.png");
+                    mostrarToastNotificacion("🔔 ¡Alertas activadas!", "Te avisaremos cuando tu pareja anote algo en su celular.", "imagenes/icono_pareja.png");
                 }
             });
         }
@@ -9630,17 +9810,55 @@ Andy. ❤️</div>
                 return;
             }
             if (Notification.permission === 'granted') {
-                btn.innerHTML = '🔔 Notificaciones Activas';
-                btn.style.background = '#f0fdf4';
-                btn.style.borderColor = '#bbf7d0';
-                btn.style.color = '#15803d';
+                btn.className = 'btn-notif-permiso activada';
+                btn.innerHTML = '<span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:#22c55e;"></span> 🔔 Alertas';
+                btn.title = "Notificaciones activas en este celular";
             } else {
-                btn.innerHTML = '🔔 Activar Notificaciones';
-                btn.style.background = '#fdf2f8';
-                btn.style.borderColor = '#fbcfe8';
-                btn.style.color = '#be185d';
+                btn.className = 'btn-notif-permiso';
+                btn.innerHTML = '🔔 Activar alertas';
+                btn.title = "Toca para activar notificaciones cuando tu pareja anote algo";
             }
         }
+
+        // ==============================================================
+        // --- CONTROL ESTRICTO ANTI-ZOOM (COMPORTAMIENTO NATIVO COUPLE360) ---
+        // ==============================================================
+        // 1. Bloquear gestos de pellizco en iOS Safari
+        document.addEventListener('gesturestart', function (e) { e.preventDefault(); }, { passive: false });
+        document.addEventListener('gesturechange', function (e) { e.preventDefault(); }, { passive: false });
+        document.addEventListener('gestureend', function (e) { e.preventDefault(); }, { passive: false });
+
+        // 2. Bloquear multitouch zoom (2 o más dedos pellizcando)
+        document.addEventListener('touchmove', function (e) {
+            if (e.touches && e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // 3. Prevenir doble toque accidental para zoom en pantallas táctiles
+        let ultimoToqueAntiZoom = 0;
+        document.addEventListener('touchend', function (e) {
+            const ahora = Date.now();
+            if (ahora - ultimoToqueAntiZoom <= 300) {
+                const target = e.target;
+                const tag = target.tagName ? target.tagName.toLowerCase() : '';
+                if (tag !== 'input' && tag !== 'textarea' && tag !== 'button' && !target.closest('button')) {
+                    e.preventDefault();
+                }
+            }
+            ultimoToqueAntiZoom = ahora;
+        }, { passive: false });
+
+        // 4. Bloquear atajos de zoom de escritorio (Ctrl + Rueda, Ctrl +, Ctrl -)
+        window.addEventListener('wheel', function (e) {
+            if (e.ctrlKey) e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
+                e.preventDefault();
+            }
+        });
 
         function reproducirCampanaNotificacion() {
             try {
@@ -9870,6 +10088,7 @@ Andy. ❤️</div>
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            inicializarAudio();
             actualizarSelectorIdentidadUI();
             actualizarBotonNotificaciones();
             actualizarDiarioAmor();
