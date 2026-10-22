@@ -4496,6 +4496,10 @@
                 padding: 4px 8px !important;
                 gap: 4px !important;
             }
+            footer {
+                margin-top: 15px !important;
+                margin-bottom: 25px !important;
+            }
         }
 
         @media (min-width: 769px) {
@@ -8604,15 +8608,26 @@ Andy. ❤️</div>
                 if (navBottomTarget) navBottomTarget.classList.add('active');
             }
 
-            // Scroll suave hacia arriba para que cada pantalla comience organizada
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
+            // Manejo de scroll según la pestaña
+            if (pestañaId === 'chat') {
+                const chatCard = document.querySelector('.chat-pareja-card');
+                if (chatCard && window.innerWidth <= 768) {
+                    setTimeout(() => {
+                        chatCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 60);
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
             if (pestañaId === 'chat') {
                 if (typeof renderizarChatPareja === 'function') renderizarChatPareja();
                 setTimeout(() => {
                     const contenedor = document.getElementById('chat-mensajes-lista');
                     if (contenedor) contenedor.scrollTop = contenedor.scrollHeight;
-                }, 100);
+                }, 120);
             } else if (pestañaId === 'galeria') {
                 renderizarGaleria();
             } else if (pestañaId === 'retos') {
