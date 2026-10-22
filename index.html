@@ -1017,7 +1017,45 @@
 
         @media (max-width: 768px) {
             .musica-reproductor {
-                bottom: 60px; /* Situado exactamente sobre la barra de pestañas móvil */
+                bottom: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
+                height: 52px !important;
+                border-top: 1.5px solid #fce7f3 !important;
+                border-bottom: 1px solid #e2e8f0 !important;
+                box-shadow: 0 -3px 14px rgba(0, 0, 0, 0.06) !important;
+                padding: 4px 10px !important;
+                z-index: 999 !important;
+                background: rgba(255, 255, 255, 0.98) !important;
+            }
+            .musica-disco-container {
+                width: 36px !important;
+                height: 36px !important;
+                margin-right: 8px !important;
+            }
+            .musica-titulo {
+                font-size: 0.8rem !important;
+            }
+            .musica-artista {
+                font-size: 0.68rem !important;
+            }
+            .musica-controles {
+                gap: 4px !important;
+            }
+            .btn-musica-control {
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 0.8rem !important;
+            }
+            .btn-musica-control.play {
+                width: 34px !important;
+                height: 34px !important;
+                font-size: 0.9rem !important;
+            }
+            .btn-musica-expandir {
+                width: 28px !important;
+                height: 28px !important;
+                padding: 0 !important;
+                justify-content: center !important;
+                border-radius: 50% !important;
             }
         }
 
@@ -1710,18 +1748,7 @@
             }
 
             .tema-selector-contenedor {
-                top: 16px;
-                right: 16px;
-            }
-            .btn-tema-principal {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            .tema-opcion {
-                width: 32px;
-                height: 32px;
-                font-size: 0.95rem;
+                display: none !important; /* En móviles no se superpone a los chats ni botones; se accede desde Especiales */
             }
         }
 
@@ -4389,8 +4416,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            min-height: 58px;
-            padding: 6px 8px max(8px, env(safe-area-inset-bottom)) 8px;
+            height: calc(58px + env(safe-area-inset-bottom, 0px));
+            padding: 4px 8px env(safe-area-inset-bottom, 4px) 8px;
             background: #ffffff;
             border-top: 1px solid rgba(226, 232, 240, 0.95);
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
@@ -4410,7 +4437,7 @@
             align-items: center;
             justify-content: center;
             gap: 2px;
-            padding: 6px 8px;
+            padding: 4px 6px;
             border-radius: var(--radius-md);
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -4421,13 +4448,13 @@
         }
 
         .nav-bottom-icon {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             line-height: 1;
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .nav-bottom-label {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 600;
             letter-spacing: -0.2px;
         }
@@ -4450,7 +4477,24 @@
                 display: none !important; /* En celular se reemplaza por la barra nativa inferior */
             }
             body {
-                padding-bottom: 140px !important; /* Espacio para que el reproductor y la barra no tapen contenido */
+                padding-bottom: 125px !important; /* Espacio para que el reproductor y la barra no tapen contenido */
+            }
+            .chat-pareja-card {
+                height: calc(100dvh - 210px) !important;
+                max-height: calc(100vh - 210px) !important;
+                min-height: 380px !important;
+                border-radius: var(--radius-xl) !important;
+                margin-bottom: 10px !important;
+            }
+            .chat-mensajes-container {
+                padding: 12px 10px !important;
+            }
+            .chat-input-bar {
+                padding: 8px 10px !important;
+            }
+            .chat-emojis-rapidos {
+                padding: 4px 8px !important;
+                gap: 4px !important;
             }
         }
 
@@ -4636,7 +4680,24 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            background: rgba(248, 250, 252, 0.45);
+            background: linear-gradient(180deg, #fff5f8 0%, #fdf2f7 40%, #faf5ff 100%);
+        }
+        .chat-badge-seguridad {
+            text-align: center;
+            margin: 4px auto 12px auto;
+            background: rgba(244, 114, 182, 0.12);
+            border: 1px solid rgba(244, 114, 182, 0.28);
+            color: #be185d;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: var(--radius-pill);
+            width: fit-content;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            line-height: 1.25;
         }
         .chat-mensaje-fila {
             display: flex;
@@ -4661,10 +4722,10 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .chat-msg-burbuja {
-            padding: 10px 14px;
-            border-radius: 18px;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            padding: 8px 12px;
+            border-radius: 16px;
+            font-size: 0.88rem;
+            line-height: 1.35;
             position: relative;
             word-break: break-word;
             box-shadow: 0 2px 6px rgba(0,0,0,0.04);
@@ -4680,14 +4741,36 @@
             border: 1px solid var(--glass-border);
             border-bottom-left-radius: 4px;
         }
-        .chat-msg-meta {
-            font-size: 0.68rem;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 4px;
-            margin-top: 4px;
-            opacity: 0.8;
+        .chat-msg-autor {
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+            letter-spacing: -0.2px;
+        }
+        .chat-mensaje-fila.propio .chat-msg-autor {
+            color: rgba(255, 255, 255, 0.95);
+        }
+        .chat-mensaje-fila.pareja .chat-msg-autor {
+            color: #db2777;
+        }
+        .chat-msg-cuerpo {
+            font-size: 0.88rem;
+            line-height: 1.35;
+            word-break: break-word;
+        }
+        .chat-msg-hora {
+            font-size: 0.65rem;
+            display: block;
+            text-align: right;
+            margin-top: 3px;
+            letter-spacing: -0.2px;
+        }
+        .chat-mensaje-fila.propio .chat-msg-hora {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .chat-mensaje-fila.pareja .chat-msg-hora {
+            color: #94a3b8;
         }
         .chat-emojis-rapidos {
             display: flex;
@@ -11429,16 +11512,23 @@ Andy. ❤️</div>
             const nombreAndy = localStorage.getItem('pareja_nombre_andy') || 'Andy';
             const nombreJessie = localStorage.getItem('pareja_nombre_jessie') || 'Jessie';
 
+            const badgeSeguridad = `
+                <div class="chat-badge-seguridad">
+                    <span>🔒</span> Conversación privada e íntima de ${nombreAndy} & ${nombreJessie}
+                </div>
+            `;
+
             if (!chatMensajes || chatMensajes.length === 0) {
                 lista.innerHTML = `
-                    <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 40px 10px;">
+                    ${badgeSeguridad}
+                    <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 30px 10px;">
                         💌 No hay mensajes aún. ¡Escríbele un lindo mensaje a tu amor!
                     </div>
                 `;
                 return;
             }
 
-            lista.innerHTML = chatMensajes.map(msg => {
+            lista.innerHTML = badgeSeguridad + chatMensajes.map(msg => {
                 const esMio = (msg.remitente === miId);
                 const claseFila = esMio ? 'propio' : 'pareja';
                 const avatar = msg.remitente === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
