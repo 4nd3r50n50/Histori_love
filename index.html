@@ -4136,6 +4136,204 @@
             border-color: #bbf7d0;
             color: #15803d;
         }
+
+        /* --- ESTILOS DE LA PANTALLA DE LOGIN (COUPLE360) --- */
+        .pantalla-login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #fff5f8 0%, #faf6fd 50%, #f4f7fb 100%);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .pantalla-login-card {
+            background: #ffffff;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 32px 24px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 45px rgba(244, 114, 182, 0.15), 0 4px 16px rgba(0,0,0,0.04);
+            text-align: center;
+            animation: zoomEntrada 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .login-brand-icon {
+            font-size: 2.4rem;
+            display: inline-block;
+            animation: palpitacion 1.5s infinite ease-in-out;
+            margin-bottom: 4px;
+        }
+        .login-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        .login-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            margin-bottom: 20px;
+        }
+        .login-identidad-prompt {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+        }
+        .login-perfiles-grid {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .login-perfil-card {
+            flex: 1;
+            background: var(--pastel-pink-bg);
+            border: 2px solid transparent;
+            border-radius: var(--radius-lg);
+            padding: 14px 10px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .login-perfil-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(244, 114, 182, 0.4);
+        }
+        .login-perfil-card.selected {
+            background: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(244, 114, 182, 0.22);
+            transform: scale(1.03);
+        }
+        .login-avatar-ring {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2.5px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 8px;
+        }
+        .login-avatar-ring img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .login-perfil-nombre {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+        .login-perfil-rol {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .login-pin-seccion {
+            margin-bottom: 14px;
+            text-align: left;
+        }
+        .login-pin-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: block;
+        }
+        .login-pin-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--glass-border);
+            background: #f8fafc;
+            text-align: center;
+            font-size: 1.3rem;
+            letter-spacing: 6px;
+            font-family: inherit;
+            color: var(--text-dark);
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+        .login-pin-input:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
+        }
+        .login-error-msg {
+            color: #e11d48;
+            font-size: 0.76rem;
+            font-weight: 600;
+            margin-top: 5px;
+            display: none;
+            text-align: center;
+        }
+        .login-recordar-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            margin-bottom: 18px;
+        }
+        .login-recordar-wrap input {
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        .login-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-pill);
+            padding: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 18px rgba(244, 114, 182, 0.3);
+        }
+        .login-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(244, 114, 182, 0.4);
+        }
+
+        /* Botones de filtro de finanzas */
+        .finanzas-filtros-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .btn-filtro-finanzas {
+            background: #f8fafc;
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .btn-filtro-finanzas.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(244, 114, 182, 0.25);
+        }
     </style>
     
     <!-- LIBRERÍAS EXTERNAS -->
@@ -4145,6 +4343,54 @@
     
 </head>
 <body>
+
+    <!-- PANTALLA DE LOGIN / ACCESO DE PAREJA (COUPLE360) -->
+    <div id="pantalla-login" class="pantalla-login-overlay" style="display: none;">
+        <div class="pantalla-login-card">
+            <div class="login-brand-header">
+                <div class="login-brand-icon">❤️</div>
+                <h2 class="login-title">Andy & Jessie</h2>
+                <p class="login-subtitle">Espacio íntimo y compartido</p>
+            </div>
+
+            <div class="login-identidad-prompt">¿Quién está usando este celular?</div>
+
+            <div class="login-perfiles-grid">
+                <div class="login-perfil-card selected" id="login-card-andy" onclick="seleccionarPerfilLogin('andy')">
+                    <div class="login-avatar-ring">
+                        <img src="imagenes/pinguino_avatar_3d.jpg" alt="Andy">
+                    </div>
+                    <span class="login-perfil-nombre">Andy 🐧</span>
+                    <span class="login-perfil-rol">Administrador</span>
+                </div>
+
+                <div class="login-perfil-card" id="login-card-jessie" onclick="seleccionarPerfilLogin('jessie')">
+                    <div class="login-avatar-ring">
+                        <img src="imagenes/kuromi_avatar_3d.jpg" alt="Jessie">
+                    </div>
+                    <span class="login-perfil-nombre">Jessie 😈</span>
+                    <span class="login-perfil-rol">Mi Amor</span>
+                </div>
+            </div>
+
+            <div class="login-pin-seccion">
+                <label for="login-pin-input" class="login-pin-label">PIN de Pareja:</label>
+                <div class="login-pin-wrap">
+                    <input type="password" id="login-pin-input" class="login-pin-input" maxlength="4" placeholder="••••" inputmode="numeric" onkeydown="if(event.key==='Enter') procesarLoginPareja()">
+                </div>
+                <div id="login-error-msg" class="login-error-msg">PIN incorrecto. (Pista: Nuestro año especial)</div>
+            </div>
+
+            <label class="login-recordar-wrap">
+                <input type="checkbox" id="login-recordar-check" checked>
+                <span>Recordar este celular para no volver a pedir login</span>
+            </label>
+
+            <button type="button" class="login-submit-btn" onclick="procesarLoginPareja()">
+                Entrar a Nuestro Espacio ✨
+            </button>
+        </div>
+    </div>
 
     <!-- CONTENEDOR FLOTANTE DE NOTIFICACIONES EN VIVO (TOASTS) -->
     <div id="couple-toast-container" class="couple-toast-container"></div>
@@ -4377,7 +4623,7 @@
                         <div class="salud-card-meta" id="salud-bano-meta">
                             Sin registros hoy
                         </div>
-                        <button class="salud-btn-accion" onclick="registrarHabitoSalud('bano')">
+                        <button class="salud-btn-accion" id="btn-accion-salud-bano" onclick="registrarHabitoSalud('bano')">
                             + Registrar Visita
                         </button>
                     </div>
@@ -4396,7 +4642,7 @@
                                 <div class="salud-barra-progreso-fill" id="salud-agua-barra" style="width: 0%;"></div>
                             </div>
                         </div>
-                        <button class="salud-btn-accion" onclick="registrarHabitoSalud('agua')">
+                        <button class="salud-btn-accion" id="btn-accion-salud-agua" onclick="registrarHabitoSalud('agua')">
                             + 1 Vaso de Agua
                         </button>
                     </div>
@@ -4413,7 +4659,7 @@
                         <div class="salud-card-meta" id="salud-caminata-meta">
                             Cuidando el cuerpo y la mente
                         </div>
-                        <button class="salud-btn-accion" onclick="registrarHabitoSalud('caminata')">
+                        <button class="salud-btn-accion" id="btn-accion-salud-caminata" onclick="registrarHabitoSalud('caminata')">
                             + Registrar Caminata
                         </button>
                     </div>
@@ -4508,6 +4754,12 @@
                                     🗑️ Comenzar en $0
                                 </button>
                             </div>
+                        </div>
+                        <div class="finanzas-filtros-bar">
+                            <button type="button" class="btn-filtro-finanzas active" id="filtro-fin-todos" onclick="filtrarFinanzas('todos')">🌐 Todo el Hogar</button>
+                            <button type="button" class="btn-filtro-finanzas" id="filtro-fin-mis" onclick="filtrarFinanzas('mis')">👤 Mis Movimientos</button>
+                            <button type="button" class="btn-filtro-finanzas" id="filtro-fin-pareja" onclick="filtrarFinanzas('pareja')">💖 De mi Pareja</button>
+                            <button type="button" class="btn-filtro-finanzas" id="filtro-fin-ambos" onclick="filtrarFinanzas('ambos')">🤝 Compartidos 50/50</button>
                         </div>
                         <div id="lista-movimientos-finanzas">
                             <!-- Se renderizará dinámicamente -->
@@ -4742,11 +4994,8 @@ Andy. ❤️</div>
                     <span id="radar-tiempo-estimado" style="font-weight: 600;">Calculando distancia...</span>
                 </div>
                 <div class="radar-acciones">
-                    <button class="btn-radar" onclick="actualizarUbicacionRadar('andy')">
-                        <img src="imagenes/pinguino_avatar_3d.jpg" class="radar-btn-avatar" alt="Andy"> Actualizar Ubicación de Andy
-                    </button>
-                    <button class="btn-radar" onclick="actualizarUbicacionRadar('jessie')">
-                        <img src="imagenes/kuromi_avatar_3d.jpg" class="radar-btn-avatar" alt="Jessie"> Actualizar Ubicación de Jessie
+                    <button class="btn-radar" id="btn-radar-mi-gps" onclick="actualizarMiUbicacionRadar()">
+                        📍 Actualizar mi ubicación GPS
                     </button>
                 </div>
             </div>
@@ -7474,6 +7723,17 @@ Andy. ❤️</div>
             }
         }
 
+        let filtroFinanzasActual = 'todos';
+
+        function filtrarFinanzas(filtro) {
+            filtroFinanzasActual = filtro;
+            ['todos', 'mis', 'pareja', 'ambos'].forEach(f => {
+                const btn = document.getElementById(`filtro-fin-${f}`);
+                if (btn) btn.classList.toggle('active', f === filtro);
+            });
+            renderizarFinanzas();
+        }
+
         function renderizarFinanzas() {
             cargarFinanzas();
 
@@ -7511,15 +7771,29 @@ Andy. ❤️</div>
                     : `✨ Todos los servicios al día`;
                 elEstadoServ.style.color = serviciosPendientes > 0 ? '#d97706' : '#059669';
             }
-            if (elConteo) elConteo.innerText = `${finanzasRegistros.length} registro${finanzasRegistros.length !== 1 ? 's' : ''}`;
 
             const contenedor = document.getElementById('lista-movimientos-finanzas');
             if (!contenedor) return;
 
-            if (finanzasRegistros.length === 0) {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            const parejaId = miId === 'andy' ? 'jessie' : 'andy';
+
+            // Filtrar según botón activo
+            let listaAMostrar = [...finanzasRegistros];
+            if (filtroFinanzasActual === 'mis') {
+                listaAMostrar = listaAMostrar.filter(item => item.persona === miId || item.registradoPor === miId);
+            } else if (filtroFinanzasActual === 'pareja') {
+                listaAMostrar = listaAMostrar.filter(item => item.persona === parejaId && item.persona !== 'ambos');
+            } else if (filtroFinanzasActual === 'ambos') {
+                listaAMostrar = listaAMostrar.filter(item => item.persona === 'ambos');
+            }
+
+            if (elConteo) elConteo.innerText = `${listaAMostrar.length} de ${finanzasRegistros.length} registro${finanzasRegistros.length !== 1 ? 's' : ''}`;
+
+            if (listaAMostrar.length === 0) {
                 contenedor.innerHTML = `
                     <div style="text-align: center; padding: 24px 10px; color: var(--text-muted);">
-                        <span>💰</span> No hay movimientos registrados todavía. ¡Añade tu primer gasto, ahorro o servicio arriba!
+                        <span>💰</span> No hay movimientos en este filtro (${filtroFinanzasActual}).
                     </div>
                 `;
                 return;
@@ -7527,7 +7801,7 @@ Andy. ❤️</div>
 
             contenedor.innerHTML = '';
             // Mostrar los más recientes primero
-            const ordenados = [...finanzasRegistros].sort((a, b) => b.id - a.id);
+            const ordenados = [...listaAMostrar].sort((a, b) => b.id - a.id);
 
             ordenados.forEach(item => {
                 const fila = document.createElement('div');
@@ -7551,9 +7825,21 @@ Andy. ❤️</div>
                     `;
                 }
 
-                let personaTexto = '<img src="imagenes/icono_pareja.png" class="mini-tag-avatar" alt="Ambos"> Ambos';
+                let personaTexto = '<img src="imagenes/icono_pareja.png" class="mini-tag-avatar" alt="Ambos"> Ambos (50/50)';
                 if (item.persona === 'andy') personaTexto = '<img src="imagenes/pinguino_avatar_3d.jpg" class="mini-tag-avatar" alt="Andy"> Andy';
                 if (item.persona === 'jessie') personaTexto = '<img src="imagenes/kuromi_avatar_3d.jpg" class="mini-tag-avatar" alt="Jessie"> Jessie';
+
+                // Determinar si es personal de la pareja (no modificable por el otro)
+                const esPropioOCompartido = (item.persona === 'ambos' || item.persona === miId || (item.registradoPor && item.registradoPor === miId));
+
+                const botonModificar = esPropioOCompartido ? `
+                    <button type="button" class="btn-editar-finanzas" onclick="abrirModalEditarFinanzas(${item.id})" style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.35); color: #7c3aed; border-radius: 8px; font-size: 0.78rem; font-weight: 600; padding: 4px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease;" title="Modificar monto, concepto o pagador">
+                        ✏️ Modificar
+                    </button>
+                    <button type="button" onclick="eliminarMovimientoFinanzas(${item.id})" style="background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 0.95rem; padding: 4px;" title="Eliminar registro">✕</button>
+                ` : `
+                    <span style="font-size: 0.75rem; color: #94a3b8; padding: 4px 8px; background: #f1f5f9; border-radius: 6px;" title="Registro personal de tu pareja">🔒 Personal de ${item.persona === 'andy' ? 'Andy' : 'Jessie'}</span>
+                `;
 
                 fila.innerHTML = `
                     <div style="display: flex; flex-direction: column; gap: 4px; flex: 1;">
@@ -7570,10 +7856,7 @@ Andy. ❤️</div>
                             $${parseFloat(item.monto).toFixed(2)}
                         </span>
                         ${accionExtra}
-                        <button type="button" class="btn-editar-finanzas" onclick="abrirModalEditarFinanzas(${item.id})" style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.35); color: #7c3aed; border-radius: 8px; font-size: 0.78rem; font-weight: 600; padding: 4px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease;" title="Modificar monto, concepto o pagador">
-                            ✏️ Modificar
-                        </button>
-                        <button type="button" onclick="eliminarMovimientoFinanzas(${item.id})" style="background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 0.95rem; padding: 4px;" title="Eliminar registro">✕</button>
+                        ${botonModificar}
                     </div>
                 `;
                 contenedor.appendChild(fila);
@@ -7596,6 +7879,7 @@ Andy. ❤️</div>
                 return;
             }
 
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
             const ahora = new Date();
             const fechaStr = `${String(ahora.getDate()).padStart(2, '0')}/${String(ahora.getMonth() + 1).padStart(2, '0')}/${ahora.getFullYear()}`;
             const horaStr = `${String(ahora.getHours()).padStart(2, '0')}:${String(ahora.getMinutes()).padStart(2, '0')}`;
@@ -7606,6 +7890,7 @@ Andy. ❤️</div>
                 concepto: concepto,
                 monto: monto,
                 persona: selectPersona.value,
+                registradoPor: miId,
                 fecha: fechaStr,
                 hora: horaStr,
                 estadoServicio: selectTipo.value === 'servicio' ? selectEstadoServ.value : null
@@ -7615,7 +7900,7 @@ Andy. ❤️</div>
             guardarFinanzas();
             renderizarFinanzas();
 
-            const autorFin = obtenerMiIdentidad();
+            const autorFin = miId;
             const autorNombreFin = autorFin === 'andy' ? 'Andy' : 'Jessie';
             const tipoDesc = nuevo.tipo === 'ahorro' ? '🌱 Ahorro' : (nuevo.tipo === 'gasto' ? '🛍️ Gasto' : '💡 Servicio');
             emitirNotificacionFirebase(autorFin, 'finanzas', `${tipoDesc} (${autorNombreFin})`, `${concepto}: $${parseFloat(monto).toFixed(2)}`);
@@ -7636,6 +7921,13 @@ Andy. ❤️</div>
         }
 
         function eliminarMovimientoFinanzas(id) {
+            const item = finanzasRegistros.find(m => m.id === id);
+            if (!item) return;
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            if (item.persona !== 'ambos' && item.persona !== miId && item.registradoPor && item.registradoPor !== miId) {
+                alert("🔒 Este registro personal fue creado por tu pareja. Solo puede eliminarse desde su celular.");
+                return;
+            }
             if (!confirm("¿Deseas eliminar este registro de finanzas?")) return;
             finanzasRegistros = finanzasRegistros.filter(m => m.id !== id);
             guardarFinanzas();
@@ -7646,6 +7938,12 @@ Andy. ❤️</div>
         function abrirModalEditarFinanzas(id) {
             const item = finanzasRegistros.find(m => m.id === id);
             if (!item) return;
+
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            if (item.persona !== 'ambos' && item.persona !== miId && item.registradoPor && item.registradoPor !== miId) {
+                alert("🔒 Este registro personal fue creado por tu pareja. Solo puede modificarse desde su celular.");
+                return;
+            }
 
             document.getElementById('edit-finanzas-id').value = item.id;
             document.getElementById('edit-finanzas-concepto').value = item.concepto || '';
@@ -9481,14 +9779,26 @@ Andy. ❤️</div>
             } catch (e) {}
         }
 
+        function actualizarMiUbicacionRadar() {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            actualizarUbicacionRadar(miId);
+        }
+
         function actualizarUbicacionRadar(persona) {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            if (persona !== miId) {
+                const nombreObjetivo = persona === 'andy' ? 'Andy' : 'Jessie';
+                alert(`🔒 Por privacidad, solo ${nombreObjetivo} puede actualizar su ubicación GPS desde su propio celular.`);
+                return;
+            }
+
             if (!navigator.geolocation) {
                 alert("La geolocalización no está disponible en este navegador.");
                 return;
             }
 
             const nombre = persona === 'andy' ? 'Andy' : 'Jessie';
-            const btn = event?.currentTarget;
+            const btn = document.getElementById('btn-radar-mi-gps') || event?.currentTarget;
             if (btn) btn.innerText = "Obteniendo GPS...";
 
             navigator.geolocation.getCurrentPosition(
@@ -9512,13 +9822,15 @@ Andy. ❤️</div>
                         }
                     }
 
-                    if (btn) btn.innerHTML = `<span>${persona === 'andy' ? '🐧' : '😈'}</span> Ubicación actualizada`;
+                    if (btn) {
+                        const avatar = persona === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
+                        btn.innerHTML = `<img src="${avatar}" class="radar-btn-avatar" alt="${nombre}"> Mi ubicación actualizada (${ahora})`;
+                    }
                     actualizarRadarEnMapa();
-                    const nombreRadar = persona === 'andy' ? 'Andy' : 'Jessie';
-                    emitirNotificacionFirebase(persona, 'radar', `📍 Ubicación de ${nombreRadar}`, `${nombreRadar} actualizó su posición en el radar.`);
+                    emitirNotificacionFirebase(persona, 'radar', `📍 Ubicación de ${nombre}`, `${nombre} actualizó su posición en el radar.`);
                 },
                 (err) => {
-                    if (btn) btn.innerHTML = `<span>${persona === 'andy' ? '🐧' : '😈'}</span> Actualizar Ubicación de ${nombre}`;
+                    if (btn) btn.innerHTML = `📍 Actualizar mi ubicación GPS`;
                     alert("No se pudo obtener la ubicación GPS. Por favor activa los permisos de ubicación en tu navegador o celular.");
                 },
                 { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
@@ -9545,12 +9857,21 @@ Andy. ❤️</div>
 
         function seleccionarPersonaSalud(persona) {
             personaSaludActiva = persona;
-            document.getElementById('btn-salud-andy').classList.toggle('active', persona === 'andy');
-            document.getElementById('btn-salud-jessie').classList.toggle('active', persona === 'jessie');
+            const btnA = document.getElementById('btn-salud-andy');
+            const btnJ = document.getElementById('btn-salud-jessie');
+            if (btnA) btnA.classList.toggle('active', persona === 'andy');
+            if (btnJ) btnJ.classList.toggle('active', persona === 'jessie');
             actualizarUIHabitosSalud();
         }
 
         function registrarHabitoSalud(tipo) {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            if (personaSaludActiva !== miId) {
+                const nombrePareja = personaSaludActiva === 'andy' ? 'Andy' : 'Jessie';
+                alert(`🔒 Por privacidad y cuidado mutuo, cada uno registra sus visitas y hábitos desde su propio celular.\n\n¡Puedes tocar "💌 Recordarle tomar agua" para enviarle un cariñoso aviso a su pantalla!`);
+                return;
+            }
+
             const ahora = new Date();
             const fechaHoy = ahora.toISOString().split('T')[0];
             const horaStr = ahora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -9587,6 +9908,28 @@ Andy. ❤️</div>
 
             const autorSalud = personaSaludActiva === 'andy' ? 'Andy' : 'Jessie';
             emitirNotificacionFirebase(personaSaludActiva, 'salud', `${icono} ${autorSalud} se cuidó`, detalle);
+        }
+
+        function enviarRecordatorioAguaPareja() {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            const miNombre = miId === 'andy' ? 'Andy' : 'Jessie';
+            const parejaId = miId === 'andy' ? 'jessie' : 'andy';
+            const parejaNombre = parejaId === 'andy' ? 'Andy' : 'Jessie';
+            const avatar = miId === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
+
+            emitirNotificacionFirebase(miId, 'salud', `💧 Cariño de ${miNombre}`, `¡Hola ${parejaNombre}! ${miNombre} te recuerda con mucho amor tomar un vasito de agua fresca ❤️`);
+            mostrarToastNotificacion("💌 Recordatorio enviado", `Le recordaste a ${parejaNombre} tomar agua fresca. ¡Qué lindo detalle!`, avatar);
+        }
+
+        function enviarRecordatorioPausaPareja() {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            const miNombre = miId === 'andy' ? 'Andy' : 'Jessie';
+            const parejaId = miId === 'andy' ? 'jessie' : 'andy';
+            const parejaNombre = parejaId === 'andy' ? 'Andy' : 'Jessie';
+            const avatar = miId === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
+
+            emitirNotificacionFirebase(miId, 'salud', `🚶 Propuesta de ${miNombre}`, `¡${parejaNombre}! ¿Qué tal si hacemos una pausa activa o caminata juntos? 💖`);
+            mostrarToastNotificacion("💌 Invitación enviada", `Le propusiste una caminata a ${parejaNombre}.`, avatar);
         }
 
         function actualizarUIHabitosSalud() {
@@ -9636,6 +9979,53 @@ Andy. ❤️</div>
                     caminataMetaEl.innerText = "Una caminata diaria beneficia tu circulación.";
                 } else {
                     caminataMetaEl.innerText = `${minutosTotales} min de actividad hoy. ¡Excelente!`;
+                }
+            }
+
+            // Botones de acción: Personal vs Pareja
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : 'andy';
+            const esMiPerfil = (personaSaludActiva === miId);
+            const nombrePareja = personaSaludActiva === 'andy' ? 'Andy' : 'Jessie';
+
+            const btnBano = document.getElementById('btn-accion-salud-bano');
+            const btnAgua = document.getElementById('btn-accion-salud-agua');
+            const btnCaminata = document.getElementById('btn-accion-salud-caminata');
+
+            if (esMiPerfil) {
+                if (btnBano) {
+                    btnBano.innerText = "+ Registrar Visita";
+                    btnBano.style.opacity = "1";
+                    btnBano.style.cursor = "pointer";
+                    btnBano.style.background = "";
+                    btnBano.onclick = () => registrarHabitoSalud('bano');
+                }
+                if (btnAgua) {
+                    btnAgua.innerText = "+ 1 Vaso de Agua";
+                    btnAgua.style.background = "";
+                    btnAgua.onclick = () => registrarHabitoSalud('agua');
+                }
+                if (btnCaminata) {
+                    btnCaminata.innerText = "+ Registrar Caminata";
+                    btnCaminata.style.background = "";
+                    btnCaminata.onclick = () => registrarHabitoSalud('caminata');
+                }
+            } else {
+                if (btnBano) {
+                    btnBano.innerText = `🔒 ${nombrePareja} registra en su cel`;
+                    btnBano.style.opacity = "0.75";
+                    btnBano.style.cursor = "not-allowed";
+                    btnBano.style.background = "#e2e8f0";
+                    btnBano.onclick = () => alert(`🔒 Por privacidad y cuidado mutuo, solo ${nombrePareja} puede marcar sus visitas al baño desde su propio celular.`);
+                }
+                if (btnAgua) {
+                    btnAgua.innerText = `💌 Recordarle tomar agua`;
+                    btnAgua.style.background = "linear-gradient(135deg, #38bdf8 0%, #0284c7 100%)";
+                    btnAgua.onclick = () => enviarRecordatorioAguaPareja();
+                }
+                if (btnCaminata) {
+                    btnCaminata.innerText = `💌 Sugerir una caminata juntos`;
+                    btnCaminata.style.background = "linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)";
+                    btnCaminata.onclick = () => enviarRecordatorioPausaPareja();
                 }
             }
 
@@ -9787,6 +10177,127 @@ Andy. ❤️</div>
                 }
                 alert("El selector de identidad ha sido desbloqueado en la pantalla principal.");
             }
+        }
+        // ==============================================================
+        // --- SISTEMA DE LOGIN Y PRIVACIDAD DE PAREJA (COUPLE360) ---
+        // ==============================================================
+        let perfilLoginSeleccionado = localStorage.getItem('miIdentidadPareja') || 'andy';
+
+        function seleccionarPerfilLogin(persona) {
+            perfilLoginSeleccionado = persona;
+            const cardA = document.getElementById('login-card-andy');
+            const cardJ = document.getElementById('login-card-jessie');
+            if (cardA) cardA.classList.toggle('selected', persona === 'andy');
+            if (cardJ) cardJ.classList.toggle('selected', persona === 'jessie');
+            
+            const err = document.getElementById('login-error-msg');
+            if (err) err.style.display = 'none';
+
+            const pinInput = document.getElementById('login-pin-input');
+            if (pinInput) {
+                pinInput.value = '';
+                pinInput.focus();
+            }
+        }
+
+        function procesarLoginPareja() {
+            const pinInput = document.getElementById('login-pin-input');
+            const err = document.getElementById('login-error-msg');
+            const recordar = document.getElementById('login-recordar-check')?.checked;
+            const pin = pinInput?.value?.trim();
+
+            if (pin !== '2006') {
+                if (err) {
+                    err.style.display = 'block';
+                    err.innerText = 'PIN incorrecto. (Pista: Nuestro año de inicio)';
+                }
+                if (pinInput) {
+                    pinInput.value = '';
+                    pinInput.focus();
+                }
+                return;
+            }
+
+            if (err) err.style.display = 'none';
+
+            // Guardar identidad seleccionada
+            cambiarMiIdentidad(perfilLoginSeleccionado);
+
+            if (recordar) {
+                localStorage.setItem('sesionIniciadaPareja', 'true');
+            } else {
+                sessionStorage.setItem('sesionIniciadaPareja', 'true');
+            }
+
+            // Ocultar pantalla de login con suavidad
+            const loginEl = document.getElementById('pantalla-login');
+            if (loginEl) {
+                loginEl.style.transition = 'opacity 0.4s ease';
+                loginEl.style.opacity = '0';
+                setTimeout(() => {
+                    loginEl.style.display = 'none';
+                    loginEl.style.opacity = '1';
+                }, 400);
+            }
+
+            aplicarLogicaPersonalYCompartida();
+
+            const nombre = perfilLoginSeleccionado === 'andy' ? 'Andy 🐧' : 'Jessie 😈';
+            mostrarToastNotificacion(`¡Hola de nuevo, ${nombre}!`, "Entraste a nuestro espacio Couple360", perfilLoginSeleccionado === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg');
+        }
+
+        function verificarEstadoLogin() {
+            const loginEl = document.getElementById('pantalla-login');
+            if (!loginEl) return;
+
+            const recordado = localStorage.getItem('sesionIniciadaPareja') === 'true';
+            const enSesion = sessionStorage.getItem('sesionIniciadaPareja') === 'true';
+
+            if (recordado || enSesion) {
+                loginEl.style.display = 'none';
+                aplicarLogicaPersonalYCompartida();
+            } else {
+                loginEl.style.display = 'flex';
+                const actual = obtenerMiIdentidad();
+                seleccionarPerfilLogin(actual);
+            }
+        }
+
+        function cerrarSesionPareja() {
+            localStorage.removeItem('sesionIniciadaPareja');
+            sessionStorage.removeItem('sesionIniciadaPareja');
+            const loginEl = document.getElementById('pantalla-login');
+            if (loginEl) {
+                loginEl.style.display = 'flex';
+                const pinInput = document.getElementById('login-pin-input');
+                if (pinInput) pinInput.value = '';
+            }
+            const actual = obtenerMiIdentidad();
+            seleccionarPerfilLogin(actual);
+        }
+
+        function aplicarLogicaPersonalYCompartida() {
+            const miId = obtenerMiIdentidad();
+            // 1. En Salud, activar mi perfil por defecto para que sea inmediato registrar
+            seleccionarPersonaSalud(miId);
+
+            // 2. En Finanzas, fijar el selector al usuario del celular
+            const selFinPersona = document.getElementById('finanzas-select-persona');
+            if (selFinPersona) {
+                selFinPersona.value = 'ambos'; // por defecto 50/50 o propio
+            }
+            renderizarFinanzas();
+
+            // 3. En Radar, actualizar el botón con mi avatar y nombre
+            const btnRadar = document.getElementById('btn-radar-mi-gps');
+            if (btnRadar) {
+                const nombre = miId === 'andy' ? 'Andy' : 'Jessie';
+                const avatar = miId === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
+                btnRadar.innerHTML = `<img src="${avatar}" class="radar-btn-avatar" alt="${nombre}"> Actualizar mi ubicación GPS (${nombre})`;
+            }
+
+            // 4. Actualizar selector de identidad
+            actualizarSelectorIdentidadUI();
         }
 
         function solicitarPermisoNotificaciones() {
@@ -10088,6 +10599,7 @@ Andy. ❤️</div>
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            verificarEstadoLogin();
             inicializarAudio();
             actualizarSelectorIdentidadUI();
             actualizarBotonNotificaciones();
