@@ -15,9 +15,10 @@
     <meta name="apple-mobile-web-app-title" content="Histori Love">
     <link rel="apple-touch-icon" href="imagenes/icono_pareja.png">
     
-    <!-- Google Fonts para una tipografía premium -->
+    <!-- Google Fonts para una tipografía premium y nítida en iPhone Retina -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Firebase SDK Compat para sincronización en tiempo real en la nube -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -280,7 +281,7 @@
             animation: palpitacion 1.5s infinite ease-in-out;
         }
 
-        /* --- CABECERA Y PERFILES (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
+        /* --- CABECERA Y PERFILES (ESTILO COUPLE360: PASTEL, SOBRIO, NÍTIDO Y REDONDEADO) --- */
         .perfil-pareja-contenedor {
             display: flex;
             justify-content: space-between;
@@ -289,10 +290,13 @@
             border: 1px solid var(--glass-border);
             padding: 22px 26px;
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             gap: 16px;
-            animation: fadeIn 0.8s ease 0.15s both;
             position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            filter: none !important;
         }
 
         .perfil-tarjeta {
@@ -345,20 +349,27 @@
         .perfil-nombre {
             font-size: 1.25rem;
             font-weight: 800;
-            color: var(--text-dark);
+            color: #0f172a !important; /* Color negro pizarra nítido y de máximo contraste */
             letter-spacing: -0.3px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            text-shadow: none !important;
+            filter: none !important;
         }
 
         .perfil-info {
             font-size: 0.82rem;
-            color: var(--text-dark);
+            color: #475569 !important;
             font-weight: 600;
+            -webkit-font-smoothing: antialiased;
         }
 
         .perfil-hobby {
             font-size: 0.78rem;
-            color: var(--text-muted);
+            color: #64748b !important;
             font-weight: 500;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Insignia central de distancia estilo Couple360 */
@@ -979,42 +990,60 @@
             animation: palpitacion 1.2s infinite;
         }
 
-        /* --- REPRODUCTOR DE MÚSICA FLOTANTE --- */
+        /* ==============================================================
+           --- REPRODUCTOR DE MÚSICA DOCKED (BARRA FIJA, NÍTIDA Y NATIVA) ---
+           ============================================================== */
         .musica-reproductor {
             position: fixed;
-            bottom: 24px;
-            left: 24px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 8px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-top: 1px solid rgba(226, 232, 240, 0.95);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+            padding: 6px 14px;
             display: flex;
             align-items: center;
-            box-shadow: var(--shadow-lg);
-            z-index: 99;
+            justify-content: space-between;
+            z-index: 998;
             transition: var(--transition-smooth);
-            max-width: 60px;
-            overflow: hidden;
-            height: 60px;
+            max-width: 100%;
+            height: 56px;
+            box-sizing: border-box;
+            filter: none !important;
+            -webkit-backdrop-filter: none !important;
         }
 
-        .musica-reproductor.expandido {
-            max-width: 320px;
-            padding: 8px 18px 8px 8px;
-            border-radius: 30px;
-            height: auto;
+        @media (max-width: 768px) {
+            .musica-reproductor {
+                bottom: 60px; /* Situado exactamente sobre la barra de pestañas móvil */
+            }
+        }
+
+        @media (min-width: 769px) {
+            .musica-reproductor {
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 580px;
+                border-radius: 40px;
+                border: 1px solid var(--glass-border);
+                box-shadow: 0 12px 35px rgba(0,0,0,0.09);
+            }
         }
 
         .musica-disco-container {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             position: relative;
             cursor: pointer;
             flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .musica-disco-img {
@@ -1022,7 +1051,7 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #000;
+            border: 2px solid #0f172a;
         }
 
         .musica-disco-img.rotando {
@@ -1036,76 +1065,108 @@
 
         .musica-disco-centro {
             position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #fcfcf9;
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border: 2px solid #000;
+            border: 2px solid #0f172a;
         }
 
         .musica-info-panel {
             display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-left: 12px;
-            width: 220px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .musica-reproductor.expandido .musica-info-panel {
-            opacity: 1;
-            pointer-events: auto;
+            align-items: center;
+            justify-content: space-between;
+            flex: 1;
+            min-width: 0;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            gap: 10px;
         }
 
         .musica-detalles {
             display: flex;
             flex-direction: column;
+            min-width: 0;
+            flex: 1;
+            cursor: pointer;
+            text-align: left;
         }
 
         .musica-titulo {
-            font-size: 0.85rem;
+            font-size: 0.84rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: #0f172a !important;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            line-height: 1.2;
         }
 
         .musica-artista {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            font-size: 0.72rem;
+            color: #64748b !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
         }
 
         .musica-controles {
             display: flex;
-            justify-content: center;
-            gap: 8px;
             align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
         }
 
         .btn-musica-control {
-            background: transparent;
-            border: none;
-            font-size: 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.15s ease;
+            color: #334155;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .btn-musica-control:hover {
-            transform: scale(1.2);
+        .btn-musica-control:active {
+            transform: scale(0.9);
         }
 
         .btn-musica-control.play {
-            font-size: 1.25rem;
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+            font-size: 1rem;
+        }
+
+        .btn-musica-expandir {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-pill);
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .musica-barra-progreso-contenedor {
-            background: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.08);
             height: 4px;
             border-radius: 2px;
             width: 100%;
@@ -1124,13 +1185,13 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             margin-top: 2px;
         }
 
         .musica-volumen-slider {
             flex: 1;
-            height: 3px;
+            height: 4px;
             accent-color: var(--primary);
             outline: none;
         }
@@ -1513,14 +1574,16 @@
             .perfil-pareja-contenedor {
                 flex-direction: column;
                 gap: 12px;
-                padding: 14px 18px;
+                padding: 16px;
+                background: #ffffff !important;
+                filter: none !important;
             }
             .perfil-tarjeta {
                 flex-direction: row !important;
                 align-items: center;
                 text-align: left !important;
                 width: 100%;
-                gap: 10px;
+                gap: 12px;
             }
             .perfil-datos {
                 align-items: flex-start !important;
@@ -1533,10 +1596,16 @@
                 flex-shrink: 0;
             }
             .perfil-nombre {
-                font-size: 1.1rem;
+                font-size: 1.18rem !important;
+                font-weight: 800 !important;
+                color: #0f172a !important;
+                -webkit-font-smoothing: antialiased;
+                filter: none !important;
+                text-shadow: none !important;
             }
             .perfil-info {
                 font-size: 0.8rem;
+                color: #475569 !important;
             }
             .perfil-hobby {
                 font-size: 0.72rem;
@@ -1622,37 +1691,7 @@
             .polaroid-texto {
                 font-size: 1.3rem;
             }
-            /* Ajustes del reproductor de música y selector de tema */
-            .musica-reproductor {
-                bottom: 16px;
-                left: 16px;
-                height: 48px;
-                max-width: 48px;
-            }
-            .musica-reproductor.expandido {
-                max-width: 280px;
-                height: auto;
-            }
-            .musica-disco-container {
-                width: 32px;
-                height: 32px;
-            }
-            .musica-info-panel {
-                width: 190px;
-                margin-left: 8px;
-            }
-            .musica-titulo {
-                font-size: 0.75rem;
-            }
-            .musica-artista {
-                font-size: 0.65rem;
-            }
-            .btn-musica-control {
-                font-size: 0.85rem;
-            }
-            .btn-musica-control.play {
-                font-size: 1rem;
-            }
+
             .tema-selector-contenedor {
                 top: 16px;
                 right: 16px;
@@ -3060,9 +3099,6 @@
         @media (max-width: 768px) {
             body { overflow-x: hidden; } /* Prevenir scroll horizontal de la página */
             .wrapper { margin-top: 5px; padding: 10px; width: 100%; overflow-x: hidden; }
-            .musica-reproductor { top: 5px; right: 5px; }
-            .musica-disco-container { width: 45px; height: 45px; }
-            .musica-info-panel { width: 260px; right: 55px; }
             .tab-btn { padding: 8px 16px; font-size: 0.9rem; }
         }
 
@@ -4328,22 +4364,188 @@
             cursor: pointer;
             transition: var(--transition-smooth);
         }
-        /* Tag identificador para el reproductor de música flotante */
-        .musica-tag-flotante {
-            position: absolute;
-            top: -22px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            font-size: 0.68rem;
+        /* ==============================================================
+           --- BARRA DE NAVEGACIÓN INFERIOR NATIVA (ESTILO IPHONE / COUPLE360) ---
+           ============================================================== */
+        .nav-inferior-movil {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            min-height: 58px;
+            padding: 6px 8px max(8px, env(safe-area-inset-bottom)) 8px;
+            background: #ffffff;
+            border-top: 1px solid rgba(226, 232, 240, 0.95);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            box-sizing: border-box;
+            filter: none !important;
+        }
+
+        .nav-bottom-item {
+            background: transparent;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            padding: 6px 8px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: #64748b;
+            flex: 1;
+            max-width: 80px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-bottom-icon {
+            font-size: 1.35rem;
+            line-height: 1;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-bottom-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+
+        .nav-bottom-item.active {
+            color: #ec4899;
+        }
+
+        .nav-bottom-item.active .nav-bottom-icon {
+            transform: scale(1.15);
+        }
+
+        .nav-bottom-item.active .nav-bottom-label {
+            font-weight: 800;
+            color: #ec4899;
+        }
+
+        @media (max-width: 768px) {
+            .tab-nav {
+                display: none !important; /* En celular se reemplaza por la barra nativa inferior */
+            }
+            body {
+                padding-bottom: 140px !important; /* Espacio para que el reproductor y la barra no tapen contenido */
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-inferior-movil {
+                display: none !important;
+            }
+        }
+
+        /* --- HUB DE ACTIVIDADES ESPECIALES (MEJOR DISTRIBUCIÓN DE ACCESOS) --- */
+        .hub-especiales-card {
+            background: #ffffff;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hub-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--glass-border);
+            text-align: left;
+        }
+
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .hub-item-card {
+            background: #ffffff;
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .hub-item-card:hover, .hub-item-card:active {
+            transform: translateY(-2px);
+            border-color: rgba(244, 114, 182, 0.4);
+            box-shadow: 0 8px 24px rgba(244, 114, 182, 0.12);
+        }
+
+        .hub-item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .hub-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .hub-item-titulo {
+            font-size: 0.95rem;
             font-weight: 700;
-            padding: 2px 8px;
+            color: #0f172a;
+        }
+
+        .hub-item-desc {
+            font-size: 0.76rem;
+            color: #64748b;
+            line-height: 1.3;
+        }
+
+        .hub-item-arrow {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            font-weight: bold;
+        }
+
+        .btn-volver-hub {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #334155;
+            padding: 8px 16px;
             border-radius: var(--radius-pill);
-            white-space: nowrap;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            pointer-events: none;
-            animation: palpitacion 2s infinite ease-in-out;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: var(--transition-smooth);
+            width: fit-content;
+        }
+
+        .btn-volver-hub:hover {
+            background: #e2e8f0;
+            color: #0f172a;
         }
 
         /* --- ESTILOS DEL CHAT ÍNTIMO DE PAREJA --- */
@@ -4705,55 +4907,86 @@
         </div>
     </div>
 
-    <!-- REPRODUCTOR DE MÚSICA FLOTANTE -->
+    <!-- REPRODUCTOR DE MÚSICA DOCKED (BARRA FIJA NATIVA) -->
     <div class="musica-reproductor" id="musica-widget">
-        <div class="musica-tag-flotante">🎵 Música</div>
-        <div class="musica-disco-container" onclick="toggleExpandirMusica()">
-            <!-- Nota: Puedes cambiar 'imagenes/portada_musica.jpg' por la ruta de tu foto de pareja en la carpeta imagenes -->
+        <div class="musica-disco-container" onclick="toggleExpandirMusica()" title="Toca para ver reproductor completo">
             <img src="imagenes/portada_musica.jpg" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop'" class="musica-disco-img" id="musica-disco-girando" alt="Vinyl">
             <div class="musica-disco-centro"></div>
-            <!-- Pegatina de tema dinámica en el vinilo -->
             <div class="musica-sticker-badge" id="musica-sticker-badge">💖</div>
         </div>
+        
         <div class="musica-info-panel" id="musica-info-panel">
-            <div class="musica-detalles">
-                <span class="musica-titulo" id="musica-titulo-cancion">Cargando melodía...</span>
-                <span class="musica-artista" id="musica-artista-cancion">Instrumental</span>
-                <div class="audio-visualizer" id="audio-visualizer">
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
+            <div class="musica-detalles" onclick="toggleExpandirMusica()">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="musica-titulo" id="musica-titulo-cancion">Cargando melodía...</span>
+                    <div class="audio-visualizer" id="audio-visualizer">
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                        <div class="audio-bar"></div>
+                    </div>
                 </div>
+                <span class="musica-artista" id="musica-artista-cancion">Instrumental de Pareja</span>
             </div>
+
             <div class="musica-controles">
-                <button class="btn-musica-control" onclick="anteriorCancion()">⏮️</button>
-                <button class="btn-musica-control play" id="btn-play-pause" onclick="togglePlayMusica()">▶️</button>
-                <button class="btn-musica-control" onclick="siguienteCancion()">⏭️</button>
+                <button type="button" class="btn-musica-control" onclick="anteriorCancion()" title="Anterior">⏮️</button>
+                <button type="button" class="btn-musica-control play" id="btn-play-pause" onclick="togglePlayMusica()" title="Play / Pausa">▶️</button>
+                <button type="button" class="btn-musica-control" onclick="siguienteCancion()" title="Siguiente">⏭️</button>
+                <button type="button" class="btn-musica-expandir" onclick="toggleExpandirMusica()" title="Buscar canciones y ver lista">
+                    <span>🔍</span>
+                </button>
             </div>
+        </div>
+        <div id="youtube-player" style="display: none; position: absolute;"></div>
+    </div>
+
+    <!-- MODAL REPRODUCTOR DE MÚSICA COMPLETO (BÚSQUEDA YOUTUBE & AJUSTES) -->
+    <div class="modal-overlay" id="modal-musica-completo" onclick="if(event.target === this) toggleExpandirMusica()">
+        <div class="modal-content" style="max-width: 440px; text-align: center; position: relative;">
+            <button class="modal-close-btn" onclick="toggleExpandirMusica()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.8rem; cursor: pointer; color: var(--text-dark);" title="Cerrar">&times;</button>
             
-            <!-- BUSCADOR YOUTUBE -->
-            <div style="margin-top: 8px; position: relative; width: 100%;">
-                <div style="display: flex; gap: 4px;">
-                    <input type="text" id="yt-search-input" placeholder="🔍 Buscar en YouTube..." style="flex:1; padding: 6px 8px; border-radius: 4px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-dark); font-size: 0.8rem; font-family: inherit;">
-                    <button onclick="buscarEnYouTube()" style="background: var(--primary); color: white; border: none; border-radius: 4px; padding: 0 10px; cursor: pointer; font-size: 0.8rem; font-weight: bold;">Ir</button>
-                </div>
-                <div id="yt-search-status" style="font-size: 0.7rem; color: #64748b; margin-top: 2px; display: none;">Buscando...</div>
-                <ul id="yt-search-results" style="position: absolute; top: 100%; left: 0; width: 100%; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 4px; display: none; flex-direction: column; max-height: 160px; overflow-y: auto; list-style: none; padding: 0; margin: 2px 0 0 0; z-index: 50; box-shadow: var(--shadow-lg);">
-                </ul>
+            <div style="margin-bottom: 12px;">
+                <span style="font-size: 2.2rem;">🎵</span>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 4px 0 2px 0; color: #0f172a;">Nuestra Melodía</h3>
+                <p style="font-size: 0.8rem; color: #64748b; margin: 0;">Música romántica para compartir momentos juntos</p>
             </div>
-            
-            <div class="musica-barra-progreso-contenedor" onclick="cambiarTiempoMusica(event)" style="margin-top: 8px;">
+
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 14px 0;">
+                <span class="musica-titulo" id="musica-titulo-modal" style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">Cargando canción...</span>
+                <span class="musica-artista" id="musica-artista-modal" style="font-size: 0.82rem; color: #ec4899; font-weight: 600;">Instrumental</span>
+            </div>
+
+            <!-- Barra de progreso interactiva -->
+            <div class="musica-barra-progreso-contenedor" onclick="cambiarTiempoMusica(event)" style="margin: 14px 0 8px 0; height: 6px; border-radius: 3px;">
                 <div class="musica-barra-progreso" id="musica-progreso"></div>
             </div>
-            <div class="musica-volumen-contenedor">
+
+            <!-- Controles principales en modal -->
+            <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin: 16px 0;">
+                <button type="button" class="btn-musica-control" onclick="anteriorCancion()" style="width: 44px; height: 44px; font-size: 1.2rem;">⏮️</button>
+                <button type="button" class="btn-musica-control play" id="btn-play-pause-modal" onclick="togglePlayMusica()" style="width: 54px; height: 54px; font-size: 1.4rem;">▶️</button>
+                <button type="button" class="btn-musica-control" onclick="siguienteCancion()" style="width: 44px; height: 44px; font-size: 1.2rem;">⏭️</button>
+            </div>
+
+            <!-- Control de volumen -->
+            <div class="musica-volumen-contenedor" style="margin: 14px 0; padding: 0 10px;">
                 <span>🔈</span>
                 <input type="range" class="musica-volumen-slider" id="musica-volumen" min="0" max="1" step="0.05" value="0.5" oninput="cambiarVolumenMusica(this.value)">
                 <span>🔊</span>
             </div>
+
+            <!-- Buscador YouTube -->
+            <div style="margin-top: 16px; text-align: left;">
+                <label style="font-size: 0.78rem; font-weight: 700; color: #0f172a; margin-bottom: 4px; display: block;">Buscar o pegar canción de YouTube:</label>
+                <div style="display: flex; gap: 6px;">
+                    <input type="text" id="yt-search-input" placeholder="Ej: https://youtu.be/... o nombre de canción" style="flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--glass-border); font-size: 0.85rem; font-family: inherit;">
+                    <button type="button" onclick="buscarEnYouTube()" style="background: var(--primary); color: white; border: none; border-radius: 8px; padding: 0 14px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Cargar</button>
+                </div>
+                <div id="yt-search-status" style="font-size: 0.7rem; color: #64748b; margin-top: 3px; display: none;">Buscando...</div>
+            </div>
         </div>
-        <div id="youtube-player" style="display: none; position: absolute;"></div>
     </div>
 
     <div class="wrapper">
@@ -4788,7 +5021,8 @@
             <button class="tab-btn" onclick="cambiarPestaña('chat')" id="btn-tab-chat">💬 Chat</button>
             <button class="tab-btn" onclick="cambiarPestaña('bienestar')" id="btn-tab-bienestar">🌿 Bienestar</button>
             <button class="tab-btn" onclick="cambiarPestaña('finanzas')" id="btn-tab-finanzas">💰 Finanzas & Hogar</button>
-            <button class="tab-btn" onclick="cambiarPestaña('recuerdos')" id="btn-tab-recuerdos">✨ Recuerdos</button>
+            <button class="tab-btn" onclick="cambiarPestaña('mas')" id="btn-tab-mas">✨ Especiales</button>
+            <button class="tab-btn" onclick="cambiarPestaña('recuerdos')" id="btn-tab-recuerdos">🎁 Recuerdos</button>
             <button class="tab-btn" onclick="cambiarPestaña('mapa')" id="btn-tab-mapa">🗺️ Radar & Mapa</button>
             <button class="tab-btn" onclick="cambiarPestaña('galeria')" id="btn-tab-galeria">📸 Galería</button>
             <button class="tab-btn" onclick="cambiarPestaña('cartas')" id="btn-tab-cartas">💌 Cartas</button>
@@ -5111,6 +5345,7 @@
 
         <!-- PESTAÑA: RECUERDOS (COFRE Y LÍNEA DE TIEMPO) -->
         <div id="tab-recuerdos" class="tab-content">
+            <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('mas')">← Volver a Especiales</button>
             <!-- Barra de Progreso de Desbloqueo -->
         <div class="progreso-contenedor">
             <div class="progreso-info">
@@ -5184,6 +5419,7 @@ Andy. ❤️</div>
 
         <!-- PESTAÑA: GALERÍA DE FOTOS -->
         <div id="tab-galeria" class="tab-content">
+            <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('mas')">← Volver a Especiales</button>
             <div class="retos-cabecera">
                 <span style="font-size: 2.5rem;">📸</span>
                 <h3>Nuestra Galería de Fotos</h3>
@@ -5201,6 +5437,7 @@ Andy. ❤️</div>
 
         <!-- PESTAÑA: RETOS DE AMOR -->
         <div id="tab-retos" class="tab-content">
+            <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('mas')">← Volver a Especiales</button>
             <div class="retos-cabecera">
                 <span style="font-size: 2.5rem;">🏆</span>
                 <h3>Retos de Amor en Pareja</h3>
@@ -5223,6 +5460,7 @@ Andy. ❤️</div>
 
         <!-- PESTAÑA: MINI-JUEGO DATSUN RUN -->
         <div id="tab-juego" class="tab-content">
+            <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('mas')">← Volver a Especiales</button>
             <div class="retos-cabecera">
                 <span style="font-size: 2.5rem;">🎮</span>
                 <h3>Datsun Run: El Algoritmo del Amor</h3>
@@ -5261,6 +5499,7 @@ Andy. ❤️</div>
 
         <!-- PESTAÑA: MAPA DE NUESTROS LUGARES -->
         <div id="tab-mapa" class="tab-content">
+            <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('mas')">← Volver a Especiales</button>
             <div class="retos-cabecera">
                 <span style="font-size: 2.5rem;">🗺️</span>
                 <h3>Mapa de Nuestra Historia</h3>
@@ -5298,6 +5537,7 @@ Andy. ❤️</div>
 
         <!-- PESTAÑA: LIBRO DE MENSAJES (CARTAS SECRETAS) -->
         <div id="tab-cartas" class="tab-content">
+            <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('mas')">← Volver a Especiales</button>
             <div class="cartas-contenedor">
                 <!-- Pantalla de Bloqueo -->
                 <div id="cartas-bloqueo" class="cartas-bloqueo">
@@ -5365,6 +5605,101 @@ Andy. ❤️</div>
                         <span>💌</span> Enviar
                     </button>
                 </form>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: ESPECIALES (HUB DE ACTIVIDADES DE PAREJA) -->
+        <div id="tab-mas" class="tab-content">
+            <div class="hub-especiales-card">
+                <div class="hub-header">
+                    <span style="font-size: 2.2rem;">✨</span>
+                    <div>
+                        <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #0f172a; margin: 0;">Nuestras Experiencias</h2>
+                        <p style="font-size: 0.85rem; color: #64748b; margin: 2px 0 0 0;">Momentos, aventuras y rincones secretos juntos</p>
+                    </div>
+                </div>
+
+                <div class="hub-grid">
+                    <!-- 1. Cajas y Recuerdos -->
+                    <div class="hub-item-card" onclick="cambiarPestaña('recuerdos')">
+                        <div class="hub-item-icon" style="background: #fdf2f8;">🎁</div>
+                        <div class="hub-item-info">
+                            <span class="hub-item-titulo">Cajas & Recuerdos</span>
+                            <span class="hub-item-desc">4 cajas con pistas y el cofre dorado</span>
+                        </div>
+                        <span class="hub-item-arrow">→</span>
+                    </div>
+
+                    <!-- 2. Radar y GPS -->
+                    <div class="hub-item-card" onclick="cambiarPestaña('mapa')">
+                        <div class="hub-item-icon" style="background: #eff6ff;">🗺️</div>
+                        <div class="hub-item-info">
+                            <span class="hub-item-titulo">Radar & Distancia GPS</span>
+                            <span class="hub-item-desc">Ubicación mutua en tiempo real</span>
+                        </div>
+                        <span class="hub-item-arrow">→</span>
+                    </div>
+
+                    <!-- 3. Galería Polaroid -->
+                    <div class="hub-item-card" onclick="cambiarPestaña('galeria')">
+                        <div class="hub-item-icon" style="background: #fdf4ff;">📸</div>
+                        <div class="hub-item-info">
+                            <span class="hub-item-titulo">Galería de Fotos</span>
+                            <span class="hub-item-desc">Álbum polaroid de momentos únicos</span>
+                        </div>
+                        <span class="hub-item-arrow">→</span>
+                    </div>
+
+                    <!-- 4. Cartas Secretas -->
+                    <div class="hub-item-card" onclick="cambiarPestaña('cartas')">
+                        <div class="hub-item-icon" style="background: #fff1f2;">💌</div>
+                        <div class="hub-item-info">
+                            <span class="hub-item-titulo">Cartas de Amor (PIN)</span>
+                            <span class="hub-item-desc">Cofre de cartas privadas con clave</span>
+                        </div>
+                        <span class="hub-item-arrow">→</span>
+                    </div>
+
+                    <!-- 5. Retos de Pareja -->
+                    <div class="hub-item-card" onclick="cambiarPestaña('retos')">
+                        <div class="hub-item-icon" style="background: #fefce8;">🎯</div>
+                        <div class="hub-item-info">
+                            <span class="hub-item-titulo">Retos & Citas Juntos</span>
+                            <span class="hub-item-desc">Desafíos románticos completados</span>
+                        </div>
+                        <span class="hub-item-arrow">→</span>
+                    </div>
+
+                    <!-- 6. Datsun Run -->
+                    <div class="hub-item-card" onclick="cambiarPestaña('juego')">
+                        <div class="hub-item-icon" style="background: #f0fdf4;">🛻</div>
+                        <div class="hub-item-info">
+                            <span class="hub-item-titulo">Datsun Run (Juego)</span>
+                            <span class="hub-item-desc">Salta obstáculos con la pickup 1200</span>
+                        </div>
+                        <span class="hub-item-arrow">→</span>
+                    </div>
+
+                    <!-- 7. Temas de Diseño -->
+                    <div class="hub-item-card" onclick="toggleMenuTemas()">
+                        <div class="hub-item-icon" style="background: #faf5ff;">🎨</div>
+                        <div class="hub-item-info">
+                            <span class="hub-item-titulo">Temas & Estilos</span>
+                            <span class="hub-item-desc">Kuromi Punk, Noche Estrellada, Vintage</span>
+                        </div>
+                        <span class="hub-item-arrow">→</span>
+                    </div>
+
+                    <!-- 8. Ajustes de Perfil -->
+                    <div class="hub-item-card" onclick="abrirModalAjustes()">
+                        <div class="hub-item-icon" style="background: #f1f5f9;">⚙️</div>
+                        <div class="hub-item-info">
+                            <span class="hub-item-titulo">Ajustes & Perfiles</span>
+                            <span class="hub-item-desc">Nombres, fotos y biografía de ambos</span>
+                        </div>
+                        <span class="hub-item-arrow">→</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -6108,6 +6443,30 @@ Andy. ❤️</div>
         <button class="btn-reiniciar" id="btn-reiniciar-cajas" onclick="confirmarReiniciar()" style="display: none;">🔒 Cerrar todas las cajas (Admin)</button>
         <button class="btn-reiniciar" id="btn-instalar-app" onclick="solicitarInstalacionPWA()" style="display: none; background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.35); font-weight: 600; margin-left: 8px;">📲 Instalar en Celular</button>
     </footer>
+
+    <!-- BARRA DE NAVEGACIÓN INFERIOR NATIVA (ESTILO IPHONE / COUPLE360) -->
+    <nav class="nav-inferior-movil" id="nav-inferior-movil">
+        <button type="button" class="nav-bottom-item active" onclick="cambiarPestaña('nosotros')" id="nav-bottom-nosotros">
+            <span class="nav-bottom-icon">💖</span>
+            <span class="nav-bottom-label">Nosotros</span>
+        </button>
+        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('chat')" id="nav-bottom-chat">
+            <span class="nav-bottom-icon">💬</span>
+            <span class="nav-bottom-label">Chat</span>
+        </button>
+        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('bienestar')" id="nav-bottom-bienestar">
+            <span class="nav-bottom-icon">🌿</span>
+            <span class="nav-bottom-label">Bienestar</span>
+        </button>
+        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('finanzas')" id="nav-bottom-finanzas">
+            <span class="nav-bottom-icon">💰</span>
+            <span class="nav-bottom-label">Finanzas</span>
+        </button>
+        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('mas')" id="nav-bottom-mas">
+            <span class="nav-bottom-icon">✨</span>
+            <span class="nav-bottom-label">Especiales</span>
+        </button>
+    </nav>
 
     <script>
         // --- CONFIGURACIÓN E INICIALIZACIÓN DE FIREBASE (SINCRONIZACIÓN EN LA NUBE) ---
@@ -7640,24 +7999,26 @@ Andy. ❤️</div>
         }
 
         function onPlayerStateChange(event) {
+            const btn = document.getElementById('btn-play-pause');
+            const btnModal = document.getElementById('btn-play-pause-modal');
+            const disco = document.getElementById('musica-disco-girando');
             if (event.data === YT.PlayerState.PLAYING) {
                 erroresConsecutivosMusica = 0; // Se reinicia el contador de errores al reproducir con éxito
                 musicaReproduciendo = true;
-                const btn = document.getElementById('btn-play-pause');
                 if (btn) btn.innerText = "⏸️";
-                const disco = document.getElementById('musica-disco-girando');
+                if (btnModal) btnModal.innerText = "⏸️";
                 if (disco) disco.classList.add('rotando');
                 document.querySelectorAll('.audio-bar').forEach(b => b.classList.add('playing'));
             } else if (event.data === YT.PlayerState.PAUSED) {
                 musicaReproduciendo = false;
-                const btn = document.getElementById('btn-play-pause');
                 if (btn) btn.innerText = "▶️";
-                const disco = document.getElementById('musica-disco-girando');
+                if (btnModal) btnModal.innerText = "▶️";
                 if (disco) disco.classList.remove('rotando');
                 document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
             } else if (event.data === YT.PlayerState.ENDED) {
                 musicaReproduciendo = false;
-                const disco = document.getElementById('musica-disco-girando');
+                if (btn) btn.innerText = "▶️";
+                if (btnModal) btnModal.innerText = "▶️";
                 if (disco) disco.classList.remove('rotando');
                 document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
                 siguienteCancion();
@@ -7673,7 +8034,9 @@ Andy. ❤️</div>
                 musicaReproduciendo = false;
                 erroresConsecutivosMusica = 0;
                 const btn = document.getElementById('btn-play-pause');
+                const btnModal = document.getElementById('btn-play-pause-modal');
                 if (btn) btn.innerText = "▶️";
+                if (btnModal) btnModal.innerText = "▶️";
                 const disco = document.getElementById('musica-disco-girando');
                 if (disco) disco.classList.remove('rotando');
                 document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
@@ -7682,6 +8045,10 @@ Andy. ❤️</div>
                 if (titEl) titEl.innerText = "Canción no disponible";
                 const artEl = document.getElementById('musica-artista-cancion');
                 if (artEl) artEl.innerText = "Toca ▶️ para reintentar";
+                const titModal = document.getElementById('musica-titulo-modal');
+                if (titModal) titModal.innerText = "Canción no disponible";
+                const artModal = document.getElementById('musica-artista-modal');
+                if (artModal) artModal.innerText = "Toca ▶️ para reintentar";
                 return;
             }
             
@@ -7698,8 +8065,12 @@ Andy. ❤️</div>
             if (cancion) {
                 const titEl = document.getElementById('musica-titulo-cancion');
                 const artEl = document.getElementById('musica-artista-cancion');
+                const titModal = document.getElementById('musica-titulo-modal');
+                const artModal = document.getElementById('musica-artista-modal');
                 if (titEl) titEl.innerText = cancion.titulo;
                 if (artEl) artEl.innerText = cancion.artista;
+                if (titModal) titModal.innerText = cancion.titulo;
+                if (artModal) artModal.innerText = cancion.artista;
             }
         }
 
@@ -7782,8 +8153,8 @@ Andy. ❤️</div>
         }
         
         function toggleExpandirMusica() {
-            const widget = document.getElementById('musica-widget');
-            if (widget) widget.classList.toggle('expandido');
+            const modal = document.getElementById('modal-musica-completo');
+            if (modal) modal.classList.toggle('active');
         }
 
         function buscarEnYouTube() {
@@ -8065,12 +8436,23 @@ Andy. ❤️</div>
         function cambiarPestaña(pestañaId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-bottom-item').forEach(el => el.classList.remove('active'));
             
             const tabTarget = document.getElementById(`tab-${pestañaId}`);
             const btnTarget = document.getElementById(`btn-tab-${pestañaId}`);
             if (tabTarget) tabTarget.classList.add('active');
             if (btnTarget) btnTarget.classList.add('active');
             
+            // Sincronizar navegación inferior nativa (iPhone / Móvil)
+            const tabsEspeciales = ['recuerdos', 'mapa', 'galeria', 'cartas', 'retos', 'juego', 'mas'];
+            if (tabsEspeciales.includes(pestañaId)) {
+                const navMas = document.getElementById('nav-bottom-mas');
+                if (navMas) navMas.classList.add('active');
+            } else {
+                const navBottomTarget = document.getElementById(`nav-bottom-${pestañaId}`);
+                if (navBottomTarget) navBottomTarget.classList.add('active');
+            }
+
             // Scroll suave hacia arriba para que cada pantalla comience organizada
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
