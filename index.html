@@ -968,289 +968,6 @@
         .tema-opcion.tema-kuromi-btn { background: linear-gradient(135deg, #1e1b4b, #581c87); }
         .tema-opcion.flores-amarillas { background: linear-gradient(135deg, #fcd34d, #f59e0b); }
 
-        /* Pegatina animada flotando en el reproductor de música */
-        .musica-sticker-badge {
-            position: absolute;
-            bottom: -5px;
-            right: -5px;
-            font-size: 0.95rem;
-            background: #ffffff;
-            border: 1.5px solid #ec4899;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            z-index: 10;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-        .musica-disco-img.rotando ~ .musica-sticker-badge {
-            animation: palpitacion 1.2s infinite;
-        }
-
-        /* ==============================================================
-           --- REPRODUCTOR DE MÚSICA DOCKED (BARRA FIJA, NÍTIDA Y NATIVA) ---
-           ============================================================== */
-        .musica-reproductor {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #ffffff;
-            border-top: 1px solid rgba(226, 232, 240, 0.95);
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
-            padding: 6px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 998;
-            transition: var(--transition-smooth);
-            max-width: 100%;
-            height: 56px;
-            box-sizing: border-box;
-            filter: none !important;
-            -webkit-backdrop-filter: none !important;
-        }
-
-        @media (max-width: 768px) {
-            .musica-reproductor {
-                bottom: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
-                height: 52px !important;
-                border-top: 1.5px solid #fce7f3 !important;
-                border-bottom: 1px solid #e2e8f0 !important;
-                box-shadow: 0 -3px 14px rgba(0, 0, 0, 0.06) !important;
-                padding: 4px 10px !important;
-                z-index: 999 !important;
-                background: rgba(255, 255, 255, 0.98) !important;
-            }
-            .musica-disco-container {
-                width: 36px !important;
-                height: 36px !important;
-                margin-right: 8px !important;
-            }
-            .musica-titulo {
-                font-size: 0.8rem !important;
-            }
-            .musica-artista {
-                font-size: 0.68rem !important;
-            }
-            .musica-controles {
-                gap: 4px !important;
-            }
-            .btn-musica-control {
-                width: 28px !important;
-                height: 28px !important;
-                font-size: 0.8rem !important;
-            }
-            .btn-musica-control.play {
-                width: 34px !important;
-                height: 34px !important;
-                font-size: 0.9rem !important;
-            }
-            .btn-musica-expandir {
-                width: 28px !important;
-                height: 28px !important;
-                padding: 0 !important;
-                justify-content: center !important;
-                border-radius: 50% !important;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .musica-reproductor {
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                max-width: 580px;
-                border-radius: 40px;
-                border: 1px solid var(--glass-border);
-                box-shadow: 0 12px 35px rgba(0,0,0,0.09);
-            }
-        }
-
-        .musica-disco-container {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            position: relative;
-            cursor: pointer;
-            flex-shrink: 0;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .musica-disco-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #0f172a;
-        }
-
-        .musica-disco-img.rotando {
-            animation: rotarDisco 6s infinite linear;
-        }
-
-        @keyframes rotarDisco {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .musica-disco-centro {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ffffff;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid #0f172a;
-        }
-
-        .musica-info-panel {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex: 1;
-            min-width: 0;
-            opacity: 1 !important;
-            pointer-events: auto !important;
-            gap: 10px;
-        }
-
-        .musica-detalles {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            flex: 1;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        .musica-titulo {
-            font-size: 0.84rem;
-            font-weight: 700;
-            color: #0f172a !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.2;
-        }
-
-        .musica-artista {
-            font-size: 0.72rem;
-            color: #64748b !important;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.2;
-        }
-
-        .musica-controles {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-shrink: 0;
-        }
-
-        .btn-musica-control {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: transform 0.15s ease;
-            color: #334155;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-musica-control:active {
-            transform: scale(0.9);
-        }
-
-        .btn-musica-control.play {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, #ec4899, #f43f5e);
-            color: white;
-            border: none;
-            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
-            font-size: 1rem;
-        }
-
-        .btn-musica-expandir {
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            border-radius: var(--radius-pill);
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #64748b;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .musica-barra-progreso-contenedor {
-            background: rgba(0,0,0,0.08);
-            height: 4px;
-            border-radius: 2px;
-            width: 100%;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .musica-barra-progreso {
-            background: var(--primary);
-            height: 100%;
-            width: 0%;
-            border-radius: 2px;
-        }
-
-        .musica-volumen-contenedor {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
-            margin-top: 2px;
-        }
-
-        .musica-volumen-slider {
-            flex: 1;
-            height: 4px;
-            accent-color: var(--primary);
-            outline: none;
-        }
-
-        .btn-sugerencia-musica {
-            background: #fdf2f8;
-            border: 1px solid #fbcfe8;
-            color: #db2777;
-            font-size: 0.74rem;
-            font-weight: 700;
-            padding: 5px 11px;
-            border-radius: var(--radius-pill);
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-        .btn-sugerencia-musica:hover, .btn-sugerencia-musica:active {
-            background: #fce7f3;
-            transform: scale(1.05);
-        }
-
         /* --- MODALES PREMIUM --- */
         .modal-overlay {
             position: fixed;
@@ -4477,12 +4194,12 @@
                 display: none !important; /* En celular se reemplaza por la barra nativa inferior */
             }
             body {
-                padding-bottom: 125px !important; /* Espacio para que el reproductor y la barra no tapen contenido */
+                padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)) !important; /* Espacio exacto para barra nativa inferior */
             }
             .chat-pareja-card {
-                height: calc(100dvh - 210px) !important;
-                max-height: calc(100vh - 210px) !important;
-                min-height: 380px !important;
+                height: calc(100dvh - 160px) !important;
+                max-height: calc(100vh - 160px) !important;
+                min-height: 400px !important;
                 border-radius: var(--radius-xl) !important;
                 margin-bottom: 10px !important;
             }
@@ -4998,7 +4715,6 @@
 
     <!-- SELECTOR DE TEMAS Y AJUSTES FLOTANTE -->
     <div class="tema-selector-contenedor">
-        <button class="btn-tema-principal" onclick="toggleExpandirMusica()" title="Abrir / Cerrar Reproductor de Música" style="margin-bottom: 8px; background: linear-gradient(135deg, #ec4899, #f43f5e); color: white;">🎵</button>
         <button class="btn-tema-principal" onclick="abrirModalAjustes()" title="Ajustes y Personalización" style="margin-bottom: 8px;">⚙️</button>
         <button class="btn-tema-principal" onclick="toggleMenuTemas()" title="Cambiar tema de diseño">🎨</button>
         <div class="tema-opciones-dropdown" id="tema-dropdown">
@@ -5008,101 +4724,6 @@
             <button class="tema-opcion oro-rose" onclick="cambiarTema('vintage')" title="Oro Rosa Vintage">✨</button>
             <button class="tema-opcion tema-kuromi-btn" onclick="cambiarTema('kuromi')" title="Kuromi Punk">😈</button>
             <button class="tema-opcion flores-amarillas" onclick="cambiarTema('flores-amarillas')" title="Bugambilias Amarillas">🌼</button>
-        </div>
-    </div>
-
-    <!-- REPRODUCTOR DE MÚSICA DOCKED (BARRA FIJA NATIVA) -->
-    <div class="musica-reproductor" id="musica-widget">
-        <div class="musica-disco-container" onclick="toggleExpandirMusica()" title="Toca para ver reproductor completo">
-            <img src="imagenes/portada_musica.jpg" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop'" class="musica-disco-img" id="musica-disco-girando" alt="Vinyl">
-            <div class="musica-disco-centro"></div>
-            <div class="musica-sticker-badge" id="musica-sticker-badge">💖</div>
-        </div>
-        
-        <div class="musica-info-panel" id="musica-info-panel">
-            <div class="musica-detalles" onclick="toggleExpandirMusica()">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="musica-titulo" id="musica-titulo-cancion">Cargando melodía...</span>
-                    <div class="audio-visualizer" id="audio-visualizer">
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                        <div class="audio-bar"></div>
-                    </div>
-                </div>
-                <span class="musica-artista" id="musica-artista-cancion">Instrumental de Pareja</span>
-            </div>
-
-            <div class="musica-controles">
-                <button type="button" class="btn-musica-control" onclick="anteriorCancion()" title="Anterior">⏮️</button>
-                <button type="button" class="btn-musica-control play" id="btn-play-pause" onclick="togglePlayMusica()" title="Play / Pausa">▶️</button>
-                <button type="button" class="btn-musica-control" onclick="siguienteCancion()" title="Siguiente">⏭️</button>
-                <button type="button" class="btn-musica-expandir" onclick="toggleExpandirMusica()" title="Buscar canciones y ver lista">
-                    <span>🔍</span>
-                </button>
-            </div>
-        </div>
-        <div id="youtube-player-container" style="position: fixed; bottom: -9999px; left: -9999px; width: 200px; height: 200px; opacity: 0.01; pointer-events: none; z-index: -9999; overflow: hidden;">
-            <div id="youtube-player"></div>
-        </div>
-    </div>
-
-    <!-- MODAL REPRODUCTOR DE MÚSICA COMPLETO (BÚSQUEDA YOUTUBE & AJUSTES) -->
-    <div class="modal-overlay" id="modal-musica-completo" onclick="if(event.target === this) toggleExpandirMusica()">
-        <div class="modal-content" style="max-width: 440px; text-align: center; position: relative;">
-            <button class="modal-close-btn" onclick="toggleExpandirMusica()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.8rem; cursor: pointer; color: var(--text-dark);" title="Cerrar">&times;</button>
-            
-            <div style="margin-bottom: 12px;">
-                <span style="font-size: 2.2rem;">🎵</span>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 4px 0 2px 0; color: #0f172a;">Nuestra Melodía</h3>
-                <p style="font-size: 0.8rem; color: #64748b; margin: 0;">Música romántica para compartir momentos juntos</p>
-            </div>
-
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 14px 0;">
-                <span class="musica-titulo" id="musica-titulo-modal" style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">Cargando canción...</span>
-                <span class="musica-artista" id="musica-artista-modal" style="font-size: 0.82rem; color: #ec4899; font-weight: 600;">Instrumental</span>
-            </div>
-
-            <!-- Barra de progreso interactiva -->
-            <div class="musica-barra-progreso-contenedor" onclick="cambiarTiempoMusica(event)" style="margin: 14px 0 8px 0; height: 6px; border-radius: 3px;">
-                <div class="musica-barra-progreso" id="musica-progreso"></div>
-            </div>
-
-            <!-- Controles principales en modal -->
-            <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin: 16px 0;">
-                <button type="button" class="btn-musica-control" onclick="anteriorCancion()" style="width: 44px; height: 44px; font-size: 1.2rem;">⏮️</button>
-                <button type="button" class="btn-musica-control play" id="btn-play-pause-modal" onclick="togglePlayMusica()" style="width: 54px; height: 54px; font-size: 1.4rem;">▶️</button>
-                <button type="button" class="btn-musica-control" onclick="siguienteCancion()" style="width: 44px; height: 44px; font-size: 1.2rem;">⏭️</button>
-            </div>
-
-            <!-- Control de volumen -->
-            <div class="musica-volumen-contenedor" style="margin: 14px 0; padding: 0 10px;">
-                <span>🔈</span>
-                <input type="range" class="musica-volumen-slider" id="musica-volumen" min="0" max="1" step="0.05" value="0.5" oninput="cambiarVolumenMusica(this.value)">
-                <span>🔊</span>
-            </div>
-
-            <!-- Buscador YouTube y Recomendaciones -->
-            <div style="margin-top: 16px; text-align: left;">
-                <label style="font-size: 0.78rem; font-weight: 700; color: #0f172a; margin-bottom: 4px; display: block;">Buscar o pegar canción de YouTube:</label>
-                <div style="display: flex; gap: 6px;">
-                    <input type="text" id="yt-search-input" placeholder="Nombre (ej: Morat) o link de YouTube" style="flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--glass-border); font-size: 0.85rem; font-family: inherit;" onkeydown="if(event.key==='Enter') buscarEnYouTube()">
-                    <button type="button" onclick="buscarEnYouTube()" style="background: var(--primary); color: white; border: none; border-radius: 8px; padding: 0 14px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Cargar</button>
-                </div>
-                <div style="font-size: 0.72rem; color: #64748b; margin-top: 5px;">
-                    💡 Escribe un artista romántico o pega cualquier link de YouTube.
-                </div>
-                <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">
-                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('1oeD2m2UQAI', 'Besos En Guerra', 'Morat & Juanes')">🎵 Morat</button>
-                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('Ie9g603_fCY', 'Noviembre Sin Ti', 'Reik')">🎵 Reik</button>
-                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('sD9_l3oDOag', 'No Hay Nadie Más', 'Sebastián Yatra')">🎵 Yatra</button>
-                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('2mY7AFTtYwQ', 'Favorito', 'Camilo')">🎵 Camilo</button>
-                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('cMskAbzn0LU', 'Perfect (Acoustic)', 'Boyce Avenue')">🎵 Perfect</button>
-                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('5GroWAOn8h8', 'Melodía Romántica', 'Guitarra')">🎵 Acústico</button>
-                </div>
-                <div id="yt-search-status" style="font-size: 0.72rem; color: #ec4899; margin-top: 4px; display: none;"></div>
-            </div>
         </div>
     </div>
 
@@ -6145,9 +5766,6 @@ Andy. ❤️</div>
             <div class="acciones-88-contenedor">
                 <button class="btn-88 btn-88-lluvia" onclick="lanzarLluvia88()" title="¡Lanzar más confeti y corazones!">
                     <span>🎉</span> ¡Lluvia de Amor!
-                </button>
-                <button class="btn-88 btn-88-musica" onclick="reproducirMusicaDesde88()" title="Poner nuestra canción favorita">
-                    <span>🎵</span> Nuestra Música
                 </button>
                 <button class="btn-88 btn-88-cartas" onclick="abrirCartasDesde88()" title="Ir al sobre 3D de cartas">
                     <span>💌</span> Ver Cartas
@@ -7969,14 +7587,10 @@ Andy. ❤️</div>
         }
 
         function reproducirMusicaDesde88() {
-            if (!ytPlayerListo) {
-                alert("El reproductor de música se está cargando... Pulsa en unos segundos ❤️");
-                return;
+            if (typeof lanzarConfeti === 'function') lanzarConfeti();
+            if (typeof mostrarToastNotificacion === 'function') {
+                mostrarToastNotificacion("Amor Infinito 💕", "¡Celebrando juntos cada segundo de nuestra historia!", "imagenes/icono_pareja.png");
             }
-            if (!musicaReproduciendo) {
-                togglePlayMusica();
-            }
-            lanzarConfeti();
         }
 
         // --- LÓGICA DE TEMAS ---
@@ -8017,7 +7631,6 @@ Andy. ❤️</div>
 
         function actualizarElementosTema(nombreTema) {
             const waxSeal = document.getElementById('sobre-wax-seal');
-            const musicBadge = document.getElementById('musica-sticker-badge');
             
             // Actualizar Sello de Cera
             if (waxSeal) {
@@ -8035,272 +7648,22 @@ Andy. ❤️</div>
                     waxSeal.innerText = '❤️';
                 }
             }
-            
-            // Actualizar Pegatina de Reproductor
-            if (musicBadge) {
-                if (nombreTema === 'kuromi') {
-                    musicBadge.innerText = '😈';
-                    musicBadge.style.borderColor = '#a855f7';
-                    musicBadge.style.background = '#170b24';
-                } else if (nombreTema === 'estrellada') {
-                    musicBadge.innerText = '⭐';
-                    musicBadge.style.borderColor = '#fde047';
-                    musicBadge.style.background = '#09090b';
-                } else if (nombreTema === 'bosque') {
-                    musicBadge.innerText = '🍃';
-                    musicBadge.style.borderColor = '#10b981';
-                    musicBadge.style.background = '#064e3b';
-                } else if (nombreTema === 'vintage') {
-                    musicBadge.innerText = '✨';
-                    musicBadge.style.borderColor = '#b45309';
-                    musicBadge.style.background = '#fafaf9';
-                } else if (nombreTema === 'flores-amarillas') {
-                    musicBadge.innerText = '🏵️';
-                    musicBadge.style.borderColor = '#f59e0b';
-                    musicBadge.style.background = '#fffbeb';
-                } else {
-                    musicBadge.innerText = '💖';
-                    musicBadge.style.borderColor = '#ec4899';
-                    musicBadge.style.background = '#ffffff';
-                }
-            }
         }
 
-        // --- LÓGICA DEL REPRODUCTOR DE MÚSICA (YOUTUBE API) ---
-        let ytPlayer = null;
-        let ytPlayerListo = false;
-        let indiceCancionActual = 0;
-        let musicaReproduciendo = false;
-        let erroresConsecutivosMusica = 0;
-        
-        function cargarPlaylist() {
-            // Si la versión es antigua, actualizar a la nueva playlist verificada y funcional
-            if (localStorage.getItem('playlistVersion_v4') !== 'v4.4') {
-                localStorage.setItem('playlistPersonalizada', JSON.stringify(listaCancionesPorDefecto));
-                localStorage.setItem('playlistVersion_v4', 'v4.4');
+        // --- FUNCIONES DE MÚSICA (DESACTIVADAS LIMPIAMENTE) ---
+        function togglePlayMusica() {}
+        function anteriorCancion() {}
+        function siguienteCancion() {}
+        function toggleExpandirMusica() {}
+        function inicializarAudio() {}
+        function cargarPlaylist() {}
+        function reproducirCancionDirecta() {}
+        function buscarEnYouTube() {}
+        function reproducirMusicaDesde88() {
+            if (typeof lanzarConfeti === 'function') lanzarConfeti();
+            if (typeof mostrarToastNotificacion === 'function') {
+                mostrarToastNotificacion("Amor Infinito 💕", "¡Celebrando juntos cada segundo de nuestra historia!", "imagenes/icono_pareja.png");
             }
-            const guardado = JSON.parse(localStorage.getItem('playlistPersonalizada'));
-            if (guardado && guardado.length > 0) {
-                listaCanciones = guardado;
-            } else {
-                listaCanciones = [...listaCancionesPorDefecto];
-            }
-        }
-        
-        function inicializarAudio() {
-            cargarPlaylist();
-            if (!document.getElementById('yt-api-script')) {
-                const tag = document.createElement('script');
-                tag.id = 'yt-api-script';
-                tag.src = "https://www.youtube.com/iframe_api";
-                const firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            }
-        }
-
-        // Esta función es llamada automáticamente por la API de YT cuando descarga su script
-        function onYouTubeIframeAPIReady() {
-            const cancionActual = listaCanciones[indiceCancionActual] || listaCancionesPorDefecto[0];
-            ytPlayer = new YT.Player('youtube-player', {
-                height: '200',
-                width: '200',
-                videoId: cancionActual.videoId,
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'disablekb': 1,
-                    'fs': 0,
-                    'rel': 0,
-                    'playsinline': 1,
-                    'enablejsapi': 1
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange,
-                    'onError': onPlayerError
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            ytPlayerListo = true;
-            const volGuardado = localStorage.getItem('musicaVolumen') || 0.7;
-            try {
-                ytPlayer.setVolume(parseFloat(volGuardado) * 100);
-            } catch(e) {}
-            const volSlider = document.getElementById('musica-volumen');
-            if (volSlider) volSlider.value = volGuardado;
-            
-            cargarInfoCancionUI(indiceCancionActual);
-            setInterval(actualizarProgresoMusica, 1000);
-        }
-
-        function onPlayerStateChange(event) {
-            const btn = document.getElementById('btn-play-pause');
-            const btnModal = document.getElementById('btn-play-pause-modal');
-            const disco = document.getElementById('musica-disco-girando');
-            if (event.data === YT.PlayerState.PLAYING) {
-                erroresConsecutivosMusica = 0; // Se reinicia el contador de errores al reproducir con éxito
-                musicaReproduciendo = true;
-                if (btn) btn.innerText = "⏸️";
-                if (btnModal) btnModal.innerText = "⏸️";
-                if (disco) disco.classList.add('rotando');
-                document.querySelectorAll('.audio-bar').forEach(b => b.classList.add('playing'));
-            } else if (event.data === YT.PlayerState.PAUSED) {
-                musicaReproduciendo = false;
-                if (btn) btn.innerText = "▶️";
-                if (btnModal) btnModal.innerText = "▶️";
-                if (disco) disco.classList.remove('rotando');
-                document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
-            } else if (event.data === YT.PlayerState.ENDED) {
-                musicaReproduciendo = false;
-                if (btn) btn.innerText = "▶️";
-                if (btnModal) btnModal.innerText = "▶️";
-                if (disco) disco.classList.remove('rotando');
-                document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
-                siguienteCancion();
-            }
-        }
-
-        function onPlayerError(event) {
-            console.warn("YouTube Player advertencia/error código:", event.data);
-            erroresConsecutivosMusica++;
-            
-            // Freno de emergencia contra bucle infinito: si todas fallan, detenerse
-            if (erroresConsecutivosMusica >= listaCanciones.length) {
-                musicaReproduciendo = false;
-                erroresConsecutivosMusica = 0;
-                const btn = document.getElementById('btn-play-pause');
-                const btnModal = document.getElementById('btn-play-pause-modal');
-                if (btn) btn.innerText = "▶️";
-                if (btnModal) btnModal.innerText = "▶️";
-                const disco = document.getElementById('musica-disco-girando');
-                if (disco) disco.classList.remove('rotando');
-                document.querySelectorAll('.audio-bar').forEach(b => b.classList.remove('playing'));
-                
-                const titEl = document.getElementById('musica-titulo-cancion');
-                if (titEl) titEl.innerText = "Canción no disponible";
-                const artEl = document.getElementById('musica-artista-cancion');
-                if (artEl) artEl.innerText = "Toca ▶️ para reintentar";
-                const titModal = document.getElementById('musica-titulo-modal');
-                if (titModal) titModal.innerText = "Canción no disponible";
-                const artModal = document.getElementById('musica-artista-modal');
-                if (artModal) artModal.innerText = "Toca ▶️ para reintentar";
-                return;
-            }
-            
-            // Esperar 1.8 segundos antes de probar la siguiente para no saltar canciones de golpe
-            setTimeout(() => {
-                if (musicaReproduciendo) {
-                    siguienteCancion();
-                }
-            }, 1800);
-        }
-
-        function cargarInfoCancionUI(indice) {
-            const cancion = listaCanciones[indice];
-            if (cancion) {
-                const titEl = document.getElementById('musica-titulo-cancion');
-                const artEl = document.getElementById('musica-artista-cancion');
-                const titModal = document.getElementById('musica-titulo-modal');
-                const artModal = document.getElementById('musica-artista-modal');
-                if (titEl) titEl.innerText = cancion.titulo;
-                if (artEl) artEl.innerText = cancion.artista;
-                if (titModal) titModal.innerText = cancion.titulo;
-                if (artModal) artModal.innerText = cancion.artista;
-            }
-        }
-
-        function cargarCancionYT(indice) {
-            if (!ytPlayerListo || !ytPlayer) return;
-            const cancion = listaCanciones[indice];
-            if (!cancion) return;
-            cargarInfoCancionUI(indice);
-            try {
-                if (musicaReproduciendo) {
-                    ytPlayer.loadVideoById(cancion.videoId);
-                } else {
-                    ytPlayer.cueVideoById(cancion.videoId);
-                }
-            } catch (e) {
-                console.warn("No se pudo cargar la canción en YT:", e);
-            }
-        }
-        
-        function togglePlayMusica() {
-            if (!ytPlayerListo || !ytPlayer) {
-                inicializarAudio();
-                alert("Conectando con YouTube... Intenta presionar Play de nuevo en 2 segundos.");
-                return;
-            }
-            if (musicaReproduciendo) {
-                try { ytPlayer.pauseVideo(); } catch(e) {}
-            } else {
-                try {
-                    const cancionActual = listaCanciones[indiceCancionActual] || listaCancionesPorDefecto[0];
-                    if (cancionActual && ytPlayer.loadVideoById) {
-                        ytPlayer.loadVideoById(cancionActual.videoId);
-                    }
-                    ytPlayer.playVideo();
-                } catch(e) {
-                    console.warn("Error en playVideo:", e);
-                }
-            }
-        }
-        
-        function anteriorCancion() {
-            if (!ytPlayerListo || !ytPlayer) return;
-            erroresConsecutivosMusica = 0;
-            indiceCancionActual = (indiceCancionActual - 1 + listaCanciones.length) % listaCanciones.length;
-            cargarCancionYT(indiceCancionActual);
-        }
-        
-        function siguienteCancion() {
-            if (!ytPlayerListo || !ytPlayer) return;
-            indiceCancionActual = (indiceCancionActual + 1) % listaCanciones.length;
-            cargarCancionYT(indiceCancionActual);
-        }
-        
-        function actualizarProgresoMusica() {
-            if (!ytPlayerListo || !ytPlayer || !musicaReproduciendo) return;
-            try {
-                const duration = ytPlayer.getDuration ? ytPlayer.getDuration() : 0;
-                const currentTime = ytPlayer.getCurrentTime ? ytPlayer.getCurrentTime() : 0;
-                if (duration > 0) {
-                    const porcentaje = (currentTime / duration) * 100;
-                    const barra = document.getElementById('musica-progreso');
-                    if (barra) barra.style.width = `${porcentaje}%`;
-                }
-            } catch(e) {}
-        }
-        
-        function cambiarTiempoMusica(e) {
-            if (!ytPlayer || !ytPlayerListo) return;
-            try {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const clickX = e.clientX - rect.left;
-                const width = rect.width;
-                const duration = ytPlayer.getDuration ? ytPlayer.getDuration() : 0;
-                if (duration > 0 && width > 0) {
-                    const nuevoTiempo = (clickX / width) * duration;
-                    ytPlayer.seekTo(nuevoTiempo, true);
-                }
-            } catch(e) {}
-        }
-        
-        function cambiarVolumenMusica(vol) {
-            if (!ytPlayer || !ytPlayerListo) return;
-            try {
-                if (typeof ytPlayer.setVolume === 'function') {
-                    ytPlayer.setVolume(parseFloat(vol) * 100);
-                }
-            } catch(e) {}
-            localStorage.setItem('musicaVolumen', vol);
-        }
-        
-        function toggleExpandirMusica() {
-            const modal = document.getElementById('modal-musica-completo');
-            if (modal) modal.classList.toggle('active');
         }
 
         // --- SISTEMA DE ALERTAS Y AVISOS ESTILIZADOS COUPLE360 (SIN CUADROS NATIVOS) ---
@@ -8340,125 +7703,6 @@ Andy. ❤️</div>
         window.alert = function(mensaje) {
             mostrarAlertaPareja(mensaje, "Aviso de Pareja ✨", "💌");
         };
-
-        const cancionesSugeridas = [
-            { query: 'morat', titulo: 'Besos En Guerra', artista: 'Morat & Juanes', videoId: '1oeD2m2UQAI' },
-            { query: 'cuando nadie ve', titulo: 'Cuando Nadie Ve', artista: 'Morat', videoId: 'szeA9tvItJY' },
-            { query: 'no se va', titulo: 'No Se Va', artista: 'Morat', videoId: 'hTPh7HkK3W8' },
-            { query: 'aprender a quererte', titulo: 'Aprender A Quererte', artista: 'Morat', videoId: 'b1l0fB9T0b0' },
-            { query: 'perfect', titulo: 'Perfect (Acoustic)', artista: 'Boyce Avenue', videoId: 'cMskAbzn0LU' },
-            { query: 'thinking out loud', titulo: 'Thinking Out Loud', artista: 'Ed Sheeran', videoId: 'lp-EO5I60KA' },
-            { query: 'photograph', titulo: 'Photograph', artista: 'Ed Sheeran', videoId: 'nSDgHBxUbVQ' },
-            { query: 'yatra', titulo: 'No Hay Nadie Más', artista: 'Sebastián Yatra', videoId: 'sD9_l3oDOag' },
-            { query: 'tacones rojos', titulo: 'Tacones Rojos', artista: 'Sebastián Yatra', videoId: '2b73u-U_L0U' },
-            { query: 'un ano', titulo: 'Un Año', artista: 'Sebastián Yatra & Reik', videoId: 'tK3X8lXo1w0' },
-            { query: 'camilo', titulo: 'Favorito', artista: 'Camilo', videoId: '2mY7AFTtYwQ' },
-            { query: 'tutu', titulo: 'Tutu', artista: 'Camilo & Pedro Capó', videoId: 'r5m6p2zV21s' },
-            { query: 'vida de rico', titulo: 'Vida de Rico', artista: 'Camilo', videoId: '0zY7mFj_dC8' },
-            { query: 'reik', titulo: 'Noviembre Sin Ti', artista: 'Reik', videoId: 'Ie9g603_fCY' },
-            { query: 'ya me entere', titulo: 'Ya Me Enteré', artista: 'Reik', videoId: '7-12O0kQ2j8' },
-            { query: 'creo en ti', titulo: 'Creo en Ti', artista: 'Reik', videoId: 'snFhepslS0E' },
-            { query: 'coldplay', titulo: 'Yellow', artista: 'Coldplay', videoId: 'yKNxeF4KMsY' },
-            { query: 'a sky full of stars', titulo: 'A Sky Full of Stars', artista: 'Coldplay', videoId: 'VPRjCeoBqrI' },
-            { query: 'sin bandera', titulo: 'Entra En Mi Vida', artista: 'Sin Bandera', videoId: '9G_w383_cEY' },
-            { query: 'carlos vives', titulo: 'Volví A Nacer', artista: 'Carlos Vives', videoId: 'h9M8B7L7iC4' },
-            { query: 'acustico', titulo: 'Melodía Romántica', artista: 'Guitarra Acústica', videoId: '5GroWAOn8h8' },
-            { query: 'bachata', titulo: 'La Bachata', artista: 'Manuel Turizo', videoId: 'TiM_TFpT_DE' }
-        ];
-
-        function reproducirCancionDirecta(videoId, titulo, artista) {
-            const nueva = { titulo, artista, videoId };
-            const idxExistente = listaCanciones.findIndex(c => c.videoId === videoId);
-            if (idxExistente !== -1) {
-                indiceCancionActual = idxExistente;
-            } else {
-                listaCanciones.unshift(nueva);
-                indiceCancionActual = 0;
-            }
-            cargarInfoCancionUI(indiceCancionActual);
-            musicaReproduciendo = true;
-            if (ytPlayer && ytPlayerListo) {
-                try {
-                    ytPlayer.loadVideoById(videoId);
-                    ytPlayer.playVideo();
-                } catch(e) {}
-            }
-            mostrarToastNotificacion("🎵 " + titulo, "Reproduciendo melodía...", "imagenes/icono_pareja.png");
-        }
-
-        function mostrarGuiaYouTube(query) {
-            const modal = document.getElementById('modal-alerta-pareja');
-            const elTitulo = document.getElementById('alerta-pareja-titulo');
-            const elMensaje = document.getElementById('alerta-pareja-mensaje');
-            const elIcono = document.getElementById('alerta-pareja-icono');
-            const elAcciones = document.getElementById('alerta-pareja-acciones');
-
-            if (!modal) {
-                mostrarToastNotificacion("🎵 Música de YouTube", "Pega el link de la canción para escucharla juntos.", "imagenes/icono_pareja.png");
-                return;
-            }
-
-            elIcono.innerText = "🎵";
-            elTitulo.innerText = "Poner canción desde YouTube";
-            const q = query ? `<b>"${query}"</b>` : "cualquier canción que amen";
-            elMensaje.innerHTML = `
-                Para reproducir ${q} en su cofre digital:<br><br>
-                1. Abre el video en YouTube.<br>
-                2. Toca <b>Compartir ➔ Copiar vínculo</b>.<br>
-                3. Pega el link aquí y empezará a sonar de inmediato.<br><br>
-                <span style="font-size: 0.8rem; color: #ec4899; font-weight: 600;">O toca cualquiera de las canciones sugeridas rápidas abajo. 💕</span>
-            `;
-
-            const queryLink = encodeURIComponent(query || "musica romantica");
-            elAcciones.innerHTML = `
-                <a href="https://www.youtube.com/results?search_query=${queryLink}" target="_blank" rel="noopener" class="btn btn-secundario" style="padding: 10px 18px; border-radius: var(--radius-pill); font-size: 0.86rem; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; color: #0f172a; font-weight: 600;">
-                    <span>▶️</span> Abrir YouTube
-                </a>
-                <button type="button" class="btn btn-primario" onclick="cerrarAlertaPareja()" style="padding: 10px 22px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.86rem; box-shadow: 0 4px 14px rgba(236,72,153,0.35);">
-                    Entendido ✨
-                </button>
-            `;
-
-            modal.classList.add('active');
-            if (typeof reproducirSonido === 'function') reproducirSonido('click');
-        }
-
-        function buscarEnYouTube() {
-            const input = document.getElementById('yt-search-input');
-            if (!input) return;
-            const query = input.value.trim();
-            if (!query) {
-                mostrarToastNotificacion("🎵 Melodías", "Escribe el nombre de un artista o pega un link de YouTube.", "imagenes/icono_pareja.png");
-                return;
-            }
-
-            let videoId = query;
-            const urlMatch = query.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|live\/|watch\?.+&v=))([\w-]{11})/i);
-            if (urlMatch && urlMatch[1]) {
-                videoId = urlMatch[1];
-            }
-
-            if (videoId.length === 11 && !videoId.includes(' ')) {
-                reproducirCancionDirecta(videoId, "Canción Especial", "YouTube");
-                input.value = '';
-                return;
-            }
-
-            const termino = query.toLowerCase();
-            const encontrada = cancionesSugeridas.find(s => 
-                s.query.includes(termino) || 
-                s.titulo.toLowerCase().includes(termino) || 
-                s.artista.toLowerCase().includes(termino) || 
-                termino.includes(s.query)
-            );
-            
-            if (encontrada) {
-                reproducirCancionDirecta(encontrada.videoId, encontrada.titulo, encontrada.artista);
-                input.value = '';
-            } else {
-                mostrarGuiaYouTube(query);
-            }
-        }
 
         // --- CREADOR DE RECUERDOS ---
         function abrirModalAnadir() {

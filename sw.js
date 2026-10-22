@@ -1,4 +1,4 @@
-const CACHE_NAME = 'historilove-cache-v4.9';
+const CACHE_NAME = 'historilove-cache-v5.0';
 const ASSETS = [
     './',
     './index.html',
