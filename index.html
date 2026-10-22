@@ -20,9 +20,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Firebase SDK Compat para sincronización en tiempo real en la nube -->
+    <!-- Firebase SDK Compat para sincronización en tiempo real y autenticación en la nube -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     
     <style>
         /* --- DISEÑO DEL SISTEMA DE ESTILOS (ESTILO COUPLE360: PASTEL, SOBRIO Y REDONDEADO) --- */
@@ -4644,6 +4645,18 @@
                 <p class="login-subtitle">Espacio íntimo y compartido</p>
             </div>
 
+            <!-- BOTÓN OFICIAL DE GOOGLE (GMAIL) -->
+            <button type="button" class="btn-login-google" onclick="iniciarSesionConGoogle()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 11px 16px; border-radius: var(--radius-pill); border: 1.5px solid #e2e8f0; background: #ffffff; color: #1e293b; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.05); transition: transform 0.2s; margin: 12px 0 10px 0;">
+                <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.79l7.97-6.2z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                <span>Continuar con Google</span>
+            </button>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0 12px 0;">
+                <div style="flex: 1; height: 1px; background: #f1f5f9;"></div>
+                <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">o acceso directo por PIN</span>
+                <div style="flex: 1; height: 1px; background: #f1f5f9;"></div>
+            </div>
+
             <div class="login-identidad-prompt">¿Quién está usando este celular?</div>
 
             <div class="login-perfiles-grid">
@@ -4704,6 +4717,53 @@
         </div>
     </div>
 
+    <!-- MODAL DE VINCULACIÓN DE PAREJA (PARA CUALQUIER USUARIO CON GMAIL) -->
+    <div class="modal-overlay" id="modal-vinculacion-pareja">
+        <div class="modal-content" style="max-width: 440px; text-align: center; position: relative;">
+            <button class="modal-close-btn" onclick="cerrarModalVinculacion()" style="position: absolute; top: 15px; right: 15px; background: transparent; border: none; font-size: 1.8rem; cursor: pointer; color: var(--text-dark);" title="Cerrar">&times;</button>
+            <span style="font-size: 2.4rem; display: block; margin-bottom: 6px;">💍</span>
+            <h2 style="margin-bottom: 6px; font-size: 1.35rem; color: #0f172a;">Tu Espacio de Pareja</h2>
+            <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 18px;">
+                Conéctate con tu persona favorita para compartir recuerdos, chat privado y finanzas juntos.
+            </p>
+
+            <!-- OPCIÓN 1: CREAR ESPACIO NUEVO -->
+            <div style="background: #fdf2f8; border: 1.5px dashed #f472b6; border-radius: var(--radius-lg); padding: 14px; margin-bottom: 12px; text-align: left;">
+                <h4 style="margin: 0 0 4px 0; color: #be185d; display: flex; align-items: center; gap: 6px; font-size: 0.95rem;">
+                    <span>✨</span> Opción 1: Crear nuevo espacio
+                </h4>
+                <p style="font-size: 0.76rem; color: #475569; margin: 0 0 10px 0;">
+                    Genera un código único para que tu pareja se una a tu cofre de amor.
+                </p>
+                <button type="button" class="btn btn-primario" onclick="crearNuevoEspacioPareja()" style="width: 100%; padding: 9px; font-size: 0.85rem; border-radius: var(--radius-pill);">
+                    Crear mi Código de Pareja 💌
+                </button>
+            </div>
+
+            <!-- OPCIÓN 2: UNIRME CON CÓDIGO -->
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 14px; text-align: left;">
+                <h4 style="margin: 0 0 4px 0; color: #334155; display: flex; align-items: center; gap: 6px; font-size: 0.95rem;">
+                    <span>💌</span> Opción 2: Unirme con código
+                </h4>
+                <p style="font-size: 0.76rem; color: #64748b; margin: 0 0 10px 0;">
+                    Si tu pareja ya creó el espacio, escribe su código aquí:
+                </p>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="input-codigo-pareja-unirse" placeholder="Ej: LOVE-9421" style="flex: 1; padding: 9px 12px; border-radius: 8px; border: 1.5px solid #cbd5e1; font-family: monospace; font-size: 0.9rem; font-weight: 700; text-transform: uppercase;">
+                    <button type="button" class="btn btn-primario" onclick="unirmeConCodigoPareja()" style="padding: 0 14px; font-size: 0.82rem; border-radius: 8px;">
+                        Vincular
+                    </button>
+                </div>
+            </div>
+
+            <div style="margin-top: 14px;">
+                <button type="button" onclick="entrarComoAndyJessie()" style="background: transparent; border: none; color: #94a3b8; font-size: 0.78rem; cursor: pointer; text-decoration: underline;">
+                    Continuar como espacio oficial Andy & Jessie ❤️
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- CONTENEDOR FLOTANTE DE NOTIFICACIONES EN VIVO (TOASTS) -->
     <div id="couple-toast-container" class="couple-toast-container"></div>
 
@@ -4715,6 +4775,7 @@
 
     <!-- SELECTOR DE TEMAS Y AJUSTES FLOTANTE -->
     <div class="tema-selector-contenedor">
+        <button class="btn-tema-principal" onclick="confirmarCerrarSesion()" title="Cerrar Sesión / Salir" style="margin-bottom: 8px; background: #ffffff; border: 1.5px solid #fecdd3; color: #e11d48;" id="btn-cerrar-sesion-flotante">🚪</button>
         <button class="btn-tema-principal" onclick="abrirModalAjustes()" title="Ajustes y Personalización" style="margin-bottom: 8px;">⚙️</button>
         <button class="btn-tema-principal" onclick="toggleMenuTemas()" title="Cambiar tema de diseño">🎨</button>
         <div class="tema-opciones-dropdown" id="tema-dropdown">
@@ -10671,17 +10732,207 @@ Andy. ❤️</div>
             }
         }
 
+        function confirmarCerrarSesion() {
+            mostrarAlertaPareja(
+                "¿Deseas cerrar tu sesión actual y bloquear el acceso?",
+                "Cerrar Sesión 🚪",
+                "🔒"
+            );
+            const elAcciones = document.getElementById('alerta-pareja-acciones');
+            if (elAcciones) {
+                elAcciones.innerHTML = `
+                    <button type="button" class="btn btn-secundario" onclick="cerrarAlertaPareja()" style="padding: 10px 18px; border-radius: var(--radius-pill); font-size: 0.86rem; cursor: pointer;">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primario" onclick="cerrarAlertaPareja(); cerrarSesionPareja();" style="padding: 10px 22px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.86rem; background: #ef4444; border: none; color: white; box-shadow: 0 4px 14px rgba(239,68,68,0.35); cursor: pointer;">
+                        Sí, Salir 🚪
+                    </button>
+                `;
+            }
+        }
+
         function cerrarSesionPareja() {
             localStorage.removeItem('sesionIniciadaPareja');
             sessionStorage.removeItem('sesionIniciadaPareja');
+            if (typeof firebase !== 'undefined' && firebase.auth) {
+                try { firebase.auth().signOut(); } catch(e) {}
+            }
             const loginEl = document.getElementById('pantalla-login');
             if (loginEl) {
                 loginEl.style.display = 'flex';
+                loginEl.style.opacity = '1';
                 const pinInput = document.getElementById('login-pin-input');
                 if (pinInput) pinInput.value = '';
             }
             const actual = obtenerMiIdentidad();
             seleccionarPerfilLogin(actual);
+        }
+
+        // --- AUTENTICACIÓN GOOGLE (GMAIL) Y VINCULACIÓN MULTI-PAREJA ---
+        let usuarioGoogleActivo = null;
+
+        function iniciarSesionConGoogle() {
+            if (typeof firebase === 'undefined' || !firebase.auth) {
+                mostrarAlertaPareja("Cargando módulos de seguridad... Intenta de nuevo en un segundo.", "Iniciando 🌐", "⏳");
+                return;
+            }
+
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    usuarioGoogleActivo = result.user;
+                    console.log("Sesión iniciada con Google:", usuarioGoogleActivo.displayName, usuarioGoogleActivo.email);
+                    procesarUsuarioGoogle(usuarioGoogleActivo);
+                })
+                .catch((error) => {
+                    console.warn("Aviso Auth Google:", error);
+                    if (error.code === 'auth/popup-closed-by-user') return;
+                    if (error.code === 'auth/configuration-not-found' || error.code === 'auth/operation-not-allowed') {
+                        mostrarAlertaPareja(
+                            "Falta activar el proveedor 'Google' en tu Firebase Console.\n\nSolo toma 3 clics en console.firebase.google.com.",
+                            "Activar Google en Firebase 🔑",
+                            "⚙️"
+                        );
+                    } else if (error.code === 'auth/unauthorized-domain') {
+                        mostrarAlertaPareja(
+                            `El dominio actual (${window.location.hostname}) debe agregarse a 'Dominios Autorizados' en tu Firebase Console.`,
+                            "Dominio no autorizado 🌐",
+                            "⚠️"
+                        );
+                    } else {
+                        mostrarAlertaPareja(error.message, "Aviso de Google", "⚠️");
+                    }
+                });
+        }
+
+        function procesarUsuarioGoogle(user) {
+            localStorage.setItem('sesionIniciadaPareja', 'true');
+            localStorage.setItem('google_user_email', user.email);
+            localStorage.setItem('google_user_name', user.displayName || 'Mi Amor');
+
+            // Verificar si el usuario ya tiene una pareja vinculada en Firebase
+            if (fbDb) {
+                fbDb.ref(`usuarios_vinculados/${user.uid}`).once('value', (snap) => {
+                    const data = snap.val();
+                    if (data && data.codigoPareja) {
+                        establecerCodigoParejaActiva(data.codigoPareja, false);
+                        completarIngresoExitoso(user.displayName || 'Mi Amor');
+                    } else {
+                        // Usuario sin pareja vinculada: mostrar modal de vincular
+                        const modal = document.getElementById('modal-vinculacion-pareja');
+                        if (modal) modal.classList.add('active');
+                    }
+                });
+            } else {
+                completarIngresoExitoso(user.displayName || 'Mi Amor');
+            }
+        }
+
+        function crearNuevoEspacioPareja() {
+            if (!usuarioGoogleActivo && typeof firebase !== 'undefined' && firebase.auth) {
+                usuarioGoogleActivo = firebase.auth().currentUser;
+            }
+            const rand = Math.floor(1000 + Math.random() * 9000);
+            const nuevoCodigo = `LOVE-${rand}`;
+
+            if (fbDb && usuarioGoogleActivo) {
+                fbDb.ref(`espacios_parejas/${nuevoCodigo}`).set({
+                    creador: usuarioGoogleActivo.uid,
+                    creadorEmail: usuarioGoogleActivo.email,
+                    creadorNombre: usuarioGoogleActivo.displayName,
+                    creadoEn: Date.now()
+                });
+                fbDb.ref(`usuarios_vinculados/${usuarioGoogleActivo.uid}`).set({
+                    codigoPareja: nuevoCodigo,
+                    rol: 'creador'
+                });
+            }
+
+            establecerCodigoParejaActiva(nuevoCodigo, true);
+            cerrarModalVinculacion();
+            mostrarAlertaPareja(
+                `Tu código de pareja es:<br><br><b style="font-size: 1.4rem; color: #ec4899; letter-spacing: 2px;">${nuevoCodigo}</b><br><br>Pásale este código a tu pareja para que se una a tu espacio íntimo.`,
+                "¡Espacio Creado! 💍",
+                "🎉",
+                "¡Entrar Ahora! 💕"
+            );
+        }
+
+        function unirmeConCodigoPareja() {
+            const input = document.getElementById('input-codigo-pareja-unirse');
+            if (!input) return;
+            const codigo = input.value.trim().toUpperCase();
+            if (!codigo) {
+                mostrarAlertaPareja("Por favor escribe el código que te envió tu pareja.", "Escribe un código", "💌");
+                return;
+            }
+
+            if (!usuarioGoogleActivo && typeof firebase !== 'undefined' && firebase.auth) {
+                usuarioGoogleActivo = firebase.auth().currentUser;
+            }
+
+            if (fbDb && usuarioGoogleActivo) {
+                fbDb.ref(`espacios_parejas/${codigo}`).once('value', (snap) => {
+                    if (snap.exists()) {
+                        fbDb.ref(`espacios_parejas/${codigo}/pareja`).set({
+                            uid: usuarioGoogleActivo.uid,
+                            email: usuarioGoogleActivo.email,
+                            nombre: usuarioGoogleActivo.displayName,
+                            unidoEn: Date.now()
+                        });
+                        fbDb.ref(`usuarios_vinculados/${usuarioGoogleActivo.uid}`).set({
+                            codigoPareja: codigo,
+                            rol: 'pareja'
+                        });
+                        establecerCodigoParejaActiva(codigo, true);
+                        cerrarModalVinculacion();
+                        mostrarToastNotificacion("¡Pareja Vinculada! 💍", "Ahora comparten este espacio en tiempo real", "imagenes/icono_pareja.png");
+                    } else {
+                        mostrarAlertaPareja("No encontramos ningún espacio con ese código. Verifica las letras y números.", "Código no encontrado", "🔍");
+                    }
+                });
+            } else {
+                establecerCodigoParejaActiva(codigo, true);
+                cerrarModalVinculacion();
+            }
+        }
+
+        function establecerCodigoParejaActiva(codigo, autoCargar = true) {
+            localStorage.setItem('codigo_pareja_activo', codigo);
+            console.log("Espacio de pareja activo:", codigo);
+            if (autoCargar) {
+                const loginEl = document.getElementById('pantalla-login');
+                if (loginEl) loginEl.style.display = 'none';
+                aplicarLogicaPersonalYCompartida();
+            }
+        }
+
+        function entrarComoAndyJessie() {
+            cerrarModalVinculacion();
+            establecerCodigoParejaActiva('jya_oficial', true);
+            completarIngresoExitoso("Andy & Jessie");
+        }
+
+        function cerrarModalVinculacion() {
+            const modal = document.getElementById('modal-vinculacion-pareja');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function completarIngresoExitoso(nombre) {
+            const loginEl = document.getElementById('pantalla-login');
+            if (loginEl) {
+                loginEl.style.transition = 'opacity 0.3s ease';
+                loginEl.style.opacity = '0';
+                setTimeout(() => {
+                    loginEl.style.display = 'none';
+                    loginEl.style.opacity = '1';
+                }, 300);
+            }
+            aplicarLogicaPersonalYCompartida();
+            mostrarToastNotificacion(`¡Bienvenido(a), ${nombre}!`, "Sesión iniciada con Google", "imagenes/icono_pareja.png");
+            lanzarConfeti();
         }
 
         function togglePersonalizarLogin() {
