@@ -4328,11 +4328,279 @@
             cursor: pointer;
             transition: var(--transition-smooth);
         }
-        .btn-filtro-finanzas.active {
-            background: var(--primary);
+        /* Tag identificador para el reproductor de música flotante */
+        .musica-tag-flotante {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: var(--radius-pill);
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            pointer-events: none;
+            animation: palpitacion 2s infinite ease-in-out;
+        }
+
+        /* --- ESTILOS DEL CHAT ÍNTIMO DE PAREJA --- */
+        .chat-pareja-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            max-height: 75vh;
+        }
+        .chat-pareja-header {
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.7);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-pareja-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chat-header-avatars {
+            display: flex;
+            position: relative;
+            width: 48px;
+            height: 36px;
+        }
+        .chat-mini-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            position: absolute;
+        }
+        .chat-mini-avatar.andy { left: 0; z-index: 2; }
+        .chat-mini-avatar.jessie { right: 0; z-index: 1; }
+        .chat-titulo-nombre {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        .chat-subtitulo-estado {
+            font-size: 0.72rem;
+            color: #10b981;
+            font-weight: 600;
+        }
+        .btn-limpiar-chat {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+        .btn-limpiar-chat:hover { background: #fee2e2; color: #ef4444; }
+        .chat-mensajes-container {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(248, 250, 252, 0.45);
+        }
+        .chat-mensaje-fila {
+            display: flex;
+            gap: 8px;
+            max-width: 82%;
+            animation: fadeIn 0.3s ease;
+        }
+        .chat-mensaje-fila.propio {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        .chat-mensaje-fila.pareja {
+            align-self: flex-start;
+        }
+        .chat-msg-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1.5px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .chat-msg-burbuja {
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            position: relative;
+            word-break: break-word;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        .chat-mensaje-fila.propio .chat-msg-burbuja {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-mensaje-fila.pareja .chat-msg-burbuja {
+            background: #ffffff;
+            color: var(--text-dark);
+            border: 1px solid var(--glass-border);
+            border-bottom-left-radius: 4px;
+        }
+        .chat-msg-meta {
+            font-size: 0.68rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+        .chat-emojis-rapidos {
+            display: flex;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.7);
+            border-top: 1px solid var(--glass-border);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .chat-emojis-rapidos button {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .chat-emojis-rapidos button:hover { transform: scale(1.15); }
+        .chat-input-bar {
+            padding: 10px 14px;
+            background: white;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--glass-border);
+            background: #f8fafc;
+            outline: none;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: var(--text-dark);
+            transition: var(--transition-smooth);
+        }
+        .chat-input:focus {
             border-color: var(--primary);
-            box-shadow: 0 2px 8px rgba(244, 114, 182, 0.25);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
+        }
+        .btn-chat-enviar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 10px rgba(244, 114, 182, 0.3);
+        }
+        .btn-chat-enviar:hover { transform: translateY(-1px); }
+
+        /* Barra de reacción e interacción en visor de historias */
+        .story-interaccion-bar {
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+            z-index: 50;
+            box-sizing: border-box;
+        }
+        .story-reply-input {
+            flex: 1;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: var(--radius-pill);
+            padding: 8px 14px;
+            color: white;
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+        }
+        .story-reply-input::placeholder { color: rgba(255,255,255,0.7); }
+        .story-reaccion-btn {
+            background: rgba(255,255,255,0.25);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .story-reaccion-btn:hover { transform: scale(1.25); background: rgba(255,255,255,0.4); }
+
+        /* Perfil de onboarding / personalización en el login */
+        .login-personalizar-toggle {
+            font-size: 0.78rem;
+            color: var(--primary);
+            font-weight: 700;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 12px;
+            text-decoration: underline;
+        }
+        .login-personalizar-panel {
+            background: rgba(248, 250, 252, 0.85);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px dashed var(--glass-border);
+            text-align: left;
+        }
+        .login-campo-input {
+            width: 100%;
+            padding: 7px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            font-size: 0.82rem;
+            margin-top: 4px;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
         }
     </style>
     
@@ -4386,6 +4654,27 @@
                 <span>Recordar este celular para no volver a pedir login</span>
             </label>
 
+            <!-- Personalizar Perfil / Nombres para la pareja -->
+            <button type="button" class="login-personalizar-toggle" onclick="togglePersonalizarLogin()">
+                🎨 Personalizar nombres y gustos de pareja
+            </button>
+            <div id="login-personalizar-panel" class="login-personalizar-panel" style="display: none;">
+                <div style="font-size: 0.76rem; font-weight: 700; color: var(--primary); margin-bottom: 6px;">
+                    Configuración de Perfiles
+                </div>
+                <div style="margin-bottom: 6px;">
+                    <label style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Nombre para Andy (🐧):</label>
+                    <input type="text" id="login-nombre-andy" class="login-campo-input" placeholder="Nombre o apodo de Andy...">
+                </div>
+                <div style="margin-bottom: 6px;">
+                    <label style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600;">Nombre para Jessie (😈):</label>
+                    <input type="text" id="login-nombre-jessie" class="login-campo-input" placeholder="Nombre o apodo de Jessie...">
+                </div>
+                <button type="button" onclick="guardarPersonalizacionLogin()" style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 700; cursor: pointer; width: 100%;">
+                    💾 Guardar Nombres
+                </button>
+            </div>
+
             <button type="button" class="login-submit-btn" onclick="procesarLoginPareja()">
                 Entrar a Nuestro Espacio ✨
             </button>
@@ -4403,6 +4692,7 @@
 
     <!-- SELECTOR DE TEMAS Y AJUSTES FLOTANTE -->
     <div class="tema-selector-contenedor">
+        <button class="btn-tema-principal" onclick="toggleExpandirMusica()" title="Abrir / Cerrar Reproductor de Música" style="margin-bottom: 8px; background: linear-gradient(135deg, #ec4899, #f43f5e); color: white;">🎵</button>
         <button class="btn-tema-principal" onclick="abrirModalAjustes()" title="Ajustes y Personalización" style="margin-bottom: 8px;">⚙️</button>
         <button class="btn-tema-principal" onclick="toggleMenuTemas()" title="Cambiar tema de diseño">🎨</button>
         <div class="tema-opciones-dropdown" id="tema-dropdown">
@@ -4417,6 +4707,7 @@
 
     <!-- REPRODUCTOR DE MÚSICA FLOTANTE -->
     <div class="musica-reproductor" id="musica-widget">
+        <div class="musica-tag-flotante">🎵 Música</div>
         <div class="musica-disco-container" onclick="toggleExpandirMusica()">
             <!-- Nota: Puedes cambiar 'imagenes/portada_musica.jpg' por la ruta de tu foto de pareja en la carpeta imagenes -->
             <img src="imagenes/portada_musica.jpg" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop'" class="musica-disco-img" id="musica-disco-girando" alt="Vinyl">
@@ -4494,6 +4785,7 @@
         <!-- NAVEGACIÓN POR PESTAÑAS -->
         <nav class="tab-nav">
             <button class="tab-btn active" onclick="cambiarPestaña('nosotros')" id="btn-tab-nosotros">💖 Nosotros</button>
+            <button class="tab-btn" onclick="cambiarPestaña('chat')" id="btn-tab-chat">💬 Chat</button>
             <button class="tab-btn" onclick="cambiarPestaña('bienestar')" id="btn-tab-bienestar">🌿 Bienestar</button>
             <button class="tab-btn" onclick="cambiarPestaña('finanzas')" id="btn-tab-finanzas">💰 Finanzas & Hogar</button>
             <button class="tab-btn" onclick="cambiarPestaña('recuerdos')" id="btn-tab-recuerdos">✨ Recuerdos</button>
@@ -4517,7 +4809,7 @@
                 <div class="perfil-tarjeta" id="perfil-tarjeta-andy">
                     <div class="avatar-wrapper">
                         <div class="perfil-avatar-circle" id="avatar-circle-andy" onclick="clicAvatar('andy')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/pinguino_avatar_3d.jpg" alt="Andy"></div>
-                        <div class="avatar-plus-btn" onclick="abrirModalRapidoHistoria('andy', event)" title="Añadir nuevo estado">+</div>
+                        <div class="avatar-plus-btn" id="avatar-plus-andy" onclick="abrirModalRapidoHistoria('andy', event)" title="Añadir nuevo estado">+</div>
                     </div>
                     <div class="perfil-datos">
                         <span class="perfil-nombre" id="nombre-display-andy">Andy</span>
@@ -4541,7 +4833,7 @@
                 <div class="perfil-tarjeta" id="perfil-tarjeta-jessie" style="text-align: right; flex-direction: row-reverse;">
                     <div class="avatar-wrapper">
                         <div class="perfil-avatar-circle" id="avatar-circle-jessie" onclick="clicAvatar('jessie')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/kuromi_avatar_3d.jpg" alt="Jessie"></div>
-                        <div class="avatar-plus-btn" onclick="abrirModalRapidoHistoria('jessie', event)" title="Añadir nuevo estado">+</div>
+                        <div class="avatar-plus-btn" id="avatar-plus-jessie" onclick="abrirModalRapidoHistoria('jessie', event)" title="Añadir nuevo estado">+</div>
                     </div>
                     <div class="perfil-datos" style="align-items: flex-end;">
                         <span class="perfil-nombre" id="nombre-display-jessie">Jessie</span>
@@ -4567,11 +4859,11 @@
                     <div class="reloj-segmento"><span class="num" id="reloj-segundos">00</span><span class="label">Seg</span></div>
                 </div>
 
-                <!-- Botón Especial Cumplemes 88 (Doble Infinito) -->
-                <div>
-                    <button class="btn-cumplemes-88" onclick="mostrarSorpresa88()" id="btn-cumplemes-88" title="¡Ver sorpresa del Cumplemes 88!">
+                <!-- Botón Especial Cumplemes (Programado automáticamente para cada día 20) -->
+                <div id="contenedor-boton-cumplemes">
+                    <button class="btn-cumplemes-88" onclick="mostrarSorpresa88()" id="btn-cumplemes-88" title="¡Celebración especial de Cumplemes!" style="display: none;">
                         <span class="icono-infinito-rotando">♾️</span>
-                        <span>¡Especial Cumplemes #88 (∞ ∞)!</span>
+                        <span id="texto-btn-cumplemes">¡Especial Cumplemes!</span>
                         <span class="badge-tag-88">¡ES HOY!</span>
                     </button>
                 </div>
@@ -5029,6 +5321,50 @@ Andy. ❤️</div>
                         <!-- Las cartas se cargarán aquí -->
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: CHAT ÍNTIMO DE PAREJA -->
+        <div id="tab-chat" class="tab-content">
+            <div class="chat-pareja-card">
+                <div class="chat-pareja-header">
+                    <div class="chat-pareja-info">
+                        <div class="chat-header-avatars">
+                            <img src="imagenes/pinguino_avatar_3d.jpg" class="chat-mini-avatar andy" alt="Andy">
+                            <img src="imagenes/kuromi_avatar_3d.jpg" class="chat-mini-avatar jessie" alt="Jessie">
+                        </div>
+                        <div>
+                            <h3 class="chat-titulo-nombre" id="chat-cabecera-nombre">Nuestro Chat Íntimo</h3>
+                            <span class="chat-subtitulo-estado" id="chat-cabecera-estado">Conectados en tiempo real ❤️</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-limpiar-chat" onclick="limpiarChatPareja()" title="Vaciar conversación (Solo administrador)">🧹</button>
+                </div>
+
+                <!-- Lista de Mensajes -->
+                <div class="chat-mensajes-container" id="chat-mensajes-lista">
+                    <!-- Mensajes cargados dinámicamente -->
+                </div>
+
+                <!-- Barra de Emojis rápidos -->
+                <div class="chat-emojis-rapidos">
+                    <button type="button" onclick="insertarEmojiChat('❤️')">❤️</button>
+                    <button type="button" onclick="insertarEmojiChat('🥰')">🥰</button>
+                    <button type="button" onclick="insertarEmojiChat('😈')">😈</button>
+                    <button type="button" onclick="insertarEmojiChat('🐧')">🐧</button>
+                    <button type="button" onclick="insertarEmojiChat('😘')">😘</button>
+                    <button type="button" onclick="insertarEmojiChat('🥺')">🥺</button>
+                    <button type="button" onclick="insertarEmojiChat('✨')">✨</button>
+                    <button type="button" onclick="insertarEmojiChat('Te amo mucho ❤️')">💌 Te amo</button>
+                </div>
+
+                <!-- Input del Chat -->
+                <form class="chat-input-bar" id="chat-form" onsubmit="enviarMensajeChat(event)">
+                    <input type="text" id="chat-input-texto" class="chat-input" placeholder="Escribe un mensaje para tu amor..." autocomplete="off" required>
+                    <button type="submit" class="btn-chat-enviar">
+                        <span>💌</span> Enviar
+                    </button>
+                </form>
             </div>
         </div>
 
@@ -5703,6 +6039,14 @@ Andy. ❤️</div>
             <div class="story-caption-container" id="story-caption-container" style="display: none;">
                 <p id="story-caption-text"></p>
             </div>
+
+            <!-- Barra de reacción e interacción estilo WhatsApp/Instagram -->
+            <div class="story-interaccion-bar" id="story-interaccion-bar">
+                <input type="text" id="story-reply-input" class="story-reply-input" placeholder="💬 Responder a su historia..." onfocus="pausarHistoria()" onblur="reanudarHistoria()" onkeydown="if(event.key==='Enter') enviarRespuestaHistoria()">
+                <button type="button" class="story-reaccion-btn" onclick="enviarReaccionHistoria('❤️')" title="Me encanta">❤️</button>
+                <button type="button" class="story-reaccion-btn" onclick="enviarReaccionHistoria('🥰')" title="Enamorad@">🥰</button>
+                <button type="button" class="story-reaccion-btn" onclick="enviarReaccionHistoria('🔥')" title="Fuego">🔥</button>
+            </div>
         </div>
     </div>
 
@@ -5761,7 +6105,7 @@ Andy. ❤️</div>
 
     <!-- PIE DE PÁGINA -->
     <footer>
-        <button class="btn-reiniciar" onclick="confirmarReiniciar()">🔒 Cerrar todas las cajas (Reiniciar)</button>
+        <button class="btn-reiniciar" id="btn-reiniciar-cajas" onclick="confirmarReiniciar()" style="display: none;">🔒 Cerrar todas las cajas (Admin)</button>
         <button class="btn-reiniciar" id="btn-instalar-app" onclick="solicitarInstalacionPWA()" style="display: none; background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.35); font-weight: 600; margin-left: 8px;">📲 Instalar en Celular</button>
     </footer>
 
@@ -6192,18 +6536,29 @@ Andy. ❤️</div>
             document.getElementById('modal-recuerdo').classList.remove('active');
         }
 
-        // Reiniciar todas las cajas y retos
+        // Reiniciar todas las cajas y retos (Restringido al Administrador)
         function confirmarReiniciar() {
-            if (confirm("¿Estás seguro de que quieres volver a cerrar todas las cajas y reiniciar los retos de pareja?")) {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            if (miId !== 'andy') {
+                mostrarToastNotificacion("🔒 Restringido", "Función exclusiva del Administrador.");
+                return;
+            }
+            const pin = prompt("🔐 Ingrese el PIN de Administrador para cerrar todas las cajas:");
+            if (pin !== "2006") {
+                if (pin !== null) mostrarToastNotificacion("❌ Acceso Denegado", "PIN de administrador incorrecto.");
+                return;
+            }
+            if (confirm("¿Confirmas que deseas volver a cerrar todas las cajas y reiniciar los retos de pareja?")) {
                 cajasDesbloqueadas = {};
                 retosCompletados = {};
                 localStorage.removeItem('cajasDesbloqueadas');
                 localStorage.removeItem('retosCompletados');
                 renderizarCajas();
                 actualizarProgreso();
-                if (document.getElementById('tab-retos').classList.contains('active')) {
+                if (document.getElementById('tab-retos') && document.getElementById('tab-retos').classList.contains('active')) {
                     renderizarRetos();
                 }
+                mostrarToastNotificacion("🔒 Cajas Cerradas", "Todas las cajas se han vuelto a cerrar con éxito.");
             }
         }
 
@@ -6628,7 +6983,19 @@ Andy. ❤️</div>
             storyIndex = 0;
             storyPaused = false;
             
-            document.getElementById('modal-historias').classList.add('active');
+            const modal = document.getElementById('modal-historias');
+            if (modal) modal.classList.add('active');
+
+            // Barra de interacción estilo WhatsApp / Instagram
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            const interaccionBar = document.getElementById('story-interaccion-bar');
+            if (interaccionBar) {
+                // Solo mostrar reacciones e input si estoy viendo la historia de mi pareja
+                interaccionBar.style.display = (persona !== miId) ? 'flex' : 'none';
+                const replyInput = document.getElementById('story-reply-input');
+                if (replyInput) replyInput.value = '';
+            }
+
             renderizarHistoriaActual();
             iniciarStoryTimer();
         }
@@ -6672,6 +7039,80 @@ Andy. ❤️</div>
         
         function pausarHistoria() {
             storyPaused = true;
+        }
+
+        // Enviar reacción rápida (Me encanta ❤️, 🥰, 🔥) al estado de la pareja
+        function enviarReaccionHistoria(reaccion) {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            const miNombre = miId === 'andy' ? (localStorage.getItem('pareja_nombre_andy') || 'Andy') : (localStorage.getItem('pareja_nombre_jessie') || 'Jessie');
+            const parejaNombre = storyUser === 'andy' ? (localStorage.getItem('pareja_nombre_andy') || 'Andy') : (localStorage.getItem('pareja_nombre_jessie') || 'Jessie');
+            
+            mostrarToastNotificacion(`Reaccionaste a ${parejaNombre}`, `Le enviaste ${reaccion} a su estado ❤️`);
+            lanzarConfeti();
+
+            // Agregar al chat íntimo compartido
+            const nuevoMsg = {
+                id: Date.now(),
+                remitente: miId,
+                nombre: miNombre,
+                texto: `Reaccionó con ${reaccion} a tu estado ✨`,
+                fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                timestamp: Date.now()
+            };
+
+            if (typeof chatMensajes !== 'undefined') {
+                chatMensajes.push(nuevoMsg);
+                if (typeof guardarChatPareja === 'function') guardarChatPareja();
+            }
+
+            // Notificación remota en Firebase
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                fbDb.ref('notificaciones/ultima').set({
+                    autor: miId,
+                    titulo: `❤️ Reacción de ${miNombre}`,
+                    detalle: `Le encantó tu estado: ${reaccion}`,
+                    timestamp: Date.now()
+                });
+            }
+        }
+
+        // Responder con texto o comentario al estado de la pareja
+        function enviarRespuestaHistoria() {
+            const input = document.getElementById('story-reply-input');
+            if (!input || !input.value.trim()) return;
+            const texto = input.value.trim();
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            const miNombre = miId === 'andy' ? (localStorage.getItem('pareja_nombre_andy') || 'Andy') : (localStorage.getItem('pareja_nombre_jessie') || 'Jessie');
+            const parejaNombre = storyUser === 'andy' ? (localStorage.getItem('pareja_nombre_andy') || 'Andy') : (localStorage.getItem('pareja_nombre_jessie') || 'Jessie');
+
+            mostrarToastNotificacion(`Respuesta enviada a ${parejaNombre}`, `💬 "${texto}"`);
+            
+            const nuevoMsg = {
+                id: Date.now(),
+                remitente: miId,
+                nombre: miNombre,
+                texto: `Respondió a tu estado: "${texto}"`,
+                fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                timestamp: Date.now()
+            };
+
+            if (typeof chatMensajes !== 'undefined') {
+                chatMensajes.push(nuevoMsg);
+                if (typeof guardarChatPareja === 'function') guardarChatPareja();
+            }
+
+            // Notificación remota en Firebase
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                fbDb.ref('notificaciones/ultima').set({
+                    autor: miId,
+                    titulo: `💬 Mensaje de ${miNombre}`,
+                    detalle: `Respondió a tu estado: "${texto}"`,
+                    timestamp: Date.now()
+                });
+            }
+
+            input.value = '';
+            reanudarHistoria();
         }
         
         function historiaSiguiente(e) {
@@ -6946,10 +7387,55 @@ Andy. ❤️</div>
             }
         }
 
-        // --- LÓGICA DE LA SORPRESA CUMPLEMES #88 (DOBLE INFINITO) ---
+        // --- PROGRAMACIÓN AUTOMÁTICA DEL CUMPLEMES (CADA DÍA 20 DE CADA MES) ---
         let intervaloLluvia88 = null;
         
+        function verificarCumplemesHoy() {
+            const hoy = new Date();
+            const dia = hoy.getDate();
+            const btnCumplemes = document.getElementById('btn-cumplemes-88');
+            const textoBtn = document.getElementById('texto-btn-cumplemes');
+
+            // Solo está activo y visible los días 20 de cada mes
+            const esDia20 = (dia === 20);
+
+            if (!esDia20) {
+                if (btnCumplemes) btnCumplemes.style.display = 'none';
+                return false;
+            }
+
+            // Cálculo dinámico de meses desde el 20 de Junio de 2019
+            const anioInicio = 2019;
+            const mesInicio = 5; // Junio (0-indexado)
+            const mesesCumplidos = (hoy.getFullYear() - anioInicio) * 12 + (hoy.getMonth() - mesInicio);
+            const anios = Math.floor(mesesCumplidos / 12);
+            const mesesRest = mesesCumplidos % 12;
+
+            if (btnCumplemes) {
+                btnCumplemes.style.display = 'inline-flex';
+                if (textoBtn) textoBtn.textContent = `¡Especial Cumplemes #${mesesCumplidos}!`;
+            }
+
+            // Actualizar elementos dinámicos dentro del modal conmemorativo
+            const tituloModal = document.querySelector('.titulo-cumplemes-88');
+            if (tituloModal) tituloModal.textContent = `¡Feliz Cumplemes #${mesesCumplidos}!`;
+
+            const subtituloModal = document.querySelector('.subtitulo-cumplemes-88');
+            const nombreAndy = localStorage.getItem('pareja_nombre_andy') || 'Andy';
+            const nombreJessie = localStorage.getItem('pareja_nombre_jessie') || 'Jessie';
+            if (subtituloModal) subtituloModal.textContent = `${nombreAndy} & ${nombreJessie} • 🐧 & 😈 (${anios} años y ${mesesRest} meses)`;
+
+            const statNums = document.querySelectorAll('.stat-88-card .stat-88-num');
+            if (statNums && statNums.length >= 2) {
+                statNums[0].textContent = `${mesesCumplidos}`;
+                statNums[1].textContent = `${anios}a ${mesesRest}m`;
+            }
+
+            return true;
+        }
+
         function mostrarSorpresa88() {
+            verificarCumplemesHoy();
             const modal = document.getElementById('modal-cumplemes-88');
             if (modal) {
                 modal.classList.add('active');
@@ -7588,7 +8074,13 @@ Andy. ❤️</div>
             // Scroll suave hacia arriba para que cada pantalla comience organizada
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            if (pestañaId === 'galeria') {
+            if (pestañaId === 'chat') {
+                if (typeof renderizarChatPareja === 'function') renderizarChatPareja();
+                setTimeout(() => {
+                    const contenedor = document.getElementById('chat-mensajes-lista');
+                    if (contenedor) contenedor.scrollTop = contenedor.scrollHeight;
+                }, 100);
+            } else if (pestañaId === 'galeria') {
                 renderizarGaleria();
             } else if (pestañaId === 'retos') {
                 renderizarRetos();
@@ -9613,6 +10105,12 @@ Andy. ❤️</div>
         
         function abrirModalRapidoHistoria(autor, event) {
             if (event) event.stopPropagation(); // Evitar que abra el visor de historias
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            if (miId && miId !== autor) {
+                const nombreObjetivo = autor === 'andy' ? (localStorage.getItem('pareja_nombre_andy') || 'Andy') : (localStorage.getItem('pareja_nombre_jessie') || 'Jessie');
+                mostrarToastNotificacion("🔒 Estado Personal", `Este es el estado íntimo de ${nombreObjetivo}. Solo puede actualizarlo desde su propio celular.`);
+                return;
+            }
             document.getElementById('rapido-historia-autor').value = autor;
             document.getElementById('rapido-historia-foto').value = '';
             document.getElementById('rapido-historia-texto').value = '';
@@ -10276,28 +10774,254 @@ Andy. ❤️</div>
             seleccionarPerfilLogin(actual);
         }
 
+        function togglePersonalizarLogin() {
+            const panel = document.getElementById('login-personalizar-panel');
+            if (!panel) return;
+            const estaAbierto = panel.style.display !== 'none';
+            panel.style.display = estaAbierto ? 'none' : 'block';
+            if (!estaAbierto) {
+                const nombreAndy = localStorage.getItem('pareja_nombre_andy') || 'Andy';
+                const nombreJessie = localStorage.getItem('pareja_nombre_jessie') || 'Jessie';
+                const inputA = document.getElementById('login-nombre-andy');
+                const inputJ = document.getElementById('login-nombre-jessie');
+                if (inputA) inputA.value = nombreAndy;
+                if (inputJ) inputJ.value = nombreJessie;
+            }
+        }
+
+        function guardarPersonalizacionLogin() {
+            const inputA = document.getElementById('login-nombre-andy');
+            const inputJ = document.getElementById('login-nombre-jessie');
+            const valA = (inputA && inputA.value.trim()) ? inputA.value.trim() : 'Andy';
+            const valJ = (inputJ && inputJ.value.trim()) ? inputJ.value.trim() : 'Jessie';
+
+            localStorage.setItem('pareja_nombre_andy', valA);
+            localStorage.setItem('pareja_nombre_jessie', valJ);
+
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                fbDb.ref('configuracion/perfiles').update({
+                    nombreAndy: valA,
+                    nombreJessie: valJ
+                });
+            }
+
+            cargarNombresPersonalizados();
+            mostrarToastNotificacion("✨ Nombres Guardados", `Perfiles personalizados: ${valA} & ${valJ}`);
+            const panel = document.getElementById('login-personalizar-panel');
+            if (panel) panel.style.display = 'none';
+        }
+
+        function cargarNombresPersonalizados() {
+            const valA = localStorage.getItem('pareja_nombre_andy') || 'Andy';
+            const valJ = localStorage.getItem('pareja_nombre_jessie') || 'Jessie';
+
+            const dispA = document.getElementById('nombre-display-andy');
+            const dispJ = document.getElementById('nombre-display-jessie');
+            if (dispA) dispA.textContent = valA;
+            if (dispJ) dispJ.textContent = valJ;
+
+            const chatCabecera = document.getElementById('chat-cabecera-nombre');
+            if (chatCabecera) chatCabecera.textContent = `${valA} & ${valJ}`;
+
+            document.querySelectorAll('option[value="andy"]').forEach(op => op.textContent = `🐧 ${valA}`);
+            document.querySelectorAll('option[value="jessie"]').forEach(op => op.textContent = `😈 ${valJ}`);
+        }
+
         function aplicarLogicaPersonalYCompartida() {
-            const miId = obtenerMiIdentidad();
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            
             // 1. En Salud, activar mi perfil por defecto para que sea inmediato registrar
-            seleccionarPersonaSalud(miId);
+            if (typeof seleccionarPersonaSalud === 'function') {
+                seleccionarPersonaSalud(miId);
+            }
 
             // 2. En Finanzas, fijar el selector al usuario del celular
             const selFinPersona = document.getElementById('finanzas-select-persona');
             if (selFinPersona) {
                 selFinPersona.value = 'ambos'; // por defecto 50/50 o propio
             }
-            renderizarFinanzas();
+            if (typeof renderizarFinanzas === 'function') {
+                renderizarFinanzas();
+            }
 
             // 3. En Radar, actualizar el botón con mi avatar y nombre
             const btnRadar = document.getElementById('btn-radar-mi-gps');
             if (btnRadar) {
-                const nombre = miId === 'andy' ? 'Andy' : 'Jessie';
+                const nombreAndy = localStorage.getItem('pareja_nombre_andy') || 'Andy';
+                const nombreJessie = localStorage.getItem('pareja_nombre_jessie') || 'Jessie';
+                const nombre = miId === 'andy' ? nombreAndy : nombreJessie;
                 const avatar = miId === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
                 btnRadar.innerHTML = `<img src="${avatar}" class="radar-btn-avatar" alt="${nombre}"> Actualizar mi ubicación GPS (${nombre})`;
             }
 
-            // 4. Actualizar selector de identidad
-            actualizarSelectorIdentidadUI();
+            // 4. Privacidad estricta de estados tipo WhatsApp: el botón "+" solo aparece en el avatar propio
+            const plusAndy = document.getElementById('avatar-plus-andy');
+            const plusJessie = document.getElementById('avatar-plus-jessie');
+            if (plusAndy) plusAndy.style.display = (miId === 'andy') ? 'flex' : 'none';
+            if (plusJessie) plusJessie.style.display = (miId === 'jessie') ? 'flex' : 'none';
+
+            // 5. Botón de reiniciar cajas: únicamente accesible para el Administrador (Andy)
+            const btnReiniciar = document.getElementById('btn-reiniciar-cajas');
+            if (btnReiniciar) {
+                btnReiniciar.style.display = (miId === 'andy') ? 'inline-block' : 'none';
+            }
+
+            // 6. Ocultar indicador de nube activa para un usuario normal (solo visible para admin)
+            const cloudBadge = document.getElementById('cloud-sync-status');
+            if (cloudBadge) {
+                cloudBadge.style.display = (miId === 'andy') ? 'inline-flex' : 'none';
+            }
+
+            // 7. Cargar nombres configurados
+            cargarNombresPersonalizados();
+
+            // 8. Actualizar selector de identidad
+            if (typeof actualizarSelectorIdentidadUI === 'function') {
+                actualizarSelectorIdentidadUI();
+            }
+        }
+
+        // ==============================================================
+        // --- CHAT ÍNTIMO DE PAREJA (CONEXIÓN Y MENSAJES EN VIVO) ---
+        // ==============================================================
+        let chatMensajes = [];
+
+        function cargarChatPareja() {
+            const guardado = localStorage.getItem('chatMensajesPareja');
+            if (guardado) {
+                try {
+                    chatMensajes = JSON.parse(guardado);
+                } catch(e) {
+                    chatMensajes = [];
+                }
+            } else {
+                chatMensajes = [
+                    {
+                        id: 1,
+                        remitente: 'andy',
+                        nombre: 'Andy',
+                        texto: '¡Bienvenida a nuestro chat privado, amor! Todo lo que hablemos aquí es solo para nosotros dos. ❤️',
+                        fecha: '10:00',
+                        timestamp: Date.now() - 3600000
+                    },
+                    {
+                        id: 2,
+                        remitente: 'jessie',
+                        nombre: 'Jessie',
+                        texto: '¡Me encanta! Es nuestro rincón secreto para dejarnos mensajitos todo el día 🥰✨',
+                        fecha: '10:02',
+                        timestamp: Date.now() - 3500000
+                    }
+                ];
+                localStorage.setItem('chatMensajesPareja', JSON.stringify(chatMensajes));
+            }
+            renderizarChatPareja();
+        }
+
+        function guardarChatPareja() {
+            localStorage.setItem('chatMensajesPareja', JSON.stringify(chatMensajes));
+            renderizarChatPareja();
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                fbDb.ref('chat/mensajes').set(chatMensajes);
+            }
+        }
+
+        function enviarMensajeChat(event) {
+            if (event) event.preventDefault();
+            const input = document.getElementById('chat-input-texto');
+            if (!input || !input.value.trim()) return;
+
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            const miNombre = miId === 'andy' ? (localStorage.getItem('pareja_nombre_andy') || 'Andy') : (localStorage.getItem('pareja_nombre_jessie') || 'Jessie');
+            const texto = input.value.trim();
+
+            const nuevoMsg = {
+                id: Date.now(),
+                remitente: miId,
+                nombre: miNombre,
+                texto: texto,
+                fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                timestamp: Date.now()
+            };
+
+            chatMensajes.push(nuevoMsg);
+            guardarChatPareja();
+            input.value = '';
+            input.focus();
+
+            // Notificación remota en tiempo real
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                fbDb.ref('notificaciones/ultima').set({
+                    autor: miId,
+                    titulo: `💌 Mensaje de ${miNombre}`,
+                    detalle: texto.length > 40 ? texto.substring(0, 40) + '...' : texto,
+                    timestamp: Date.now()
+                });
+            }
+
+            if (typeof reproducirSonido === 'function') {
+                reproducirSonido('click');
+            }
+        }
+
+        function insertarEmojiChat(emoji) {
+            const input = document.getElementById('chat-input-texto');
+            if (!input) return;
+            input.value += emoji + ' ';
+            input.focus();
+        }
+
+        function renderizarChatPareja() {
+            const lista = document.getElementById('chat-mensajes-lista');
+            if (!lista) return;
+
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            const nombreAndy = localStorage.getItem('pareja_nombre_andy') || 'Andy';
+            const nombreJessie = localStorage.getItem('pareja_nombre_jessie') || 'Jessie';
+
+            if (!chatMensajes || chatMensajes.length === 0) {
+                lista.innerHTML = `
+                    <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 40px 10px;">
+                        💌 No hay mensajes aún. ¡Escríbele un lindo mensaje a tu amor!
+                    </div>
+                `;
+                return;
+            }
+
+            lista.innerHTML = chatMensajes.map(msg => {
+                const esMio = (msg.remitente === miId);
+                const claseFila = esMio ? 'propio' : 'pareja';
+                const avatar = msg.remitente === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
+                const autorNombre = msg.remitente === 'andy' ? nombreAndy : nombreJessie;
+
+                return `
+                    <div class="chat-mensaje-fila ${claseFila}">
+                        <img src="${avatar}" class="chat-msg-avatar" alt="${autorNombre}">
+                        <div class="chat-msg-burbuja">
+                            <span class="chat-msg-autor">${autorNombre}</span>
+                            <div class="chat-msg-cuerpo">${msg.texto}</div>
+                            <span class="chat-msg-hora">${msg.fecha || ''}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            setTimeout(() => {
+                lista.scrollTop = lista.scrollHeight;
+            }, 50);
+        }
+
+        function limpiarChatPareja() {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            if (miId !== 'andy') {
+                mostrarToastNotificacion("🔒 Restringido", "Solo el Administrador puede vaciar la conversación.");
+                return;
+            }
+            if (confirm("¿Estás seguro de que deseas vaciar el historial del chat de pareja?")) {
+                chatMensajes = [];
+                guardarChatPareja();
+                mostrarToastNotificacion("🧹 Chat Vaciado", "El historial ha sido reiniciado con éxito.");
+            }
         }
 
         function solicitarPermisoNotificaciones() {
@@ -10582,7 +11306,7 @@ Andy. ❤️</div>
             fbDb.ref('notificaciones/ultima').on('value', (snap) => {
                 const notif = snap.val();
                 if (!notif) return;
-                const miId = obtenerMiIdentidad();
+                const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
                 // Si la notificación es nueva y NO fue emitida por mí, lanzar alerta sonora, toast y nativa
                 if (notif.timestamp > inicioSesionApp && notif.autor !== miId) {
                     const avatar = notif.autor === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
@@ -10591,15 +11315,39 @@ Andy. ❤️</div>
                 }
             });
 
-            // Indicador en la cabecera
+            // 9. Sincronización en tiempo real del Chat Íntimo de Pareja
+            fbDb.ref('chat/mensajes').on('value', (snap) => {
+                const val = snap.val();
+                if (val && Array.isArray(val)) {
+                    chatMensajes = val;
+                    localStorage.setItem('chatMensajesPareja', JSON.stringify(chatMensajes));
+                    if (typeof renderizarChatPareja === 'function') renderizarChatPareja();
+                } else if (chatMensajes && chatMensajes.length > 0 && !val) {
+                    fbDb.ref('chat/mensajes').set(chatMensajes);
+                }
+            });
+
+            // 10. Sincronización de Nombres Personalizados de Pareja
+            fbDb.ref('configuracion/perfiles').on('value', (snap) => {
+                const val = snap.val();
+                if (val) {
+                    if (val.nombreAndy) localStorage.setItem('pareja_nombre_andy', val.nombreAndy);
+                    if (val.nombreJessie) localStorage.setItem('pareja_nombre_jessie', val.nombreJessie);
+                    if (typeof cargarNombresPersonalizados === 'function') cargarNombresPersonalizados();
+                }
+            });
+
+            // Indicador de nube activa en la cabecera (Solo visible para el administrador)
             const cloudBadge = document.getElementById('cloud-sync-status');
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
             if (cloudBadge) {
-                cloudBadge.style.display = 'inline-flex';
+                cloudBadge.style.display = (miId === 'andy') ? 'inline-flex' : 'none';
             }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             verificarEstadoLogin();
+            cargarNombresPersonalizados();
             inicializarAudio();
             actualizarSelectorIdentidadUI();
             actualizarBotonNotificaciones();
@@ -10608,8 +11356,10 @@ Andy. ❤️</div>
             actualizarUIHabitosSalud();
             cargarFinanzas();
             cargarCompras();
+            cargarChatPareja();
             renderizarFinanzas();
             renderizarCompras();
+            verificarCumplemesHoy(); // Verifica automáticamente si hoy es día 20
             inicializarSincronizacionFirebase(); // Inicia la sincronización en vivo con la nube
             limpiarHistorias24h(); // Llama a la limpieza de 24h
             setInterval(actualizarFechasEspeciales, 1000 * 60 * 60); // Actualizar cada hora
@@ -10631,13 +11381,17 @@ Andy. ❤️</div>
                 document.getElementById('cartas-error').style.display = 'none';
             });
 
-            // Apertura automática de bienvenida para la sorpresa del Cumplemes 88
-            const yaVisto88 = sessionStorage.getItem('vistoCumplemes88');
-            if (!yaVisto88) {
-                setTimeout(() => {
-                    mostrarSorpresa88();
-                    sessionStorage.setItem('vistoCumplemes88', 'true');
-                }, 850);
+            // Apertura automática de felicitación ÚNICAMENTE los días 20 de cada mes (Cumplemes)
+            if (new Date().getDate() === 20) {
+                const hoy = new Date();
+                const claveSesionCumplemes = `vistoCumplemes_${hoy.getFullYear()}_${hoy.getMonth()}`;
+                const yaVisto = sessionStorage.getItem(claveSesionCumplemes);
+                if (!yaVisto) {
+                    setTimeout(() => {
+                        mostrarSorpresa88();
+                        sessionStorage.setItem(claveSesionCumplemes, 'true');
+                    }, 850);
+                }
             }
         });
 
