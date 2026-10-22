@@ -5087,17 +5087,21 @@
             <div style="margin-top: 16px; text-align: left;">
                 <label style="font-size: 0.78rem; font-weight: 700; color: #0f172a; margin-bottom: 4px; display: block;">Buscar o pegar canción de YouTube:</label>
                 <div style="display: flex; gap: 6px;">
-                    <input type="text" id="yt-search-input" placeholder="Nombre (ej: Morat) o link de YouTube" style="flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--glass-border); font-size: 0.85rem; font-family: inherit;">
+                    <input type="text" id="yt-search-input" placeholder="Nombre (ej: Morat) o link de YouTube" style="flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--glass-border); font-size: 0.85rem; font-family: inherit;" onkeydown="if(event.key==='Enter') buscarEnYouTube()">
                     <button type="button" onclick="buscarEnYouTube()" style="background: var(--primary); color: white; border: none; border-radius: 8px; padding: 0 14px; font-weight: 700; font-size: 0.85rem; cursor: pointer;">Cargar</button>
                 </div>
-                <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">
+                <div style="font-size: 0.72rem; color: #64748b; margin-top: 5px;">
+                    💡 Escribe un artista romántico o pega cualquier link de YouTube.
+                </div>
+                <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">
                     <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('1oeD2m2UQAI', 'Besos En Guerra', 'Morat & Juanes')">🎵 Morat</button>
-                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('cMskAbzn0LU', 'Perfect (Acoustic)', 'Boyce Avenue')">🎵 Perfect</button>
+                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('Ie9g603_fCY', 'Noviembre Sin Ti', 'Reik')">🎵 Reik</button>
                     <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('sD9_l3oDOag', 'No Hay Nadie Más', 'Sebastián Yatra')">🎵 Yatra</button>
                     <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('2mY7AFTtYwQ', 'Favorito', 'Camilo')">🎵 Camilo</button>
+                    <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('cMskAbzn0LU', 'Perfect (Acoustic)', 'Boyce Avenue')">🎵 Perfect</button>
                     <button type="button" class="btn-sugerencia-musica" onclick="reproducirCancionDirecta('5GroWAOn8h8', 'Melodía Romántica', 'Guitarra')">🎵 Acústico</button>
                 </div>
-                <div id="yt-search-status" style="font-size: 0.7rem; color: #64748b; margin-top: 3px; display: none;">Buscando...</div>
+                <div id="yt-search-status" style="font-size: 0.72rem; color: #ec4899; margin-top: 4px; display: none;"></div>
             </div>
         </div>
     </div>
@@ -6494,6 +6498,22 @@ Andy. ❤️</div>
                 <button type="button" class="story-reaccion-btn" onclick="enviarReaccionHistoria('❤️')" title="Me encanta">❤️</button>
                 <button type="button" class="story-reaccion-btn" onclick="enviarReaccionHistoria('🥰')" title="Enamorad@">🥰</button>
                 <button type="button" class="story-reaccion-btn" onclick="enviarReaccionHistoria('🔥')" title="Fuego">🔥</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE ALERTA Y AVISOS DE PAREJA (REEMPLAZO ELEGANTE DE ALERT NATIVO) -->
+    <div class="modal-overlay" id="modal-alerta-pareja" style="z-index: 10005;" onclick="if(event.target === this) cerrarAlertaPareja()">
+        <div class="modal-content" style="max-width: 380px; text-align: center; border-radius: var(--radius-xl); padding: 24px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.22); border: 1.5px solid rgba(244,114,182,0.3); background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+            <div id="alerta-pareja-icono" style="font-size: 2.5rem; margin-bottom: 8px;">💌</div>
+            <h3 id="alerta-pareja-titulo" style="font-family: 'Playfair Display', serif; font-size: 1.25rem; margin: 0 0 10px 0; color: #1e293b; font-weight: 700;">Aviso de Pareja</h3>
+            <div id="alerta-pareja-mensaje" style="font-size: 0.88rem; color: #475569; line-height: 1.5; margin-bottom: 20px; word-break: break-word;">
+                Mensaje
+            </div>
+            <div id="alerta-pareja-acciones" style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                <button type="button" class="btn btn-primario" onclick="cerrarAlertaPareja()" style="padding: 10px 24px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 14px rgba(236,72,153,0.35);">
+                    Entendido 💕
+                </button>
             </div>
         </div>
     </div>
@@ -8283,14 +8303,67 @@ Andy. ❤️</div>
             if (modal) modal.classList.toggle('active');
         }
 
+        // --- SISTEMA DE ALERTAS Y AVISOS ESTILIZADOS COUPLE360 (SIN CUADROS NATIVOS) ---
+        function mostrarAlertaPareja(mensaje, titulo = "Aviso con Amor ✨", icono = "💌", botonTexto = "Entendido 💕") {
+            const modal = document.getElementById('modal-alerta-pareja');
+            const elTitulo = document.getElementById('alerta-pareja-titulo');
+            const elMensaje = document.getElementById('alerta-pareja-mensaje');
+            const elIcono = document.getElementById('alerta-pareja-icono');
+            const elAcciones = document.getElementById('alerta-pareja-acciones');
+
+            if (!modal) {
+                mostrarToastNotificacion(titulo, mensaje, 'imagenes/icono_pareja.png');
+                return;
+            }
+
+            if (elTitulo) elTitulo.innerText = titulo;
+            if (elMensaje) elMensaje.innerHTML = String(mensaje).replace(/\n/g, '<br>');
+            if (elIcono) elIcono.innerText = icono;
+            if (elAcciones) {
+                elAcciones.innerHTML = `
+                    <button type="button" class="btn btn-primario" onclick="cerrarAlertaPareja()" style="padding: 10px 24px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 14px rgba(236,72,153,0.35);">
+                        ${botonTexto}
+                    </button>
+                `;
+            }
+
+            modal.classList.add('active');
+            if (typeof reproducirSonido === 'function') reproducirSonido('click');
+        }
+
+        function cerrarAlertaPareja() {
+            const modal = document.getElementById('modal-alerta-pareja');
+            if (modal) modal.classList.remove('active');
+        }
+
+        // Reemplazo transparente y universal de window.alert para toda la web app
+        window.alert = function(mensaje) {
+            mostrarAlertaPareja(mensaje, "Aviso de Pareja ✨", "💌");
+        };
+
         const cancionesSugeridas = [
             { query: 'morat', titulo: 'Besos En Guerra', artista: 'Morat & Juanes', videoId: '1oeD2m2UQAI' },
             { query: 'cuando nadie ve', titulo: 'Cuando Nadie Ve', artista: 'Morat', videoId: 'szeA9tvItJY' },
+            { query: 'no se va', titulo: 'No Se Va', artista: 'Morat', videoId: 'hTPh7HkK3W8' },
+            { query: 'aprender a quererte', titulo: 'Aprender A Quererte', artista: 'Morat', videoId: 'b1l0fB9T0b0' },
             { query: 'perfect', titulo: 'Perfect (Acoustic)', artista: 'Boyce Avenue', videoId: 'cMskAbzn0LU' },
+            { query: 'thinking out loud', titulo: 'Thinking Out Loud', artista: 'Ed Sheeran', videoId: 'lp-EO5I60KA' },
+            { query: 'photograph', titulo: 'Photograph', artista: 'Ed Sheeran', videoId: 'nSDgHBxUbVQ' },
             { query: 'yatra', titulo: 'No Hay Nadie Más', artista: 'Sebastián Yatra', videoId: 'sD9_l3oDOag' },
+            { query: 'tacones rojos', titulo: 'Tacones Rojos', artista: 'Sebastián Yatra', videoId: '2b73u-U_L0U' },
+            { query: 'un ano', titulo: 'Un Año', artista: 'Sebastián Yatra & Reik', videoId: 'tK3X8lXo1w0' },
             { query: 'camilo', titulo: 'Favorito', artista: 'Camilo', videoId: '2mY7AFTtYwQ' },
+            { query: 'tutu', titulo: 'Tutu', artista: 'Camilo & Pedro Capó', videoId: 'r5m6p2zV21s' },
+            { query: 'vida de rico', titulo: 'Vida de Rico', artista: 'Camilo', videoId: '0zY7mFj_dC8' },
             { query: 'reik', titulo: 'Noviembre Sin Ti', artista: 'Reik', videoId: 'Ie9g603_fCY' },
-            { query: 'acustico', titulo: 'Melodía Romántica', artista: 'Guitarra Acústica', videoId: '5GroWAOn8h8' }
+            { query: 'ya me entere', titulo: 'Ya Me Enteré', artista: 'Reik', videoId: '7-12O0kQ2j8' },
+            { query: 'creo en ti', titulo: 'Creo en Ti', artista: 'Reik', videoId: 'snFhepslS0E' },
+            { query: 'coldplay', titulo: 'Yellow', artista: 'Coldplay', videoId: 'yKNxeF4KMsY' },
+            { query: 'a sky full of stars', titulo: 'A Sky Full of Stars', artista: 'Coldplay', videoId: 'VPRjCeoBqrI' },
+            { query: 'sin bandera', titulo: 'Entra En Mi Vida', artista: 'Sin Bandera', videoId: '9G_w383_cEY' },
+            { query: 'carlos vives', titulo: 'Volví A Nacer', artista: 'Carlos Vives', videoId: 'h9M8B7L7iC4' },
+            { query: 'acustico', titulo: 'Melodía Romántica', artista: 'Guitarra Acústica', videoId: '5GroWAOn8h8' },
+            { query: 'bachata', titulo: 'La Bachata', artista: 'Manuel Turizo', videoId: 'TiM_TFpT_DE' }
         ];
 
         function reproducirCancionDirecta(videoId, titulo, artista) {
@@ -8313,32 +8386,77 @@ Andy. ❤️</div>
             mostrarToastNotificacion("🎵 " + titulo, "Reproduciendo melodía...", "imagenes/icono_pareja.png");
         }
 
+        function mostrarGuiaYouTube(query) {
+            const modal = document.getElementById('modal-alerta-pareja');
+            const elTitulo = document.getElementById('alerta-pareja-titulo');
+            const elMensaje = document.getElementById('alerta-pareja-mensaje');
+            const elIcono = document.getElementById('alerta-pareja-icono');
+            const elAcciones = document.getElementById('alerta-pareja-acciones');
+
+            if (!modal) {
+                mostrarToastNotificacion("🎵 Música de YouTube", "Pega el link de la canción para escucharla juntos.", "imagenes/icono_pareja.png");
+                return;
+            }
+
+            elIcono.innerText = "🎵";
+            elTitulo.innerText = "Poner canción desde YouTube";
+            const q = query ? `<b>"${query}"</b>` : "cualquier canción que amen";
+            elMensaje.innerHTML = `
+                Para reproducir ${q} en su cofre digital:<br><br>
+                1. Abre el video en YouTube.<br>
+                2. Toca <b>Compartir ➔ Copiar vínculo</b>.<br>
+                3. Pega el link aquí y empezará a sonar de inmediato.<br><br>
+                <span style="font-size: 0.8rem; color: #ec4899; font-weight: 600;">O toca cualquiera de las canciones sugeridas rápidas abajo. 💕</span>
+            `;
+
+            const queryLink = encodeURIComponent(query || "musica romantica");
+            elAcciones.innerHTML = `
+                <a href="https://www.youtube.com/results?search_query=${queryLink}" target="_blank" rel="noopener" class="btn btn-secundario" style="padding: 10px 18px; border-radius: var(--radius-pill); font-size: 0.86rem; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; color: #0f172a; font-weight: 600;">
+                    <span>▶️</span> Abrir YouTube
+                </a>
+                <button type="button" class="btn btn-primario" onclick="cerrarAlertaPareja()" style="padding: 10px 22px; border-radius: var(--radius-pill); font-weight: 700; font-size: 0.86rem; box-shadow: 0 4px 14px rgba(236,72,153,0.35);">
+                    Entendido ✨
+                </button>
+            `;
+
+            modal.classList.add('active');
+            if (typeof reproducirSonido === 'function') reproducirSonido('click');
+        }
+
         function buscarEnYouTube() {
             const input = document.getElementById('yt-search-input');
             if (!input) return;
             const query = input.value.trim();
-            if (!query) return;
+            if (!query) {
+                mostrarToastNotificacion("🎵 Melodías", "Escribe el nombre de un artista o pega un link de YouTube.", "imagenes/icono_pareja.png");
+                return;
+            }
 
             let videoId = query;
-            const urlMatch = query.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+            const urlMatch = query.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|live\/|watch\?.+&v=))([\w-]{11})/i);
             if (urlMatch && urlMatch[1]) {
                 videoId = urlMatch[1];
             }
 
-            if (videoId.length === 11) {
-                reproducirCancionDirecta(videoId, "Canción Personalizada", "YouTube");
+            if (videoId.length === 11 && !videoId.includes(' ')) {
+                reproducirCancionDirecta(videoId, "Canción Especial", "YouTube");
                 input.value = '';
                 return;
             }
 
             const termino = query.toLowerCase();
-            const encontrada = cancionesSugeridas.find(s => s.query.includes(termino) || s.titulo.toLowerCase().includes(termino) || s.artista.toLowerCase().includes(termino) || termino.includes(s.query));
+            const encontrada = cancionesSugeridas.find(s => 
+                s.query.includes(termino) || 
+                s.titulo.toLowerCase().includes(termino) || 
+                s.artista.toLowerCase().includes(termino) || 
+                termino.includes(s.query)
+            );
             
             if (encontrada) {
                 reproducirCancionDirecta(encontrada.videoId, encontrada.titulo, encontrada.artista);
                 input.value = '';
             } else {
-                alert("Para poner cualquier otra canción de YouTube, copia y pega el link del video (ejemplo: https://youtu.be/...).\n\nTambién puedes tocar las canciones sugeridas rápidas abajo.");
+                mostrarGuiaYouTube(query);
             }
         }
 
