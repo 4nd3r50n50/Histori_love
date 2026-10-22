@@ -1,4 +1,4 @@
-const CACHE_NAME = 'historilove-cache-v4.0';
+const CACHE_NAME = 'historilove-cache-v4.1';
 const ASSETS = [
     './',
     './index.html',
@@ -72,6 +72,23 @@ self.addEventListener('fetch', (e) => {
                     return caches.match('./index.html');
                 }
             });
+        })
+    );
+});
+
+// Manejar clic en notificaciones nativas del sistema
+self.addEventListener('notificationclick', (event) => {
+    event.notification.close();
+    event.waitUntil(
+        clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+            for (const client of clientList) {
+                if (client.url && 'focus' in client) {
+                    return client.focus();
+                }
+            }
+            if (clients.openWindow) {
+                return clients.openWindow('./');
+            }
         })
     );
 });

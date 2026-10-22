@@ -3980,6 +3980,137 @@
         .pwa-update-btn:active {
             transform: scale(0.96);
         }
+
+        /* --- NOTIFICACIONES EN VIVO ESTILO COUPLE360 (IN-APP TOASTS) --- */
+        .couple-toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 99999;
+            width: 90%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .couple-toast-item {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(244, 114, 182, 0.35);
+            border-radius: 22px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(244, 114, 182, 0.15);
+            pointer-events: auto;
+            animation: slideDownToast 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .couple-toast-item.ocultando {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.95);
+        }
+        @keyframes slideDownToast {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.92);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .couple-toast-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(244, 114, 182, 0.25);
+            flex-shrink: 0;
+        }
+        .couple-toast-cuerpo {
+            flex: 1;
+            min-width: 0;
+        }
+        .couple-toast-titulo {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 2px;
+            letter-spacing: -0.2px;
+        }
+        .couple-toast-mensaje {
+            font-size: 0.8rem;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .couple-toast-hora {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-left: 6px;
+            flex-shrink: 0;
+        }
+
+        /* Selector de identidad del dispositivo */
+        .selector-identidad-bar {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            padding: 3px;
+            gap: 4px;
+            margin-top: 6px;
+            box-shadow: 0 2px 8px rgba(148, 163, 184, 0.06);
+        }
+        .btn-identidad {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 5px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-identidad.active {
+            background: #ffffff;
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(244, 114, 182, 0.3);
+        }
+        .btn-notif-permiso {
+            background: #fdf2f8;
+            border: 1px solid #fbcfe8;
+            color: #be185d;
+            border-radius: var(--radius-pill);
+            padding: 5px 14px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 2px 6px rgba(244, 114, 182, 0.1);
+        }
+        .btn-notif-permiso:hover {
+            background: #fce7f3;
+            transform: translateY(-1px);
+        }
     </style>
     
     <!-- LIBRERÍAS EXTERNAS -->
@@ -3989,6 +4120,9 @@
     
 </head>
 <body>
+
+    <!-- CONTENEDOR FLOTANTE DE NOTIFICACIONES EN VIVO (TOASTS) -->
+    <div id="couple-toast-container" class="couple-toast-container"></div>
 
     <!-- Canvas para la lluvia de confeti y corazones -->
     <canvas id="canvas-confeti"></canvas>
@@ -4064,9 +4198,24 @@
         <header>
             <h1>Andy & Jessie ❤️</h1>
             <p>Nuestro cofre digital de momentos memorables.</p>
-            <div>
-                <div id="cloud-sync-status" class="badge-cloud-online" style="display: none;" title="Sincronizado en tiempo real con Google Firebase">
-                    <span class="cloud-dot"></span> Sincronizado en la nube
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 6px;">
+                <div style="display: flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 8px;">
+                    <div id="cloud-sync-status" class="badge-cloud-online" style="display: none;" title="Sincronizado en tiempo real con Google Firebase">
+                        <span class="cloud-dot"></span> Sincronizado en la nube
+                    </div>
+                    <button class="btn-notif-permiso" id="btn-activar-notif" onclick="solicitarPermisoNotificaciones()" title="Activar notificaciones en este celular">
+                        🔔 Notificaciones
+                    </button>
+                </div>
+                <!-- Selector de identidad para saber a quién pertenece este teléfono -->
+                <div class="selector-identidad-bar" title="Selecciona quién usa este celular para personalizar las alertas">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); padding-left: 8px; font-weight: 600;">Este celular es de:</span>
+                    <button class="btn-identidad" id="btn-soy-andy" onclick="cambiarMiIdentidad('andy')">
+                        <img src="imagenes/pinguino_avatar_3d.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;"> Andy
+                    </button>
+                    <button class="btn-identidad" id="btn-soy-jessie" onclick="cambiarMiIdentidad('jessie')">
+                        <img src="imagenes/kuromi_avatar_3d.jpg" style="width: 16px; height: 16px; border-radius: 50%; vertical-align: middle;"> Jessie
+                    </button>
                 </div>
             </div>
         </header>
@@ -7336,6 +7485,11 @@ Andy. ❤️</div>
             guardarFinanzas();
             renderizarFinanzas();
 
+            const autorFin = obtenerMiIdentidad();
+            const autorNombreFin = autorFin === 'andy' ? 'Andy' : 'Jessie';
+            const tipoDesc = nuevo.tipo === 'ahorro' ? '🌱 Ahorro' : (nuevo.tipo === 'gasto' ? '🛍️ Gasto' : '💡 Servicio');
+            emitirNotificacionFirebase(autorFin, 'finanzas', `${tipoDesc} (${autorNombreFin})`, `${concepto}: $${parseFloat(monto).toFixed(2)}`);
+
             inputConcepto.value = '';
             inputMonto.value = '';
             if (typeof lanzarConfeti === 'function' && nuevo.tipo === 'ahorro') {
@@ -7516,6 +7670,10 @@ Andy. ❤️</div>
             comprasItems.unshift(nuevoItem);
             guardarCompras();
             renderizarCompras();
+
+            const autorComp = obtenerMiIdentidad();
+            const autorNombreComp = autorComp === 'andy' ? 'Andy' : 'Jessie';
+            emitirNotificacionFirebase(autorComp, 'compras', `🛒 Lista de Compras (${autorNombreComp})`, `Añadió: ${nombre}`);
 
             inputNombre.value = '';
         }
@@ -7749,6 +7907,17 @@ Andy. ❤️</div>
         function toggleReto(retoId) {
             retosCompletados[retoId] = !retosCompletados[retoId];
             localStorage.setItem('retosCompletados', JSON.stringify(retosCompletados));
+            if (fbDb) {
+                try { fbDb.ref('retos').set(retosCompletados); } catch(e) {}
+            }
+
+            if (retosCompletados[retoId]) {
+                const autorMiId = obtenerMiIdentidad();
+                const autorNom = autorMiId === 'andy' ? 'Andy' : 'Jessie';
+                const rObj = retosPredefinidos.find(r => r.id === retoId);
+                const rTitulo = rObj ? rObj.titulo : 'un reto';
+                emitirNotificacionFirebase(autorMiId, 'reto', `🎯 Reto Cumplido (${autorNom})`, `${autorNom} completó: "${rTitulo}"`);
+            }
             
             const total = retosPredefinidos.length;
             const completados = retosPredefinidos.filter(r => retosCompletados[r.id]).length;
@@ -8970,7 +9139,14 @@ Andy. ❤️</div>
             
             cartasGuardadas.push(nuevaCarta);
             localStorage.setItem('cartasSecreta', JSON.stringify(cartasGuardadas));
+            if (fbDb) {
+                try { fbDb.ref('cartas').set(cartasGuardadas); } catch(e) {}
+            }
             renderizarCartas();
+
+            const autorId = autor.toLowerCase().includes('andy') ? 'andy' : 'jessie';
+            const autorNom = autorId === 'andy' ? 'Andy' : 'Jessie';
+            emitirNotificacionFirebase(autorId, 'carta', `💌 Carta Secreta de ${autorNom}`, `¡Hay una nueva carta guardada en el cofre secreto!`);
         }
 
         function renderizarCartas() {
@@ -9061,6 +9237,10 @@ Andy. ❤️</div>
             
             // Lanza confeti para celebrar que subió su estado
             lanzarConfeti();
+
+            const autorKey = autor === 'andy' ? 'andy' : 'jessie';
+            const autorNombre = autorKey === 'andy' ? 'Andy' : 'Jessie';
+            emitirNotificacionFirebase(autorKey, 'historia', `📸 Nueva Historia (${autorNombre})`, `¡${autorNombre} subió un nuevo momento a las historias!`);
         }
 
         function limpiarHistorias24h() {
@@ -9204,6 +9384,8 @@ Andy. ❤️</div>
 
                     if (btn) btn.innerHTML = `<span>${persona === 'andy' ? '🐧' : '😈'}</span> Ubicación actualizada`;
                     actualizarRadarEnMapa();
+                    const nombreRadar = persona === 'andy' ? 'Andy' : 'Jessie';
+                    emitirNotificacionFirebase(persona, 'radar', `📍 Ubicación de ${nombreRadar}`, `${nombreRadar} actualizó su posición en el radar.`);
                 },
                 (err) => {
                     if (btn) btn.innerHTML = `<span>${persona === 'andy' ? '🐧' : '😈'}</span> Actualizar Ubicación de ${nombre}`;
@@ -9272,6 +9454,9 @@ Andy. ❤️</div>
             historialSalud.unshift(nuevoRegistro);
             guardarSalud();
             actualizarUIHabitosSalud();
+
+            const autorSalud = personaSaludActiva === 'andy' ? 'Andy' : 'Jessie';
+            emitirNotificacionFirebase(personaSaludActiva, 'salud', `${icono} ${autorSalud} se cuidó`, detalle);
         }
 
         function actualizarUIHabitosSalud() {
@@ -9402,6 +9587,165 @@ Andy. ❤️</div>
         }
 
         // ==============================================================
+        // --- GESTIÓN DE IDENTIDAD Y SISTEMA DE NOTIFICACIONES ---
+        // ==============================================================
+        function obtenerMiIdentidad() {
+            return localStorage.getItem('miIdentidadPareja') || 'andy';
+        }
+
+        function cambiarMiIdentidad(persona) {
+            localStorage.setItem('miIdentidadPareja', persona);
+            actualizarSelectorIdentidadUI();
+            const nombre = persona === 'andy' ? 'Andy' : 'Jessie';
+            const avatar = persona === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
+            mostrarToastNotificacion(`Configurado como ${nombre}`, `Este celular recibirá alertas cuando ${persona === 'andy' ? 'Jessie' : 'Andy'} registre algo.`, avatar);
+        }
+
+        function actualizarSelectorIdentidadUI() {
+            const miId = obtenerMiIdentidad();
+            const btnA = document.getElementById('btn-soy-andy');
+            const btnJ = document.getElementById('btn-soy-jessie');
+            if (btnA) btnA.classList.toggle('active', miId === 'andy');
+            if (btnJ) btnJ.classList.toggle('active', miId === 'jessie');
+        }
+
+        function solicitarPermisoNotificaciones() {
+            if (!('Notification' in window)) {
+                alert("Este navegador no soporta notificaciones de sistema. ¡Pero las notificaciones flotantes en pantalla están activas!");
+                return;
+            }
+            Notification.requestPermission().then((perm) => {
+                actualizarBotonNotificaciones();
+                if (perm === 'granted') {
+                    mostrarToastNotificacion("🔔 ¡Notificaciones activadas!", "Te avisaremos cuando tu pareja anote algo en su celular.", "imagenes/icono_pareja.png");
+                }
+            });
+        }
+
+        function actualizarBotonNotificaciones() {
+            const btn = document.getElementById('btn-activar-notif');
+            if (!btn) return;
+            if (!('Notification' in window)) {
+                btn.style.display = 'none';
+                return;
+            }
+            if (Notification.permission === 'granted') {
+                btn.innerHTML = '🔔 Notificaciones Activas';
+                btn.style.background = '#f0fdf4';
+                btn.style.borderColor = '#bbf7d0';
+                btn.style.color = '#15803d';
+            } else {
+                btn.innerHTML = '🔔 Activar Notificaciones';
+                btn.style.background = '#fdf2f8';
+                btn.style.borderColor = '#fbcfe8';
+                btn.style.color = '#be185d';
+            }
+        }
+
+        function reproducirCampanaNotificacion() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const ahora = ctx.currentTime;
+
+                [659.25, 830.61].forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, ahora + (idx * 0.12));
+
+                    gain.gain.setValueAtTime(0, ahora + (idx * 0.12));
+                    gain.gain.linearRampToValueAtTime(0.18, ahora + (idx * 0.12) + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ahora + (idx * 0.12) + 0.45);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start(ahora + (idx * 0.12));
+                    osc.stop(ahora + (idx * 0.12) + 0.45);
+                });
+            } catch (e) {}
+        }
+
+        function mostrarToastNotificacion(titulo, mensaje, avatarUrl) {
+            const contenedor = document.getElementById('couple-toast-container');
+            if (!contenedor) return;
+
+            reproducirCampanaNotificacion();
+            if (navigator.vibrate) {
+                try { navigator.vibrate([100, 60, 100]); } catch(e) {}
+            }
+
+            const toast = document.createElement('div');
+            toast.className = 'couple-toast-item';
+            const ahora = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            toast.innerHTML = `
+                <img src="${avatarUrl || 'imagenes/icono_pareja.png'}" class="couple-toast-avatar" alt="Avatar">
+                <div class="couple-toast-cuerpo">
+                    <div class="couple-toast-titulo">${titulo}</div>
+                    <div class="couple-toast-mensaje">${mensaje}</div>
+                </div>
+                <div class="couple-toast-hora">${ahora}</div>
+            `;
+
+            toast.onclick = () => {
+                toast.classList.add('ocultando');
+                setTimeout(() => toast.remove(), 300);
+            };
+
+            contenedor.appendChild(toast);
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.classList.add('ocultando');
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 5500);
+        }
+
+        function lanzarNotificacionNativa(titulo, mensaje, avatarUrl) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                try {
+                    if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+                        navigator.serviceWorker.ready.then((reg) => {
+                            reg.showNotification(titulo, {
+                                body: mensaje,
+                                icon: avatarUrl || 'imagenes/icono_pareja.png',
+                                badge: 'imagenes/icono_pareja.png',
+                                vibrate: [100, 50, 100]
+                            });
+                        });
+                    } else {
+                        new Notification(titulo, {
+                            body: mensaje,
+                            icon: avatarUrl || 'imagenes/icono_pareja.png'
+                        });
+                    }
+                } catch (e) {
+                    console.warn("No se pudo disparar notificación nativa:", e);
+                }
+            }
+        }
+
+        function emitirNotificacionFirebase(autor, tipo, titulo, detalle) {
+            if (!fbDb) return;
+            try {
+                fbDb.ref('notificaciones/ultima').set({
+                    id: Date.now(),
+                    autor: autor,
+                    tipo: tipo,
+                    titulo: titulo,
+                    detalle: detalle,
+                    timestamp: Date.now()
+                });
+            } catch (e) {
+                console.warn("Error emitiendo notificación:", e);
+            }
+        }
+
+        // ==============================================================
         // --- MOTOR DE SINCRONIZACIÓN EN TIEMPO REAL CON FIREBASE ---
         // ==============================================================
         function inicializarSincronizacionFirebase() {
@@ -9477,6 +9821,47 @@ Andy. ❤️</div>
                 }
             });
 
+            // 6. Cartas Secretas del Cofre
+            fbDb.ref('cartas').on('value', (snap) => {
+                const val = snap.val();
+                if (val && Array.isArray(val)) {
+                    cartasGuardadas = val;
+                    localStorage.setItem('cartasSecreta', JSON.stringify(cartasGuardadas));
+                    const cartasCont = document.getElementById('cartas-contenido');
+                    if (cartasCont && cartasCont.style.display !== 'none') {
+                        renderizarCartas();
+                    }
+                } else if (cartasGuardadas && cartasGuardadas.length > 0 && !val) {
+                    fbDb.ref('cartas').set(cartasGuardadas);
+                }
+            });
+
+            // 7. Retos de Amor completados
+            fbDb.ref('retos').on('value', (snap) => {
+                const val = snap.val();
+                if (val && typeof val === 'object') {
+                    retosCompletados = val;
+                    localStorage.setItem('retosCompletados', JSON.stringify(retosCompletados));
+                    renderizarRetos();
+                } else if (retosCompletados && Object.keys(retosCompletados).length > 0 && !val) {
+                    fbDb.ref('retos').set(retosCompletados);
+                }
+            });
+
+            // 8. Escuchar Notificaciones en Tiempo Real desde el otro teléfono
+            let inicioSesionApp = Date.now();
+            fbDb.ref('notificaciones/ultima').on('value', (snap) => {
+                const notif = snap.val();
+                if (!notif) return;
+                const miId = obtenerMiIdentidad();
+                // Si la notificación es nueva y NO fue emitida por mí, lanzar alerta sonora, toast y nativa
+                if (notif.timestamp > inicioSesionApp && notif.autor !== miId) {
+                    const avatar = notif.autor === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
+                    mostrarToastNotificacion(notif.titulo, notif.detalle, avatar);
+                    lanzarNotificacionNativa(notif.titulo, notif.detalle, avatar);
+                }
+            });
+
             // Indicador en la cabecera
             const cloudBadge = document.getElementById('cloud-sync-status');
             if (cloudBadge) {
@@ -9485,6 +9870,8 @@ Andy. ❤️</div>
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            actualizarSelectorIdentidadUI();
+            actualizarBotonNotificaciones();
             actualizarDiarioAmor();
             actualizarFechasEspeciales();
             actualizarUIHabitosSalud();
