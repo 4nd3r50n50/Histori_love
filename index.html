@@ -4750,6 +4750,265 @@
             box-sizing: border-box;
             font-family: inherit;
         }
+
+        /* ==============================================================
+           --- ESTILOS DEL ONBOARDING WIZARD Y STORY-DRIVEN ENGINE ---
+           ============================================================== */
+        .wizard-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #fff5f8 0%, #faf6fd 50%, #f4f7fb 100%);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            overflow-y: auto;
+        }
+        .wizard-card {
+            background: #ffffff;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 30px 24px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(244, 114, 182, 0.16), 0 4px 16px rgba(0,0,0,0.04);
+            text-align: center;
+            position: relative;
+            animation: zoomEntrada 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+        .wizard-progress-bar-wrap {
+            width: 100%;
+            height: 6px;
+            background: #f1f5f9;
+            border-radius: 999px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            position: relative;
+        }
+        .wizard-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            width: 25%;
+            border-radius: 999px;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .wizard-step {
+            display: none;
+            flex-direction: column;
+            animation: fadeIn 0.35s ease;
+            text-align: left;
+        }
+        .wizard-step.active {
+            display: flex;
+        }
+        .wizard-icon-header {
+            font-size: 2.4rem;
+            text-align: center;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .wizard-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-align: center;
+            margin: 0 0 6px 0;
+            line-height: 1.25;
+        }
+        .wizard-subtitle {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+            margin: 0 0 20px 0;
+            line-height: 1.45;
+        }
+        .wizard-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .wizard-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            border: 1.5px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: #0f172a;
+            outline: none;
+            background: #f8fafc;
+            box-sizing: border-box;
+            transition: var(--transition-smooth);
+            margin-bottom: 14px;
+        }
+        .wizard-input:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
+        }
+        .wizard-hint {
+            font-size: 0.74rem;
+            color: #94a3b8;
+            margin-top: -10px;
+            margin-bottom: 14px;
+            line-height: 1.35;
+        }
+
+        /* Editor circular de avatar */
+        .wizard-crop-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0 18px 0;
+        }
+        .wizard-avatar-preview-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3.5px solid var(--primary);
+            box-shadow: 0 8px 24px rgba(244, 114, 182, 0.28);
+            overflow: hidden;
+            position: relative;
+            background: #f1f5f9;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wizard-avatar-preview-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+        .wizard-avatar-badge-btn {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .wizard-scale-slider-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 260px;
+            margin-top: 10px;
+        }
+        .wizard-scale-slider-wrap input[type="range"] {
+            flex: 1;
+            accent-color: var(--primary);
+        }
+
+        /* Área de texto rica para "Nuestra Historia" */
+        .wizard-textarea-story {
+            width: 100%;
+            min-height: 130px;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            border: 1.5px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #1e293b;
+            background: #fffdfd;
+            resize: vertical;
+            outline: none;
+            box-sizing: border-box;
+            transition: var(--transition-smooth);
+        }
+        .wizard-textarea-story:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
+        }
+
+        /* Botones de acción del Wizard */
+        .wizard-nav-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn-wizard-next {
+            flex: 1;
+            padding: 13px 20px;
+            border-radius: var(--radius-pill);
+            border: none;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(244, 114, 182, 0.32);
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-wizard-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(244, 114, 182, 0.42);
+        }
+        .btn-wizard-back {
+            padding: 13px 18px;
+            border-radius: var(--radius-pill);
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .btn-wizard-back:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        /* Badge de análisis inteligente en vivo */
+        .analisis-story-preview {
+            background: linear-gradient(135deg, #fff0f6 0%, #f5f3ff 100%);
+            border: 1px dashed rgba(244, 114, 182, 0.45);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            margin-top: 12px;
+            display: none;
+            text-align: left;
+        }
+        .analisis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ffffff;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #be185d;
+            border: 1px solid rgba(244, 114, 182, 0.25);
+            margin: 2px;
+        }
     </style>
     
     <!-- LIBRERÍAS EXTERNAS -->
@@ -4844,6 +5103,135 @@
             <button type="button" class="login-submit-btn" onclick="procesarLoginPareja()">
                 Entrar a Nuestro Espacio ✨
             </button>
+        </div>
+    </div>
+
+    <!-- ==============================================================
+         --- NUEVO ONBOARDING WIZARD INTELIGENTE (COUPLE360 STORY) ---
+         ============================================================== -->
+    <div id="modal-onboarding-wizard" class="wizard-overlay" style="display: none;">
+        <div class="wizard-card">
+            <!-- Barra de progreso superior -->
+            <div class="wizard-progress-bar-wrap">
+                <div id="wizard-progress-fill" class="wizard-progress-fill"></div>
+            </div>
+
+            <!-- PASO 1: TU IDENTIDAD & APODO DE CARIÑO -->
+            <div id="wizard-step-1" class="wizard-step active">
+                <span class="wizard-icon-header">✨</span>
+                <h2 class="wizard-title">¡Hola! Creemos tu perfil</h2>
+                <p class="wizard-subtitle">Para que tu espacio de pareja se sienta íntimo y único desde el primer instante.</p>
+
+                <label class="wizard-label">¿Cómo te llamas?</label>
+                <input type="text" id="wizard-input-nombre" class="wizard-input" placeholder="Tu nombre o como te gusta que te llamen">
+
+                <label class="wizard-label">¿Cómo le dices con cariño a tu pareja?</label>
+                <input type="text" id="wizard-input-apodo-pareja" class="wizard-input" placeholder="Ej: Mi Amor, Pingu, Flaqui, Bonita...">
+                <div class="wizard-hint">💡 Con este apodo verás sus mensajes, notas y alertas dentro de la app.</div>
+
+                <label class="wizard-label">Tu Fecha de Nacimiento</label>
+                <input type="date" id="wizard-input-nacimiento" class="wizard-input" value="1998-06-20">
+                <div class="wizard-hint">🎂 Calcularemos tu edad exacta y te recordaremos festejar tu cumpleaños.</div>
+
+                <div class="wizard-nav-actions">
+                    <button type="button" class="btn-wizard-next" onclick="siguientePasoWizard(2)">
+                        Continuar ➔
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASO 2: FOTO & ENCUADRE CIRCULAR -->
+            <div id="wizard-step-2" class="wizard-step">
+                <span class="wizard-icon-header">📸</span>
+                <h2 class="wizard-title">Tu Foto de Perfil</h2>
+                <p class="wizard-subtitle">Elige una foto que te guste. Tu pareja la verá al otro lado de la pantalla.</p>
+
+                <div class="wizard-crop-container">
+                    <div class="wizard-avatar-preview-circle" onclick="document.getElementById('wizard-input-foto').click()" title="Cambiar foto">
+                        <img id="wizard-avatar-img-preview" src="imagenes/icono_pareja.png" alt="Avatar">
+                        <div class="wizard-avatar-badge-btn">📷</div>
+                    </div>
+                    <input type="file" id="wizard-input-foto" accept="image/*" style="display: none;" onchange="procesarFotoWizard(this)">
+
+                    <div class="wizard-scale-slider-wrap">
+                        <span style="font-size: 0.8rem;">🔍 Zoom:</span>
+                        <input type="range" id="wizard-avatar-zoom" min="1" max="2.2" step="0.05" value="1" oninput="ajustarZoomAvatarWizard(this.value)">
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <button type="button" class="btn btn-secundario" onclick="document.getElementById('wizard-input-foto').click()" style="padding: 8px 18px; border-radius: var(--radius-pill); font-size: 0.82rem;">
+                        📁 Elegir otra foto del celular
+                    </button>
+                </div>
+
+                <div class="wizard-nav-actions">
+                    <button type="button" class="btn-wizard-back" onclick="siguientePasoWizard(1)">⬅ Atrás</button>
+                    <button type="button" class="btn-wizard-next" onclick="siguientePasoWizard(3)">
+                        Continuar ➔
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASO 3: NUESTRA HISTORIA (ANALIZADOR INTELIGENTE) -->
+            <div id="wizard-step-3" class="wizard-step">
+                <span class="wizard-icon-header">📖</span>
+                <h2 class="wizard-title">¿Cómo se conocieron?</h2>
+                <p class="wizard-subtitle">Escribe los detalles de ese primer encuentro. Entre más detalles nos des, más personalizada será la app.</p>
+
+                <textarea id="wizard-textarea-historia" class="wizard-textarea-story" placeholder="Ej: Un día soleado en un parque yo tomaba un helado y su perro Bobi se escapó y vino hacia mí... le pregunté su nombre y nos pusimos a conversar..." oninput="analizarHistoriaEnVivo(this.value)"></textarea>
+
+                <!-- Vista previa de lo que la app detectó y personalizó -->
+                <div id="wizard-analisis-preview" class="analisis-story-preview">
+                    <div style="font-size: 0.76rem; font-weight: 700; color: #be185d; margin-bottom: 4px;">
+                        ✨ Detalles mágicos detectados para personalizar la app:
+                    </div>
+                    <div id="wizard-analisis-tags"></div>
+                </div>
+
+                <div class="wizard-nav-actions">
+                    <button type="button" class="btn-wizard-back" onclick="siguientePasoWizard(2)">⬅ Atrás</button>
+                    <button type="button" class="btn-wizard-next" onclick="siguientePasoWizard(4)">
+                        Finalizar Historia ✨
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASO 4: VINCULACIÓN CON TU PAREJA -->
+            <div id="wizard-step-4" class="wizard-step">
+                <span class="wizard-icon-header">💍</span>
+                <h2 class="wizard-title">Conectar con tu Pareja</h2>
+                <p class="wizard-subtitle">Para que este espacio sea compartido en tiempo real entre los dos celulares.</p>
+
+                <!-- Si es el primero: compartir código -->
+                <div style="background: #fdf2f8; border: 1.5px dashed #f472b6; border-radius: var(--radius-lg); padding: 16px; margin-bottom: 14px; text-align: center;">
+                    <div style="font-size: 0.78rem; font-weight: 700; color: #be185d; text-transform: uppercase;">Tu Código Único de Pareja:</div>
+                    <div id="wizard-codigo-generado" style="font-size: 1.8rem; font-weight: 800; color: #db2777; letter-spacing: 3px; margin: 8px 0;">LOVE-XXXX</div>
+                    <button type="button" class="btn btn-primario" onclick="compartirCodigoPorWhatsApp()" style="width: 100%; padding: 10px; font-size: 0.88rem; border-radius: var(--radius-pill); display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span>📲</span> Enviar Invitación por WhatsApp
+                    </button>
+                </div>
+
+                <!-- Si su pareja ya le dio código -->
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 14px; text-align: left;">
+                    <label style="font-size: 0.78rem; font-weight: 700; color: #334155; display: block; margin-bottom: 6px;">
+                        ¿Tu pareja ya te pasó un código? Escríbelo aquí:
+                    </label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="wizard-input-codigo-ingreso" placeholder="Ej: LOVE-1234" style="flex: 1; padding: 10px 12px; border-radius: var(--radius-md); border: 1.5px solid #cbd5e1; font-family: monospace; font-size: 0.95rem; font-weight: 700; text-transform: uppercase;">
+                        <button type="button" class="btn btn-primario" onclick="unirmeDesdeWizard()" style="padding: 0 16px; font-size: 0.85rem; border-radius: var(--radius-md);">
+                            Vincular
+                        </button>
+                    </div>
+                </div>
+
+                <div class="wizard-nav-actions" style="margin-top: 16px;">
+                    <button type="button" class="btn-wizard-back" onclick="siguientePasoWizard(3)">⬅ Atrás</button>
+                    <button type="button" class="btn-wizard-next" onclick="finalizarOnboardingCompleto()">
+                        ¡Entrar a la App! 💕
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -10880,6 +11268,11 @@ Andy. ❤️</div>
             if (recordado || enSesion) {
                 loginEl.style.display = 'none';
                 aplicarLogicaPersonalYCompartida();
+                
+                // Si la sesión está activa pero aún no completó el onboarding guiado
+                if (localStorage.getItem('onboarding_completado') !== 'true') {
+                    abrirModalOnboardingWizard();
+                }
             } else {
                 loginEl.style.display = 'flex';
                 const actual = obtenerMiIdentidad();
@@ -11051,6 +11444,13 @@ Andy. ❤️</div>
             mostrarToastNotificacion(`¡Hola, ${nombreBienvenida}! ✨`, `Entraste a tu perfil en Nuestro Espacio`, avatarToast);
             lanzarConfeti();
 
+            // Si es la primera vez o aún no ha completado el Onboarding Guiado, abrir el Wizard Inteligente
+            if (localStorage.getItem('onboarding_completado') !== 'true') {
+                setTimeout(() => {
+                    abrirModalOnboardingWizard();
+                }, 400);
+            }
+
             // Si hay base de datos Firebase, sincronizar en segundo plano sin bloquear la pantalla
             if (fbDb) {
                 fbDb.ref(`usuarios_vinculados/${user.uid}`).once('value', (snap) => {
@@ -11128,6 +11528,321 @@ Andy. ❤️</div>
             } else {
                 establecerCodigoParejaActiva(codigo, true);
                 cerrarModalVinculacion();
+            }
+        }
+
+        // ==============================================================
+        // --- CONTROLADOR ONBOARDING WIZARD INTELIGENTE (COUPLE360) ---
+        // ==============================================================
+        let wizardPasoActual = 1;
+        let wizardFotoDataUrl = null;
+        let wizardZoomActual = 1;
+        let wizardAnalisisResultado = null;
+
+        function abrirModalOnboardingWizard() {
+            const modal = document.getElementById('modal-onboarding-wizard');
+            if (!modal) return;
+
+            // Inicializar datos si ya hay de Google/Apple
+            const nombreGoogle = localStorage.getItem('google_user_name') || '';
+            const fotoGoogle = localStorage.getItem('google_user_photo') || '';
+            const inputNom = document.getElementById('wizard-input-nombre');
+            const previewImg = document.getElementById('wizard-avatar-img-preview');
+
+            if (inputNom && !inputNom.value && nombreGoogle) {
+                inputNom.value = nombreGoogle.split(' ')[0];
+            }
+            if (previewImg && fotoGoogle) {
+                previewImg.src = fotoGoogle;
+                wizardFotoDataUrl = fotoGoogle;
+            }
+
+            // Generar o recuperar código de pareja en Paso 4
+            let miCodigo = localStorage.getItem('codigo_pareja_activo');
+            if (!miCodigo || miCodigo === 'jya_oficial') {
+                const rand = Math.floor(1000 + Math.random() * 9000);
+                miCodigo = `LOVE-${rand}`;
+                localStorage.setItem('wizard_mi_codigo_temporal', miCodigo);
+            }
+            const elCod = document.getElementById('wizard-codigo-generado');
+            if (elCod) elCod.textContent = miCodigo;
+
+            siguientePasoWizard(1);
+            modal.style.display = 'flex';
+        }
+
+        function cerrarModalOnboardingWizard() {
+            const modal = document.getElementById('modal-onboarding-wizard');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function siguientePasoWizard(nuevoPaso) {
+            // Validaciones previas por paso
+            if (nuevoPaso === 2 && wizardPasoActual === 1) {
+                const nom = (document.getElementById('wizard-input-nombre')?.value || '').trim();
+                const apodo = (document.getElementById('wizard-input-apodo-pareja')?.value || '').trim();
+                if (!nom) {
+                    mostrarAlertaPareja("Por favor dinos tu nombre para personalizar tu perfil.", "Tu Nombre ✨", "✍️");
+                    return;
+                }
+                if (!apodo) {
+                    mostrarAlertaPareja("¿Cómo le dices con cariño a tu pareja? (Ej: Mi Amor, Pingu, Flaqui...)", "Apodo con Cariño 💕", "💌");
+                    return;
+                }
+            }
+
+            wizardPasoActual = nuevoPaso;
+
+            // Ocultar todos los pasos y mostrar el activo
+            for (let i = 1; i <= 4; i++) {
+                const stepEl = document.getElementById(`wizard-step-${i}`);
+                if (stepEl) {
+                    if (i === nuevoPaso) {
+                        stepEl.classList.add('active');
+                    } else {
+                        stepEl.classList.remove('active');
+                    }
+                }
+            }
+
+            // Animar barra de progreso (25%, 50%, 75%, 100%)
+            const bar = document.getElementById('wizard-progress-fill');
+            if (bar) {
+                const pct = (nuevoPaso / 4) * 100;
+                bar.style.width = `${pct}%`;
+            }
+        }
+
+        function procesarFotoWizard(input) {
+            if (!input || !input.files || !input.files[0]) return;
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                wizardFotoDataUrl = e.target.result;
+                const img = document.getElementById('wizard-avatar-img-preview');
+                if (img) {
+                    img.src = wizardFotoDataUrl;
+                    img.style.transform = `scale(${wizardZoomActual})`;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function ajustarZoomAvatarWizard(zoomVal) {
+            wizardZoomActual = parseFloat(zoomVal) || 1;
+            const img = document.getElementById('wizard-avatar-img-preview');
+            if (img) {
+                img.style.transform = `scale(${wizardZoomActual})`;
+            }
+        }
+
+        function analizarHistoriaEnVivo(texto) {
+            const previewWrap = document.getElementById('wizard-analisis-preview');
+            const tagsWrap = document.getElementById('wizard-analisis-tags');
+            if (!tagsWrap || !previewWrap) return;
+
+            const t = (texto || '').toLowerCase();
+            const tags = [];
+            const sugerencias = [];
+
+            // 1. Detección de Lugares
+            if (t.includes('parque')) {
+                tags.push({ label: '📍 Parque inolvidable', icon: '🌳' });
+                sugerencias.push('¿Volvemos a dar una vuelta por el parque donde empezó todo? 🌳');
+            }
+            if (t.includes('universidad') || t.includes('facultad') || t.includes('colegio') || t.includes('clase') || t.includes('estudio')) {
+                tags.push({ label: '🎓 Época de estudio', icon: '📚' });
+                sugerencias.push('¿Te acuerdas cuando nos veíamos en clases? Qué lindo fue conocerte ahí 📚');
+            }
+            if (t.includes('cafe') || t.includes('café') || t.includes('cafeteria')) {
+                tags.push({ label: '☕ Cita con café', icon: '☕' });
+                sugerencias.push('Invítame un café como en los viejos tiempos ☕✨');
+            }
+            if (t.includes('cine') || t.includes('pelicula') || t.includes('película')) {
+                tags.push({ label: '🎬 Salida al cine', icon: '🍿' });
+                sugerencias.push('¿Qué peli vemos hoy abrazaditos? 🍿🎬');
+            }
+            if (t.includes('viaje') || t.includes('playa') || t.includes('montaña')) {
+                tags.push({ label: '✈️ Aventuras y viajes', icon: '🎒' });
+                sugerencias.push('Ya nos toca planear nuestra próxima escapada juntos 🗺️');
+            }
+
+            // 2. Detección de Mascotas
+            if (t.includes('perro') || t.includes('perrita') || t.includes('perrito') || t.includes('cachorro') || t.includes('mascota')) {
+                // Intentar captar nombre si existe (ej. perro Bobi)
+                const matchPerro = texto.match(/(?:perro|perrito|mascota)\s+([A-ZÁÉÍÓÚ][a-záéíóú]+)/);
+                const nombrePerro = matchPerro ? matchPerro[1] : 'la mascota';
+                tags.push({ label: `🐶 Cómplice de 4 patas (${nombrePerro})`, icon: '🐾' });
+                sugerencias.push(`¿Cómo está ${nombrePerro}? Dale un apapacho de mi parte 🐾`);
+            }
+            if (t.includes('gato') || t.includes('gatito') || t.includes('gatita') || t.includes('michi')) {
+                tags.push({ label: '🐱 Michi del destino', icon: '🐾' });
+                sugerencias.push('Tu michi también es parte de nuestra historia 🐱');
+            }
+
+            // 3. Detección de Comida / Momentos
+            if (t.includes('helado') || t.includes('heladería') || t.includes('dulce')) {
+                tags.push({ label: '🍦 Dulzura compartida', icon: '🍧' });
+                sugerencias.push('Hoy se me antojó un helado contigo como ese primer día 🍦');
+            }
+            if (t.includes('pizza') || t.includes('hamburguesa') || t.includes('cena')) {
+                tags.push({ label: '🍕 Cenas y antojitos', icon: '🍽️' });
+                sugerencias.push('¿Qué cenamos hoy juntos, amor? 🍕😋');
+            }
+
+            // 4. Clima y Emociones
+            if (t.includes('lluvia') || t.includes('llovía') || t.includes('frio') || t.includes('frío')) {
+                tags.push({ label: '🌧️ Días de lluvia y abrazos', icon: '☔' });
+            }
+            if (t.includes('sol') || t.includes('soleado') || t.includes('atardecer')) {
+                tags.push({ label: '☀️ Días llenos de sol', icon: '🌅' });
+            }
+            if (t.includes('mirada') || t.includes('sonrisa') || t.includes('ojos')) {
+                tags.push({ label: '👀 Amor a primera vista', icon: '✨' });
+            }
+
+            // Si el texto es breve o no tiene palabras clave específicas, fallback enriquecido y seguro
+            if (tags.length === 0 && texto.trim().length > 10) {
+                tags.push({ label: '💫 Nuestro destino único', icon: '❤️' });
+                tags.push({ label: '✨ Conexión auténtica', icon: '🥰' });
+                sugerencias.push('Recordé cómo empezó todo y me volví a enamorar de ti ❤️');
+            }
+
+            // Guardar en variable global para persistir al finalizar
+            wizardAnalisisResultado = {
+                historiaOriginal: texto.trim(),
+                tags: tags,
+                sugerencias: sugerencias,
+                timestamp: Date.now()
+            };
+
+            // Renderizar etiquetas dinámicas
+            if (tags.length > 0) {
+                previewWrap.style.display = 'block';
+                tagsWrap.innerHTML = tags.map(tag => `
+                    <span class="analisis-tag-pill">${tag.icon} ${tag.label}</span>
+                `).join('');
+            } else {
+                previewWrap.style.display = 'none';
+            }
+        }
+
+        function compartirCodigoPorWhatsApp() {
+            const elCod = document.getElementById('wizard-codigo-generado');
+            const codigo = elCod ? elCod.textContent.trim() : (localStorage.getItem('codigo_pareja_activo') || 'LOVE-2026');
+            const miNombre = (document.getElementById('wizard-input-nombre')?.value || '').trim() || 'Tu Pareja';
+            const apodo = (document.getElementById('wizard-input-apodo-pareja')?.value || '').trim() || 'Mi Amor';
+
+            const urlApp = window.location.href.split('?')[0].split('#')[0];
+            const mensaje = encodeURIComponent(
+                `¡Hola, ${apodo}! 💕\n\n` +
+                `${miNombre} te ha invitado a su espacio privado en Nuestro Espacio de Amor.\n\n` +
+                `1. Entra a este enlace: ${urlApp}\n` +
+                `2. En el inicio, usa nuestro código de pareja:\n` +
+                `👉 *${codigo}*\n\n` +
+                `¡Aquí compartiremos recuerdos, mensajitos secretos y nuestras metas juntos! ✨`
+            );
+
+            window.open(`https://api.whatsapp.com/send?text=${mensaje}`, '_blank');
+        }
+
+        function unirmeDesdeWizard() {
+            const input = document.getElementById('wizard-input-codigo-ingreso');
+            if (!input || !input.value.trim()) {
+                mostrarAlertaPareja("Por favor ingresa el código que te envió tu pareja.", "Ingresa el código", "💌");
+                return;
+            }
+            const codigo = input.value.trim().toUpperCase();
+            establecerCodigoParejaActiva(codigo, true);
+            mostrarToastNotificacion("¡Código Aplicado! 💍", `Conectado al espacio ${codigo}`);
+            finalizarOnboardingCompleto();
+        }
+
+        function finalizarOnboardingCompleto() {
+            const nom = (document.getElementById('wizard-input-nombre')?.value || '').trim() || 'Mi Amor';
+            const apodo = (document.getElementById('wizard-input-apodo-pareja')?.value || '').trim() || 'Cariño';
+            const fNac = document.getElementById('wizard-input-nacimiento')?.value || '1998-06-20';
+
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : (localStorage.getItem('mi_identidad_pareja') || 'andy');
+
+            // 1. Guardar nombres y apodo inverso
+            if (miId === 'andy') {
+                localStorage.setItem('pareja_nombre_andy', nom);
+                localStorage.setItem('pareja_nombre_jessie', apodo);
+            } else {
+                localStorage.setItem('pareja_nombre_jessie', nom);
+                localStorage.setItem('pareja_nombre_andy', apodo);
+            }
+
+            // 2. Guardar avatar y zoom si fue editado
+            const keyPerfil = miId === 'andy' ? 'perfilAndy' : 'perfilJessie';
+            let perfilActual = JSON.parse(localStorage.getItem(keyPerfil)) || {};
+            perfilActual.nombre = nom;
+            perfilActual.fechaNacimiento = fNac;
+            if (wizardFotoDataUrl) {
+                perfilActual.avatar = wizardFotoDataUrl;
+                perfilActual.avatarZoom = wizardZoomActual;
+            }
+            localStorage.setItem(keyPerfil, JSON.stringify(perfilActual));
+
+            // 3. Guardar historia analizada y sugerencias
+            if (wizardAnalisisResultado) {
+                localStorage.setItem('historia_analizada', JSON.stringify(wizardAnalisisResultado));
+                inyectarSugerenciasHistoriaEnChat();
+            }
+
+            // 4. Establecer código de pareja activo
+            const elCod = document.getElementById('wizard-codigo-generado');
+            const codGenerado = elCod ? elCod.textContent.trim() : `LOVE-${Math.floor(1000 + Math.random() * 9000)}`;
+            if (!localStorage.getItem('codigo_pareja_activo')) {
+                establecerCodigoParejaActiva(codGenerado, false);
+            }
+
+            // 5. Marcar onboarding como completado
+            localStorage.setItem('onboarding_completado', 'true');
+            localStorage.setItem('sesionIniciadaPareja', 'true');
+
+            // Cerrar wizard y activar vista
+            cerrarModalOnboardingWizard();
+            cargarPerfiles();
+            cargarNombresPersonalizados();
+            aplicarLogicaPersonalYCompartida();
+
+            // Mensaje de éxito con confeti
+            mostrarToastNotificacion(`¡Bienvenido(a), ${nom}! ✨`, `Tu espacio con ${apodo} está listo`, wizardFotoDataUrl || 'imagenes/icono_pareja.png');
+            lanzarConfeti();
+        }
+
+        function inyectarSugerenciasHistoriaEnChat() {
+            const raw = localStorage.getItem('historia_analizada');
+            if (!raw) return;
+            try {
+                const data = JSON.parse(raw);
+                if (data.sugerencias && data.sugerencias.length > 0) {
+                    const barraEmojis = document.querySelector('.chat-emojis-rapidos');
+                    if (barraEmojis) {
+                        // Evitar duplicar si ya existe
+                        const yaExiste = barraEmojis.querySelector('.btn-sug-historia');
+                        if (!yaExiste) {
+                            const btnSug = document.createElement('button');
+                            btnSug.type = 'button';
+                            btnSug.className = 'btn-sug-historia';
+                            btnSug.style.cssText = 'background: #fdf2f8; border: 1px solid #f472b6; border-radius: var(--radius-pill); font-size: 0.76rem; font-weight: 700; color: #be185d; padding: 3px 10px; cursor: pointer; white-space: nowrap; margin-left: 4px;';
+                            btnSug.innerHTML = `✨ Recordar ${data.tags && data.tags[0] ? data.tags[0].label : 'nuestra historia'}`;
+                            btnSug.onclick = function() {
+                                const inputChat = document.getElementById('chat-input-texto');
+                                if (inputChat) {
+                                    const randSug = data.sugerencias[Math.floor(Math.random() * data.sugerencias.length)];
+                                    inputChat.value = randSug;
+                                    inputChat.focus();
+                                }
+                            };
+                            barraEmojis.appendChild(btnSug);
+                        }
+                    }
+                }
+            } catch(e) {
+                console.warn("Aviso al inyectar sugerencias de historia:", e);
             }
         }
 
@@ -11315,6 +12030,9 @@ Andy. ❤️</div>
                 localStorage.setItem('chatMensajesPareja', JSON.stringify(chatMensajes));
             }
             renderizarChatPareja();
+            if (typeof inyectarSugerenciasHistoriaEnChat === 'function') {
+                inyectarSugerenciasHistoriaEnChat();
+            }
         }
 
         function guardarChatPareja() {
