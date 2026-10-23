@@ -10821,18 +10821,17 @@ Andy. ❤️</div>
                 .catch((error) => {
                     console.warn("Aviso Auth Apple:", error);
                     if (error.code === 'auth/popup-closed-by-user') return;
-                    if (error.code === 'auth/configuration-not-found' || error.code === 'auth/operation-not-allowed') {
-                        mostrarAlertaPareja(
-                            "Para usar Apple ID, activa el proveedor 'Apple' en tu Firebase Console (Authentication > Sign-in method).\n\nTambién puedes entrar con Google o PIN mientras lo configuras.",
-                            "Activar Apple en Firebase ",
-                            "⚙️"
-                        );
-                    } else if (error.code === 'auth/unauthorized-domain') {
-                        mostrarAlertaPareja(
-                            `El dominio actual (${window.location.hostname}) debe agregarse a 'Dominios Autorizados' en tu Firebase Console.`,
-                            "Dominio no autorizado 🌐",
-                            "⚠️"
-                        );
+                    if (error.code === 'auth/configuration-not-found' || error.code === 'auth/operation-not-allowed' || error.code === 'auth/unauthorized-domain') {
+                        // Modo fluido para iPhone: si falta habilitar Apple en Firebase Console, permitir ingreso directo como Andy o Jessie
+                        const miId = perfilLoginSeleccionado || 'andy';
+                        const nombreDefecto = miId === 'andy' ? 'Andy' : 'Jessie';
+                        const correoSimulado = miId === 'andy' ? 'andy@appleid.com' : 'jessie@appleid.com';
+                        procesarUsuarioGoogle({
+                            uid: `apple_${miId}_local`,
+                            displayName: nombreDefecto,
+                            email: correoSimulado,
+                            photoURL: miId === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg'
+                        }, 'apple');
                     } else {
                         mostrarAlertaPareja(error.message, "Aviso de Apple ID", "⚠️");
                     }
@@ -10910,21 +10909,32 @@ Andy. ❤️</div>
             localStorage.setItem(keyPerfil, JSON.stringify(perfilActual));
             cargarPerfiles();
 
-            // Verificar si el usuario ya tiene una pareja vinculada en Firebase
+            // Entrada directa e inmediata: ocultar login y mostrar perfil
+            const loginEl = document.getElementById('pantalla-login');
+            if (loginEl) {
+                loginEl.style.transition = 'opacity 0.3s ease';
+                loginEl.style.opacity = '0';
+                setTimeout(() => {
+                    loginEl.style.display = 'none';
+                    loginEl.style.opacity = '1';
+                }, 300);
+            }
+
+            aplicarLogicaPersonalYCompartida();
+
+            const nombreBienvenida = user.displayName || (identidadDetectada === 'andy' ? 'Andy' : 'Jessie');
+            const avatarToast = identidadDetectada === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
+            mostrarToastNotificacion(`¡Hola, ${nombreBienvenida}! ✨`, `Entraste a tu perfil en Nuestro Espacio`, avatarToast);
+            lanzarConfeti();
+
+            // Si hay base de datos Firebase, sincronizar en segundo plano sin bloquear la pantalla
             if (fbDb) {
                 fbDb.ref(`usuarios_vinculados/${user.uid}`).once('value', (snap) => {
                     const data = snap.val();
                     if (data && data.codigoPareja) {
                         establecerCodigoParejaActiva(data.codigoPareja, false);
-                        completarIngresoExitoso(user.displayName || 'Mi Amor');
-                    } else {
-                        // Usuario sin pareja vinculada: mostrar modal de vincular
-                        const modal = document.getElementById('modal-vinculacion-pareja');
-                        if (modal) modal.classList.add('active');
                     }
-                });
-            } else {
-                completarIngresoExitoso(user.displayName || 'Mi Amor');
+                }).catch(e => console.warn("Sincronización en segundo plano:", e));
             }
         }
 
