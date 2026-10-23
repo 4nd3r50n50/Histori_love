@@ -4638,21 +4638,22 @@
         }
         .chat-emojis-rapidos button:hover { transform: scale(1.15); }
         .chat-input-bar {
-            padding: 10px 14px;
+            padding: 8px 12px;
             background: white;
             border-top: 1px solid var(--glass-border);
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
+            position: relative;
         }
         .chat-input {
             flex: 1;
-            padding: 10px 16px;
+            padding: 9px 14px;
             border-radius: var(--radius-pill);
             border: 1px solid var(--glass-border);
             background: #f8fafc;
             outline: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-family: inherit;
             color: var(--text-dark);
             transition: var(--transition-smooth);
@@ -4662,22 +4663,333 @@
             background: white;
             box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.15);
         }
+        .btn-chat-accion {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: none;
+            background: #f1f5f9;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .btn-chat-accion:hover {
+            background: #fdf2f8;
+            color: var(--primary);
+            transform: scale(1.08);
+        }
+        .btn-chat-accion.grabando {
+            background: #ef4444 !important;
+            color: white !important;
+            animation: pulseRecord 1s infinite alternate;
+        }
+        @keyframes pulseRecord {
+            from { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); transform: scale(1); }
+            to { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); transform: scale(1.1); }
+        }
         .btn-chat-enviar {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
             color: white;
             border: none;
-            padding: 10px 18px;
-            border-radius: var(--radius-pill);
-            font-weight: 700;
-            font-size: 0.88rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 1rem;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
             transition: var(--transition-smooth);
-            box-shadow: 0 4px 10px rgba(244, 114, 182, 0.3);
+            box-shadow: 0 3px 10px rgba(244, 114, 182, 0.35);
+            flex-shrink: 0;
         }
-        .btn-chat-enviar:hover { transform: translateY(-1px); }
+        .btn-chat-enviar:hover { transform: scale(1.08); }
+
+        /* Grabación de Audio UI */
+        .chat-grabando-bar {
+            display: none;
+            flex: 1;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 10px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-pill);
+            color: #b91c1c;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .chat-grabando-onda {
+            width: 10px;
+            height: 10px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: blinkWave 0.8s infinite;
+        }
+        @keyframes blinkWave {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(0.7); }
+        }
+
+        /* Vistos de Mensajes (Checkmarks) */
+        .chat-msg-status {
+            font-size: 0.72rem;
+            margin-left: 4px;
+            letter-spacing: -2px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .chat-msg-status.enviado { color: rgba(255,255,255,0.7); }
+        .chat-msg-status.leido { color: #38bdf8; font-weight: 800; text-shadow: 0 0 3px rgba(56, 189, 248, 0.5); }
+
+        /* Mensajes Multimedia (Fotos / Videos) */
+        .chat-media-img {
+            max-width: 220px;
+            max-height: 240px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            display: block;
+            margin: 4px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            transition: transform 0.2s;
+        }
+        .chat-media-img:hover { transform: scale(1.02); }
+        .chat-media-video {
+            max-width: 220px;
+            max-height: 240px;
+            border-radius: 12px;
+            outline: none;
+            margin: 4px 0;
+        }
+
+        /* Mensaje de Audio de Voz */
+        .chat-audio-player {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 2px;
+            min-width: 180px;
+        }
+        .btn-play-audio {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #be185d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+        .chat-mensaje-fila.propio .btn-play-audio {
+            background: white;
+            color: var(--primary);
+        }
+        .chat-audio-wave {
+            flex: 1;
+            height: 4px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chat-mensaje-fila.propio .chat-audio-wave { background: rgba(255,255,255,0.3); }
+        .chat-audio-progress {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            transition: width 0.1s linear;
+        }
+        .chat-mensaje-fila.propio .chat-audio-progress { background: white; }
+
+        /* Vista de Una Sola Vez (Estilo WhatsApp) */
+        .chat-once-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 14px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            border: 1px dashed rgba(255,255,255,0.6);
+            user-select: none;
+            transition: all 0.2s;
+        }
+        .chat-mensaje-fila.pareja .chat-once-card {
+            background: #fdf2f8;
+            border-color: #f472b6;
+            color: #be185d;
+        }
+        .chat-once-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px dashed currentColor;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+        .chat-once-card.abierto {
+            opacity: 0.65;
+            cursor: default;
+            text-decoration: line-through;
+        }
+
+        /* Reacciones flotantes a mensajes */
+        .chat-reacciones-bar {
+            position: absolute;
+            bottom: -8px;
+            right: 10px;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 1px 5px;
+            display: inline-flex;
+            gap: 2px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            font-size: 0.8rem;
+            cursor: pointer;
+            z-index: 5;
+            animation: bounceIn 0.2s ease;
+        }
+        .chat-reaction-picker {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 4px);
+            right: 0;
+            background: white;
+            border-radius: 24px;
+            padding: 4px 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            border: 1px solid rgba(0,0,0,0.06);
+            gap: 6px;
+            z-index: 20;
+            animation: fadeIn 0.15s ease;
+        }
+        .chat-reaction-picker span {
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: transform 0.15s;
+            display: inline-block;
+        }
+        .chat-reaction-picker span:hover { transform: scale(1.3); }
+
+        /* Selector de fondo y estado en cabecera */
+        .chat-online-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            display: inline-block;
+            margin-right: 4px;
+            box-shadow: 0 0 6px #10b981;
+        }
+        .chat-online-indicator.escribiendo {
+            background: #f59e0b;
+            box-shadow: 0 0 6px #f59e0b;
+            animation: pulseRecord 0.8s infinite alternate;
+        }
+        .btn-fondo-chat {
+            background: transparent;
+            border: none;
+            font-size: 1.15rem;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 6px;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .btn-fondo-chat:hover { background: #fdf2f8; color: var(--primary); }
+
+        /* Modal para cambiar fondo de chat */
+        .modal-chat-fondo {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal-chat-fondo-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 360px;
+            padding: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .fondo-opciones-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 14px 0;
+        }
+        .fondo-opcion-item {
+            height: 60px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.15s, border-color 0.15s;
+            background-size: cover;
+            background-position: center;
+        }
+        .fondo-opcion-item:hover, .fondo-opcion-item.selected {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* Visor de Multimedia Efímera a Pantalla Completa */
+        .modal-visor-efimero {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #000000;
+            z-index: 20000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .visor-efimero-header {
+            position: absolute;
+            top: 14px;
+            left: 0;
+            width: 100%;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+        .visor-efimero-content {
+            max-width: 95%;
+            max-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .visor-efimero-content img, .visor-efimero-content video {
+            max-width: 100%;
+            max-height: 82vh;
+            border-radius: 8px;
+            object-fit: contain;
+        }
 
         /* Barra de reacción e interacción en visor de historias */
         .story-interaccion-bar {
@@ -5883,7 +6195,7 @@ Andy. ❤️</div>
 
         <!-- PESTAÑA: CHAT ÍNTIMO DE PAREJA -->
         <div id="tab-chat" class="tab-content">
-            <div class="chat-pareja-card">
+            <div class="chat-pareja-card" id="chat-pareja-card-elem">
                 <div class="chat-pareja-header">
                     <div class="chat-pareja-info">
                         <div class="chat-header-avatars">
@@ -5892,10 +6204,15 @@ Andy. ❤️</div>
                         </div>
                         <div>
                             <h3 class="chat-titulo-nombre" id="chat-cabecera-nombre">Nuestro Chat Íntimo</h3>
-                            <span class="chat-subtitulo-estado" id="chat-cabecera-estado">Conectados en tiempo real ❤️</span>
+                            <span class="chat-subtitulo-estado" id="chat-cabecera-estado">
+                                <span class="chat-online-indicator"></span> En línea
+                            </span>
                         </div>
                     </div>
-                    <button type="button" class="btn-limpiar-chat" onclick="limpiarChatPareja()" title="Vaciar conversación (Solo administrador)">🧹</button>
+                    <div style="display: flex; gap: 4px; align-items: center;">
+                        <button type="button" class="btn-fondo-chat" onclick="abrirModalFondoChat()" title="Personalizar fondo del chat">🎨</button>
+                        <button type="button" class="btn-limpiar-chat" onclick="limpiarChatPareja()" title="Vaciar conversación (Solo administrador)">🧹</button>
+                    </div>
                 </div>
 
                 <!-- Lista de Mensajes -->
@@ -5915,13 +6232,90 @@ Andy. ❤️</div>
                     <button type="button" onclick="insertarEmojiChat('Te amo mucho ❤️')">💌 Te amo</button>
                 </div>
 
-                <!-- Input del Chat -->
+                <!-- Input del Chat y Acciones Multimedia -->
                 <form class="chat-input-bar" id="chat-form" onsubmit="enviarMensajeChat(event)">
-                    <input type="text" id="chat-input-texto" class="chat-input" placeholder="Escribe un mensaje para tu amor..." autocomplete="off" required>
-                    <button type="submit" class="btn-chat-enviar">
-                        <span>💌</span> Enviar
+                    <!-- Botón para adjuntar foto/video -->
+                    <button type="button" class="btn-chat-accion" onclick="document.getElementById('chat-file-input').click()" title="Enviar foto o video">
+                        📎
+                    </button>
+                    <input type="file" id="chat-file-input" accept="image/*,video/*" style="display: none;" onchange="procesarArchivoMultimediaChat(this)">
+
+                    <!-- Botón para alternar modo Vista Única (1) -->
+                    <button type="button" id="btn-toggle-once" class="btn-chat-accion" onclick="alternarModoUnaVezChat()" title="Vista de una sola vez (Estilo WhatsApp)">
+                        ➀
+                    </button>
+
+                    <!-- Input de Texto Normal -->
+                    <input type="text" id="chat-input-texto" class="chat-input" placeholder="Escribe un mensaje para tu amor..." autocomplete="off" oninput="notificarEscribiendoChat()">
+
+                    <!-- Barra de Grabación de Audio (reemplaza visualmente el input al grabar) -->
+                    <div id="chat-grabando-bar" class="chat-grabando-bar">
+                        <div class="chat-grabando-onda"></div>
+                        <span id="chat-grabando-tiempo">00:00</span>
+                        <span style="flex: 1; font-size: 0.76rem;">Grabando audio...</span>
+                        <button type="button" onclick="cancelarGrabacionAudioChat()" style="background:none; border:none; color:#ef4444; font-size:1.1rem; cursor:pointer;" title="Cancelar">✕</button>
+                    </div>
+
+                    <!-- Botón Micrófono para Notas de Voz -->
+                    <button type="button" id="btn-audio-record" class="btn-chat-accion" onclick="toggleGrabacionAudioChat()" title="Grabar nota de voz">
+                        🎤
+                    </button>
+
+                    <!-- Botón Enviar -->
+                    <button type="submit" id="btn-enviar-chat-submit" class="btn-chat-enviar" title="Enviar">
+                        <span>💌</span>
                     </button>
                 </form>
+            </div>
+        </div>
+
+        <!-- MODAL PERSONALIZAR FONDO DEL CHAT -->
+        <div id="modal-chat-fondo" class="modal-chat-fondo" onclick="cerrarModalFondoChat(event)">
+            <div class="modal-chat-fondo-card" onclick="event.stopPropagation()">
+                <h3 style="font-size: 1.15rem; color: #0f172a; margin-top: 0;">🎨 Fondo del Chat Íntimo</h3>
+                <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 12px;">Elige un fondo o sube una foto especial de ustedes dos.</p>
+
+                <div class="fondo-opciones-grid">
+                    <div class="fondo-opcion-item selected" style="background: linear-gradient(180deg, #fff5f8 0%, #fdf2f7 40%, #faf5ff 100%); border: 1px solid #fbcfe8;" onclick="seleccionarFondoPreset('defecto', this)" title="Original Rosa"></div>
+                    <div class="fondo-opcion-item" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);" onclick="seleccionarFondoPreset('noche', this)" title="Noche Romántica"></div>
+                    <div class="fondo-opcion-item" style="background: linear-gradient(135deg, #fdf4ff 0%, #fce7f3 100%);" onclick="seleccionarFondoPreset('pastel', this)" title="Algodón de Azúcar"></div>
+                    <div class="fondo-opcion-item" style="background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);" onclick="seleccionarFondoPreset('rosas', this)" title="Pétalos"></div>
+                    <div class="fondo-opcion-item" style="background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);" onclick="seleccionarFondoPreset('cielo', this)" title="Cielo"></div>
+                    <div class="fondo-opcion-item" style="background: #ffffff; border: 1px solid #e2e8f0;" onclick="seleccionarFondoPreset('blanco', this)" title="Minimalista"></div>
+                </div>
+
+                <div style="margin-top: 14px; text-align: center;">
+                    <label style="font-size: 0.8rem; font-weight: 700; color: #be185d; display: block; margin-bottom: 6px;">
+                        ¿O prefieres poner una foto de ustedes?
+                    </label>
+                    <input type="file" id="chat-custom-bg-input" accept="image/*" style="display: none;" onchange="procesarFotoFondoChat(this)">
+                    <button type="button" class="btn btn-secundario" onclick="document.getElementById('chat-custom-bg-input').click()" style="padding: 7px 16px; border-radius: var(--radius-pill); font-size: 0.8rem;">
+                        📁 Subir Foto de Galería
+                    </button>
+                </div>
+
+                <div style="margin-top: 18px; display: flex; justify-content: flex-end; gap: 8px;">
+                    <button type="button" class="btn btn-primario" onclick="cerrarModalFondoChat()" style="padding: 8px 18px; border-radius: var(--radius-pill); font-size: 0.82rem;">
+                        Listo ✨
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISOR MULTIMEDIA EFÍMERA (VISTA DE UNA SOLA VEZ) -->
+        <div id="modal-visor-efimero" class="modal-visor-efimero">
+            <div class="visor-efimero-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="background: rgba(236,72,153,0.3); border: 1px dashed #ec4899; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem;">1</span>
+                    <span style="font-size: 0.85rem; font-weight: 600;">Foto / Video de una sola vez</span>
+                </div>
+                <button type="button" onclick="cerrarVisorEfimero()" style="background: transparent; border: none; color: white; font-size: 1.8rem; cursor: pointer; line-height: 1;">✕</button>
+            </div>
+            <div class="visor-efimero-content" id="visor-efimero-media-container">
+                <!-- Se inyecta la imagen o video en tiempo real -->
+            </div>
+            <div style="position: absolute; bottom: 20px; color: rgba(255,255,255,0.7); font-size: 0.75rem; text-align: center;">
+                🔒 Este archivo se destruirá automáticamente al cerrarlo.
             </div>
         </div>
 
@@ -8589,6 +8983,7 @@ Andy. ❤️</div>
             }
 
             if (pestañaId === 'chat') {
+                if (typeof marcarMensajesComoLeidos === 'function') marcarMensajesComoLeidos();
                 if (typeof renderizarChatPareja === 'function') renderizarChatPareja();
                 setTimeout(() => {
                     const contenedor = document.getElementById('chat-mensajes-lista');
@@ -11996,9 +12391,18 @@ Andy. ❤️</div>
         }
 
         // ==============================================================
-        // --- CHAT ÍNTIMO DE PAREJA (CONEXIÓN Y MENSAJES EN VIVO) ---
+        // --- CHAT ÍNTIMO PRO (MULTIMEDIA, AUDIOS, EFÍMERO, FONDO Y VISTOS) ---
         // ==============================================================
         let chatMensajes = [];
+        let modoUnaVezActivo = false;
+        let mediaRecorderAudio = null;
+        let audioChunks = [];
+        let intervaloGrabacionAudio = null;
+        let segundosGrabandoAudio = 0;
+        let timeoutEscribiendoChat = null;
+        let mensajeReaccionandoId = null;
+        let audioActivoReproduciendo = null;
+        let idMensajeEfimeroAbierto = null;
 
         function cargarChatPareja() {
             const guardado = localStorage.getItem('chatMensajesPareja');
@@ -12014,32 +12418,63 @@ Andy. ❤️</div>
                         id: 1,
                         remitente: 'andy',
                         nombre: 'Andy',
+                        tipo: 'texto',
                         texto: '¡Bienvenida a nuestro chat privado, amor! Todo lo que hablemos aquí es solo para nosotros dos. ❤️',
                         fecha: '10:00',
-                        timestamp: Date.now() - 3600000
+                        timestamp: Date.now() - 3600000,
+                        leido: true
                     },
                     {
                         id: 2,
                         remitente: 'jessie',
                         nombre: 'Jessie',
+                        tipo: 'texto',
                         texto: '¡Me encanta! Es nuestro rincón secreto para dejarnos mensajitos todo el día 🥰✨',
                         fecha: '10:02',
-                        timestamp: Date.now() - 3500000
+                        timestamp: Date.now() - 3500000,
+                        leido: true
                     }
                 ];
                 localStorage.setItem('chatMensajesPareja', JSON.stringify(chatMensajes));
             }
+
+            // Cargar fondo configurado
+            aplicarFondoChatGuardado();
+
+            // Marcar mensajes como leídos
+            marcarMensajesComoLeidos();
+
             renderizarChatPareja();
             if (typeof inyectarSugerenciasHistoriaEnChat === 'function') {
                 inyectarSugerenciasHistoriaEnChat();
             }
+
+            // Iniciar sincronización de presencia en vivo
+            iniciarPresenciaEnVivo();
         }
 
-        function guardarChatPareja() {
+        function guardarChatPareja(sincronizarRemoto = true) {
             localStorage.setItem('chatMensajesPareja', JSON.stringify(chatMensajes));
             renderizarChatPareja();
-            if (typeof fbDb !== 'undefined' && fbDb) {
+            if (sincronizarRemoto && typeof fbDb !== 'undefined' && fbDb) {
                 fbDb.ref('chat/mensajes').set(chatMensajes);
+            }
+        }
+
+        function alternarModoUnaVezChat() {
+            modoUnaVezActivo = !modoUnaVezActivo;
+            const btn = document.getElementById('btn-toggle-once');
+            if (btn) {
+                if (modoUnaVezActivo) {
+                    btn.style.background = '#ec4899';
+                    btn.style.color = '#ffffff';
+                    btn.title = "Modo 'Vista de una sola vez' ACTIVADO 🔒";
+                    mostrarToastNotificacion("Modo Una Vez 🔒", "El próximo archivo se podrá abrir una sola vez y se autodestruirá.");
+                } else {
+                    btn.style.background = '#f1f5f9';
+                    btn.style.color = '#475569';
+                    btn.title = "Vista de una sola vez (Estilo WhatsApp)";
+                }
             }
         }
 
@@ -12056,9 +12491,12 @@ Andy. ❤️</div>
                 id: Date.now(),
                 remitente: miId,
                 nombre: miNombre,
+                tipo: 'texto',
                 texto: texto,
                 fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                leido: false,
+                reacciones: {}
             };
 
             chatMensajes.push(nuevoMsg);
@@ -12066,28 +12504,439 @@ Andy. ❤️</div>
             input.value = '';
             input.focus();
 
-            // Notificación remota en tiempo real
+            notificarMensajeRemoto(miId, miNombre, texto);
+            if (typeof reproducirSonido === 'function') reproducirSonido('click');
+        }
+
+        // --- ADJUNTAR FOTOS Y VIDEOS ---
+        function procesarArchivoMultimediaChat(input) {
+            if (!input || !input.files || !input.files[0]) return;
+            const file = input.files[0];
+            const esVideo = file.type.startsWith('video');
+            const esImagen = file.type.startsWith('image');
+
+            if (!esImagen && !esVideo) {
+                mostrarAlertaPareja("Por favor selecciona una imagen o un video.", "Formato no compatible", "⚠️");
+                return;
+            }
+
+            // Límite de tamaño: 15MB
+            if (file.size > 15 * 1024 * 1024) {
+                mostrarAlertaPareja("El archivo es muy pesado. Intenta con uno menor a 15MB.", "Archivo pesado", "⚠️");
+                return;
+            }
+
+            const reader = new FileReader();
+            mostrarToastNotificacion("Cargando multimedia... ⏳", "Preparando archivo para tu amor");
+
+            reader.onload = function(e) {
+                const dataUrl = e.target.result;
+                const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+                const miNombre = miId === 'andy' ? (localStorage.getItem('pareja_nombre_andy') || 'Andy') : (localStorage.getItem('pareja_nombre_jessie') || 'Jessie');
+
+                const nuevoMsg = {
+                    id: Date.now(),
+                    remitente: miId,
+                    nombre: miNombre,
+                    tipo: esVideo ? 'video' : 'imagen',
+                    mediaUrl: dataUrl,
+                    unaVez: modoUnaVezActivo,
+                    abierto: false,
+                    fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    timestamp: Date.now(),
+                    leido: false,
+                    reacciones: {}
+                };
+
+                chatMensajes.push(nuevoMsg);
+                guardarChatPareja();
+
+                // Resetear modo una vez
+                if (modoUnaVezActivo) alternarModoUnaVezChat();
+                input.value = '';
+
+                const avisoNotif = esVideo ? '🎥 Video enviado' : '📷 Foto enviada';
+                notificarMensajeRemoto(miId, miNombre, nuevoMsg.unaVez ? `🔒 ${avisoNotif} de una sola vez` : avisoNotif);
+                if (typeof reproducirSonido === 'function') reproducirSonido('click');
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        // --- VISOR DE MULTIMEDIA EFÍMERA ---
+        function abrirMultimediaUnaVez(msgId) {
+            const msg = chatMensajes.find(m => m.id === msgId);
+            if (!msg) return;
+
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+
+            // Si es propio y ya lo envió, puede ver aviso
+            if (msg.abierto) {
+                mostrarToastNotificacion("🔒 Archivo Expirado", "Esta foto/video ya fue abierta y destruida.");
+                return;
+            }
+
+            idMensajeEfimeroAbierto = msgId;
+            const modal = document.getElementById('modal-visor-efimero');
+            const cont = document.getElementById('visor-efimero-media-container');
+            if (!modal || !cont) return;
+
+            if (msg.tipo === 'video') {
+                cont.innerHTML = `<video src="${msg.mediaUrl}" controls autoplay playsinline style="max-width:100%; max-height:80vh; border-radius:10px;"></video>`;
+            } else {
+                cont.innerHTML = `<img src="${msg.mediaUrl}" alt="Foto efímera" style="max-width:100%; max-height:80vh; border-radius:10px;">`;
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function cerrarVisorEfimero() {
+            const modal = document.getElementById('modal-visor-efimero');
+            const cont = document.getElementById('visor-efimero-media-container');
+            if (modal) modal.style.display = 'none';
+            if (cont) cont.innerHTML = '';
+
+            // Si había un mensaje efímero abierto, autodestruirlo
+            if (idMensajeEfimeroAbierto) {
+                const msg = chatMensajes.find(m => m.id === idMensajeEfimeroAbierto);
+                if (msg && msg.unaVez) {
+                    msg.abierto = true;
+                    msg.mediaUrl = null; // Destrucción inmediata del payload multimedia
+                    guardarChatPareja();
+                    mostrarToastNotificacion("💥 Destruido", "El archivo de una sola vez se ha eliminado.");
+                }
+                idMensajeEfimeroAbierto = null;
+            }
+        }
+
+        // --- NOTAS DE VOZ (GRABADOR DE AUDIO) ---
+        function toggleGrabacionAudioChat() {
+            if (mediaRecorderAudio && mediaRecorderAudio.state === 'recording') {
+                detenerYEnviarAudioChat();
+            } else {
+                iniciarGrabacionAudioChat();
+            }
+        }
+
+        function iniciarGrabacionAudioChat() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                mostrarAlertaPareja("Tu navegador no soporta grabación de audio.", "Audio no soportado", "🎙️");
+                return;
+            }
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    mediaRecorderAudio = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorderAudio.ondataavailable = e => {
+                        if (e.data.size > 0) audioChunks.push(e.data);
+                    };
+
+                    mediaRecorderAudio.onstop = () => {
+                        stream.getTracks().forEach(t => t.stop());
+                    };
+
+                    mediaRecorderAudio.start();
+
+                    // UI de grabación
+                    document.getElementById('chat-input-texto').style.display = 'none';
+                    document.getElementById('chat-grabando-bar').style.display = 'flex';
+                    const btnMic = document.getElementById('btn-audio-record');
+                    btnMic.classList.add('grabando');
+                    btnMic.innerHTML = '⏹️';
+
+                    segundosGrabandoAudio = 0;
+                    document.getElementById('chat-grabando-tiempo').textContent = '00:00';
+                    intervaloGrabacionAudio = setInterval(() => {
+                        segundosGrabandoAudio++;
+                        const min = String(Math.floor(segundosGrabandoAudio / 60)).padStart(2, '0');
+                        const seg = String(segundosGrabandoAudio % 60).padStart(2, '0');
+                        document.getElementById('chat-grabando-tiempo').textContent = `${min}:${seg}`;
+                    }, 1000);
+
+                    notificarEscribiendoChat("grabando un audio... 🎙️");
+                })
+                .catch(err => {
+                    console.warn("Permiso de micrófono denegado:", err);
+                    mostrarAlertaPareja("Debes permitir el acceso al micrófono para enviar notas de voz.", "Permiso de Micrófono", "🎙️");
+                });
+        }
+
+        function detenerYEnviarAudioChat() {
+            if (!mediaRecorderAudio) return;
+
+            clearInterval(intervaloGrabacionAudio);
+            mediaRecorderAudio.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm;codecs=opus' });
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const base64Audio = reader.result;
+                    const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+                    const miNombre = miId === 'andy' ? (localStorage.getItem('pareja_nombre_andy') || 'Andy') : (localStorage.getItem('pareja_nombre_jessie') || 'Jessie');
+
+                    const nuevoMsg = {
+                        id: Date.now(),
+                        remitente: miId,
+                        nombre: miNombre,
+                        tipo: 'audio',
+                        audioUrl: base64Audio,
+                        duracion: segundosGrabandoAudio,
+                        fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                        timestamp: Date.now(),
+                        leido: false,
+                        reacciones: {}
+                    };
+
+                    chatMensajes.push(nuevoMsg);
+                    guardarChatPareja();
+                    notificarMensajeRemoto(miId, miNombre, "🎤 Nota de voz");
+                    if (typeof reproducirSonido === 'function') reproducirSonido('click');
+                };
+                reader.readAsDataURL(audioBlob);
+            };
+
+            mediaRecorderAudio.stop();
+            restablecerUIGrabacionAudio();
+        }
+
+        function cancelarGrabacionAudioChat() {
+            if (mediaRecorderAudio) {
+                clearInterval(intervaloGrabacionAudio);
+                mediaRecorderAudio.stop();
+            }
+            restablecerUIGrabacionAudio();
+            mostrarToastNotificacion("Audio cancelado ✕", "No se envió la nota de voz.");
+        }
+
+        function restablecerUIGrabacionAudio() {
+            const input = document.getElementById('chat-input-texto');
+            const grabBar = document.getElementById('chat-grabando-bar');
+            const btnMic = document.getElementById('btn-audio-record');
+            if (input) input.style.display = 'block';
+            if (grabBar) grabBar.style.display = 'none';
+            if (btnMic) {
+                btnMic.classList.remove('grabando');
+                btnMic.innerHTML = '🎤';
+            }
+            clearInterval(intervaloGrabacionAudio);
+            segundosGrabandoAudio = 0;
+        }
+
+        function reproducirAudioMensaje(btn, url) {
+            if (audioActivoReproduciendo) {
+                audioActivoReproduciendo.pause();
+                document.querySelectorAll('.btn-play-audio').forEach(b => b.textContent = '▶️');
+                if (audioActivoReproduciendo.src === url) {
+                    audioActivoReproduciendo = null;
+                    return;
+                }
+            }
+
+            const audio = new Audio(url);
+            audioActivoReproduciendo = audio;
+            btn.textContent = '⏸️';
+
+            const waveProgress = btn.closest('.chat-audio-player').querySelector('.chat-audio-progress');
+
+            audio.ontimeupdate = () => {
+                if (audio.duration && waveProgress) {
+                    const pct = (audio.currentTime / audio.duration) * 100;
+                    waveProgress.style.width = `${pct}%`;
+                }
+            };
+
+            audio.onended = () => {
+                btn.textContent = '▶️';
+                if (waveProgress) waveProgress.style.width = '0%';
+                audioActivoReproduciendo = null;
+            };
+
+            audio.play().catch(e => console.warn("Error play audio:", e));
+        }
+
+        // --- REACCIONES EN MENSAJES ---
+        function mostrarPickerReaccion(msgId, elem) {
+            mensajeReaccionandoId = msgId;
+            // Cerrar otros pickers
+            document.querySelectorAll('.chat-reaction-picker').forEach(p => p.style.display = 'none');
+            const picker = elem.querySelector('.chat-reaction-picker');
+            if (picker) {
+                picker.style.display = (picker.style.display === 'flex') ? 'none' : 'flex';
+            }
+        }
+
+        function reaccionarMensaje(msgId, emoji) {
+            const msg = chatMensajes.find(m => m.id === msgId);
+            if (!msg) return;
+
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            if (!msg.reacciones) msg.reacciones = {};
+
+            if (msg.reacciones[miId] === emoji) {
+                delete msg.reacciones[miId]; // Desmarcar si ya estaba
+            } else {
+                msg.reacciones[miId] = emoji;
+            }
+
+            guardarChatPareja();
+            if (typeof reproducirSonido === 'function') reproducirSonido('click');
+        }
+
+        // --- DOBLE VISTO Y NOTIFICACIÓN REMOTA ---
+        function marcarMensajesComoLeidos() {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+            let huboCambios = false;
+
+            chatMensajes.forEach(msg => {
+                if (msg.remitente !== miId && !msg.leido) {
+                    msg.leido = true;
+                    huboCambios = true;
+                }
+            });
+
+            if (huboCambios) {
+                guardarChatPareja(true);
+            }
+        }
+
+        function notificarMensajeRemoto(miId, miNombre, resumen) {
             if (typeof fbDb !== 'undefined' && fbDb) {
                 fbDb.ref('notificaciones/ultima').set({
                     autor: miId,
                     titulo: `💌 Mensaje de ${miNombre}`,
-                    detalle: texto.length > 40 ? texto.substring(0, 40) + '...' : texto,
+                    detalle: resumen.length > 50 ? resumen.substring(0, 50) + '...' : resumen,
                     timestamp: Date.now()
                 });
             }
+        }
 
-            if (typeof reproducirSonido === 'function') {
-                reproducirSonido('click');
+        // --- PRESENCIA EN VIVO & ESCRIBIENDO ---
+        function iniciarPresenciaEnVivo() {
+            if (typeof fbDb === 'undefined' || !fbDb) return;
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+
+            // Actualizar presencia al conectar
+            fbDb.ref(`.info/connected`).on('value', (snap) => {
+                if (snap.val() === true) {
+                    const presRef = fbDb.ref(`chat/presencia/${miId}`);
+                    presRef.onDisconnect().set({
+                        online: false,
+                        ultimaVez: Date.now()
+                    });
+                    presRef.set({
+                        online: true,
+                        escribiendo: false,
+                        ultimaVez: Date.now()
+                    });
+                }
+            });
+
+            // Escuchar el estado de la pareja
+            const parejaId = miId === 'andy' ? 'jessie' : 'andy';
+            fbDb.ref(`chat/presencia/${parejaId}`).on('value', (snap) => {
+                const data = snap.val();
+                actualizarCabeceraEstadoChat(data);
+            });
+        }
+
+        function notificarEscribiendoChat(customTexto = "escribiendo...") {
+            if (typeof fbDb === 'undefined' || !fbDb) return;
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+
+            fbDb.ref(`chat/presencia/${miId}`).update({
+                online: true,
+                escribiendo: customTexto
+            });
+
+            clearTimeout(timeoutEscribiendoChat);
+            timeoutEscribiendoChat = setTimeout(() => {
+                fbDb.ref(`chat/presencia/${miId}`).update({
+                    escribiendo: false
+                });
+            }, 2500);
+        }
+
+        function actualizarCabeceraEstadoChat(data) {
+            const elEstado = document.getElementById('chat-cabecera-estado');
+            if (!elEstado) return;
+
+            if (data && data.escribiendo) {
+                elEstado.innerHTML = `<span class="chat-online-indicator escribiendo"></span> ${data.escribiendo}`;
+                elEstado.style.color = '#f59e0b';
+            } else if (data && data.online) {
+                elEstado.innerHTML = `<span class="chat-online-indicator"></span> En línea`;
+                elEstado.style.color = '#10b981';
+            } else if (data && data.ultimaVez) {
+                const hora = new Date(data.ultimaVez).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                elEstado.innerHTML = `Últ. vez a las ${hora}`;
+                elEstado.style.color = '#94a3b8';
+            } else {
+                elEstado.innerHTML = `Conectados en tiempo real ❤️`;
+                elEstado.style.color = '#10b981';
             }
         }
 
-        function insertarEmojiChat(emoji) {
-            const input = document.getElementById('chat-input-texto');
-            if (!input) return;
-            input.value += emoji + ' ';
-            input.focus();
+        // --- PERSONALIZACIÓN DEL FONDO DEL CHAT ---
+        function abrirModalFondoChat() {
+            const modal = document.getElementById('modal-chat-fondo');
+            if (modal) modal.style.display = 'flex';
         }
 
+        function cerrarModalFondoChat(e) {
+            if (e && e.target && e.target.id !== 'modal-chat-fondo' && !e.target.classList.contains('btn-primario')) return;
+            const modal = document.getElementById('modal-chat-fondo');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function seleccionarFondoPreset(tipo, elem) {
+            document.querySelectorAll('.fondo-opcion-item').forEach(i => i.classList.remove('selected'));
+            if (elem) elem.classList.add('selected');
+
+            localStorage.setItem('chat_fondo_tipo', tipo);
+            localStorage.removeItem('chat_fondo_custom_img');
+            aplicarFondoChatGuardado();
+        }
+
+        function procesarFotoFondoChat(input) {
+            if (!input || !input.files || !input.files[0]) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const dataUrl = e.target.result;
+                localStorage.setItem('chat_fondo_tipo', 'custom');
+                localStorage.setItem('chat_fondo_custom_img', dataUrl);
+                aplicarFondoChatGuardado();
+                cerrarModalFondoChat();
+                mostrarToastNotificacion("Fondo Actualizado 🖼️", "¡Tu foto de pareja ahora es el fondo del chat!");
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function aplicarFondoChatGuardado() {
+            const contenedor = document.getElementById('chat-mensajes-lista');
+            if (!contenedor) return;
+
+            const tipo = localStorage.getItem('chat_fondo_tipo') || 'defecto';
+            const customImg = localStorage.getItem('chat_fondo_custom_img');
+
+            if (tipo === 'custom' && customImg) {
+                contenedor.style.background = `linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.78)), url('${customImg}') center/cover no-repeat`;
+            } else if (tipo === 'noche') {
+                contenedor.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)';
+            } else if (tipo === 'pastel') {
+                contenedor.style.background = 'linear-gradient(135deg, #fdf4ff 0%, #fce7f3 100%)';
+            } else if (tipo === 'rosas') {
+                contenedor.style.background = 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)';
+            } else if (tipo === 'cielo') {
+                contenedor.style.background = 'linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%)';
+            } else if (tipo === 'blanco') {
+                contenedor.style.background = '#ffffff';
+            } else {
+                contenedor.style.background = 'linear-gradient(180deg, #fff5f8 0%, #fdf2f7 40%, #faf5ff 100%)';
+            }
+        }
+
+        // --- RENDERIZADOR COMPLETO DEL CHAT ---
         function renderizarChatPareja() {
             const lista = document.getElementById('chat-mensajes-lista');
             if (!lista) return;
@@ -12106,7 +12955,7 @@ Andy. ❤️</div>
                 lista.innerHTML = `
                     ${badgeSeguridad}
                     <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 30px 10px;">
-                        💌 No hay mensajes aún. ¡Escríbele un lindo mensaje a tu amor!
+                        💌 No hay mensajes aún. ¡Escríbele o mándale un audio a tu amor!
                     </div>
                 `;
                 return;
@@ -12118,13 +12967,76 @@ Andy. ❤️</div>
                 const avatar = msg.remitente === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
                 const autorNombre = msg.remitente === 'andy' ? nombreAndy : nombreJessie;
 
+                // Doble visto
+                let statusHtml = '';
+                if (esMio) {
+                    if (msg.leido) {
+                        statusHtml = `<span class="chat-msg-status leido" title="Leído">✓✓</span>`;
+                    } else {
+                        statusHtml = `<span class="chat-msg-status enviado" title="Enviado">✓✓</span>`;
+                    }
+                }
+
+                // Renderizado de cuerpo según tipo
+                let cuerpoHtml = '';
+                if (msg.unaVez) {
+                    if (msg.abierto) {
+                        cuerpoHtml = `
+                            <div class="chat-once-card abierto">
+                                <span class="chat-once-badge">1</span>
+                                <span>Foto de una sola vez (Abierto)</span>
+                            </div>
+                        `;
+                    } else {
+                        cuerpoHtml = `
+                            <div class="chat-once-card" onclick="abrirMultimediaUnaVez(${msg.id})">
+                                <span class="chat-once-badge">1</span>
+                                <span>${msg.tipo === 'video' ? '🎥 Video de una sola vez' : '📸 Foto de una sola vez'}</span>
+                            </div>
+                        `;
+                    }
+                } else if (msg.tipo === 'imagen') {
+                    cuerpoHtml = `<img src="${msg.mediaUrl}" class="chat-media-img" onclick="abrirFotoGrande('${msg.mediaUrl}')" alt="Foto">`;
+                } else if (msg.tipo === 'video') {
+                    cuerpoHtml = `<video src="${msg.mediaUrl}" class="chat-media-video" controls playsinline></video>`;
+                } else if (msg.tipo === 'audio') {
+                    const durSeg = msg.duracion ? `${String(Math.floor(msg.duracion / 60)).padStart(2,'0')}:${String(msg.duracion % 60).padStart(2,'0')}` : '00:03';
+                    cuerpoHtml = `
+                        <div class="chat-audio-player">
+                            <button type="button" class="btn-play-audio" onclick="reproducirAudioMensaje(this, '${msg.audioUrl}')">▶️</button>
+                            <div class="chat-audio-wave"><div class="chat-audio-progress"></div></div>
+                            <span style="font-size:0.7rem; font-weight:700; opacity:0.8;">${durSeg}</span>
+                        </div>
+                    `;
+                } else {
+                    cuerpoHtml = msg.texto || '';
+                }
+
+                // Reacciones renderizadas
+                let reaccionesHtml = '';
+                if (msg.reacciones && Object.keys(msg.reacciones).length > 0) {
+                    const listaEmojis = Object.values(msg.reacciones).join(' ');
+                    reaccionesHtml = `<div class="chat-reacciones-bar" onclick="mostrarPickerReaccion(${msg.id}, this.parentElement)">${listaEmojis}</div>`;
+                }
+
                 return `
                     <div class="chat-mensaje-fila ${claseFila}">
                         <img src="${avatar}" class="chat-msg-avatar" alt="${autorNombre}">
-                        <div class="chat-msg-burbuja">
+                        <div class="chat-msg-burbuja" ondblclick="mostrarPickerReaccion(${msg.id}, this)">
+                            <div class="chat-reaction-picker">
+                                <span onclick="reaccionarMensaje(${msg.id}, '❤️')">❤️</span>
+                                <span onclick="reaccionarMensaje(${msg.id}, '🥰')">🥰</span>
+                                <span onclick="reaccionarMensaje(${msg.id}, '😂')">😂</span>
+                                <span onclick="reaccionarMensaje(${msg.id}, '🥺')">🥺</span>
+                                <span onclick="reaccionarMensaje(${msg.id}, '🔥')">🔥</span>
+                                <span onclick="reaccionarMensaje(${msg.id}, '👍')">👍</span>
+                            </div>
                             <span class="chat-msg-autor">${autorNombre}</span>
-                            <div class="chat-msg-cuerpo">${msg.texto}</div>
-                            <span class="chat-msg-hora">${msg.fecha || ''}</span>
+                            <div class="chat-msg-cuerpo">${cuerpoHtml}</div>
+                            <span class="chat-msg-hora">
+                                ${msg.fecha || ''} ${statusHtml}
+                            </span>
+                            ${reaccionesHtml}
                         </div>
                     </div>
                 `;
@@ -12132,7 +13044,23 @@ Andy. ❤️</div>
 
             setTimeout(() => {
                 lista.scrollTop = lista.scrollHeight;
-            }, 50);
+            }, 60);
+        }
+
+        function abrirFotoGrande(url) {
+            const modal = document.getElementById('modal-visor-efimero');
+            const cont = document.getElementById('visor-efimero-media-container');
+            if (!modal || !cont) return;
+            cont.innerHTML = `<img src="${url}" alt="Foto" style="max-width:100%; max-height:85vh; border-radius:10px;">`;
+            modal.style.display = 'flex';
+        }
+
+        function insertarEmojiChat(emoji) {
+            const input = document.getElementById('chat-input-texto');
+            if (!input) return;
+            input.value += emoji + ' ';
+            input.focus();
+            notificarEscribiendoChat();
         }
 
         function limpiarChatPareja() {
@@ -12443,8 +13371,25 @@ Andy. ❤️</div>
             fbDb.ref('chat/mensajes').on('value', (snap) => {
                 const val = snap.val();
                 if (val && Array.isArray(val)) {
+                    const prevCount = chatMensajes.length;
                     chatMensajes = val;
                     localStorage.setItem('chatMensajesPareja', JSON.stringify(chatMensajes));
+
+                    // Si llegó un nuevo mensaje de la pareja mientras la app está abierta, marcar visto y reproducir sonido
+                    const tabChat = document.getElementById('tab-chat');
+                    const estaEnTabChat = tabChat && tabChat.classList.contains('active');
+                    if (estaEnTabChat && typeof marcarMensajesComoLeidos === 'function') {
+                        marcarMensajesComoLeidos();
+                    }
+
+                    if (chatMensajes.length > prevCount && prevCount > 0) {
+                        const ultMsg = chatMensajes[chatMensajes.length - 1];
+                        const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja');
+                        if (ultMsg.remitente !== miId && typeof reproducirSonido === 'function') {
+                            reproducirSonido('campana');
+                        }
+                    }
+
                     if (typeof renderizarChatPareja === 'function') renderizarChatPareja();
                 } else if (chatMensajes && chatMensajes.length > 0 && !val) {
                     fbDb.ref('chat/mensajes').set(chatMensajes);
