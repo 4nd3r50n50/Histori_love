@@ -1470,6 +1470,130 @@
             }
         }
 
+        /* ==============================================================
+           --- DISEÑO RESPONSIVE PREMIUM PARA PANTALLAS WEB / ESCRITORIO ---
+           ============================================================== */
+        @media (min-width: 900px) {
+            body {
+                padding: 40px 32px 60px 32px;
+            }
+            .wrapper {
+                max-width: 1120px;
+                gap: 28px;
+            }
+            h1 {
+                font-size: 3.4rem;
+                letter-spacing: -0.5px;
+            }
+
+            /* Cabecera de perfiles en Desktop: dos tarjetas balanceadas con el badge central */
+            .perfil-pareja-contenedor {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                align-items: center;
+                gap: 24px;
+                padding: 24px 32px;
+                background: #ffffff;
+                border: 1px solid var(--glass-border);
+                border-radius: var(--radius-xl);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            }
+            .perfil-tarjeta {
+                display: flex;
+                align-items: center;
+                gap: 18px;
+            }
+            .perfil-tarjeta#perfil-tarjeta-jessie {
+                flex-direction: row-reverse !important;
+                text-align: right;
+            }
+            .perfil-avatar-circle {
+                width: 76px;
+                height: 76px;
+            }
+            .perfil-nombre {
+                font-size: 1.45rem !important;
+            }
+            .perfil-info {
+                font-size: 0.9rem !important;
+            }
+            .perfil-hobby {
+                font-size: 0.82rem !important;
+            }
+
+            /* Reloj de aniversario en Desktop: elegante tarjeta central destacada */
+            .reloj-aniversario-contenedor {
+                max-width: 820px;
+                width: 100%;
+                margin: 0 auto;
+                padding: 30px 40px;
+                box-shadow: 0 10px 35px rgba(244, 114, 182, 0.08);
+            }
+            .reloj-contador {
+                max-width: 680px;
+                gap: 16px;
+            }
+            .reloj-segmento {
+                padding: 14px 10px;
+                border-radius: var(--radius-lg);
+            }
+            .reloj-segmento .num {
+                font-size: 2.1rem;
+            }
+            .reloj-segmento .label {
+                font-size: 0.8rem;
+                font-weight: 700;
+            }
+
+            /* Cajas de Recuerdos en Desktop: grid amplia de 4 columnas */
+            .caja-contenedor {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+            .caja {
+                min-height: 250px;
+                padding: 28px 20px;
+            }
+
+            /* Chat de Pareja en Desktop: estilo ventana de mensajería moderna */
+            .chat-pareja-card {
+                max-width: 820px;
+                width: 100%;
+                margin: 0 auto;
+                height: 640px;
+            }
+
+            /* Galería en Desktop: 4 columnas tipo mosaico polaroid */
+            .galeria-contenedor {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+
+            /* Salud y Finanzas en Desktop: tarjetas amplias y confortables */
+            .salud-bienestar-container, .finanzas-hogar-card, .hub-especiales-card {
+                max-width: 100%;
+                padding: 32px;
+            }
+            .finanzas-resumen-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            /* Selector de temas flotante visible y elegante en Desktop */
+            .tema-selector-contenedor {
+                display: flex !important;
+                top: 30px;
+                right: 32px;
+            }
+        }
+
+        /* Pantallas ultra anchas / Monitores grandes */
+        @media (min-width: 1400px) {
+            .wrapper {
+                max-width: 1220px;
+            }
+        }
+
         /* Ajustes específicos para pantallas ultra pequeñas */
         @media (max-width: 400px) {
             .caja-contenedor {
