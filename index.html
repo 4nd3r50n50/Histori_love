@@ -5321,6 +5321,1145 @@
             border: 1px solid rgba(244, 114, 182, 0.25);
             margin: 2px;
         }
+
+        /* ==========================================================================
+           --- ARQUITECTURA NATIVA COUPLE360 (FULL-SCREEN MOBILE APP & BENTO UI) ---
+           ========================================================================== */
+        @media (max-width: 768px) {
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100vw !important;
+                min-height: 100dvh !important;
+                background: #faf7fb !important;
+                overflow-x: hidden !important;
+            }
+            body {
+                padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px)) !important;
+            }
+            /* Ocultar cabecera web y pie de página en móvil para experiencia 100% App Nativa */
+            .wrapper > header,
+            footer {
+                display: none !important;
+            }
+            .wrapper {
+                max-width: 100% !important;
+                width: 100% !important;
+                gap: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .tab-content {
+                width: 100% !important;
+                min-height: calc(100dvh - 62px - env(safe-area-inset-bottom, 0px));
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box;
+            }
+            /* Contenedores internos de pestañas secundarias ocupan toda la pantalla con barra nativa */
+            #tab-bienestar, #tab-finanzas, #tab-recuerdos, #tab-galeria, #tab-retos, #tab-juego, #tab-cartas, #tab-mas {
+                padding: 12px 14px 28px 14px !important;
+                background: #faf7fb;
+            }
+            /* Chat en Móvil: Pantalla 100% Completa de borde a borde como Couple360 */
+            #tab-chat.tab-content.active {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
+                height: calc(100dvh - 58px - env(safe-area-inset-bottom, 0px)) !important;
+                min-height: 0 !important;
+                z-index: 950 !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            #tab-chat .chat-pareja-card {
+                height: 100% !important;
+                max-height: 100% !important;
+                min-height: 0 !important;
+                width: 100% !important;
+                border-radius: 0 !important;
+                border: none !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            /* Mapa en Móvil: Pantalla 100% Completa de borde a borde como Couple360 */
+            #tab-mapa.tab-content.active {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: calc(58px + env(safe-area-inset-bottom, 0px)) !important;
+                height: calc(100dvh - 58px - env(safe-area-inset-bottom, 0px)) !important;
+                min-height: 0 !important;
+                z-index: 950 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: #f8fafc !important;
+                display: flex !important;
+                flex-direction: column !important;
+                overflow: hidden !important;
+            }
+            #tab-mapa > .btn-volver-hub,
+            #tab-mapa > .retos-cabecera,
+            #tab-mapa > .radar-distancia-card,
+            #tab-mapa > .mapa-instrucciones {
+                display: none !important;
+            }
+            #tab-mapa #mapa-contenedor {
+                width: 100% !important;
+                height: 100% !important;
+                flex: 1 !important;
+                border-radius: 0 !important;
+                border: none !important;
+                margin: 0 !important;
+                z-index: 1;
+            }
+        }
+
+        /* --- DASHBOARD PRINCIPAL ESTILO COUPLE360 (HOME) --- */
+        .c360-home-shell {
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+            padding-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        @media (min-width: 769px) {
+            .c360-home-shell {
+                max-width: 860px;
+                gap: 18px;
+            }
+        }
+
+        /* Hero Map Header con Avatares Frente a Frente (00:03 del video) */
+        .c360-hero-map-header {
+            position: relative;
+            width: 100%;
+            padding: calc(14px + env(safe-area-inset-top, 0px)) 16px 22px 16px;
+            background:
+                radial-gradient(circle at 20% 70%, rgba(187, 247, 208, 0.55) 0%, transparent 50%),
+                radial-gradient(circle at 82% 65%, rgba(254, 240, 138, 0.55) 0%, transparent 50%),
+                radial-gradient(circle at 50% 30%, rgba(252, 231, 243, 0.75) 0%, transparent 65%),
+                linear-gradient(180deg, #fdf2f8 0%, #f0fdf4 65%, #faf7fb 100%);
+            overflow: hidden;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+        }
+        /* Líneas estilizadas de calles/mapa de fondo en el Hero */
+        .c360-hero-map-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(32deg, transparent 46%, rgba(255,255,255,0.75) 47%, rgba(255,255,255,0.75) 51%, transparent 52%),
+                linear-gradient(-25deg, transparent 58%, rgba(255,255,255,0.7) 59%, rgba(255,255,255,0.7) 62%, transparent 63%),
+                linear-gradient(75deg, transparent 30%, rgba(255,255,255,0.55) 31%, rgba(255,255,255,0.55) 33%, transparent 34%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .c360-topbar {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+        .c360-topbar-spacer {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .c360-brand-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #0f172a;
+            cursor: pointer;
+            user-select: none;
+        }
+        .c360-brand-logo span {
+            color: #f43f5e;
+        }
+        .c360-inbox-btn {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            color: #1e293b;
+        }
+        .c360-inbox-dot {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ef4444;
+            border: 1.5px solid #ffffff;
+        }
+
+        /* Fila de Avatares Circulares y Distancia al Centro */
+        .c360-avatars-stage {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 8px 0 4px 0;
+        }
+        .c360-avatar-node {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .c360-avatar-ring {
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), 0 0 0 6px rgba(255, 255, 255, 0.45);
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .c360-avatar-ring:active {
+            transform: scale(0.95);
+        }
+        .c360-avatar-ring img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+        .c360-avatar-plus {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #1e293b;
+            color: #ffffff;
+            border: 2.5px solid #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            z-index: 4;
+        }
+        /* Burbuja flotante "¿Cómo te sientes?" */
+        .c360-mood-bubble {
+            position: absolute;
+            top: -28px;
+            right: -12px;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 5px 11px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #1e293b;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            cursor: pointer;
+            z-index: 5;
+            animation: floatBubble 3s ease-in-out infinite;
+        }
+        .c360-mood-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 24px;
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            transform: rotate(45deg);
+        }
+        .c360-mood-bubble.partner-bubble {
+            right: auto;
+            left: -10px;
+        }
+        .c360-mood-bubble.partner-bubble::after {
+            left: auto;
+            right: 24px;
+        }
+        @keyframes floatBubble {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        /* Centro: 1km / Distancia / Dos Corazones */
+        .c360-center-distance {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 4px 8px;
+            user-select: none;
+        }
+        .c360-center-km {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+        }
+        .c360-center-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        .c360-center-hearts {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 1.05rem;
+            animation: palpitacion 1.4s infinite ease-in-out;
+        }
+
+        /* Contenedor de Tarjetas del Home */
+        .c360-home-cards-wrap {
+            padding: 0 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Tarjeta 1: Historias Lado a Lado (00:04 del video) */
+        .c360-stories-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 18px rgba(148, 163, 184, 0.08);
+            border: 1px solid rgba(241, 245, 249, 0.9);
+        }
+        .c360-stories-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        .c360-stories-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.02rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .c360-stories-arrow {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .c360-stories-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .c360-story-slot {
+            position: relative;
+            height: 148px;
+            border-radius: 18px;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        .c360-story-slot:active {
+            transform: scale(0.98);
+        }
+        .c360-story-slot.has-photo {
+            padding: 0;
+        }
+        .c360-story-slot-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .c360-story-slot-caption {
+            position: absolute;
+            bottom: 10px;
+            left: 42px;
+            right: 8px;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(6px);
+            color: #ffffff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 999px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: left;
+        }
+        .c360-story-empty-icon {
+            font-size: 2rem;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+        }
+        .c360-story-cam-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fb7185 0%, #ec4899 100%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+            box-shadow: 0 6px 16px rgba(236, 72, 153, 0.3);
+            position: relative;
+        }
+        .c360-story-slot-text {
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: #94a3b8;
+            line-height: 1.25;
+        }
+        .c360-story-slot-text.active-pink {
+            color: #ec4899;
+            font-weight: 700;
+        }
+        .c360-story-mini-avatar {
+            position: absolute;
+            bottom: 8px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            object-fit: cover;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            z-index: 2;
+        }
+        .c360-story-mini-avatar.left { left: 8px; }
+        .c360-story-mini-avatar.right { right: 8px; }
+
+        /* Tarjeta 2: Banner Horizontal Lila/Azul (Rastreador de Ciclo / Cuidado Mutuo, 00:05) */
+        .c360-cycle-banner {
+            background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 50%, #fae8ff 100%);
+            border-radius: 22px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(139, 92, 246, 0.08);
+            transition: transform 0.2s ease;
+        }
+        .c360-cycle-banner:active {
+            transform: scale(0.98);
+        }
+        .c360-cycle-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .c360-cycle-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            box-shadow: 0 2px 8px rgba(244, 114, 182, 0.2);
+            flex-shrink: 0;
+        }
+        .c360-cycle-info h4 {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin: 0 0 2px 0;
+        }
+        .c360-cycle-info p {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #475569;
+            margin: 0;
+        }
+        .c360-cycle-right {
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .c360-cycle-action {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #6366f1;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .c360-cycle-days {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+
+        /* Cuadrícula Bento 2x2 Pastel (01:08 - 01:13 del video) */
+        .c360-bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .c360-bento-card {
+            border-radius: 24px;
+            padding: 16px;
+            min-height: 138px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+        }
+        .c360-bento-card:active {
+            transform: scale(0.97);
+        }
+        .c360-bento-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 6px;
+            z-index: 2;
+        }
+        .c360-bento-title {
+            font-size: 0.96rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+        .c360-bento-icon {
+            font-size: 1.75rem;
+            line-height: 1;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+        }
+        /* Variantes de color exactas a Couple360 */
+        .c360-bento-card.pink {
+            background: linear-gradient(145deg, #ffe4ef 0%, #fce7f3 100%);
+        }
+        .c360-bento-card.mint {
+            background: linear-gradient(145deg, #dcfce7 0%, #d1fae5 50%, #e0f2fe 100%);
+        }
+        .c360-bento-card.peach {
+            background: linear-gradient(145deg, #ffedd5 0%, #fef3c7 100%);
+        }
+        .c360-bento-card.purple {
+            background: linear-gradient(145deg, #f3e8ff 0%, #ede9fe 100%);
+        }
+        .c360-bento-big-num {
+            font-size: 2.15rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1;
+            z-index: 2;
+        }
+        .c360-bento-big-num.pink-text { color: #db2777; }
+        .c360-bento-big-num.purple-text { color: #6d28d9; }
+        .c360-bento-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: #9a3412;
+            z-index: 2;
+        }
+        /* Mini preview dentro del card de Widgets */
+        .c360-widget-mini-preview {
+            margin-top: 8px;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            border-radius: 14px;
+            padding: 8px 10px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.74rem;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.25);
+        }
+
+        .c360-footer-tagline {
+            text-align: center;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: #f472b6;
+            padding: 12px 0 6px 0;
+            letter-spacing: 0.2px;
+        }
+
+        /* ==========================================================================
+           --- VISTAS FULL-SCREEN NATIVAS COUPLE360 (SLIDE-OVER 100% PANTALLA) ---
+           ========================================================================== */
+        .c360-fullscreen-modal {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100dvh;
+            background: #ffffff;
+            z-index: 2500;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: c360SlideIn 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .c360-fullscreen-modal.active {
+            display: flex;
+        }
+        @keyframes c360SlideIn {
+            from { opacity: 0; transform: translateX(28px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .c360-fs-navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px 16px;
+            background: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+        .c360-fs-back {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+        }
+        .c360-fs-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .c360-fs-action {
+            background: transparent;
+            border: none;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            cursor: pointer;
+            min-width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .c360-fs-body {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 16px;
+            background: #faf7fb;
+        }
+
+        /* 1. OVERLAY "¿CÓMO TE SIENTES?" CON FONDO BLUR (00:10 - 00:18) */
+        .c360-mood-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100dvh;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: calc(18px + env(safe-area-inset-top, 0px)) 0 calc(20px + env(safe-area-inset-bottom, 0px)) 0;
+            animation: fadeIn 0.2s ease;
+        }
+        .c360-mood-overlay.active {
+            display: flex;
+        }
+        .c360-mood-close {
+            align-self: flex-end;
+            margin-right: 18px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.45);
+            color: #ffffff;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .c360-mood-center-avatar {
+            width: 165px;
+            height: 165px;
+            border-radius: 50%;
+            border: 5px solid #ffffff;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .c360-mood-center-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .c360-mood-bottom-sheet {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .c360-mood-chips-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 4px 16px;
+            scrollbar-width: none;
+        }
+        .c360-mood-chips-scroll::-webkit-scrollbar { display: none; }
+        .c360-mood-chip {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1.5px solid transparent;
+            border-radius: 999px;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0f172a;
+            white-space: nowrap;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s ease;
+        }
+        .c360-mood-chip.selected, .c360-mood-chip:active {
+            border-color: #ec4899;
+            background: #fdf2f8;
+            color: #db2777;
+            transform: scale(1.04);
+        }
+        .c360-mood-input-wrap {
+            margin: 0 16px;
+            background: #ffffff;
+            border-radius: 999px;
+            padding: 6px 8px 6px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+        }
+        .c360-mood-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0f172a;
+            background: transparent;
+        }
+        .c360-mood-send-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #0f172a;
+            color: #ffffff;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 2. PANTALLA INMERSIVA "DÍAS JUNTOS" (01:14 - 01:34) */
+        .c360-dias-juntos-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #ffffff;
+            padding: calc(16px + env(safe-area-inset-top, 0px)) 20px calc(36px + env(safe-area-inset-bottom, 0px)) 20px;
+        }
+        .c360-dias-juntos-screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.38) 0%, rgba(0,0,0,0.18) 50%, rgba(0,0,0,0.58) 100%);
+            pointer-events: none;
+        }
+        .c360-dj-top, .c360-dj-middle, .c360-dj-bottom {
+            position: relative;
+            z-index: 2;
+        }
+        .c360-dj-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .c360-dj-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.35);
+            color: #ffffff;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .c360-dj-glass-banner {
+            margin-top: 18px;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(255, 255, 255, 0.45);
+            border-radius: 22px;
+            padding: 18px 16px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+        }
+        .c360-dj-stats-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            text-align: center;
+            margin-top: 14px;
+        }
+
+        /* 3. CALENDARIO DE HISTORIAS MENSUAL (00:30 - 00:42) */
+        .c360-cal-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #fdf2f8;
+            padding: 4px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+        }
+        .c360-cal-tab {
+            background: transparent;
+            border: none;
+            padding: 9px;
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: #94a3b8;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .c360-cal-tab.active {
+            background: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .c360-cal-month-block {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 16px 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+        .c360-cal-month-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+        .c360-cal-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .c360-cal-days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+        .c360-cal-day {
+            aspect-ratio: 1 / 1.12;
+            border: 1.5px dashed #cbd5e1;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e293b;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: #ffffff;
+        }
+        .c360-cal-day.empty {
+            border: none;
+            background: transparent;
+            cursor: default;
+        }
+        .c360-cal-day.has-story {
+            border: 2px solid #ec4899;
+            color: #ffffff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+        }
+        .c360-cal-day.has-story img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .c360-cal-day.has-story span {
+            position: relative;
+            z-index: 1;
+            color: #fb7185;
+            font-weight: 900;
+            background: rgba(0,0,0,0.35);
+            padding: 1px 5px;
+            border-radius: 6px;
+        }
+
+        /* 4. MAPA FULL-SCREEN BOTTOM SHEET (02:00 - 02:20) */
+        .c360-map-overlay-top {
+            position: absolute;
+            top: calc(12px + env(safe-area-inset-top, 0px));
+            left: 14px;
+            right: 14px;
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .c360-map-top-banner {
+            pointer-events: auto;
+            flex: 1;
+            background: rgba(255, 241, 242, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #fecdd3;
+            border-radius: 16px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        .c360-map-bottom-sheet {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-top-left-radius: 26px;
+            border-top-right-radius: 26px;
+            padding: 14px 18px 18px 18px;
+            box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.08);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .c360-map-floating-controls {
+            position: absolute;
+            bottom: 168px;
+            left: 14px;
+            right: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 500;
+            pointer-events: none;
+        }
+        .c360-map-pill-btn {
+            pointer-events: auto;
+            background: #ffffff;
+            border: none;
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #0f172a;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .c360-map-user-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .c360-map-user-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .c360-map-user-avatar {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .c360-map-user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f1f5f9;
+        }
+        .c360-map-battery-badge {
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            color: #854d0e;
+            font-size: 0.62rem;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        /* 5. PANTALLA DE PERFIL Y AJUSTES ESTILO COUPLE360 (02:28 - 02:32) */
+        .c360-profile-shell {
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+            padding-bottom: 30px;
+        }
+        .c360-profile-hero {
+            padding: calc(28px + env(safe-area-inset-top, 0px)) 16px 20px 16px;
+            background: radial-gradient(circle at 50% 20%, #fce7f3 0%, #f5f3ff 55%, #faf7fb 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        .c360-profile-main-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 24px rgba(236, 72, 153, 0.2);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .c360-profile-main-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .c360-profile-banner-card {
+            width: 100%;
+            background: linear-gradient(135deg, #fef9c3 0%, #dcfce7 55%, #d1fae5 100%);
+            border-radius: 22px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+        }
+        .c360-settings-group {
+            background: #ffffff;
+            border-radius: 22px;
+            margin: 12px 14px;
+            padding: 4px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+        .c360-settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 4px;
+            border-bottom: 1px solid #f1f5f9;
+            cursor: pointer;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .c360-settings-item:last-child {
+            border-bottom: none;
+        }
+        .c360-settings-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .c360-settings-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #94a3b8;
+            font-size: 0.84rem;
+            font-weight: 600;
+        }
     </style>
     
     <!-- LIBRERÍAS EXTERNAS -->
@@ -5659,82 +6798,183 @@
             <button class="tab-btn" onclick="cambiarPestaña('juego')" id="btn-tab-juego">🎮 Juego</button>
         </nav>
 
-        <!-- PESTAÑA: NOSOTROS (HOME & HISTORIAS) -->
+        <!-- PESTAÑA: NOSOTROS (HOME DASHBOARD ESTILO COUPLE360) -->
         <div id="tab-nosotros" class="tab-content active">
-            <!-- Diario de Amor Widget -->
-            <div class="diario-amor-widget" id="diario-amor-contenedor">
-                <div class="diario-amor-title">Pensamiento del Día</div>
-                <div class="diario-amor-text" id="diario-amor-texto">Cargando mensaje de amor...</div>
-            </div>
+            <div class="c360-home-shell">
 
-            <!-- Perfiles de la Pareja -->
-            <div class="perfil-pareja-contenedor">
-                <div class="perfil-tarjeta" id="perfil-tarjeta-andy">
-                    <div class="avatar-wrapper">
-                        <div class="perfil-avatar-circle" id="avatar-circle-andy" onclick="clicAvatar('andy')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/pinguino_avatar_3d.jpg" alt="Andy"></div>
-                        <div class="avatar-plus-btn" id="avatar-plus-andy" onclick="abrirModalRapidoHistoria('andy', event)" title="Añadir nuevo estado">+</div>
-                    </div>
-                    <div class="perfil-datos">
-                        <span class="perfil-nombre" id="nombre-display-andy">Andy</span>
-                        <span class="perfil-info" id="info-display-andy">Ing. en Ciencias de la Computación | 28 años</span>
-                        <span class="perfil-hobby-wrapper">
-                            <span class="perfil-hobby" id="hobby-display-andy">Apasionado por la Datsun 1200 pickup y el código</span>
-                            <button class="btn-editar-perfil" id="btn-editar-perfil-andy" onclick="activarEdicionPerfil('andy')" title="Editar mi perfil">✏️</button>
-                        </span>
-                    </div>
-                </div>
-                <div class="perfil-corazon-medio">
-                    <div class="couple360-dist-badge" onclick="cambiarPestaña('mapa')" title="Ver en Radar & Mapa">
-                        <div class="couple360-dist-top">
-                            <span style="font-size: 0.9rem;">📍</span>
-                            <span id="distancia-couple360-val">1 km</span>
-                            <span style="font-size: 0.8rem; animation: palpitacion 1.2s infinite ease-in-out; display: inline-block;">❤️</span>
+                <!-- 1. HERO HEADER CON MAPA PASTEL, AVATARES CARA A CARA Y DISTANCIA (00:03) -->
+                <div class="c360-hero-map-header">
+                    <!-- Barra superior nativa Couple360 -->
+                    <div class="c360-topbar">
+                        <div class="c360-topbar-spacer"></div>
+                        <div class="c360-brand-logo" onclick="gestionarAdminIdentidad()" title="HistoriLove | Andy & Jessie">
+                            Histori<span>Love</span>
                         </div>
-                        <div class="couple360-dist-sub">Distancia</div>
+                        <button type="button" class="c360-inbox-btn" onclick="abrirVistaC360('bandeja')" title="Bandeja de entrada">
+                            <span>✉️</span>
+                            <span class="c360-inbox-dot" id="c360-inbox-badge-dot"></span>
+                        </button>
+                    </div>
+
+                    <!-- Escenario de Avatares y Distancia al Centro -->
+                    <div class="c360-avatars-stage">
+                        <!-- Avatar Izquierdo: Jessie -->
+                        <div class="c360-avatar-node">
+                            <div class="c360-mood-bubble partner-bubble" id="c360-bubble-jessie" onclick="abrirPreviewAvatarC360('jessie')" style="display: none;">
+                                <span id="c360-bubble-text-jessie">Te amo 🥰</span>
+                            </div>
+                            <div class="c360-avatar-ring" id="avatar-circle-jessie" onclick="abrirPreviewAvatarC360('jessie')" title="Ver estado de Jessie">
+                                <img id="c360-home-img-jessie" src="imagenes/kuromi_avatar_3d.jpg" alt="Jessie">
+                            </div>
+                        </div>
+
+                        <!-- Centro: Distancia 1km + Corazones -->
+                        <div class="c360-center-distance" onclick="cambiarPestaña('mapa')" title="Abrir Mapa en Tiempo Real">
+                            <div class="c360-center-km" id="distancia-couple360-val">1km</div>
+                            <div class="c360-center-label">Distancia</div>
+                            <div class="c360-center-hearts">
+                                <span style="color:#ec4899;">💗</span><span style="color:#a855f7;">💜</span>
+                            </div>
+                        </div>
+
+                        <!-- Avatar Derecho: Andy (Yo) con burbuja "¿Cómo te sientes?" y botón + -->
+                        <div class="c360-avatar-node">
+                            <div class="c360-mood-bubble" id="c360-bubble-andy" onclick="abrirSelectorEstadoC360()">
+                                <span id="c360-bubble-text-andy">😊 ¿Cómo te sientes?</span>
+                            </div>
+                            <div class="c360-avatar-ring" id="avatar-circle-andy" onclick="abrirSelectorEstadoC360()" title="Actualizar cómo te sientes">
+                                <img id="c360-home-img-andy" src="imagenes/pinguino_avatar_3d.jpg" alt="Andy">
+                                <div class="c360-avatar-plus" id="avatar-plus-andy" onclick="abrirSelectorEstadoC360(event)">+</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="perfil-tarjeta" id="perfil-tarjeta-jessie" style="text-align: right; flex-direction: row-reverse;">
-                    <div class="avatar-wrapper">
-                        <div class="perfil-avatar-circle" id="avatar-circle-jessie" onclick="clicAvatar('jessie')" title="Ver historia" style="cursor: pointer;"><img src="imagenes/kuromi_avatar_3d.jpg" alt="Jessie"></div>
-                        <div class="avatar-plus-btn" id="avatar-plus-jessie" onclick="abrirModalRapidoHistoria('jessie', event)" title="Añadir nuevo estado">+</div>
+
+                <!-- 2. CONTENEDOR DE TARJETAS PRINCIPALES (ESTILO COUPLE360) -->
+                <div class="c360-home-cards-wrap">
+
+                    <!-- Botón Especial Cumplemes si es día 20 -->
+                    <div id="contenedor-boton-cumplemes" style="text-align: center;">
+                        <button class="btn-cumplemes-88" onclick="mostrarSorpresa88()" id="btn-cumplemes-88" title="¡Celebración especial de Cumplemes!" style="display: none; width: 100%; justify-content: center;">
+                            <span class="icono-infinito-rotando">♾️</span>
+                            <span id="texto-btn-cumplemes">¡Especial Cumplemes!</span>
+                            <span class="badge-tag-88">¡ES HOY!</span>
+                        </button>
                     </div>
-                    <div class="perfil-datos" style="align-items: flex-end;">
-                        <span class="perfil-nombre" id="nombre-display-jessie">Jessie</span>
-                        <span class="perfil-info" id="info-display-jessie">Ing. en Ciencias de la Computación | 26 años</span>
-                        <span class="perfil-hobby-wrapper" style="flex-direction: row-reverse;">
-                            <span class="perfil-hobby" id="hobby-display-jessie">Amante de los videojuegos y la tecnología</span>
-                            <button class="btn-editar-perfil" id="btn-editar-perfil-jessie" onclick="activarEdicionPerfil('jessie')" title="Editar mi perfil">✏️</button>
-                        </span>
+
+                    <!-- TARJETA 1: HISTORIAS LADO A LADO (00:04) -->
+                    <div class="c360-stories-card">
+                        <div class="c360-stories-header" onclick="abrirVistaC360('historias')">
+                            <div class="c360-stories-title">
+                                <span>🖼️</span>
+                                <span>Historias</span>
+                            </div>
+                            <span class="c360-stories-arrow">›</span>
+                        </div>
+                        <div class="c360-stories-split">
+                            <!-- Lado Izquierdo: Historia de la Pareja -->
+                            <div class="c360-story-slot" id="c360-slot-pareja" onclick="abrirVistaC360('historias')">
+                                <div class="c360-story-empty-icon">🖼️</div>
+                                <div class="c360-story-slot-text" id="c360-slot-pareja-text">Tu pareja no tiene nada que contar hoy</div>
+                                <img src="imagenes/kuromi_avatar_3d.jpg" class="c360-story-mini-avatar left" id="c360-slot-pareja-avatar" alt="Pareja">
+                            </div>
+                            <!-- Lado Derecho: Comparte tu historia -->
+                            <div class="c360-story-slot" id="c360-slot-propio" onclick="dispararCamaraHistoriaC360()">
+                                <div class="c360-story-cam-btn">📷</div>
+                                <div class="c360-story-slot-text active-pink" id="c360-slot-propio-text">Comparte tu historia</div>
+                                <img src="imagenes/pinguino_avatar_3d.jpg" class="c360-story-mini-avatar right" id="c360-slot-propio-avatar" alt="Yo">
+                            </div>
+                        </div>
+                        <input type="file" id="c360-input-story-camera" accept="image/*" style="display: none;" onchange="procesarNuevaHistoriaC360(this)">
+                    </div>
+
+                    <!-- TARJETA 2: BANNER HORIZONTAL RASTREADOR DE CICLO & BIENESTAR (00:05) -->
+                    <div class="c360-cycle-banner" onclick="cambiarPestaña('bienestar')">
+                        <div class="c360-cycle-left">
+                            <div class="c360-cycle-icon">🩸</div>
+                            <div class="c360-cycle-info">
+                                <h4>Rastreador de Ciclo & Cuidado</h4>
+                                <p id="c360-cycle-subtitle">Cuidado mutuo e hidratación al día</p>
+                            </div>
+                        </div>
+                        <div class="c360-cycle-right">
+                            <span class="c360-cycle-action">Ver detalle</span>
+                            <span class="c360-cycle-days" id="c360-cycle-days-val">88 meses</span>
+                        </div>
+                    </div>
+
+                    <!-- TARJETA 3: CUADRÍCULA BENTO 2x2 PASTEL (01:08 - 01:13) -->
+                    <div class="c360-bento-grid">
+                        <!-- Bento 1: Días Juntos (Rosa) -->
+                        <div class="c360-bento-card pink" onclick="abrirVistaC360('dias-juntos')">
+                            <div class="c360-bento-top">
+                                <span class="c360-bento-title">Días<br>Juntos</span>
+                                <span class="c360-bento-icon">📅</span>
+                            </div>
+                            <div class="c360-bento-big-num pink-text" id="c360-bento-dias-num">2688</div>
+                        </div>
+
+                        <!-- Bento 2: Widgets & Experiencias (Menta) -->
+                        <div class="c360-bento-card mint" onclick="abrirVistaC360('widgets')">
+                            <div class="c360-bento-top">
+                                <span class="c360-bento-title">Widgets</span>
+                                <span class="c360-bento-icon">🧊</span>
+                            </div>
+                            <div class="c360-widget-mini-preview" id="c360-bento-widget-preview">
+                                <div style="display:flex; flex-direction:column; text-align:left;">
+                                    <span style="font-size:0.62rem; opacity:0.9;">Love Check-In</span>
+                                    <span id="c360-mini-checkin-nums" style="font-size:0.92rem; font-weight:800;">368 ❤️ 288</span>
+                                </div>
+                                <span style="font-size:1.3rem;">🐕</span>
+                            </div>
+                        </div>
+
+                        <!-- Bento 3: Recuerdos (Durazno) -->
+                        <div class="c360-bento-card peach" onclick="abrirVistaC360('recuerdos-feed')">
+                            <div class="c360-bento-top">
+                                <span class="c360-bento-title">Recuerdos</span>
+                                <span class="c360-bento-icon">🗂️</span>
+                            </div>
+                            <div class="c360-bento-lines">
+                                <span id="c360-bento-paises">1 país</span>
+                                <span id="c360-bento-ciudades">2 ciudades</span>
+                            </div>
+                        </div>
+
+                        <!-- Bento 4: Días Especiales (Lila) -->
+                        <div class="c360-bento-card purple" onclick="abrirVistaC360('dias-especiales')">
+                            <div class="c360-bento-top">
+                                <span class="c360-bento-title">Días<br>especiales</span>
+                                <span class="c360-bento-icon">🌟</span>
+                            </div>
+                            <div class="c360-bento-big-num purple-text" id="c360-bento-especiales-num">6</div>
+                        </div>
+                    </div>
+
+                    <div class="c360-footer-tagline">
+                        ♥ Capture love and create memories together ♥
                     </div>
                 </div>
-            </div>
 
-            <!-- Reloj de Aniversario Juntos -->
-            <div class="reloj-aniversario-contenedor">
-                <div class="reloj-corazon" onclick="lanzarConfeti()" title="¡Púlsame!">❤️</div>
-                <div class="reloj-titulo-interna">Tiempo Juntos</div>
-                <div class="reloj-contador">
-                    <div class="reloj-segmento"><span class="num" id="reloj-anos">00</span><span class="label">Años</span></div>
-                    <div class="reloj-segmento"><span class="num" id="reloj-meses">00</span><span class="label">Meses</span></div>
-                    <div class="reloj-segmento"><span class="num" id="reloj-dias">00</span><span class="label">Días</span></div>
-                    <div class="reloj-segmento"><span class="num" id="reloj-horas">00</span><span class="label">Horas</span></div>
-                    <div class="reloj-segmento"><span class="num" id="reloj-minutos">00</span><span class="label">Min</span></div>
-                    <div class="reloj-segmento"><span class="num" id="reloj-segundos">00</span><span class="label">Seg</span></div>
+                <!-- Contenedores de datos sincronizados (ocultos visualmente pero activos para compatibilidad total) -->
+                <div style="display: none;">
+                    <div id="diario-amor-contenedor"><span id="diario-amor-texto"></span></div>
+                    <span id="nombre-display-andy">Andy</span>
+                    <span id="info-display-andy">Ing. en Ciencias de la Computación | 28 años</span>
+                    <span id="hobby-display-andy">Apasionado por la Datsun 1200 pickup y el código</span>
+                    <span id="nombre-display-jessie">Jessie</span>
+                    <span id="info-display-jessie">Ing. en Ciencias de la Computación | 26 años</span>
+                    <span id="hobby-display-jessie">Amante de los videojuegos y la tecnología</span>
+                    <div id="avatar-plus-jessie"></div>
+                    <span id="reloj-anos">00</span>
+                    <span id="reloj-meses">00</span>
+                    <span id="reloj-dias">00</span>
+                    <span id="reloj-horas">00</span>
+                    <span id="reloj-minutos">00</span>
+                    <span id="reloj-segundos">00</span>
+                    <div id="fechas-especiales-container"></div>
                 </div>
 
-                <!-- Botón Especial Cumplemes (Programado automáticamente para cada día 20) -->
-                <div id="contenedor-boton-cumplemes">
-                    <button class="btn-cumplemes-88" onclick="mostrarSorpresa88()" id="btn-cumplemes-88" title="¡Celebración especial de Cumplemes!" style="display: none;">
-                        <span class="icono-infinito-rotando">♾️</span>
-                        <span id="texto-btn-cumplemes">¡Especial Cumplemes!</span>
-                        <span class="badge-tag-88">¡ES HOY!</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Fechas Especiales -->
-            <div class="fechas-especiales-container" id="fechas-especiales-container">
-                <!-- Se llenará dinámicamente -->
             </div>
         </div> <!-- Fin de tab-nosotros -->
 
@@ -6126,16 +7366,16 @@ Andy. ❤️</div>
             </div>
         </div>
 
-        <!-- PESTAÑA: MAPA DE NUESTROS LUGARES -->
+        <!-- PESTAÑA: MAPA DE NUESTROS LUGARES (FULL-SCREEN COUPLE360 EN MÓVIL) -->
         <div id="tab-mapa" class="tab-content">
-            <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('mas')">← Volver a Especiales</button>
+            <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('nosotros')">← Volver a Inicio</button>
             <div class="retos-cabecera">
                 <span style="font-size: 2.5rem;">🗺️</span>
                 <h3>Mapa de Nuestra Historia</h3>
                 <p>Nuestros lugares compartidos y la distancia que nos une en todo momento.</p>
             </div>
 
-            <!-- RADAR DE CONEXIÓN ENTRE ANDY Y JESSIE -->
+            <!-- RADAR DE CONEXIÓN ENTRE ANDY Y JESSIE (Escritorio) -->
             <div class="radar-distancia-card" id="radar-distancia-panel">
                 <div class="radar-header">
                     <div class="radar-titulo-wrap">
@@ -6161,7 +7401,64 @@ Andy. ❤️</div>
             </div>
 
             <div class="mapa-instrucciones">Toca el mapa para agregar un nuevo recuerdo especial 📍</div>
+
+            <!-- OVERLAY SUPERIOR ESTILO COUPLE360 (02:04 del video) -->
+            <div class="c360-map-overlay-top">
+                <button type="button" onclick="cambiarPestaña('nosotros')" style="pointer-events:auto; width:38px; height:38px; border-radius:50%; background:#ffffff; border:none; box-shadow:0 4px 12px rgba(0,0,0,0.12); font-size:1.2rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center;">‹</button>
+                <div class="c360-map-top-banner">
+                    <div style="display:flex; align-items:center; gap:8px; font-size:0.76rem; font-weight:700; color:#e11d48; line-height:1.25;">
+                        <span>📍</span>
+                        <span id="c360-map-banner-text">Radar activo: Ubicación y distancia en tiempo real entre ustedes.</span>
+                    </div>
+                    <button type="button" onclick="actualizarMiUbicacionRadar()" style="background:#ffffff; color:#e11d48; border:1px solid #fda4af; border-radius:999px; padding:5px 12px; font-size:0.72rem; font-weight:800; cursor:pointer; white-space:nowrap;">Actualizar</button>
+                </div>
+            </div>
+
+            <!-- MAPA INTERACTIVO -->
             <div id="mapa-contenedor"></div>
+
+            <!-- CONTROLES FLOTANTES SOBRE EL BOTTOM SHEET (02:05) -->
+            <div class="c360-map-floating-controls">
+                <button type="button" class="c360-map-pill-btn" onclick="enviarLlegadaAlChatC360()">
+                    <span>🔔</span> Alerta de lugar
+                </button>
+                <button type="button" class="c360-map-pill-btn" onclick="centrarMapaParejaC360()" style="padding:10px 12px;">
+                    <span>🎯</span>
+                </button>
+            </div>
+
+            <!-- TARJETA INFERIOR NATIVA DEL MAPA (JESSIE & YO - 02:05 a 02:20) -->
+            <div class="c360-map-bottom-sheet">
+                <!-- Fila 1: Jessie -->
+                <div class="c360-map-user-row">
+                    <div class="c360-map-user-left">
+                        <div class="c360-map-user-avatar">
+                            <img src="imagenes/kuromi_avatar_3d.jpg" alt="Jessie">
+                            <span class="c360-map-battery-badge" id="c360-map-bat-jessie">🔋 85%</span>
+                        </div>
+                        <div>
+                            <div style="font-size:0.98rem; font-weight:800; color:#0f172a;" id="c360-map-name-jessie">Jessie</div>
+                            <div style="font-size:0.76rem; color:#64748b; font-weight:600;" id="c360-map-status-jessie">En línea · Ubicación sincronizada</div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="centrarEnPersonaMapaC360('jessie')" style="background:#ffffff; border:1.5px solid #0f172a; color:#0f172a; border-radius:999px; padding:6px 14px; font-size:0.76rem; font-weight:800; cursor:pointer;">Verificar</button>
+                </div>
+
+                <!-- Fila 2: Yo (Andy) -->
+                <div class="c360-map-user-row">
+                    <div class="c360-map-user-left">
+                        <div class="c360-map-user-avatar">
+                            <img src="imagenes/pinguino_avatar_3d.jpg" alt="Andy">
+                            <span class="c360-map-battery-badge" id="c360-map-bat-andy">🔋 92%</span>
+                        </div>
+                        <div>
+                            <div style="font-size:0.98rem; font-weight:800; color:#0f172a;" id="c360-map-name-andy">Yo (Andy)</div>
+                            <div style="font-size:0.76rem; color:#64748b; font-weight:600;" id="c360-map-status-andy">GPS activo · Toca para actualizar</div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="actualizarMiUbicacionRadar()" style="background:#0f172a; border:none; color:#ffffff; border-radius:999px; padding:7px 14px; font-size:0.76rem; font-weight:800; cursor:pointer;">Actualizar GPS</button>
+                </div>
+            </div>
         </div>
 
         <!-- PESTAÑA: LIBRO DE MENSAJES (CARTAS SECRETAS) -->
@@ -6193,19 +7490,23 @@ Andy. ❤️</div>
             </div>
         </div>
 
-        <!-- PESTAÑA: CHAT ÍNTIMO DE PAREJA -->
+        <!-- PESTAÑA: CHAT ÍNTIMO DE PAREJA (FULL-SCREEN COUPLE360 EN MÓVIL - 02:23) -->
         <div id="tab-chat" class="tab-content">
             <div class="chat-pareja-card" id="chat-pareja-card-elem">
-                <div class="chat-pareja-header">
+                <div class="chat-pareja-header" style="padding-top: calc(12px + env(safe-area-inset-top, 0px));">
                     <div class="chat-pareja-info">
+                        <button type="button" onclick="cambiarPestaña('nosotros')" style="background:transparent; border:none; font-size:1.5rem; font-weight:800; color:#0f172a; cursor:pointer; padding:0 6px 0 0; line-height:1;">‹</button>
                         <div class="chat-header-avatars">
                             <img src="imagenes/pinguino_avatar_3d.jpg" class="chat-mini-avatar andy" alt="Andy">
                             <img src="imagenes/kuromi_avatar_3d.jpg" class="chat-mini-avatar jessie" alt="Jessie">
                         </div>
                         <div>
-                            <h3 class="chat-titulo-nombre" id="chat-cabecera-nombre">Nuestro Chat Íntimo</h3>
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                <h3 class="chat-titulo-nombre" id="chat-cabecera-nombre">Jessie & Andy</h3>
+                                <span style="background:#f3e8ff; color:#7e22ce; font-size:0.68rem; font-weight:800; padding:2px 7px; border-radius:999px;">💜 88</span>
+                            </div>
                             <span class="chat-subtitulo-estado" id="chat-cabecera-estado">
-                                <span class="chat-online-indicator"></span> En línea
+                                <span class="chat-online-indicator"></span> En línea · 📳 📶 🔋
                             </span>
                         </div>
                     </div>
@@ -6220,16 +7521,15 @@ Andy. ❤️</div>
                     <!-- Mensajes cargados dinámicamente -->
                 </div>
 
-                <!-- Barra de Emojis rápidos -->
-                <div class="chat-emojis-rapidos">
+                <!-- Chips de Acción Rápida Estilo Couple360 (02:24: Momento, Actividad, ¿Todavía amas?) -->
+                <div class="chat-emojis-rapidos" style="padding: 8px 10px; gap: 8px;">
+                    <button type="button" onclick="document.getElementById('chat-file-input').click()" style="background:#f3e8ff; color:#7e22ce; border:1px solid #d8b4fe; font-weight:700; padding:6px 12px; border-radius:999px; font-size:0.76rem;">➕ Momento</button>
+                    <button type="button" onclick="enviarLlegadaAlChatC360()" style="background:#dcfce7; color:#15803d; border:1px solid #bbf7d0; font-weight:700; padding:6px 12px; border-radius:999px; font-size:0.76rem;">📍 Llegada GPS</button>
+                    <button type="button" onclick="enviarToqueAmorChatC360()" style="background:#fce7f3; color:#be185d; border:1px solid #fbcfe8; font-weight:700; padding:6px 12px; border-radius:999px; font-size:0.76rem;">🐶 ¿Todavía amas?</button>
                     <button type="button" onclick="insertarEmojiChat('❤️')">❤️</button>
                     <button type="button" onclick="insertarEmojiChat('🥰')">🥰</button>
-                    <button type="button" onclick="insertarEmojiChat('😈')">😈</button>
-                    <button type="button" onclick="insertarEmojiChat('🐧')">🐧</button>
                     <button type="button" onclick="insertarEmojiChat('😘')">😘</button>
                     <button type="button" onclick="insertarEmojiChat('🥺')">🥺</button>
-                    <button type="button" onclick="insertarEmojiChat('✨')">✨</button>
-                    <button type="button" onclick="insertarEmojiChat('Te amo mucho ❤️')">💌 Te amo</button>
                 </div>
 
                 <!-- Input del Chat y Acciones Multimedia -->
@@ -6246,7 +7546,7 @@ Andy. ❤️</div>
                     </button>
 
                     <!-- Input de Texto Normal -->
-                    <input type="text" id="chat-input-texto" class="chat-input" placeholder="Escribe un mensaje para tu amor..." autocomplete="off" oninput="notificarEscribiendoChat()">
+                    <input type="text" id="chat-input-texto" class="chat-input" placeholder="Enviar un mensaje..." autocomplete="off" oninput="notificarEscribiendoChat()">
 
                     <!-- Barra de Grabación de Audio (reemplaza visualmente el input al grabar) -->
                     <div id="chat-grabando-bar" class="chat-grabando-bar">
@@ -6409,6 +7709,169 @@ Andy. ❤️</div>
                             <span class="hub-item-desc">Nombres, fotos y biografía de ambos</span>
                         </div>
                         <span class="hub-item-arrow">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA: PERFIL Y AJUSTES ESTILO COUPLE360 (02:28 - 02:32 DEL VIDEO) -->
+        <div id="tab-perfil" class="tab-content">
+            <div class="c360-profile-shell">
+                <div class="c360-profile-hero">
+                    <div class="c360-profile-main-avatar" onclick="abrirModalAjustes(); cambiarTabAjustes('perfiles');" title="Cambiar foto de perfil">
+                        <img id="c360-profile-hero-img" src="imagenes/pinguino_avatar_3d.jpg" alt="Mi Perfil">
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="font-size:1.15rem; font-weight:800; color:#0f172a;" id="c360-profile-hero-name">Andy</div>
+                        <div style="font-size:0.78rem; color:#64748b; font-weight:600;" id="c360-profile-hero-sub">Vinculado con Jessie ❤️</div>
+                    </div>
+
+                    <!-- Banner de Pareja Conectada -->
+                    <div class="c360-profile-banner-card">
+                        <div>
+                            <div style="font-size:0.95rem; font-weight:800; color:#0f172a; margin-bottom:6px;">Espacio HistoriLove Pro ✨</div>
+                            <button type="button" onclick="abrirVistaC360('widgets')" style="background:#0f172a; color:#ffffff; border:none; border-radius:999px; padding:7px 16px; font-size:0.78rem; font-weight:800; cursor:pointer;">Explorar Widgets</button>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <img src="imagenes/pinguino_avatar_3d.jpg" style="width:42px; height:42px; border-radius:50%; border:2px solid #ffffff; object-fit:cover; box-shadow:0 4px 10px rgba(0,0,0,0.12);" alt="Andy">
+                            <span style="font-size:0.75rem; font-weight:800; background:#ffffff; padding:2px 6px; border-radius:999px; color:#ec4899;">1km</span>
+                            <img src="imagenes/kuromi_avatar_3d.jpg" style="width:42px; height:42px; border-radius:50%; border:2px solid #ffffff; object-fit:cover; box-shadow:0 4px 10px rgba(0,0,0,0.12);" alt="Jessie">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 1: Acerca de ti y Relación -->
+                <div class="c360-settings-group">
+                    <div class="c360-settings-item" onclick="abrirModalAjustes(); cambiarTabAjustes('perfiles');">
+                        <div class="c360-settings-left">
+                            <span>👤</span>
+                            <span>Acerca de ti</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span id="c360-set-mi-nombre">Editar perfil</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                    <div class="c360-settings-item" onclick="abrirVistaC360('dias-juntos')">
+                        <div class="c360-settings-left">
+                            <span>💞</span>
+                            <span>Sobre vuestra relación</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span>20 jun 2019</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 2: Módulos Especiales de Pareja (Finanzas, Bienestar, Cofre) -->
+                <div class="c360-settings-group">
+                    <div class="c360-settings-item" onclick="cambiarPestaña('finanzas')">
+                        <div class="c360-settings-left">
+                            <span>💰</span>
+                            <span>Finanzas & Lista de Compras</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span>Hogar 50/50</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                    <div class="c360-settings-item" onclick="cambiarPestaña('bienestar')">
+                        <div class="c360-settings-left">
+                            <span>🌿</span>
+                            <span>Cuidado & Salud Diaria</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span>Agua y hábitos</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                    <div class="c360-settings-item" onclick="cambiarPestaña('mas')">
+                        <div class="c360-settings-left">
+                            <span>🎁</span>
+                            <span>Cofre, Cartas PIN, Retos y Juego</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span>8 experiencias</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 3: Configuración Estilo Couple360 (02:30 del video) -->
+                <div class="c360-settings-group">
+                    <div class="c360-settings-item" onclick="solicitarPermisoNotificaciones()">
+                        <div class="c360-settings-left">
+                            <span>📍</span>
+                            <span>Autorización y Permisos</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span style="background:#fee2e2; color:#ef4444; padding:2px 8px; border-radius:999px; font-size:0.72rem; font-weight:800;">GPS & Alertas</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                    <div class="c360-settings-item" onclick="alternarUnidadDistanciaC360()">
+                        <div class="c360-settings-left">
+                            <span>🌐</span>
+                            <span>Unidad de distancia</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span id="c360-set-unidad-dist">Kilómetros</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                    <div class="c360-settings-item" onclick="alternarUnidadTempC360()">
+                        <div class="c360-settings-left">
+                            <span>🌡️</span>
+                            <span>Unidad de temperatura</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span id="c360-set-unidad-temp">Fahrenheit (°F)</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                    <div class="c360-settings-item" onclick="toggleMenuTemas()">
+                        <div class="c360-settings-left">
+                            <span>🎨</span>
+                            <span>Tema visual de la App</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span>Pastel / Kuromi</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                    <div class="c360-settings-item" onclick="abrirVistaC360('bandeja')">
+                        <div class="c360-settings-left">
+                            <span>🔔</span>
+                            <span>Notificaciones inteligentes</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span>Activas</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                    <div class="c360-settings-item" onclick="abrirWizardOnboarding()">
+                        <div class="c360-settings-left">
+                            <span>🔗</span>
+                            <span>Código de Vinculación & Historia</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span>Pareja</span>
+                            <span>›</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 4: Finalizar la sesión -->
+                <div class="c360-settings-group">
+                    <div class="c360-settings-item" onclick="cerrarSesionPareja()" style="color:#ef4444;">
+                        <div class="c360-settings-left">
+                            <span>🚪</span>
+                            <span>Finalizar la sesión</span>
+                        </div>
+                        <div class="c360-settings-right">
+                            <span>›</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -7168,29 +8631,447 @@ Andy. ❤️</div>
         <button class="btn-reiniciar" id="btn-instalar-app" onclick="solicitarInstalacionPWA()" style="display: none; background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.35); font-weight: 600; margin-left: 8px;">📲 Instalar en Celular</button>
     </footer>
 
-    <!-- BARRA DE NAVEGACIÓN INFERIOR NATIVA (ESTILO IPHONE / COUPLE360) -->
+    <!-- BARRA DE NAVEGACIÓN INFERIOR NATIVA (ESTILO COUPLE360: 4 ICONOS MINIMALISTAS) -->
     <nav class="nav-inferior-movil" id="nav-inferior-movil">
-        <button type="button" class="nav-bottom-item active" onclick="cambiarPestaña('nosotros')" id="nav-bottom-nosotros">
-            <span class="nav-bottom-icon">💖</span>
-            <span class="nav-bottom-label">Nosotros</span>
+        <button type="button" class="nav-bottom-item active" onclick="cambiarPestaña('nosotros')" id="nav-bottom-nosotros" title="Inicio">
+            <span class="nav-bottom-icon">🏠</span>
+            <span class="nav-bottom-label">Inicio</span>
         </button>
-        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('chat')" id="nav-bottom-chat">
+        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('mapa')" id="nav-bottom-mapa" title="Mapa GPS">
+            <span class="nav-bottom-icon">📍</span>
+            <span class="nav-bottom-label">Mapa</span>
+        </button>
+        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('chat')" id="nav-bottom-chat" title="Chat Íntimo" style="position:relative;">
             <span class="nav-bottom-icon">💬</span>
             <span class="nav-bottom-label">Chat</span>
+            <span style="position:absolute; top:4px; right:22px; width:7px; height:7px; border-radius:50%; background:#ef4444;"></span>
         </button>
-        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('bienestar')" id="nav-bottom-bienestar">
-            <span class="nav-bottom-icon">🌿</span>
-            <span class="nav-bottom-label">Bienestar</span>
-        </button>
-        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('finanzas')" id="nav-bottom-finanzas">
-            <span class="nav-bottom-icon">💰</span>
-            <span class="nav-bottom-label">Finanzas</span>
-        </button>
-        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('mas')" id="nav-bottom-mas">
-            <span class="nav-bottom-icon">✨</span>
-            <span class="nav-bottom-label">Especiales</span>
+        <button type="button" class="nav-bottom-item" onclick="cambiarPestaña('perfil')" id="nav-bottom-perfil" title="Perfil y Ajustes" style="position:relative;">
+            <span class="nav-bottom-icon">👤</span>
+            <span class="nav-bottom-label">Perfil</span>
+            <span style="position:absolute; top:4px; right:22px; width:7px; height:7px; border-radius:50%; background:#ef4444;"></span>
         </button>
     </nav>
+
+    <!-- ==========================================================================
+         --- PANTALLAS COMPLETAS NATIVAS COUPLE360 (100% PANTALLA EN CELULAR) ---
+         ========================================================================== -->
+
+    <!-- 1. OVERLAY "¿CÓMO TE SIENTES?" CON BLUR (00:10 - 00:18 del video) -->
+    <div id="c360-modal-mood" class="c360-mood-overlay" onclick="if(event.target === this) cerrarSelectorEstadoC360()">
+        <button type="button" class="c360-mood-close" onclick="cerrarSelectorEstadoC360()">✕</button>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+            <div class="c360-mood-center-avatar">
+                <img id="c360-mood-avatar-img" src="imagenes/pinguino_avatar_3d.jpg" alt="Avatar">
+            </div>
+            <div id="c360-mood-current-pill" style="background:rgba(255,255,255,0.92); padding:6px 16px; border-radius:999px; font-size:0.86rem; font-weight:800; color:#0f172a; box-shadow:0 4px 14px rgba(0,0,0,0.12);">
+                pensando en ti ✨
+            </div>
+        </div>
+        <div class="c360-mood-bottom-sheet" onclick="event.stopPropagation()">
+            <!-- Fila 1 de estados rápidos -->
+            <div class="c360-mood-chips-scroll">
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('pensando en ti ✨', this)">pensando en ti ✨</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Te amo 🥰', this)">Te amo 🥰</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Jugando 🎮', this)">Jugando 🎮</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Te extraño 🥺', this)">Te extraño 🥺</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Enojado 🤬', this)">Enojado 🤬</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Llanto 😭', this)">Llanto 😭</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Cansado 😩', this)">Cansado 😩</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Laboral 💻', this)">Laboral 💻</button>
+            </div>
+            <!-- Fila 2 de estados rápidos -->
+            <div class="c360-mood-chips-scroll">
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Con ganas 💋', this)">Con ganas 💋</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Yo también te extraño 🥺', this)">Yo también te extraño 🥺</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('🤍🤍🤍', this)">🤍🤍🤍</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('❤️❤️❤️', this)">❤️❤️❤️</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Nunca te dejaré', this)">Nunca te dejaré</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Escuchando música 🎵', this)">Escuchando música 🎵</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('Volando ✈️', this)">Volando ✈️</button>
+                <button type="button" class="c360-mood-chip" onclick="seleccionarChipMoodC360('MUNDIAL ⚽', this)">MUNDIAL ⚽</button>
+            </div>
+            <!-- Barra de entrada "¿Cómo te sientes?" -->
+            <div class="c360-mood-input-wrap">
+                <input type="text" id="c360-mood-input-text" class="c360-mood-input" placeholder="¿Cómo te sientes?" onkeydown="if(event.key==='Enter') guardarEstadoMoodC360()">
+                <button type="button" class="c360-mood-send-btn" onclick="guardarEstadoMoodC360()">↑</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. PREVIEW FULL-SCREEN DEL AVATAR DE LA PAREJA (00:06 - 00:07 del video) -->
+    <div id="c360-modal-avatar-preview" class="c360-mood-overlay" onclick="cerrarPreviewAvatarC360()" style="justify-content:center; align-items:center;">
+        <button type="button" class="c360-mood-close" onclick="cerrarPreviewAvatarC360()" style="position:absolute; top:calc(18px + env(safe-area-inset-top, 0px)); right:18px;">✕</button>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+            <div class="c360-mood-center-avatar" style="width:185px; height:185px;">
+                <img id="c360-preview-partner-img" src="imagenes/kuromi_avatar_3d.jpg" alt="Pareja">
+            </div>
+            <div id="c360-preview-partner-mood" style="background:rgba(255,255,255,0.94); padding:8px 20px; border-radius:999px; font-size:0.95rem; font-weight:800; color:#0f172a; box-shadow:0 8px 24px rgba(0,0,0,0.18);">
+                Jessie ❤️ Conectada contigo
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. PANTALLA COMPLETA: BANDEJA DE ENTRADA / NOTIFICACIONES (00:22 - 00:27 del video) -->
+    <div id="c360-view-bandeja" class="c360-fullscreen-modal">
+        <div class="c360-fs-navbar">
+            <button type="button" class="c360-fs-back" onclick="cerrarVistaC360('bandeja')">‹</button>
+            <span class="c360-fs-title">Bandeja de entrada</span>
+            <div class="c360-fs-action"></div>
+        </div>
+        <div class="c360-fs-body" style="background:#ffffff; padding:0;">
+            <!-- Fila Cyclebot / LoveBot -->
+            <div onclick="cambiarPestaña('bienestar'); cerrarVistaC360('bandeja');" style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:6px solid #f8fafc; cursor:pointer;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:44px; height:44px; border-radius:50%; background:#fce7f3; display:flex; align-items:center; justify-content:center; font-size:1.35rem;">🤖</div>
+                    <span style="font-size:0.98rem; font-weight:800; color:#0f172a;">Cyclebot & Cuidado</span>
+                </div>
+                <span style="color:#94a3b8; font-size:1.2rem; font-weight:700;">›</span>
+            </div>
+            <div style="padding:14px 18px 8px 18px; font-size:0.95rem; font-weight:800; color:#0f172a;">Notificaciones</div>
+            <div id="c360-bandeja-lista" style="display:flex; flex-direction:column;">
+                <!-- Se llena dinámicamente con el historial real + alertas inteligentes Couple360 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. PANTALLA COMPLETA: CALENDARIO DE HISTORIAS (00:30 - 00:42 del video) -->
+    <div id="c360-view-historias" class="c360-fullscreen-modal">
+        <div class="c360-fs-navbar" style="background:#fff1f5; border-bottom:none;">
+            <button type="button" class="c360-fs-back" onclick="cerrarVistaC360('historias')">‹</button>
+            <span class="c360-fs-title">Historias</span>
+            <button type="button" class="c360-fs-action" onclick="dispararCamaraHistoriaC360()">＋</button>
+        </div>
+        <div class="c360-fs-body" style="background:linear-gradient(180deg, #fff1f5 0%, #faf7fb 120px);">
+            <div class="c360-cal-tabs">
+                <button type="button" class="c360-cal-tab active" id="c360-tab-mis-historias" onclick="cambiarTabCalendarioHistoriasC360('mis')">Mis historias</button>
+                <button type="button" class="c360-cal-tab" id="c360-tab-pareja-historias" onclick="cambiarTabCalendarioHistoriasC360('pareja')">Historias de pareja</button>
+            </div>
+            <div id="c360-calendario-historias-contenedor">
+                <!-- Se genera dinámicamente con los meses y miniaturas de fotos -->
+            </div>
+            <!-- Botón flotante de cámara rosa en la esquina inferior derecha (00:31 del video) -->
+            <button type="button" onclick="dispararCamaraHistoriaC360()" style="position:fixed; bottom:calc(24px + env(safe-area-inset-bottom, 0px)); right:20px; width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg, #fb7185 0%, #ec4899 100%); color:#ffffff; border:none; box-shadow:0 8px 24px rgba(236,72,153,0.38); font-size:1.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:20;">
+                📷
+                <span style="position:absolute; bottom:0; right:0; width:20px; height:20px; border-radius:50%; background:#0f172a; color:#ffffff; font-size:0.75rem; font-weight:800; display:flex; align-items:center; justify-content:center; border:2px solid #ffffff;">+</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 5. PANTALLA COMPLETA: VISOR DE HISTORIA DETALLADA CON CLIMA Y COMENTARIOS (00:43 - 00:58 del video) -->
+    <div id="c360-view-story-viewer" class="c360-fullscreen-modal" style="z-index:2650;">
+        <div class="c360-fs-navbar">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <button type="button" class="c360-fs-back" onclick="cerrarVistaC360('story-viewer')">‹</button>
+                <img id="c360-sv-avatar" src="imagenes/pinguino_avatar_3d.jpg" style="width:34px; height:34px; border-radius:50%; object-fit:cover;" alt="Autor">
+                <div>
+                    <div style="font-size:0.88rem; font-weight:800; color:#0f172a;" id="c360-sv-author">Yo</div>
+                    <div style="font-size:0.7rem; color:#94a3b8; font-weight:600;" id="c360-sv-date-top">oct 20</div>
+                </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <button type="button" onclick="historiaDetalleAnteriorC360()" style="background:#f1f5f9; border:none; border-radius:999px; padding:5px 10px; font-size:0.75rem; font-weight:800; cursor:pointer;">‹ Ant</button>
+                <button type="button" onclick="historiaDetalleSiguienteC360()" style="background:#f1f5f9; border:none; border-radius:999px; padding:5px 10px; font-size:0.75rem; font-weight:800; cursor:pointer;">Sig ›</button>
+            </div>
+        </div>
+        <div class="c360-fs-body" style="background:#ffffff; display:flex; flex-direction:column; justify-content:space-between; padding:12px 16px;">
+            <div>
+                <!-- Tarjeta de Foto Principal con Overlay de Temperatura, Clima y Frase (00:48 y 00:56) -->
+                <div style="position:relative; width:100%; height:410px; border-radius:24px; overflow:hidden; box-shadow:0 10px 28px rgba(0,0,0,0.12); background:#0f172a;">
+                    <img id="c360-sv-img" src="imagenes/24e24bd3-df6f-42d7-8364-54d91c893464.JPG" style="width:100%; height:100%; object-fit:cover;" alt="Historia">
+                    <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.68) 100%);"></div>
+                    <!-- Clima y fecha en la esquina inferior izquierda -->
+                    <div style="position:absolute; bottom:16px; left:16px; color:#ffffff; text-shadow:0 2px 6px rgba(0,0,0,0.5);">
+                        <div style="font-size:1.75rem; font-weight:800; line-height:1;" id="c360-sv-temp">57°F</div>
+                        <div style="font-size:0.82rem; font-weight:700; margin-top:2px;" id="c360-sv-weather">⛅ Nublado</div>
+                        <div style="font-size:0.74rem; opacity:0.85; margin-top:2px;" id="c360-sv-date-overlay">oct 20, 2026</div>
+                    </div>
+                    <!-- Etiqueta blanca centrada con el mensaje de la historia -->
+                    <div id="c360-sv-caption-pill" style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,0.92); color:#0f172a; padding:6px 16px; border-radius:12px; font-size:0.82rem; font-weight:800; box-shadow:0 4px 14px rgba(0,0,0,0.2); white-space:nowrap; max-width:75%; overflow:hidden; text-overflow:ellipsis;">
+                        Mi bebecita 🥰❤️
+                    </div>
+                </div>
+
+                <!-- Etiqueta de ubicación debajo de la foto -->
+                <div style="margin-top:10px; display:inline-flex; align-items:center; gap:5px; background:#f8fafc; border:1px solid #e2e8f0; padding:5px 12px; border-radius:999px; font-size:0.76rem; font-weight:700; color:#475569;">
+                    <span>📍</span>
+                    <span id="c360-sv-location">Tulcán</span>
+                </div>
+
+                <!-- Sección de Comentarios (00:51 del video) -->
+                <div id="c360-sv-comments-box" style="margin-top:16px; padding-top:12px; border-top:1px solid #f1f5f9;">
+                    <!-- Comentarios dinámicos -->
+                </div>
+            </div>
+
+            <!-- Barra inferior para añadir comentario y reacción rápida -->
+            <div style="display:flex; align-items:center; gap:8px; padding-top:10px;">
+                <div style="flex:1; background:#f1f5f9; border-radius:999px; padding:6px 10px 6px 16px; display:flex; align-items:center;">
+                    <input type="text" id="c360-sv-comment-input" placeholder="Añadir un comentario..." style="flex:1; border:none; background:transparent; outline:none; font-size:0.88rem; font-weight:600;" onkeydown="if(event.key==='Enter') agregarComentarioHistoriaC360()">
+                    <button type="button" onclick="agregarComentarioHistoriaC360()" style="width:30px; height:30px; border-radius:50%; background:#94a3b8; color:#ffffff; border:none; font-weight:800; cursor:pointer;">↑</button>
+                </div>
+                <button type="button" onclick="reaccionarHistoriaRapidoC360('🔥 ¡Me encanta!')" style="width:40px; height:40px; border-radius:50%; background:#fff1f2; border:1px solid #fecdd3; font-size:1.15rem; cursor:pointer;">🔥</button>
+                <button type="button" onclick="reaccionarHistoriaRapidoC360('🤩 ¡Qué hermoso momento!')" style="width:40px; height:40px; border-radius:50%; background:#fefce8; border:1px solid #fef08a; font-size:1.15rem; cursor:pointer;">🤩</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. PANTALLA COMPLETA INMERSIVA: DÍAS JUNTOS (01:14 - 01:34 del video) -->
+    <div id="c360-view-dias-juntos" class="c360-fullscreen-modal">
+        <div class="c360-dias-juntos-screen" id="c360-dj-bg-container" style="background-image: url('imagenes/7e45dd79-2bc0-4502-99e7-028b7f11581c.JPG');">
+            <div class="c360-dj-top">
+                <button type="button" class="c360-dj-icon-btn" onclick="cerrarVistaC360('dias-juntos')">‹</button>
+                <button type="button" class="c360-dj-icon-btn" onclick="abrirVistaC360('dj-ajustes')" title="Ajustes de Fondo y Fecha">⚙️</button>
+            </div>
+
+            <div class="c360-dj-middle" style="margin-bottom:auto; margin-top:28px;">
+                <div style="text-align:center; font-size:0.95rem; font-weight:700; text-shadow:0 2px 6px rgba(0,0,0,0.4);" id="c360-dj-fecha-inicio-label">
+                    20 de junio de 2019
+                </div>
+                <div class="c360-dj-glass-banner">
+                    <div style="font-size:0.78rem; font-weight:800; letter-spacing:0.6px; text-transform:uppercase; opacity:0.92; margin-bottom:8px;">
+                        HAN ESTADO JUNTOS DURANTE
+                    </div>
+                    <div style="font-size:1.45rem; font-weight:800; letter-spacing:-0.3px;">
+                        <span id="c360-dj-anos" style="font-size:2.1rem;">7</span> años
+                        <span id="c360-dj-meses" style="font-size:2.1rem; margin-left:6px;">4</span> meses
+                        <span id="c360-dj-dias" style="font-size:2.1rem; margin-left:6px;">10</span> días
+                    </div>
+                </div>
+            </div>
+
+            <div class="c360-dj-bottom">
+                <div style="text-align:center; font-size:0.78rem; font-weight:800; letter-spacing:0.8px; text-transform:uppercase; opacity:0.9;">
+                    EN OTRAS PALABRAS
+                </div>
+                <div class="c360-dj-stats-row">
+                    <div>
+                        <div style="font-size:1.65rem; font-weight:800;" id="c360-dj-total-meses">88</div>
+                        <div style="font-size:0.75rem; opacity:0.85;">meses</div>
+                    </div>
+                    <div style="opacity:0.6;">○</div>
+                    <div>
+                        <div style="font-size:1.65rem; font-weight:800;" id="c360-dj-total-semanas">384</div>
+                        <div style="font-size:0.75rem; opacity:0.85;">semanas</div>
+                    </div>
+                    <div style="opacity:0.6;">○</div>
+                    <div>
+                        <div style="font-size:1.65rem; font-weight:800;" id="c360-dj-total-dias">2688</div>
+                        <div style="font-size:0.75rem; opacity:0.85;">días</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6B. SUBPANTALLA DE AJUSTES DE DÍAS JUNTOS (01:20 - 01:31 del video) -->
+    <div id="c360-view-dj-ajustes" class="c360-fullscreen-modal" style="z-index:2600;">
+        <div class="c360-fs-navbar">
+            <button type="button" class="c360-fs-back" onclick="cerrarVistaC360('dj-ajustes')">‹</button>
+            <span class="c360-fs-title">Ajuste</span>
+            <div class="c360-fs-action"></div>
+        </div>
+        <div class="c360-fs-body">
+            <div style="font-size:0.82rem; font-weight:700; color:#94a3b8; margin:4px 0 10px 6px;">Cambiar fondo</div>
+            <div class="c360-settings-group" style="margin:0 0 18px 0;">
+                <div class="c360-settings-item" onclick="document.getElementById('c360-dj-galeria-fondos').style.display = (document.getElementById('c360-dj-galeria-fondos').style.display === 'grid' ? 'none' : 'grid')">
+                    <span>Elige un fondo</span>
+                    <span>›</span>
+                </div>
+                <div id="c360-dj-galeria-fondos" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; padding:12px 0;">
+                    <img src="imagenes/7e45dd79-2bc0-4502-99e7-028b7f11581c.JPG" onclick="cambiarFondoDiasJuntosC360('imagenes/7e45dd79-2bc0-4502-99e7-028b7f11581c.JPG')" style="width:100%; height:130px; object-fit:cover; border-radius:14px; cursor:pointer; border:2px solid #ec4899;" alt="Fondo 1">
+                    <img src="imagenes/24e24bd3-df6f-42d7-8364-54d91c893464.JPG" onclick="cambiarFondoDiasJuntosC360('imagenes/24e24bd3-df6f-42d7-8364-54d91c893464.JPG')" style="width:100%; height:130px; object-fit:cover; border-radius:14px; cursor:pointer;" alt="Fondo 2">
+                    <img src="imagenes/c66efb2a-e715-4882-9d47-2f5f76074840.JPG" onclick="cambiarFondoDiasJuntosC360('imagenes/c66efb2a-e715-4882-9d47-2f5f76074840.JPG')" style="width:100%; height:130px; object-fit:cover; border-radius:14px; cursor:pointer;" alt="Fondo 3">
+                    <img src="imagenes/09101dfd-a4a9-4011-aa71-7eec766eecb6.JPG" onclick="cambiarFondoDiasJuntosC360('imagenes/09101dfd-a4a9-4011-aa71-7eec766eecb6.JPG')" style="width:100%; height:130px; object-fit:cover; border-radius:14px; cursor:pointer;" alt="Fondo 4">
+                    <img src="imagenes/d703ee5c-1081-4316-962f-f0cbbd146653.JPG" onclick="cambiarFondoDiasJuntosC360('imagenes/d703ee5c-1081-4316-962f-f0cbbd146653.JPG')" style="width:100%; height:130px; object-fit:cover; border-radius:14px; cursor:pointer;" alt="Fondo 5">
+                    <img src="imagenes/primer_recuerdo.png" onclick="cambiarFondoDiasJuntosC360('imagenes/primer_recuerdo.png')" style="width:100%; height:130px; object-fit:cover; border-radius:14px; cursor:pointer;" alt="Fondo 6">
+                </div>
+                <div class="c360-settings-item" onclick="document.getElementById('c360-dj-custom-file').click()">
+                    <span>Elegir de Fotos</span>
+                    <span>›</span>
+                </div>
+                <input type="file" id="c360-dj-custom-file" accept="image/*" style="display:none;" onchange="subirFondoPropioDiasJuntosC360(this)">
+            </div>
+
+            <div class="c360-settings-group" style="margin:0;">
+                <div class="c360-settings-item" style="flex-direction:column; align-items:stretch; gap:10px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span>Cambiar fecha de aniversario</span>
+                        <span style="font-size:0.8rem; color:#ec4899; font-weight:800;">20 jun 2019</span>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <input type="date" id="c360-dj-date-input" value="2019-06-20" style="flex:1; padding:10px 12px; border-radius:12px; border:1px solid #cbd5e1; font-family:inherit; font-weight:700;">
+                        <button type="button" onclick="guardarFechaAniversarioC360()" style="background:#0f172a; color:#ffffff; border:none; border-radius:12px; padding:10px 18px; font-weight:800; cursor:pointer;">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. PANTALLA COMPLETA: WIDGETS Y EXPERIENCIAS (01:37 - 01:43 del video) -->
+    <div id="c360-view-widgets" class="c360-fullscreen-modal">
+        <div class="c360-fs-navbar">
+            <button type="button" class="c360-fs-back" onclick="cerrarVistaC360('widgets')">‹</button>
+            <span class="c360-fs-title">Widgets</span>
+            <div class="c360-fs-action"></div>
+        </div>
+        <div class="c360-fs-body">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <!-- 1. Momentos -->
+                <div onclick="cerrarVistaC360('widgets'); dispararCamaraHistoriaC360();" style="background:#f3e8ff; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:170px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Momentos <span style="color:#ef4444;">•</span></div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Comparte tus momentos con tu pareja</div>
+                    </div>
+                    <div style="background:#e9d5ff; border-radius:16px; height:82px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; font-weight:800; color:#6b21a8;">＋</div>
+                </div>
+
+                <!-- 2. Interacción diaria -->
+                <div onclick="registrarToqueAmorCheckInC360()" style="background:#dcfce7; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:170px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Interacción diaria</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Toquen juntos, sigan conectados</div>
+                    </div>
+                    <div style="background:#bbf7d0; border-radius:16px; height:82px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#14532d;">
+                        <span style="font-size:1.5rem;">💞</span>
+                        <span style="font-size:0.74rem; font-weight:800;">Tocar para enviar amor</span>
+                    </div>
+                </div>
+
+                <!-- 3. Distancia -->
+                <div onclick="cerrarVistaC360('widgets'); cambiarPestaña('mapa');" style="background:#fefce8; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:170px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Distancia</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Rastrea la distancia entre ustedes</div>
+                    </div>
+                    <div style="background:#ffffff; border-radius:16px; height:82px; padding:8px; display:flex; align-items:center; justify-content:space-around; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+                        <img src="imagenes/pinguino_avatar_3d.jpg" style="width:36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid #f472b6;" alt="Andy">
+                        <span style="font-size:0.78rem; font-weight:800; color:#db2777;">1 km</span>
+                        <img src="imagenes/kuromi_avatar_3d.jpg" style="width:36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid #a855f7;" alt="Jessie">
+                    </div>
+                </div>
+
+                <!-- 4. Días juntos -->
+                <div onclick="cerrarVistaC360('widgets'); abrirVistaC360('dias-juntos');" style="background:#ffedd5; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:170px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Días juntos</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Cuenta los días que llevan enamorados</div>
+                    </div>
+                    <div style="background:linear-gradient(135deg, #fb7185 0%, #e11d48 100%); border-radius:16px; height:82px; padding:10px; color:#ffffff; display:flex; align-items:center; justify-content:space-between;">
+                        <div>
+                            <div style="font-size:1.1rem; font-weight:900;" id="c360-widget-dias-num">2688 días</div>
+                            <div style="font-size:0.65rem; opacity:0.9;">together ❤️</div>
+                        </div>
+                        <img src="imagenes/24e24bd3-df6f-42d7-8364-54d91c893464.JPG" style="width:46px; height:46px; border-radius:10px; object-fit:cover; border:1.5px solid #ffffff;" alt="Foto">
+                    </div>
+                </div>
+
+                <!-- 5. Próximos eventos -->
+                <div onclick="cerrarVistaC360('widgets'); abrirVistaC360('dias-especiales');" style="background:#f0fdf4; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:170px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Próximos eventos</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Mira próximos eventos y fechas importantes</div>
+                    </div>
+                    <div style="background:#ffffff; border-radius:16px; padding:8px 10px; font-size:0.68rem; font-weight:700; color:#334155; display:flex; flex-direction:column; gap:4px;">
+                        <div style="display:flex; justify-content:space-between;"><span>♾️ Cumplemes</span><span style="color:#ec4899;">Día 20</span></div>
+                        <div style="display:flex; justify-content:space-between;"><span>🎄 Navidad</span><span>Dic 25</span></div>
+                        <div style="display:flex; justify-content:space-between;"><span>❤️ Aniversario</span><span>Jun 20</span></div>
+                    </div>
+                </div>
+
+                <!-- 6. Historias -->
+                <div onclick="cerrarVistaC360('widgets'); abrirVistaC360('historias');" style="background:#fff1f2; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:170px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Historias</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Comparte momentos con tu pareja</div>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px; height:82px; border-radius:14px; overflow:hidden;">
+                        <img src="imagenes/7e45dd79-2bc0-4502-99e7-028b7f11581c.JPG" style="width:100%; height:100%; object-fit:cover;" alt="H1">
+                        <img src="imagenes/c66efb2a-e715-4882-9d47-2f5f76074840.JPG" style="width:100%; height:100%; object-fit:cover;" alt="H2">
+                    </div>
+                </div>
+
+                <!-- 7. Love Check-In -->
+                <div onclick="registrarToqueAmorCheckInC360()" style="background:#fce7f3; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:170px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Love Check-In</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Haz check-in y mantén viva tu racha</div>
+                    </div>
+                    <div style="background:linear-gradient(135deg, #9333ea 0%, #ec4899 100%); border-radius:16px; height:82px; padding:10px; color:#ffffff; display:flex; align-items:center; justify-content:space-around;">
+                        <div style="text-align:center;">
+                            <div style="font-size:1.15rem; font-weight:900;" id="c360-checkin-andy-val">368</div>
+                            <div style="font-size:0.65rem;">Andy 🐧</div>
+                        </div>
+                        <span style="font-size:1.2rem;">💖</span>
+                        <div style="text-align:center;">
+                            <div style="font-size:1.15rem; font-weight:900;" id="c360-checkin-jessie-val">288</div>
+                            <div style="font-size:0.65rem;">Jessie 😈</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Datsun Run / Pecera Avatar -->
+                <div onclick="cerrarVistaC360('widgets'); cambiarPestaña('juego');" style="background:#e0f2fe; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:170px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Datsun Run 🎮</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Haz crecer su amor en nuestro minijuego</div>
+                    </div>
+                    <div style="background:linear-gradient(180deg, #38bdf8 0%, #0284c7 100%); border-radius:16px; height:82px; display:flex; align-items:center; justify-content:center; gap:10px; color:#ffffff; font-size:1.6rem;">
+                        <span>🛻</span><span>❤️</span><span>😈</span>
+                    </div>
+                </div>
+
+                <!-- 9. Finanzas & Hogar -->
+                <div onclick="cerrarVistaC360('widgets'); cambiarPestaña('finanzas');" style="background:#dcfce7; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:150px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Finanzas & Compras</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Ahorros conjuntos y supermercado</div>
+                    </div>
+                    <div style="font-size:1.8rem; text-align:right;">💰🛒</div>
+                </div>
+
+                <!-- 10. Cofre & Cartas PIN -->
+                <div onclick="cerrarVistaC360('widgets'); cambiarPestaña('cartas');" style="background:#fae8ff; border-radius:22px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; min-height:150px; cursor:pointer;">
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Cartas con PIN 🔐</div>
+                        <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">Mensajes secretos para siempre</div>
+                    </div>
+                    <div style="font-size:1.8rem; text-align:right;">💌🔒</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. PANTALLA COMPLETA: RECUERDOS CRONOLÓGICOS ESTILO COUPLE360 (01:46 - 01:50 del video) -->
+    <div id="c360-view-recuerdos-feed" class="c360-fullscreen-modal">
+        <div class="c360-fs-navbar" style="background:#fff7ed;">
+            <button type="button" class="c360-fs-back" onclick="cerrarVistaC360('recuerdos-feed')">‹</button>
+            <span class="c360-fs-title">Recuerdos</span>
+            <div class="c360-fs-action">
+                <button type="button" onclick="cerrarVistaC360('recuerdos-feed'); cambiarPestaña('recuerdos');" style="background:#ffffff; border:1px solid #fed7aa; border-radius:999px; padding:4px 10px; font-size:0.72rem; font-weight:800; color:#9a3412; cursor:pointer;" title="Ir al Cofre de 4 Cajas y Carta 3D">🎁 Cofre</button>
+                <button type="button" onclick="abrirModalNuevoRecuerdoFeedC360()" style="background:transparent; border:none; font-size:1.45rem; font-weight:800; color:#0f172a; cursor:pointer;">＋</button>
+            </div>
+        </div>
+        <div class="c360-fs-body" style="background:linear-gradient(180deg, #fff7ed 0%, #faf7fb 120px);">
+            <div id="c360-recuerdos-feed-lista" style="display:flex; flex-direction:column; gap:18px;">
+                <!-- Se renderiza dinámicamente con el formato de columna de fecha a la izquierda y tarjeta de foto a la derecha -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. PANTALLA COMPLETA: DÍAS ESPECIALES (01:55 - 01:56 del video) -->
+    <div id="c360-view-dias-especiales" class="c360-fullscreen-modal">
+        <div class="c360-fs-navbar" style="background:#f3e8ff;">
+            <button type="button" class="c360-fs-back" onclick="cerrarVistaC360('dias-especiales')">‹</button>
+            <span class="c360-fs-title">Días especiales</span>
+            <button type="button" class="c360-fs-action" onclick="agregarDiaEspecialPersonalizadoC360()">＋</button>
+        </div>
+        <div class="c360-fs-body" style="background:linear-gradient(180deg, #f3e8ff 0%, #faf7fb 120px);">
+            <div id="c360-dias-especiales-lista" style="display:flex; flex-direction:column; gap:12px;">
+                <!-- Se renderiza dinámicamente con Navidad, Año Nuevo, Cumpleaños de Jessie, Cumpleaños de Andy, San Valentín, Aniversario y Cumplemes -->
+            </div>
+        </div>
+    </div>
 
     <script>
         // --- CONFIGURACIÓN E INICIALIZACIÓN DE FIREBASE (SINCRONIZACIÓN EN LA NUBE) ---
@@ -8949,6 +10830,7 @@ Andy. ❤️</div>
 
         // --- SISTEMA DE PESTAÑAS (TABS) ---
         function cambiarPestaña(pestañaId) {
+            document.querySelectorAll('.c360-fullscreen-modal.active').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-bottom-item').forEach(el => el.classList.remove('active'));
@@ -8958,14 +10840,19 @@ Andy. ❤️</div>
             if (tabTarget) tabTarget.classList.add('active');
             if (btnTarget) btnTarget.classList.add('active');
             
-            // Sincronizar navegación inferior nativa (iPhone / Móvil)
-            const tabsEspeciales = ['recuerdos', 'mapa', 'galeria', 'cartas', 'retos', 'juego', 'mas'];
-            if (tabsEspeciales.includes(pestañaId)) {
-                const navMas = document.getElementById('nav-bottom-mas');
-                if (navMas) navMas.classList.add('active');
+            // Sincronizar navegación inferior nativa Couple360 (4 tabs: Inicio, Mapa, Chat, Perfil)
+            if (pestañaId === 'nosotros') {
+                const navHome = document.getElementById('nav-bottom-nosotros');
+                if (navHome) navHome.classList.add('active');
+            } else if (pestañaId === 'mapa') {
+                const navMapa = document.getElementById('nav-bottom-mapa');
+                if (navMapa) navMapa.classList.add('active');
+            } else if (pestañaId === 'chat') {
+                const navChat = document.getElementById('nav-bottom-chat');
+                if (navChat) navChat.classList.add('active');
             } else {
-                const navBottomTarget = document.getElementById(`nav-bottom-${pestañaId}`);
-                if (navBottomTarget) navBottomTarget.classList.add('active');
+                const navPerfil = document.getElementById('nav-bottom-perfil');
+                if (navPerfil) navPerfil.classList.add('active');
             }
 
             // Manejo de scroll según la pestaña
@@ -13462,7 +15349,934 @@ Andy. ❤️</div>
                     }, 850);
                 }
             }
+
+            // Inicializar Motor Nativo Couple360
+            inicializarCouple360Engine();
         });
+
+        // ==========================================================================
+        // --- MOTOR INTERACTIVO COUPLE360 (PANTALLAS COMPLETAS, CALENDARIO Y BENTO) ---
+        // ==========================================================================
+        let c360HistoriasData = [];
+        let c360HistoriaActualIdx = 0;
+        let c360TabCalendarioActual = 'mis';
+        let c360IntervaloCountUp = null;
+
+        const c360HistoriasDefault = [
+            {
+                id: 101,
+                autor: 'andy',
+                mes: 9, // Octubre (0-indexed: 9)
+                dia: 20,
+                anio: 2026,
+                fechaCorta: 'oct 20',
+                fechaCompleta: 'oct 20, 2026',
+                img: 'imagenes/7e45dd79-2bc0-4502-99e7-028b7f11581c.JPG',
+                temp: '57°F',
+                clima: '⛅ Nublado',
+                caption: 'Mi bebecita 🥰❤️',
+                ubicacion: 'Tulcán',
+                comentarios: [
+                    { autor: 'Jessie', avatar: 'imagenes/kuromi_avatar_3d.jpg', texto: 'Te amo demasiado mi vida ❤️', fecha: 'Oct 20' }
+                ]
+            },
+            {
+                id: 102,
+                autor: 'andy',
+                mes: 4, // Mayo
+                dia: 28,
+                anio: 2026,
+                fechaCorta: 'may 28',
+                fechaCompleta: 'may 28, 2026',
+                img: 'imagenes/24e24bd3-df6f-42d7-8364-54d91c893464.JPG',
+                temp: '64°F',
+                clima: '🌤️ Pocas nubes',
+                caption: 'Feliz cumplemes bebé 💖',
+                ubicacion: 'Tulcán',
+                comentarios: [
+                    { autor: 'Jessie', avatar: 'imagenes/kuromi_avatar_3d.jpg', texto: 'El mejor novio del mundo 🥰', fecha: 'May 28' }
+                ]
+            },
+            {
+                id: 103,
+                autor: 'jessie',
+                mes: 9, // Octubre
+                dia: 14,
+                anio: 2026,
+                fechaCorta: 'oct 14',
+                fechaCompleta: 'oct 14, 2026',
+                img: 'imagenes/c66efb2a-e715-4882-9d47-2f5f76074840.JPG',
+                temp: '55°F',
+                clima: '🌙 Noche fresca',
+                caption: 'Noche de paseo juntos ✨',
+                ubicacion: 'Tulcán',
+                comentarios: [
+                    { autor: 'Andy', avatar: 'imagenes/pinguino_avatar_3d.jpg', texto: 'Hermosa sonrisa mi amor 😍', fecha: 'Oct 14' }
+                ]
+            },
+            {
+                id: 104,
+                autor: 'andy',
+                mes: 2, // Marzo
+                dia: 3,
+                anio: 2026,
+                fechaCorta: 'mar 03',
+                fechaCompleta: 'mar 03, 2026',
+                img: 'imagenes/d703ee5c-1081-4316-962f-f0cbbd146653.JPG',
+                temp: '48°F',
+                clima: '⛅ Amaneciendo',
+                caption: 'Amaneciendo en nuestras lagunas 🌄',
+                ubicacion: 'Tulcán',
+                comentarios: [
+                    { autor: 'Jessie', avatar: 'imagenes/kuromi_avatar_3d.jpg', texto: 'Ju ju ju 😍 qué lindo viaje', fecha: 'Mar 03' }
+                ]
+            }
+        ];
+
+        function inicializarCouple360Engine() {
+            // 1. Cargar historias del calendario
+            const guardadas = localStorage.getItem('c360_historias_calendario');
+            if (guardadas) {
+                try { c360HistoriasData = JSON.parse(guardadas); } catch(e) { c360HistoriasData = c360HistoriasDefault; }
+            } else {
+                c360HistoriasData = c360HistoriasDefault;
+                localStorage.setItem('c360_historias_calendario', JSON.stringify(c360HistoriasData));
+            }
+
+            // 2. Actualizar contadores de Días Juntos y Bento Grid
+            actualizarContadoresDiasJuntosC360();
+            actualizarSlotsHistoriasHomeC360();
+            cargarEstadosMoodC360();
+            cargarFondoDiasJuntosGuardadoC360();
+            actualizarLoveCheckInUIC360();
+            inicializarBateriaEnVivoC360();
+
+            // 3. Sincronización Firebase para estados de ánimo, historias y check-in
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                fbDb.ref('c360/moods').on('value', (snap) => {
+                    const val = snap.val();
+                    if (val) {
+                        localStorage.setItem('c360_moods_pareja', JSON.stringify(val));
+                        renderizarBurbujasMoodC360(val);
+                    }
+                });
+                fbDb.ref('c360/checkin').on('value', (snap) => {
+                    const val = snap.val();
+                    if (val) {
+                        localStorage.setItem('c360_checkin_data', JSON.stringify(val));
+                        actualizarLoveCheckInUIC360();
+                    }
+                });
+                fbDb.ref('c360/historias').on('value', (snap) => {
+                    const val = snap.val();
+                    if (val && Array.isArray(val) && val.length > 0) {
+                        c360HistoriasData = val;
+                        localStorage.setItem('c360_historias_calendario', JSON.stringify(c360HistoriasData));
+                        actualizarSlotsHistoriasHomeC360();
+                    }
+                });
+            }
+        }
+
+        // --- NAVEGACIÓN DE PANTALLAS COMPLETAS COUPLE360 ---
+        function abrirVistaC360(vistaId) {
+            const modal = document.getElementById(`c360-view-${vistaId}`);
+            if (!modal) return;
+            modal.classList.add('active');
+
+            if (vistaId === 'dias-juntos') {
+                animarConteoDiasJuntosC360();
+            } else if (vistaId === 'historias') {
+                renderizarCalendarioHistoriasC360();
+            } else if (vistaId === 'bandeja') {
+                renderizarBandejaEntradaC360();
+                const dot = document.getElementById('c360-inbox-badge-dot');
+                if (dot) dot.style.display = 'none';
+            } else if (vistaId === 'recuerdos-feed') {
+                renderizarRecuerdosFeedC360();
+            } else if (vistaId === 'dias-especiales') {
+                renderizarDiasEspecialesListaC360();
+            } else if (vistaId === 'widgets') {
+                actualizarContadoresDiasJuntosC360();
+                actualizarLoveCheckInUIC360();
+            }
+        }
+
+        function cerrarVistaC360(vistaId) {
+            const modal = document.getElementById(`c360-view-${vistaId}`);
+            if (modal) modal.classList.remove('active');
+            if (vistaId === 'dias-juntos' && c360IntervaloCountUp) {
+                clearInterval(c360IntervaloCountUp);
+            }
+        }
+
+        // --- 1. SELECTOR DE ESTADO "¿CÓMO TE SIENTES?" (00:10 - 00:18) ---
+        function abrirSelectorEstadoC360(event) {
+            if (event) event.stopPropagation();
+            const miId = (typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja')) || 'andy';
+            const imgEl = document.getElementById('c360-mood-avatar-img');
+            if (imgEl) {
+                imgEl.src = miId === 'jessie' ? 'imagenes/kuromi_avatar_3d.jpg' : 'imagenes/pinguino_avatar_3d.jpg';
+            }
+            const modal = document.getElementById('c360-modal-mood');
+            if (modal) modal.classList.add('active');
+        }
+
+        function cerrarSelectorEstadoC360() {
+            const modal = document.getElementById('c360-modal-mood');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function seleccionarChipMoodC360(texto, btnEl) {
+            document.querySelectorAll('.c360-mood-chip').forEach(b => b.classList.remove('selected'));
+            if (btnEl) btnEl.classList.add('selected');
+            const input = document.getElementById('c360-mood-input-text');
+            if (input) input.value = texto;
+            const pill = document.getElementById('c360-mood-current-pill');
+            if (pill) pill.textContent = texto;
+        }
+
+        function guardarEstadoMoodC360() {
+            const input = document.getElementById('c360-mood-input-text');
+            const pill = document.getElementById('c360-mood-current-pill');
+            const texto = (input && input.value.trim()) ? input.value.trim() : (pill ? pill.textContent.trim() : 'Te amo 🥰');
+
+            const miId = (typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja')) || 'andy';
+            const moods = JSON.parse(localStorage.getItem('c360_moods_pareja') || '{}');
+            moods[miId] = {
+                texto: texto,
+                timestamp: Date.now()
+            };
+            localStorage.setItem('c360_moods_pareja', JSON.stringify(moods));
+            renderizarBurbujasMoodC360(moods);
+
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                fbDb.ref('c360/moods').set(moods);
+            }
+            const miNombre = miId === 'jessie' ? 'Jessie' : 'Andy';
+            if (typeof emitirNotificacionFirebase === 'function') {
+                emitirNotificacionFirebase(miId, 'estado', `💭 Estado de ${miNombre}`, `${miNombre} se siente: ${texto}`);
+            }
+            registrarEventoBandejaC360(`${miNombre} actualizó cómo se siente`, `Estado actual: "${texto}"`, '💭');
+            cerrarSelectorEstadoC360();
+            if (typeof mostrarToastNotificacion === 'function') {
+                mostrarToastNotificacion("Estado actualizado ✨", `Ahora muestras: "${texto}"`);
+            }
+        }
+
+        function cargarEstadosMoodC360() {
+            const moods = JSON.parse(localStorage.getItem('c360_moods_pareja') || '{}');
+            renderizarBurbujasMoodC360(moods);
+        }
+
+        function renderizarBurbujasMoodC360(moods) {
+            const bubbleAndy = document.getElementById('c360-bubble-text-andy');
+            const bubbleJessieWrap = document.getElementById('c360-bubble-jessie');
+            const bubbleJessieText = document.getElementById('c360-bubble-text-jessie');
+
+            if (moods && moods.andy && moods.andy.texto && bubbleAndy) {
+                bubbleAndy.textContent = moods.andy.texto;
+            }
+            if (moods && moods.jessie && moods.jessie.texto && bubbleJessieWrap && bubbleJessieText) {
+                bubbleJessieWrap.style.display = 'inline-flex';
+                bubbleJessieText.textContent = moods.jessie.texto;
+            }
+        }
+
+        // --- 2. PREVIEW DE AVATAR CON BLUR (00:06) ---
+        function abrirPreviewAvatarC360(persona) {
+            const modal = document.getElementById('c360-modal-avatar-preview');
+            const img = document.getElementById('c360-preview-partner-img');
+            const label = document.getElementById('c360-preview-partner-mood');
+            const moods = JSON.parse(localStorage.getItem('c360_moods_pareja') || '{}');
+
+            if (img) {
+                img.src = persona === 'jessie' ? 'imagenes/kuromi_avatar_3d.jpg' : 'imagenes/pinguino_avatar_3d.jpg';
+            }
+            if (label) {
+                const estado = (moods[persona] && moods[persona].texto) ? moods[persona].texto : 'Enamorad@ de ti ❤️';
+                const nombre = persona === 'jessie' ? 'Jessie' : 'Andy';
+                label.textContent = `${nombre}: ${estado}`;
+            }
+            if (modal) modal.classList.add('active');
+        }
+
+        function cerrarPreviewAvatarC360() {
+            const modal = document.getElementById('c360-modal-avatar-preview');
+            if (modal) modal.classList.remove('active');
+        }
+
+        // --- 3. DÍAS JUNTOS Y EFECTO COUNT-UP (01:14 - 01:34) ---
+        function obtenerFechaInicioAniversarioC360() {
+            const guardada = localStorage.getItem('c360_fecha_aniversario') || '2019-06-20';
+            const partes = guardada.split('-');
+            return new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]), 0, 0, 0);
+        }
+
+        function calcularDesgloseTiempoJuntosC360() {
+            const inicio = obtenerFechaInicioAniversarioC360();
+            const ahora = new Date();
+            const diffMs = Math.max(0, ahora - inicio);
+            const totalDias = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const totalSemanas = Math.floor(totalDias / 7);
+
+            let anios = ahora.getFullYear() - inicio.getFullYear();
+            let meses = ahora.getMonth() - inicio.getMonth();
+            let dias = ahora.getDate() - inicio.getDate();
+
+            if (dias < 0) {
+                meses--;
+                const ultimoMes = new Date(ahora.getFullYear(), ahora.getMonth(), 0);
+                dias += ultimoMes.getDate();
+            }
+            if (meses < 0) {
+                anios--;
+                meses += 12;
+            }
+            const totalMeses = (anios * 12) + meses;
+            return { anios, meses, dias, totalMeses, totalSemanas, totalDias, inicio };
+        }
+
+        function actualizarContadoresDiasJuntosC360() {
+            const d = calcularDesgloseTiempoJuntosC360();
+            const elBentoDias = document.getElementById('c360-bento-dias-num');
+            const elWidgetDias = document.getElementById('c360-widget-dias-num');
+            const elCycleDays = document.getElementById('c360-cycle-days-val');
+            const elFechaLabel = document.getElementById('c360-dj-fecha-inicio-label');
+
+            if (elBentoDias) elBentoDias.textContent = d.totalDias;
+            if (elWidgetDias) elWidgetDias.textContent = `${d.totalDias} días`;
+            if (elCycleDays) elCycleDays.textContent = `${d.totalMeses} meses`;
+
+            if (elFechaLabel) {
+                const mesesNombres = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+                elFechaLabel.textContent = `${d.inicio.getDate()} de ${mesesNombres[d.inicio.getMonth()]} de ${d.inicio.getFullYear()}`;
+            }
+
+            const elA = document.getElementById('c360-dj-anos');
+            const elM = document.getElementById('c360-dj-meses');
+            const elD = document.getElementById('c360-dj-dias');
+            const elTM = document.getElementById('c360-dj-total-meses');
+            const elTS = document.getElementById('c360-dj-total-semanas');
+            const elTD = document.getElementById('c360-dj-total-dias');
+
+            if (elA) elA.textContent = d.anios;
+            if (elM) elM.textContent = d.meses;
+            if (elD) elD.textContent = d.dias;
+            if (elTM) elTM.textContent = d.totalMeses;
+            if (elTS) elTS.textContent = d.totalSemanas;
+            if (elTD) elTD.textContent = d.totalDias;
+        }
+
+        function animarConteoDiasJuntosC360() {
+            const meta = calcularDesgloseTiempoJuntosC360();
+            let paso = 0;
+            const totalPasos = 22;
+            if (c360IntervaloCountUp) clearInterval(c360IntervaloCountUp);
+
+            c360IntervaloCountUp = setInterval(() => {
+                paso++;
+                const ratio = paso / totalPasos;
+                const elA = document.getElementById('c360-dj-anos');
+                const elM = document.getElementById('c360-dj-meses');
+                const elD = document.getElementById('c360-dj-dias');
+                const elTM = document.getElementById('c360-dj-total-meses');
+                const elTS = document.getElementById('c360-dj-total-semanas');
+                const elTD = document.getElementById('c360-dj-total-dias');
+
+                if (elA) elA.textContent = Math.floor(meta.anios * ratio);
+                if (elM) elM.textContent = Math.floor(meta.meses * ratio);
+                if (elD) elD.textContent = Math.floor(meta.dias * ratio);
+                if (elTM) elTM.textContent = Math.floor(meta.totalMeses * ratio);
+                if (elTS) elTS.textContent = Math.floor(meta.totalSemanas * ratio);
+                if (elTD) elTD.textContent = Math.floor(meta.totalDias * ratio);
+
+                if (paso >= totalPasos) {
+                    clearInterval(c360IntervaloCountUp);
+                    actualizarContadoresDiasJuntosC360();
+                }
+            }, 45);
+        }
+
+        function cambiarFondoDiasJuntosC360(imgUrl) {
+            localStorage.setItem('c360_dj_bg_img', imgUrl);
+            cargarFondoDiasJuntosGuardadoC360();
+            cerrarVistaC360('dj-ajustes');
+            if (typeof mostrarToastNotificacion === 'function') {
+                mostrarToastNotificacion("🖼️ Fondo actualizado", "Se aplicó la nueva foto a Días Juntos.");
+            }
+        }
+
+        function subirFondoPropioDiasJuntosC360(input) {
+            if (!input || !input.files || !input.files[0]) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                cambiarFondoDiasJuntosC360(e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function cargarFondoDiasJuntosGuardadoC360() {
+            const bg = localStorage.getItem('c360_dj_bg_img') || 'imagenes/7e45dd79-2bc0-4502-99e7-028b7f11581c.JPG';
+            const cont = document.getElementById('c360-dj-bg-container');
+            if (cont) cont.style.backgroundImage = `url('${bg}')`;
+        }
+
+        function guardarFechaAniversarioC360() {
+            const input = document.getElementById('c360-dj-date-input');
+            if (!input || !input.value) return;
+            localStorage.setItem('c360_fecha_aniversario', input.value);
+            actualizarContadoresDiasJuntosC360();
+            cerrarVistaC360('dj-ajustes');
+            if (typeof mostrarToastNotificacion === 'function') {
+                mostrarToastNotificacion("📅 Fecha actualizada", "Se recalcularon sus días juntos.");
+            }
+        }
+
+        // --- 4. CALENDARIO DE HISTORIAS Y VISOR CON CLIMA (00:30 - 00:58) ---
+        function actualizarSlotsHistoriasHomeC360() {
+            const slotPareja = document.getElementById('c360-slot-pareja');
+            const slotPropio = document.getElementById('c360-slot-propio');
+            if (!slotPareja || !slotPropio) return;
+
+            const histJessie = c360HistoriasData.filter(h => h.autor === 'jessie');
+            const histAndy = c360HistoriasData.filter(h => h.autor === 'andy');
+
+            if (histJessie.length > 0) {
+                const ult = histJessie[histJessie.length - 1];
+                slotPareja.className = 'c360-story-slot has-photo';
+                slotPareja.innerHTML = `
+                    <img src="${ult.img}" class="c360-story-slot-bg" alt="Historia">
+                    <img src="imagenes/kuromi_avatar_3d.jpg" class="c360-story-mini-avatar left" alt="Jessie">
+                    <div class="c360-story-slot-caption">${ult.caption || 'Ver historia'}</div>
+                `;
+            }
+
+            if (histAndy.length > 0) {
+                const ultA = histAndy[histAndy.length - 1];
+                slotPropio.className = 'c360-story-slot has-photo';
+                slotPropio.innerHTML = `
+                    <img src="${ultA.img}" class="c360-story-slot-bg" alt="Mi Historia">
+                    <div onclick="event.stopPropagation(); dispararCamaraHistoriaC360();" style="position:absolute; top:8px; right:8px; width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg, #fb7185 0%, #ec4899 100%); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.95rem; box-shadow:0 4px 10px rgba(0,0,0,0.25);">📷</div>
+                    <img src="imagenes/pinguino_avatar_3d.jpg" class="c360-story-mini-avatar right" alt="Andy">
+                `;
+                slotPropio.onclick = () => abrirVisorHistoriaDetalleC360(ultA.id);
+            }
+        }
+
+        function cambiarTabCalendarioHistoriasC360(tab) {
+            c360TabCalendarioActual = tab;
+            const btnMis = document.getElementById('c360-tab-mis-historias');
+            const btnPar = document.getElementById('c360-tab-pareja-historias');
+            if (btnMis) btnMis.classList.toggle('active', tab === 'mis');
+            if (btnPar) btnPar.classList.toggle('active', tab === 'pareja');
+            renderizarCalendarioHistoriasC360();
+        }
+
+        function renderizarCalendarioHistoriasC360() {
+            const cont = document.getElementById('c360-calendario-historias-contenedor');
+            if (!cont) return;
+
+            const mesesConfig = [
+                { nombre: 'oct 2026', mes: 9, anio: 2026, dias: 31, offset: 4 },
+                { nombre: 'sept 2026', mes: 8, anio: 2026, dias: 30, offset: 2 },
+                { nombre: 'may 2026', mes: 4, anio: 2026, dias: 31, offset: 5 },
+                { nombre: 'mar 2026', mes: 2, anio: 2026, dias: 31, offset: 0 }
+            ];
+
+            cont.innerHTML = mesesConfig.map(m => {
+                let celdasHtml = '';
+                for (let i = 0; i < m.offset; i++) {
+                    celdasHtml += `<div class="c360-cal-day empty"></div>`;
+                }
+                for (let d = 1; d <= m.dias; d++) {
+                    const historiaDia = c360HistoriasData.find(h =>
+                        h.mes === m.mes && h.dia === d &&
+                        (c360TabCalendarioActual === 'mis' ? h.autor === 'andy' : h.autor === 'jessie')
+                    ) || c360HistoriasData.find(h => h.mes === m.mes && h.dia === d);
+
+                    if (historiaDia) {
+                        celdasHtml += `
+                            <div class="c360-cal-day has-story" onclick="abrirVisorHistoriaDetalleC360(${historiaDia.id})">
+                                <img src="${historiaDia.img}" alt="Día ${d}">
+                                <span>${d}</span>
+                            </div>
+                        `;
+                    } else {
+                        celdasHtml += `<div class="c360-cal-day" onclick="dispararCamaraHistoriaC360()">${d}</div>`;
+                    }
+                }
+                return `
+                    <div class="c360-cal-month-block">
+                        <div class="c360-cal-month-title">${m.nombre}</div>
+                        <div class="c360-cal-weekdays">
+                            <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+                        </div>
+                        <div class="c360-cal-days-grid">
+                            ${celdasHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function abrirVisorHistoriaDetalleC360(historiaId) {
+            const idx = c360HistoriasData.findIndex(h => h.id === historiaId);
+            c360HistoriaActualIdx = idx >= 0 ? idx : 0;
+            renderizarHistoriaDetalleActualC360();
+            abrirVistaC360('story-viewer');
+        }
+
+        function renderizarHistoriaDetalleActualC360() {
+            const h = c360HistoriasData[c360HistoriaActualIdx];
+            if (!h) return;
+
+            const avatar = h.autor === 'jessie' ? 'imagenes/kuromi_avatar_3d.jpg' : 'imagenes/pinguino_avatar_3d.jpg';
+            const autorLabel = h.autor === 'jessie' ? 'Jessie' : 'Yo (Andy)';
+
+            const elAv = document.getElementById('c360-sv-avatar');
+            const elAu = document.getElementById('c360-sv-author');
+            const elDt = document.getElementById('c360-sv-date-top');
+            const elImg = document.getElementById('c360-sv-img');
+            const elTemp = document.getElementById('c360-sv-temp');
+            const elWea = document.getElementById('c360-sv-weather');
+            const elDo = document.getElementById('c360-sv-date-overlay');
+            const elCap = document.getElementById('c360-sv-caption-pill');
+            const elLoc = document.getElementById('c360-sv-location');
+            const elCom = document.getElementById('c360-sv-comments-box');
+
+            if (elAv) elAv.src = avatar;
+            if (elAu) elAu.textContent = autorLabel;
+            if (elDt) elDt.textContent = h.fechaCorta || 'Hoy';
+            if (elImg) elImg.src = h.img;
+            if (elTemp) elTemp.textContent = h.temp || '57°F';
+            if (elWea) elWea.textContent = h.clima || '⛅ Nublado';
+            if (elDo) elDo.textContent = h.fechaCompleta || 'oct 2026';
+            if (elCap) elCap.textContent = h.caption || 'Momento especial ❤️';
+            if (elLoc) elLoc.textContent = h.ubicacion || 'Tulcán';
+
+            if (elCom) {
+                const coms = h.comentarios || [];
+                if (coms.length === 0) {
+                    elCom.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:0.82rem; padding:12px 0;">Sin comentarios</div>`;
+                } else {
+                    elCom.innerHTML = `
+                        <div style="font-size:0.84rem; font-weight:800; color:#0f172a; margin-bottom:10px;">Comentarios ${coms.length}</div>
+                        ${coms.map(c => `
+                            <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:10px;">
+                                <img src="${c.avatar || 'imagenes/kuromi_avatar_3d.jpg'}" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" alt="${c.autor}">
+                                <div>
+                                    <div style="font-size:0.76rem; font-weight:700; color:#64748b;">${c.autor}</div>
+                                    <div style="font-size:0.88rem; font-weight:700; color:#0f172a;">${c.texto}</div>
+                                    <div style="font-size:0.68rem; color:#94a3b8;">${c.fecha || 'Hoy'} · Responder</div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    `;
+                }
+            }
+        }
+
+        function historiaDetalleAnteriorC360() {
+            if (c360HistoriasData.length === 0) return;
+            c360HistoriaActualIdx = (c360HistoriaActualIdx - 1 + c360HistoriasData.length) % c360HistoriasData.length;
+            renderizarHistoriaDetalleActualC360();
+        }
+
+        function historiaDetalleSiguienteC360() {
+            if (c360HistoriasData.length === 0) return;
+            c360HistoriaActualIdx = (c360HistoriaActualIdx + 1) % c360HistoriasData.length;
+            renderizarHistoriaDetalleActualC360();
+        }
+
+        function agregarComentarioHistoriaC360() {
+            const input = document.getElementById('c360-sv-comment-input');
+            if (!input || !input.value.trim()) return;
+            const h = c360HistoriasData[c360HistoriaActualIdx];
+            if (!h) return;
+
+            const miId = (typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja')) || 'andy';
+            const miNombre = miId === 'jessie' ? 'Jessie' : 'Andy';
+            const miAvatar = miId === 'jessie' ? 'imagenes/kuromi_avatar_3d.jpg' : 'imagenes/pinguino_avatar_3d.jpg';
+
+            if (!h.comentarios) h.comentarios = [];
+            h.comentarios.push({
+                autor: miNombre,
+                avatar: miAvatar,
+                texto: input.value.trim(),
+                fecha: 'Ahora'
+            });
+            input.value = '';
+            localStorage.setItem('c360_historias_calendario', JSON.stringify(c360HistoriasData));
+            if (typeof fbDb !== 'undefined' && fbDb) fbDb.ref('c360/historias').set(c360HistoriasData);
+            renderizarHistoriaDetalleActualC360();
+        }
+
+        function reaccionarHistoriaRapidoC360(reaccionTexto) {
+            const h = c360HistoriasData[c360HistoriaActualIdx];
+            if (!h) return;
+            const miId = (typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja')) || 'andy';
+            const miNombre = miId === 'jessie' ? 'Jessie' : 'Andy';
+            const miAvatar = miId === 'jessie' ? 'imagenes/kuromi_avatar_3d.jpg' : 'imagenes/pinguino_avatar_3d.jpg';
+
+            if (!h.comentarios) h.comentarios = [];
+            h.comentarios.push({
+                autor: miNombre,
+                avatar: miAvatar,
+                texto: reaccionTexto,
+                fecha: 'Ahora'
+            });
+            localStorage.setItem('c360_historias_calendario', JSON.stringify(c360HistoriasData));
+            if (typeof fbDb !== 'undefined' && fbDb) fbDb.ref('c360/historias').set(c360HistoriasData);
+            renderizarHistoriaDetalleActualC360();
+            if (typeof mostrarToastNotificacion === 'function') {
+                mostrarToastNotificacion("Enviado 🔥", `Reaccionaste a la historia: ${reaccionTexto}`);
+            }
+        }
+
+        function dispararCamaraHistoriaC360() {
+            const input = document.getElementById('c360-input-story-camera');
+            if (input) input.click();
+        }
+
+        function procesarNuevaHistoriaC360(input) {
+            if (!input || !input.files || !input.files[0]) return;
+            const file = input.files[0];
+            const caption = prompt("Escribe una frase linda para tu historia de hoy 💕:", "Pensando en ti 🥰❤️") || "Momento juntos ❤️";
+
+            const guardarConBase64 = (base64) => {
+                const hoy = new Date();
+                const mesesCortos = ['ene','feb','mar','abr','may','jun','jul','ago','sept','oct','nov','dic'];
+                const miId = (typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja')) || 'andy';
+                const nueva = {
+                    id: Date.now(),
+                    autor: miId,
+                    mes: hoy.getMonth(),
+                    dia: hoy.getDate(),
+                    anio: hoy.getFullYear(),
+                    fechaCorta: `${mesesCortos[hoy.getMonth()]} ${hoy.getDate()}`,
+                    fechaCompleta: `${mesesCortos[hoy.getMonth()]} ${hoy.getDate()}, ${hoy.getFullYear()}`,
+                    img: base64,
+                    temp: '60°F',
+                    clima: '🌤️ Clima agradable',
+                    caption: caption,
+                    ubicacion: 'Tulcán',
+                    comentarios: []
+                };
+                c360HistoriasData.push(nueva);
+                localStorage.setItem('c360_historias_calendario', JSON.stringify(c360HistoriasData));
+                if (typeof fbDb !== 'undefined' && fbDb) fbDb.ref('c360/historias').set(c360HistoriasData);
+                actualizarSlotsHistoriasHomeC360();
+                renderizarCalendarioHistoriasC360();
+                abrirVisorHistoriaDetalleC360(nueva.id);
+            };
+
+            if (typeof compressAndSave === 'function') {
+                compressAndSave(file, guardarConBase64);
+            } else {
+                const reader = new FileReader();
+                reader.onload = (e) => guardarConBase64(e.target.result);
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // --- 5. BANDEJA DE ENTRADA (00:22 - 00:27 del video) ---
+        function registrarEventoBandejaC360(titulo, detalle, icono = '📍') {
+            const lista = JSON.parse(localStorage.getItem('c360_bandeja_notifs') || '[]');
+            const hoy = new Date();
+            const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+            lista.unshift({
+                id: Date.now(),
+                titulo,
+                detalle,
+                icono,
+                fecha: `${meses[hoy.getMonth()]} ${String(hoy.getDate()).padStart(2, '0')}`
+            });
+            localStorage.setItem('c360_bandeja_notifs', JSON.stringify(lista.slice(0, 25)));
+        }
+
+        function renderizarBandejaEntradaC360() {
+            const cont = document.getElementById('c360-bandeja-lista');
+            if (!cont) return;
+
+            const guardadas = JSON.parse(localStorage.getItem('c360_bandeja_notifs') || '[]');
+            const predeterminadas = [
+                { icono: '🎉', bg: '#fce7f3', titulo: '¡Es hoy!', detalle: '¡Celebramos 88 meses y cada día juntos!', fecha: 'Oct 20', dot: true },
+                { icono: '💞', bg: '#f3e8ff', titulo: 'Jessie actualizó las interacciones de hoy.', detalle: '¡Échale un vistazo a su estado y ubicación!', fecha: 'Oct 18', dot: true },
+                { icono: '📍', bg: '#ede9fe', titulo: 'Batería de Jessie sincronizada', detalle: '⚡ El radar de conexión GPS está activo entre Tulcán y ustedes.', fecha: 'Oct 15', dot: false },
+                { icono: '💬', bg: '#ffe4e6', titulo: 'Jessie respondió a tu recuerdo', detalle: 'Te amo ❤️', fecha: 'Sep 20', dot: false },
+                { icono: '🎁', bg: '#ffedd5', titulo: 'Recuerdo especial guardado', detalle: '7 añitos juntos ❤️ en el álbum de pareja', fecha: 'Jun 20', dot: false }
+            ];
+
+            const todas = [...guardadas.map(g => ({ ...g, bg: '#fce7f3', dot: true })), ...predeterminadas];
+
+            cont.innerHTML = todas.map(item => `
+                <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid #f1f5f9;">
+                    <div style="display:flex; align-items:flex-start; gap:12px;">
+                        <div style="position:relative; width:44px; height:44px; border-radius:50%; background:${item.bg || '#f3e8ff'}; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">
+                            ${item.icono || '💞'}
+                            ${item.dot ? '<span style="position:absolute; top:2px; right:2px; width:8px; height:8px; border-radius:50%; background:#ef4444; border:1.5px solid #fff;"></span>' : ''}
+                        </div>
+                        <div>
+                            <div style="font-size:0.92rem; font-weight:800; color:#0f172a; margin-bottom:2px;">${item.titulo}</div>
+                            <div style="font-size:0.78rem; color:#64748b; line-height:1.35;">${item.detalle}</div>
+                        </div>
+                    </div>
+                    <span style="font-size:0.72rem; color:#94a3b8; font-weight:600; white-space:nowrap;">${item.fecha}</span>
+                </div>
+            `).join('');
+        }
+
+        // --- 6. FEED CRONOLÓGICO DE RECUERDOS (01:46 - 01:50 del video) ---
+        function obtenerRecuerdosFeedC360() {
+            const guardados = localStorage.getItem('c360_recuerdos_feed');
+            if (guardados) {
+                try { return JSON.parse(guardados); } catch(e) {}
+            }
+            const iniciales = [
+                {
+                    id: 1,
+                    mes: 'Jun',
+                    dia: '20',
+                    anio: '2026',
+                    titulo: '7 añitos juntos ❤️',
+                    texto: 'Le agradezco mucho por todo este tiempo juntitos mi amor precioso ❤️😍 me hace muy feliz cada día a su lado.',
+                    img: 'imagenes/7e45dd79-2bc0-4502-99e7-028b7f11581c.JPG',
+                    cantidadFotos: 13
+                },
+                {
+                    id: 2,
+                    mes: 'May',
+                    dia: '18',
+                    anio: '2026',
+                    titulo: 'Paseo e inolvidables momentos 🥰🌺',
+                    texto: 'Salimos a disfrutar juntos, comer helado y compartir risas que quedan para siempre en nuestro corazón.',
+                    img: 'imagenes/24e24bd3-df6f-42d7-8364-54d91c893464.JPG',
+                    cantidadFotos: 8
+                },
+                {
+                    id: 3,
+                    mes: 'Abr',
+                    dia: '14',
+                    anio: '2026',
+                    titulo: 'Noche de complicidad 🚗✨',
+                    texto: 'Cada salida en nuestra ruta es una aventura única contigo.',
+                    img: 'imagenes/c66efb2a-e715-4882-9d47-2f5f76074840.JPG',
+                    cantidadFotos: 6
+                },
+                {
+                    id: 4,
+                    mes: 'Mar',
+                    dia: '21',
+                    anio: '2026',
+                    titulo: 'Desde pequeños hasta hoy 💕',
+                    texto: 'Un amor que nació para quedarse toda la vida.',
+                    img: 'imagenes/09101dfd-a4a9-4011-aa71-7eec766eecb6.JPG',
+                    cantidadFotos: 4
+                }
+            ];
+            localStorage.setItem('c360_recuerdos_feed', JSON.stringify(iniciales));
+            return iniciales;
+        }
+
+        function renderizarRecuerdosFeedC360() {
+            const cont = document.getElementById('c360-recuerdos-feed-lista');
+            if (!cont) return;
+            const lista = obtenerRecuerdosFeedC360();
+
+            cont.innerHTML = lista.map(r => `
+                <div style="display:flex; align-items:flex-start; gap:12px;">
+                    <!-- Columna izquierda de fecha estilo Couple360 (01:48) -->
+                    <div style="width:46px; flex-shrink:0; text-align:center;">
+                        <div style="background:#ffffff; border-radius:12px; padding:6px 4px; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+                            <div style="font-size:0.7rem; font-weight:700; color:#fb7185;">${r.mes}</div>
+                            <div style="font-size:1.15rem; font-weight:900; color:#0f172a; line-height:1.1;">${r.dia}</div>
+                        </div>
+                        <div style="font-size:0.68rem; color:#94a3b8; font-weight:700; margin-top:4px;">${r.anio}</div>
+                    </div>
+
+                    <!-- Tarjeta derecha con foto y descripción -->
+                    <div style="flex:1; background:#ffffff; border-radius:22px; padding:12px; box-shadow:0 4px 16px rgba(0,0,0,0.04); position:relative;">
+                        <span style="position:absolute; top:10px; right:10px; width:8px; height:8px; border-radius:50%; background:#ef4444;"></span>
+                        <div style="position:relative; width:100%; height:195px; border-radius:16px; overflow:hidden; margin-bottom:10px; background:#fff1f2;">
+                            <img src="${r.img}" onclick="abrirFotoGrande('${r.img}')" style="width:100%; height:100%; object-fit:cover; cursor:pointer;" alt="${r.titulo}">
+                            <div style="position:absolute; bottom:8px; right:8px; background:rgba(15,23,42,0.65); color:#ffffff; font-size:0.72rem; font-weight:800; padding:3px 9px; border-radius:999px;">
+                                🖼️ ${r.cantidadFotos || 1}
+                            </div>
+                        </div>
+                        <div style="font-size:1rem; font-weight:800; color:#0f172a; margin-bottom:4px;">${r.titulo}</div>
+                        <div style="font-size:0.8rem; color:#64748b; line-height:1.4;">${r.texto}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function abrirModalNuevoRecuerdoFeedC360() {
+            const titulo = prompt("Título del nuevo recuerdo (ej. Domingo de helados 🍦❤️):");
+            if (!titulo) return;
+            const texto = prompt("Describe este hermoso momento juntos:") || "Un recuerdo inolvidable juntos ❤️";
+            const hoy = new Date();
+            const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+            const lista = obtenerRecuerdosFeedC360();
+            lista.unshift({
+                id: Date.now(),
+                mes: meses[hoy.getMonth()],
+                dia: String(hoy.getDate()).padStart(2, '0'),
+                anio: String(hoy.getFullYear()),
+                titulo: titulo,
+                texto: texto,
+                img: 'imagenes/7e45dd79-2bc0-4502-99e7-028b7f11581c.JPG',
+                cantidadFotos: 1
+            });
+            localStorage.setItem('c360_recuerdos_feed', JSON.stringify(lista));
+            renderizarRecuerdosFeedC360();
+            if (typeof mostrarToastNotificacion === 'function') {
+                mostrarToastNotificacion("🗂️ Recuerdo añadido", "Se guardó en su línea de recuerdos.");
+            }
+        }
+
+        // --- 7. DÍAS ESPECIALES CON CUENTA REGRESIVA (01:55 - 01:56 del video) ---
+        function renderizarDiasEspecialesListaC360() {
+            const cont = document.getElementById('c360-dias-especiales-lista');
+            if (!cont) return;
+
+            const hoy = new Date();
+            const calcularDiasFaltantes = (mes1a12, dia) => {
+                let prox = new Date(hoy.getFullYear(), mes1a12 - 1, dia);
+                if (prox < new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate())) {
+                    prox = new Date(hoy.getFullYear() + 1, mes1a12 - 1, dia);
+                }
+                return Math.ceil((prox - new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate())) / (1000 * 60 * 60 * 24));
+            };
+
+            const eventos = [
+                { icono: '♾️', titulo: 'Próximo Cumplemes', sub: 'día 20 · Cada mes', dias: (() => {
+                    let prox = new Date(hoy.getFullYear(), hoy.getMonth(), 20);
+                    if (hoy.getDate() > 20) prox = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 20);
+                    return Math.ceil((prox - new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate())) / (1000 * 60 * 60 * 24));
+                })() },
+                { icono: '🎄', titulo: 'Navidad', sub: 'dic, 25 Cada año', dias: calcularDiasFaltantes(12, 25) },
+                { icono: '🎆', titulo: 'Año Nuevo', sub: 'ene, 01 Cada año', dias: calcularDiasFaltantes(1, 1) },
+                { icono: '🎂', titulo: "Jessie's Birthday", sub: 'feb, 07 Cada año', dias: calcularDiasFaltantes(2, 7) },
+                { icono: '🎂', titulo: "Andy's Birthday", sub: 'feb, 13 Cada año', dias: calcularDiasFaltantes(2, 13) },
+                { icono: '💞', titulo: "Valentine's Day", sub: 'feb, 14 Cada año', dias: calcularDiasFaltantes(2, 14) },
+                { icono: '❤️', titulo: 'Aniversario (20 Jun 2019)', sub: 'jun, 20 Cada año', dias: calcularDiasFaltantes(6, 20) }
+            ];
+
+            const custom = JSON.parse(localStorage.getItem('c360_dias_especiales_custom') || '[]');
+            const todos = [...eventos, ...custom];
+
+            const elBentoCount = document.getElementById('c360-bento-especiales-num');
+            if (elBentoCount) elBentoCount.textContent = todos.length;
+
+            cont.innerHTML = todos.map(ev => `
+                <div style="background:#ffffff; border-radius:20px; padding:16px 18px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 4px 14px rgba(0,0,0,0.03);">
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <div style="font-size:2.1rem; line-height:1;">${ev.icono}</div>
+                        <div>
+                            <div style="font-size:0.98rem; font-weight:800; color:#0f172a;">${ev.titulo}</div>
+                            <div style="font-size:0.76rem; color:#94a3b8; font-weight:600; margin-top:2px;">${ev.sub}</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:1.35rem; font-weight:900; color:#0f172a;">${ev.dias === 0 ? '¡HOY!' : ev.dias}</div>
+                        <div style="font-size:0.7rem; color:#94a3b8; font-weight:600;">${ev.dias === 0 ? '🎉' : 'días después'}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function agregarDiaEspecialPersonalizadoC360() {
+            const titulo = prompt("Nombre del día especial (ej. Viaje a la playa 🏖️):");
+            if (!titulo) return;
+            const dias = parseInt(prompt("¿En cuántos días es?", "30") || "30", 10);
+            const custom = JSON.parse(localStorage.getItem('c360_dias_especiales_custom') || '[]');
+            custom.push({
+                icono: '🌟',
+                titulo: titulo,
+                sub: 'Fecha especial de pareja',
+                dias: isNaN(dias) ? 30 : dias
+            });
+            localStorage.setItem('c360_dias_especiales_custom', JSON.stringify(custom));
+            renderizarDiasEspecialesListaC360();
+        }
+
+        // --- 8. LOVE CHECK-IN E INTERACCIÓN EN CHAT Y MAPA ---
+        function registrarToqueAmorCheckInC360() {
+            const miId = (typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : localStorage.getItem('mi_identidad_pareja')) || 'andy';
+            const data = JSON.parse(localStorage.getItem('c360_checkin_data') || '{"andy": 368, "jessie": 288}');
+            data[miId] = (data[miId] || 300) + 1;
+            localStorage.setItem('c360_checkin_data', JSON.stringify(data));
+            if (typeof fbDb !== 'undefined' && fbDb) fbDb.ref('c360/checkin').set(data);
+            actualizarLoveCheckInUIC360();
+            if (typeof lanzarConfeti === 'function') lanzarConfeti();
+            if (typeof mostrarToastNotificacion === 'function') {
+                mostrarToastNotificacion("💖 Love Check-In!", `¡Sumaste +1 toque de amor! (${data.andy} vs ${data.jessie})`);
+            }
+        }
+
+        function actualizarLoveCheckInUIC360() {
+            const data = JSON.parse(localStorage.getItem('c360_checkin_data') || '{"andy": 368, "jessie": 288}');
+            const elMini = document.getElementById('c360-mini-checkin-nums');
+            const elA = document.getElementById('c360-checkin-andy-val');
+            const elJ = document.getElementById('c360-checkin-jessie-val');
+            if (elMini) elMini.textContent = `${data.andy} ❤️ ${data.jessie}`;
+            if (elA) elA.textContent = data.andy;
+            if (elJ) elJ.textContent = data.jessie;
+        }
+
+        function enviarLlegadaAlChatC360() {
+            const input = document.getElementById('chat-input-texto');
+            const dist = (document.getElementById('distancia-couple360-val') || {}).textContent || '1 km';
+            if (input) {
+                input.value = `📍 Acabo de llegar a este lugar • Distancia actual: ${dist} ❤️`;
+                const form = document.getElementById('chat-form');
+                if (form) form.dispatchEvent(new Event('submit', { cancelable: true }));
+            }
+            cambiarPestaña('chat');
+        }
+
+        function enviarToqueAmorChatC360() {
+            registrarToqueAmorCheckInC360();
+            const input = document.getElementById('chat-input-texto');
+            if (input) {
+                input.value = `🐶💖 ¿Todavía me amas? ¡Te envío un Love Check-In!`;
+                const form = document.getElementById('chat-form');
+                if (form) form.dispatchEvent(new Event('submit', { cancelable: true }));
+            }
+        }
+
+        function centrarMapaParejaC360() {
+            if (typeof actualizarRadarEnMapa === 'function') actualizarRadarEnMapa();
+        }
+
+        function centrarEnPersonaMapaC360(persona) {
+            if (typeof miMapa !== 'undefined' && miMapa && typeof radarCoords !== 'undefined' && radarCoords[persona]) {
+                miMapa.setView([radarCoords[persona].lat, radarCoords[persona].lng], 15, { animate: true });
+            }
+        }
+
+        function inicializarBateriaEnVivoC360() {
+            if ('getBattery' in navigator) {
+                navigator.getBattery().then(bat => {
+                    const pct = Math.round(bat.level * 100);
+                    const elAndy = document.getElementById('c360-map-bat-andy');
+                    if (elAndy) elAndy.textContent = `🔋 ${pct}%`;
+                }).catch(() => {});
+            }
+        }
+
+        function alternarUnidadDistanciaC360() {
+            const el = document.getElementById('c360-set-unidad-dist');
+            if (!el) return;
+            el.textContent = el.textContent === 'Kilómetros' ? 'Millas (mi)' : 'Kilómetros';
+        }
+
+        function alternarUnidadTempC360() {
+            const el = document.getElementById('c360-set-unidad-temp');
+            if (!el) return;
+            el.textContent = el.textContent.includes('Fahrenheit') ? 'Celsius (°C)' : 'Fahrenheit (°F)';
+        }
 
     </script>
 </body>
