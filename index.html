@@ -7415,9 +7415,17 @@ Andy. ❤️</div>
                     <button class="game-btn-icon" onclick="toggleJuegoPantallaCompleta()" title="Pantalla Completa">⛶</button>
                 </div>
 
-                <!-- Marcador en pantalla -->
-                <div style="position: absolute; top: 15px; left: 20px; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.1rem; font-weight: bold; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
-                    Score: <span id="game-score" style="color: #ec4899;">0</span>
+                <!-- Marcador y Estado en pantalla -->
+                <div style="position: absolute; top: 12px; left: 16px; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; gap: 10px; pointer-events: none;">
+                    <div style="background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(236,72,153,0.4); font-size: 0.95rem; font-weight: 800; color: white;">
+                        Score: <span id="game-score" style="color: #ec4899;">0</span>
+                    </div>
+                    <div id="game-bioma-badge" style="background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; font-weight: 700; color: #fbcfe8;">
+                        🌆 Noche Neón
+                    </div>
+                    <div id="game-powerup-badge" style="display: none; background: linear-gradient(135deg, #ec4899, #8b5cf6); padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 800; color: white; box-shadow: 0 0 12px rgba(236,72,153,0.6); animation: palpitacion 0.8s infinite;">
+                        🛡️ ESCUDO ACTIVO
+                    </div>
                 </div>
                 
                 <!-- Pantalla de inicio/fin del juego overlay -->
@@ -7434,6 +7442,13 @@ Andy. ❤️</div>
                 </div>
                 
                 <canvas id="game-canvas" width="600" height="300" style="display: block; width: 100%; height: auto; object-fit: contain; max-height: 100vh;"></canvas>
+
+                <!-- Botón de salto gigante flotante para jugar cómodo con el pulgar en móvil -->
+                <div style="position: absolute; bottom: 14px; right: 16px; z-index: 12;">
+                    <button type="button" id="btn-juego-saltar" onclick="hacerSaltarDatsun()" style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, rgba(236,72,153,0.9), rgba(139,92,246,0.9)); border: 2px solid rgba(255,255,255,0.85); box-shadow: 0 8px 20px rgba(236,72,153,0.45); color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); user-select: none; -webkit-tap-highlight-color: transparent;">
+                        🚀
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -12006,15 +12021,89 @@ Andy. ❤️</div>
         let gameCollectibles = [];
         let gameParticles = [];
         
-        let gameSpeed = 5;
+        let gameSpeed = 5.2;
         let gameRoadOffset = 0;
         let gameLastSpawnTime = 0;
         let gameBaseY = 220; 
         let gameStars = [];
         let gameMountains = [];
+        let gameCityBuildings = [];
+        let gameBiomaActual = 'neon'; // neon -> atardecer -> dia -> galaxia
+        let gameShieldActive = false;
+        let gameTurboTimer = 0;
+        let gameMultiplierTimer = 0;
+
         const imgKuromi = new Image();
+        const imgAndyDriver = new Image();
         let canvasKuromiChico = null; // Precaché de 18x18
         let canvasKuromiColeccionable = null; // Precaché de 30x30
+
+        // Web Audio Sintetizador retro para sonidos instantáneos y adictivos sin lag
+        let gameAudioCtx = null;
+        function playRetroSound(tipo) {
+            try {
+                const AudioClass = window.AudioContext || window.webkitAudioContext;
+                if (!AudioClass) return;
+                if (!gameAudioCtx) gameAudioCtx = new AudioClass();
+                if (gameAudioCtx.state === 'suspended') gameAudioCtx.resume();
+                
+                const now = gameAudioCtx.currentTime;
+                const osc = gameAudioCtx.createOscillator();
+                const gain = gameAudioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(gameAudioCtx.destination);
+
+                if (tipo === 'jump') {
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(160, now);
+                    osc.frequency.exponentialRampToValueAtTime(420, now + 0.12);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+                    osc.start(now);
+                    osc.stop(now + 0.13);
+                } else if (tipo === 'doublejump') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(320, now);
+                    osc.frequency.exponentialRampToValueAtTime(680, now + 0.14);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.14);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
+                } else if (tipo === 'coin') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, now); // D5
+                    osc.frequency.setValueAtTime(880, now + 0.08); // A5
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.22);
+                    osc.start(now);
+                    osc.stop(now + 0.23);
+                } else if (tipo === 'powerup') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(260, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.28);
+                    gain.gain.setValueAtTime(0.16, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (tipo === 'shield-break') {
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.linearRampToValueAtTime(120, now + 0.25);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.26);
+                } else if (tipo === 'crash') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(140, now);
+                    osc.frequency.linearRampToValueAtTime(40, now + 0.35);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+                    osc.start(now);
+                    osc.stop(now + 0.36);
+                }
+            } catch (e) {}
+        }
 
         // Precargar la imagen y crear canvases en miniatura para mejorar rendimiento (60fps)
         imgKuromi.onload = () => {
@@ -12037,26 +12126,37 @@ Andy. ❤️</div>
             gameCtx = gameCanvas.getContext('2d');
             
             imgKuromi.src = 'imagenes/kuromi_jessie.png';
+            imgAndyDriver.src = 'imagenes/pinguino_avatar_3d.jpg';
             
             document.getElementById('game-highscore').innerText = gameHighscore;
             
             gameStars = [];
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 35; i++) {
                 gameStars.push({
                     x: Math.random() * gameCanvas.width,
-                    y: Math.random() * 120,
+                    y: Math.random() * 110,
                     size: Math.random() * 2 + 1,
                     speed: Math.random() * 0.2 + 0.05
                 });
             }
             
             gameMountains = [];
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 4; i++) {
                 gameMountains.push({
-                    x: i * 250,
-                    width: 300,
-                    height: Math.random() * 60 + 40,
+                    x: i * 200,
+                    width: 250,
+                    height: Math.random() * 55 + 40,
                     speed: 0.5
+                });
+            }
+
+            gameCityBuildings = [];
+            for (let i = 0; i < 8; i++) {
+                gameCityBuildings.push({
+                    x: i * 90,
+                    width: 70 + Math.random() * 30,
+                    height: 50 + Math.random() * 60,
+                    windows: Math.floor(Math.random() * 4) + 2
                 });
             }
             
@@ -12074,47 +12174,60 @@ Andy. ❤️</div>
                 }
             }, { passive: false });
 
-            const btnSaltar = document.getElementById('btn-juego-saltar');
-            if (btnSaltar) {
-                btnSaltar.addEventListener('touchstart', (e) => {
-                    if (gameIsPlaying) {
-                        e.preventDefault();
-                        hacerSaltarDatsun();
-                    }
-                }, { passive: false });
+            gameCanvas.addEventListener('mousedown', (e) => {
+                if (gameIsPlaying) {
+                    hacerSaltarDatsun();
+                }
+            });
+        }
+
+        function actualizarBiomaJuego() {
+            const badgeBioma = document.getElementById('game-bioma-badge');
+            if (gameScore < 400) {
+                gameBiomaActual = 'neon';
+                if (badgeBioma) badgeBioma.innerText = '🌆 Ciudad Neón';
+            } else if (gameScore < 900) {
+                gameBiomaActual = 'atardecer';
+                if (badgeBioma) badgeBioma.innerText = '🌅 Atardecer Andino';
+            } else if (gameScore < 1500) {
+                gameBiomaActual = 'dia';
+                if (badgeBioma) badgeBioma.innerText = '☀️ Carretera Soleada';
+            } else {
+                gameBiomaActual = 'galaxia';
+                if (badgeBioma) badgeBioma.innerText = '✨ Galaxia del Amor';
             }
         }
 
         function iniciarOReiniciarJuego() {
-            // Ocultar el overlay de inicio/game over
             document.getElementById('game-overlay').style.display = 'none';
             
-            // Reiniciar variables de estado del juego
             gameScore = 0;
             document.getElementById('game-score').innerText = '0';
-            gameSpeed = 5;
+            gameSpeed = 5.2;
             gameRoadOffset = 0;
             gameShownMilestoneThisRun = false;
+            gameShieldActive = false;
+            gameTurboTimer = 0;
+            gameMultiplierTimer = 0;
             
-            // Instanciar Datsun y limpiar arreglos
+            const badgeShield = document.getElementById('game-powerup-badge');
+            if (badgeShield) badgeShield.style.display = 'none';
+            actualizarBiomaJuego();
+            
             datsun = new DatsunTruck();
             gameObstacles = [];
             gameCollectibles = [];
             gameParticles = [];
             
-            // Activar estado de juego
             gameIsPlaying = true;
             gameLastSpawnTime = Date.now();
             
-            // Detener cualquier animación previa para evitar duplicación
             if (gameAnimationId) {
                 cancelAnimationFrame(gameAnimationId);
             }
             
-            // Iniciar bucle del juego
             bucleJuego();
             
-            // Iniciar la música de fondo automáticamente si no está sonando
             if (!musicaReproduciendo) {
                 reproducirMusica();
             }
@@ -12124,32 +12237,46 @@ Andy. ❤️</div>
             constructor() {
                 this.x = 80;
                 this.y = gameBaseY - 35;
-                this.ancho = 64;
-                this.alto = 35;
+                this.ancho = 68;
+                this.alto = 36;
                 this.vy = 0;
-                this.gravity = 0.6;
-                this.jumpStrength = -11;
-                this.doubleJumpStrength = -9;
+                this.gravity = 0.58;
+                this.jumpStrength = -11.2;
+                this.doubleJumpStrength = -9.6;
                 this.jumpsCount = 0;
                 this.wheelRotation = 0;
+                this.squash = 1; // rebote de suspensión suave
             }
             
             actualizar() {
                 this.vy += this.gravity;
                 this.y += this.vy;
                 
+                // Amortiguación y aterrizaje con rebote
                 if (this.y >= gameBaseY - this.alto) {
+                    if (this.vy > 4) {
+                        this.squash = 0.82; // compresión al caer fuerte
+                        lanzarHumoSalto(this.x + 8, gameBaseY);
+                        lanzarHumoSalto(this.x + this.ancho - 10, gameBaseY);
+                    }
                     this.y = gameBaseY - this.alto;
                     this.vy = 0;
                     this.jumpsCount = 0;
                 }
+
+                // Recuperación de suspensión progresiva
+                this.squash += (1 - this.squash) * 0.14;
                 
-                if (this.y === gameBaseY - this.alto) {
-                    this.wheelRotation += gameSpeed * 0.05;
-                }
+                const factorVel = gameTurboTimer > 0 ? gameSpeed * 1.6 : gameSpeed;
+                this.wheelRotation += factorVel * 0.055;
                 
-                if (gameIsPlaying && Math.random() < 0.15) {
-                    gameParticles.push(new SmokeParticle(this.x + 2, this.y + this.alto * 0.7));
+                if (gameIsPlaying) {
+                    if (gameTurboTimer > 0) {
+                        // Llamas turbo del escape
+                        gameParticles.push(new TurboFlameParticle(this.x - 4, this.y + this.alto * 0.72));
+                    } else if (Math.random() < 0.2) {
+                        gameParticles.push(new SmokeParticle(this.x + 2, this.y + this.alto * 0.7));
+                    }
                 }
             }
             
@@ -12157,16 +12284,50 @@ Andy. ❤️</div>
                 if (this.jumpsCount === 0) {
                     this.vy = this.jumpStrength;
                     this.jumpsCount = 1;
+                    this.squash = 1.25; // estiramiento dinámico de impulso
                     lanzarHumoSalto(this.x + 8, this.y + this.alto);
+                    playRetroSound('jump');
                 } else if (this.jumpsCount === 1) {
                     this.vy = this.doubleJumpStrength;
                     this.jumpsCount = 2;
+                    this.squash = 1.2;
                     lanzarHumoSalto(this.x + 8, this.y + this.alto);
+                    lanzarParticulasRecogida(this.x + this.ancho / 2, this.y + this.alto, '#ec4899');
+                    playRetroSound('doublejump');
                 }
             }
             
             dibujar() {
-                dibujarDatsun1200(gameCtx, this.x, this.y, this.ancho, this.alto, this.wheelRotation);
+                dibujarDatsun1200(gameCtx, this.x, this.y, this.ancho, this.alto, this.wheelRotation, this.squash);
+            }
+        }
+        
+        class TurboFlameParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 7 + 4;
+                this.vx = -Math.random() * 6 - 4;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.05 + 0.03;
+                this.colors = ['#f43f5e', '#fb923c', '#facc15', '#38bdf8'];
+                this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+            }
+            actualizar() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= this.decay;
+                this.size *= 0.94;
+            }
+            dibujar() {
+                gameCtx.save();
+                gameCtx.globalAlpha = Math.max(0, this.alpha);
+                gameCtx.fillStyle = this.color;
+                gameCtx.beginPath();
+                gameCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                gameCtx.fill();
+                gameCtx.restore();
             }
         }
         
@@ -12233,48 +12394,62 @@ Andy. ❤️</div>
         
         class Collectible {
             constructor() {
-                this.ancho = 28;
-                this.alto = 28;
+                this.ancho = 30;
+                this.alto = 30;
                 this.x = gameCanvas.width + 20;
-                this.y = gameBaseY - 40 - Math.random() * 60;
+                this.y = gameBaseY - 45 - Math.random() * 65;
                 this.speed = gameSpeed;
                 
                 const rand = Math.random();
-                if (gameScore < 300) {
-                    // Progreso inicial: corazones y disquetes
-                    if (rand < 0.6) {
-                        this.type = 'heart';
-                        this.emoji = '💖';
-                        this.points = 50;
-                    } else {
-                        this.type = 'diskette';
-                        this.emoji = '💾';
-                        this.points = 100;
-                    }
+                if (rand < 0.10) {
+                    // Power-up 1: Escudo Protector Kuromi
+                    this.type = 'shield';
+                    this.emoji = '🛡️';
+                    this.points = 150;
+                } else if (rand < 0.20) {
+                    // Power-up 2: Turbo Nitro Datsun con Imán
+                    this.type = 'turbo';
+                    this.emoji = '⚡';
+                    this.points = 200;
+                } else if (rand < 0.30) {
+                    // Power-up 3: Multiplicador x2 de Amor
+                    this.type = 'multiplier';
+                    this.emoji = '🌟';
+                    this.points = 180;
+                } else if (rand < 0.60) {
+                    this.type = 'heart';
+                    this.emoji = '💖';
+                    this.points = 50;
+                } else if (rand < 0.85) {
+                    this.type = 'diskette';
+                    this.emoji = '💾';
+                    this.points = 100;
                 } else {
-                    // Progreso avanzado (score >= 300): ¡aparece Kuromi!
-                    if (rand < 0.4) {
-                        this.type = 'heart';
-                        this.emoji = '💖';
-                        this.points = 50;
-                    } else if (rand < 0.75) {
-                        this.type = 'diskette';
-                        this.emoji = '💾';
-                        this.points = 100;
-                    } else {
-                        this.type = 'kuromi';
-                        this.points = 250; // ¡Muchos puntos por atrapar a Kuromi!
-                    }
+                    this.type = 'kuromi';
+                    this.points = 300;
                 }
             }
             
             actualizar() {
-                this.x -= this.speed;
+                // Efecto Imán si el Turbo está activo
+                if (gameTurboTimer > 0 && datsun) {
+                    const dx = (datsun.x + datsun.ancho / 2) - this.x;
+                    const dy = (datsun.y + datsun.alto / 2) - this.y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < 260) {
+                        this.x += (dx / dist) * 11;
+                        this.y += (dy / dist) * 11;
+                    } else {
+                        this.x -= (gameSpeed * 1.6);
+                    }
+                } else {
+                    this.x -= this.speed;
+                }
             }
             
             dibujar() {
                 gameCtx.save();
-                const bounce = Math.sin(Date.now() * 0.007 + this.x * 0.05) * 3;
+                const bounce = Math.sin(Date.now() * 0.007 + this.x * 0.05) * 3.5;
                 if (this.type === 'kuromi') {
                     if (canvasKuromiColeccionable) {
                         gameCtx.drawImage(canvasKuromiColeccionable, this.x + this.ancho / 2 - 15, this.y + this.alto / 2 + bounce - 15);
@@ -12285,7 +12460,12 @@ Andy. ❤️</div>
                         dibujarKuromi(gameCtx, this.x + this.ancho / 2, this.y + this.alto / 2 + bounce, 28);
                     }
                 } else {
-                    gameCtx.font = '22px Arial';
+                    // Resplandor para power-ups
+                    if (this.type === 'shield' || this.type === 'turbo' || this.type === 'multiplier') {
+                        gameCtx.shadowColor = '#ec4899';
+                        gameCtx.shadowBlur = 10;
+                    }
+                    gameCtx.font = '24px Arial';
                     gameCtx.textAlign = 'center';
                     gameCtx.textBaseline = 'middle';
                     gameCtx.fillText(this.emoji, this.x + this.ancho / 2, this.y + this.alto / 2 + bounce);
@@ -12305,14 +12485,32 @@ Andy. ❤️</div>
             
             gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
             
+            // Actualizar cronómetros de Power-ups
+            if (gameTurboTimer > 0) {
+                gameTurboTimer--;
+                if (gameTurboTimer === 0) {
+                    const badgeShield = document.getElementById('game-powerup-badge');
+                    if (badgeShield && !gameShieldActive && gameMultiplierTimer <= 0) badgeShield.style.display = 'none';
+                }
+            }
+            if (gameMultiplierTimer > 0) {
+                gameMultiplierTimer--;
+                if (gameMultiplierTimer === 0) {
+                    const badgeShield = document.getElementById('game-powerup-badge');
+                    if (badgeShield && !gameShieldActive && gameTurboTimer <= 0) badgeShield.style.display = 'none';
+                }
+            }
+
+            actualizarBiomaJuego();
             dibujarFondoJuego();
             
             datsun.actualizar();
             datsun.dibujar();
             
             const ahora = Date.now();
-            if (ahora - gameLastSpawnTime > Math.max(1000 - gameSpeed * 50, 600)) {
-                if (Math.random() < 0.45) {
+            const spawnInterval = Math.max(1050 - gameSpeed * 45, 550);
+            if (ahora - gameLastSpawnTime > spawnInterval) {
+                if (Math.random() < 0.42) {
                     gameObstacles.push(new Obstacle());
                 } else {
                     gameCollectibles.push(new Collectible());
@@ -12322,6 +12520,7 @@ Andy. ❤️</div>
             
             for (let i = gameObstacles.length - 1; i >= 0; i--) {
                 const obs = gameObstacles[i];
+                obs.speed = gameTurboTimer > 0 ? gameSpeed * 1.5 : gameSpeed;
                 obs.actualizar();
                 obs.dibujar();
                 
@@ -12333,6 +12532,7 @@ Andy. ❤️</div>
             
             for (let i = gameCollectibles.length - 1; i >= 0; i--) {
                 const col = gameCollectibles[i];
+                col.speed = gameTurboTimer > 0 ? gameSpeed * 1.5 : gameSpeed;
                 col.actualizar();
                 col.dibujar();
                 
@@ -12354,12 +12554,13 @@ Andy. ❤️</div>
             
             comprobarColisiones();
             
-            if (Math.random() < 0.15) {
-                gameScore += 1;
+            if (Math.random() < 0.18) {
+                const ptsBase = gameMultiplierTimer > 0 ? 2 : 1;
+                gameScore += ptsBase;
                 document.getElementById('game-score').innerText = gameScore;
                 
                 if (gameScore > 0 && gameScore % 300 === 0) {
-                    gameSpeed += 0.5;
+                    gameSpeed += 0.45;
                 }
                 
                 if (gameScore >= 2019 && !gameShownMilestoneThisRun) {
@@ -12372,56 +12573,147 @@ Andy. ❤️</div>
         }
         
         function dibujarFondoJuego() {
+            // Biomas progresivos según el puntaje alcanzado
             let grad = gameCtx.createLinearGradient(0, 0, 0, gameCanvas.height);
-            grad.addColorStop(0, '#090514'); 
-            grad.addColorStop(0.6, '#1e1b4b'); 
-            grad.addColorStop(1, '#311042'); 
+            let colorMontanas = '#17112b';
+            let colorCarretera = '#1f2937';
+            let colorLineaHorizonte = '#ec4899';
+            let colorEstrellas = 'rgba(255, 255, 255, 0.85)';
+
+            if (gameBiomaActual === 'neon') {
+                // 1. Ciudad Neón (Noche cyberpunk violeta)
+                grad.addColorStop(0, '#090514');
+                grad.addColorStop(0.55, '#1e1b4b');
+                grad.addColorStop(1, '#311042');
+                colorMontanas = '#17112b';
+                colorLineaHorizonte = '#ec4899';
+            } else if (gameBiomaActual === 'atardecer') {
+                // 2. Atardecer Andino (Naranja, rosa y violeta cálido)
+                grad.addColorStop(0, '#311042');
+                grad.addColorStop(0.45, '#c026d3');
+                grad.addColorStop(0.85, '#f97316');
+                grad.addColorStop(1, '#fde047');
+                colorMontanas = '#4a044e';
+                colorLineaHorizonte = '#f43f5e';
+                colorEstrellas = 'rgba(254, 240, 138, 0.6)';
+            } else if (gameBiomaActual === 'dia') {
+                // 3. Carretera Soleada (Cielo azul despejado)
+                grad.addColorStop(0, '#0284c7');
+                grad.addColorStop(0.65, '#38bdf8');
+                grad.addColorStop(1, '#bae6fd');
+                colorMontanas = '#047857';
+                colorCarretera = '#334155';
+                colorLineaHorizonte = '#10b981';
+            } else {
+                // 4. Galaxia del Amor (Espacio cósmico con nebulosas)
+                grad.addColorStop(0, '#020617');
+                grad.addColorStop(0.45, '#0f172a');
+                grad.addColorStop(0.85, '#581c87');
+                grad.addColorStop(1, '#831843');
+                colorMontanas = '#3b0764';
+                colorLineaHorizonte = '#e879f9';
+            }
+
             gameCtx.fillStyle = grad;
             gameCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
             
-            gameCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-            gameStars.forEach(star => {
-                gameCtx.fillRect(star.x, star.y, star.size, star.size);
-                if (gameIsPlaying) {
-                    star.x -= star.speed * (gameSpeed * 0.2);
-                    if (star.x < 0) star.x = gameCanvas.width;
-                }
-            });
-            
-            gameCtx.fillStyle = '#17112b';
-            gameMountains.forEach(mount => {
+            // Sol o Luna según el bioma
+            gameCtx.save();
+            if (gameBiomaActual === 'dia') {
+                gameCtx.fillStyle = '#facc15';
+                gameCtx.shadowColor = '#fef08a';
+                gameCtx.shadowBlur = 24;
                 gameCtx.beginPath();
-                gameCtx.moveTo(mount.x, gameBaseY);
-                gameCtx.lineTo(mount.x + mount.width / 2, gameBaseY - mount.height);
-                gameCtx.lineTo(mount.x + mount.width, gameBaseY);
-                gameCtx.closePath();
+                gameCtx.arc(gameCanvas.width - 70, 45, 24, 0, Math.PI * 2);
                 gameCtx.fill();
-                
-                if (gameIsPlaying) {
-                    mount.x -= mount.speed * (gameSpeed * 0.1);
-                    if (mount.x < -mount.width) mount.x = gameCanvas.width;
-                }
-            });
+            } else if (gameBiomaActual === 'atardecer') {
+                gameCtx.fillStyle = '#fb923c';
+                gameCtx.shadowColor = '#fdba74';
+                gameCtx.shadowBlur = 30;
+                gameCtx.beginPath();
+                gameCtx.arc(gameCanvas.width - 90, 65, 30, 0, Math.PI * 2);
+                gameCtx.fill();
+            } else {
+                gameCtx.fillStyle = '#fef08a';
+                gameCtx.shadowColor = '#fde047';
+                gameCtx.shadowBlur = 16;
+                gameCtx.beginPath();
+                gameCtx.arc(gameCanvas.width - 60, 40, 18, 0, Math.PI * 2);
+                gameCtx.fill();
+            }
+            gameCtx.restore();
+
+            // Estrellas titilantes
+            if (gameBiomaActual !== 'dia') {
+                gameCtx.fillStyle = colorEstrellas;
+                gameStars.forEach(star => {
+                    gameCtx.fillRect(star.x, star.y, star.size, star.size);
+                    if (gameIsPlaying) {
+                        const vel = gameTurboTimer > 0 ? gameSpeed * 1.6 : gameSpeed;
+                        star.x -= star.speed * (vel * 0.2);
+                        if (star.x < 0) star.x = gameCanvas.width;
+                    }
+                });
+            }
+
+            // Siluetas de fondo: edificios en ciudad neón, o montañas en naturaleza
+            if (gameBiomaActual === 'neon') {
+                gameCtx.fillStyle = '#0f172a';
+                gameCityBuildings.forEach(b => {
+                    gameCtx.fillRect(b.x, gameBaseY - b.height, b.width, b.height);
+                    // Ventanas iluminadas
+                    gameCtx.fillStyle = '#f472b6';
+                    for (let w = 0; w < b.windows; w++) {
+                        gameCtx.fillRect(b.x + 8 + w * 14, gameBaseY - b.height + 12, 6, 8);
+                    }
+                    gameCtx.fillStyle = '#0f172a';
+                    if (gameIsPlaying) {
+                        const vel = gameTurboTimer > 0 ? gameSpeed * 1.5 : gameSpeed;
+                        b.x -= vel * 0.14;
+                        if (b.x < -b.width) b.x = gameCanvas.width;
+                    }
+                });
+            } else {
+                gameCtx.fillStyle = colorMontanas;
+                gameMountains.forEach(mount => {
+                    gameCtx.beginPath();
+                    gameCtx.moveTo(mount.x, gameBaseY);
+                    gameCtx.lineTo(mount.x + mount.width / 2, gameBaseY - mount.height);
+                    gameCtx.lineTo(mount.x + mount.width, gameBaseY);
+                    gameCtx.closePath();
+                    gameCtx.fill();
+                    
+                    if (gameIsPlaying) {
+                        const vel = gameTurboTimer > 0 ? gameSpeed * 1.5 : gameSpeed;
+                        mount.x -= mount.speed * (vel * 0.1);
+                        if (mount.x < -mount.width) mount.x = gameCanvas.width;
+                    }
+                });
+            }
             
-            gameCtx.strokeStyle = '#ec4899'; 
+            // Línea de horizonte de neón/color
+            gameCtx.strokeStyle = colorLineaHorizonte; 
             gameCtx.lineWidth = 3;
             gameCtx.beginPath();
             gameCtx.moveTo(0, gameBaseY);
             gameCtx.lineTo(gameCanvas.width, gameBaseY);
             gameCtx.stroke();
             
-            gameCtx.fillStyle = '#1f2937';
+            // Asfalto de la carretera
+            gameCtx.fillStyle = colorCarretera;
             gameCtx.fillRect(0, gameBaseY, gameCanvas.width, gameCanvas.height - gameBaseY);
             
+            // Líneas divisorias en movimiento
             gameCtx.strokeStyle = '#fde047'; 
-            gameCtx.lineWidth = 2;
-            gameCtx.setLineDash([20, 15]);
-            gameRoadOffset = gameIsPlaying ? gameRoadOffset - gameSpeed * 0.18 : gameRoadOffset;
-            if (gameRoadOffset < -35) gameRoadOffset = 0;
+            gameCtx.lineWidth = 2.5;
+            gameCtx.setLineDash([22, 16]);
+            const factorCarretera = gameTurboTimer > 0 ? gameSpeed * 1.6 : gameSpeed;
+            gameRoadOffset = gameIsPlaying ? gameRoadOffset - factorCarretera * 0.22 : gameRoadOffset;
+            if (gameRoadOffset < -38) gameRoadOffset = 0;
             gameCtx.lineDashOffset = gameRoadOffset;
             gameCtx.beginPath();
-            gameCtx.moveTo(0, gameBaseY + 30);
-            gameCtx.lineTo(gameCanvas.width, gameBaseY + 30);
+            gameCtx.moveTo(0, gameBaseY + 28);
+            gameCtx.lineTo(gameCanvas.width, gameBaseY + 28);
             gameCtx.stroke();
             gameCtx.setLineDash([]); 
         }
@@ -12448,6 +12740,26 @@ Andy. ❤️</div>
                     truckBox.bottom > obsBox.top &&
                     truckBox.top < obsBox.bottom) {
                     
+                    // Si el Turbo está activo: destruye el obstáculo
+                    if (gameTurboTimer > 0) {
+                        lanzarParticulasRecogida(obs.x + obs.ancho/2, obs.y + obs.alto/2, '#fbbf24');
+                        gameObstacles.splice(i, 1);
+                        playRetroSound('coin');
+                        continue;
+                    }
+
+                    // Si el Escudo está activo: protege y rompe el escudo
+                    if (gameShieldActive) {
+                        gameShieldActive = false;
+                        const badgeShield = document.getElementById('game-powerup-badge');
+                        if (badgeShield && gameTurboTimer <= 0 && gameMultiplierTimer <= 0) badgeShield.style.display = 'none';
+                        lanzarParticulasRecogida(datsun.x + datsun.ancho / 2, datsun.y + datsun.alto / 2, '#38bdf8');
+                        playRetroSound('shield-break');
+                        gameObstacles.splice(i, 1);
+                        continue;
+                    }
+
+                    playRetroSound('crash');
                     finalizarJuego();
                     return;
                 }
@@ -12467,10 +12779,42 @@ Andy. ❤️</div>
                     truckBox.bottom > colBox.top &&
                     truckBox.top < colBox.bottom) {
                     
-                    gameScore += col.points;
+                    const badgePowerup = document.getElementById('game-powerup-badge');
+
+                    if (col.type === 'shield') {
+                        gameShieldActive = true;
+                        playRetroSound('powerup');
+                        if (badgePowerup) {
+                            badgePowerup.innerText = '🛡️ ESCUDO ACTIVO';
+                            badgePowerup.style.background = 'linear-gradient(135deg, #0284c7, #38bdf8)';
+                            badgePowerup.style.display = 'block';
+                        }
+                    } else if (col.type === 'turbo') {
+                        gameTurboTimer = 260; // ~4.5 segundos de turbo con imán
+                        playRetroSound('powerup');
+                        if (badgePowerup) {
+                            badgePowerup.innerText = '⚡ NITRO TURBO';
+                            badgePowerup.style.background = 'linear-gradient(135deg, #f59e0b, #ef4444)';
+                            badgePowerup.style.display = 'block';
+                        }
+                    } else if (col.type === 'multiplier') {
+                        gameMultiplierTimer = 340; // ~6 segundos de puntos x2
+                        playRetroSound('powerup');
+                        if (badgePowerup) {
+                            badgePowerup.innerText = '🌟 AMOR x2';
+                            badgePowerup.style.background = 'linear-gradient(135deg, #ec4899, #a855f7)';
+                            badgePowerup.style.display = 'block';
+                        }
+                    } else {
+                        playRetroSound('coin');
+                    }
+
+                    const pts = gameMultiplierTimer > 0 ? col.points * 2 : col.points;
+                    gameScore += pts;
                     document.getElementById('game-score').innerText = gameScore;
                     
-                    lanzarParticulasRecogida(col.x + col.ancho/2, col.y + col.alto/2, col.type === 'heart' ? '#ec4899' : (col.type === 'kuromi' ? '#f43f5e' : '#60a5fa'));
+                    const colorEfecto = col.type === 'heart' ? '#ec4899' : (col.type === 'shield' ? '#38bdf8' : (col.type === 'turbo' ? '#f59e0b' : '#a855f7'));
+                    lanzarParticulasRecogida(col.x + col.ancho/2, col.y + col.alto/2, colorEfecto);
                     
                     gameCollectibles.splice(i, 1);
                 }
@@ -12545,12 +12889,50 @@ Andy. ❤️</div>
             gameAnimationId = requestAnimationFrame(bucleJuego);
         }
 
-        function dibujarDatsun1200(ctx, x, y, ancho, alto, rotacionRuedas) {
+        function dibujarDatsun1200(ctx, x, y, ancho, alto, rotacionRuedas, squash = 1) {
             ctx.save();
-            ctx.translate(x, y);
+            ctx.translate(x, y + alto * (1 - squash));
+            ctx.scale(1, squash); // Efecto suspensión amortiguada
 
-            // Carrocería color Rojo Datsun clásico
-            ctx.fillStyle = '#dc2626'; 
+            // 1. Aura del Escudo Kuromi (si está activo)
+            if (gameShieldActive) {
+                ctx.save();
+                ctx.strokeStyle = '#38bdf8';
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#0284c7';
+                ctx.shadowBlur = 14;
+                ctx.beginPath();
+                ctx.ellipse(ancho * 0.5, alto * 0.45, ancho * 0.58, alto * 0.65, 0, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // 2. Haz de luz del faro delantero (especialmente notorio en la noche y atardecer)
+            ctx.save();
+            const faroX = ancho * 0.98;
+            const faroY = alto * 0.59;
+            const luzGrad = ctx.createRadialGradient(faroX, faroY, 2, faroX + 70, faroY + 12, 85);
+            luzGrad.addColorStop(0, 'rgba(254, 240, 138, 0.45)');
+            luzGrad.addColorStop(0.5, 'rgba(253, 224, 71, 0.18)');
+            luzGrad.addColorStop(1, 'rgba(253, 224, 71, 0)');
+            ctx.fillStyle = luzGrad;
+            ctx.beginPath();
+            ctx.moveTo(faroX, faroY - 2);
+            ctx.lineTo(faroX + 90, faroY - 14);
+            ctx.lineTo(faroX + 95, faroY + 28);
+            ctx.lineTo(faroX, faroY + 6);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            // 3. Carrocería color Rojo Datsun clásico con degradado
+            const gradRojo = ctx.createLinearGradient(0, 0, 0, alto);
+            gradRojo.addColorStop(0, '#ef4444');
+            gradRojo.addColorStop(0.6, '#dc2626');
+            gradRojo.addColorStop(1, '#991b1b');
+            ctx.fillStyle = gradRojo; 
             
             // Cajón de carga trasero
             ctx.fillRect(0, alto * 0.45, ancho * 0.55, alto * 0.3);
@@ -12565,14 +12947,17 @@ Andy. ❤️</div>
             ctx.lineTo(ancho * 0.98, alto * 0.75); 
             ctx.closePath();
             ctx.fill();
-            
-            // Pasos de rueda negros más pequeños
-            ctx.fillStyle = '#1e293b'; 
+
+            // Pasos de rueda
+            ctx.fillStyle = '#0f172a'; 
             ctx.fillRect(ancho * 0.12, alto * 0.73, ancho * 0.18, alto * 0.04);
             ctx.fillRect(ancho * 0.71, alto * 0.73, ancho * 0.18, alto * 0.04);
             
-            // Ventana
-            ctx.fillStyle = '#e2e8f0'; 
+            // Ventana polarizada / reflejo
+            const gradVidrio = ctx.createLinearGradient(0, alto * 0.35, 0, alto * 0.52);
+            gradVidrio.addColorStop(0, '#f8fafc');
+            gradVidrio.addColorStop(1, '#94a3b8');
+            ctx.fillStyle = gradVidrio; 
             ctx.beginPath();
             ctx.moveTo(ancho * 0.58, alto * 0.35);
             ctx.lineTo(ancho * 0.72, alto * 0.35);
@@ -12580,8 +12965,23 @@ Andy. ❤️</div>
             ctx.lineTo(ancho * 0.58, alto * 0.52);
             ctx.closePath();
             ctx.fill();
+
+            // 4. Andy el pingüino como conductor en la ventana 🐧
+            if (imgAndyDriver.complete && imgAndyDriver.naturalWidth !== 0) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(ancho * 0.65, alto * 0.44, 6, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.drawImage(imgAndyDriver, ancho * 0.65 - 6, alto * 0.44 - 6, 12, 12);
+                ctx.restore();
+            } else {
+                ctx.font = '11px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('🐧', ancho * 0.65, alto * 0.44);
+            }
             
-            // Línea de la puerta
+            // Línea divisoria de la puerta
             ctx.strokeStyle = '#7f1d1d';
             ctx.lineWidth = 1.2;
             ctx.beginPath();
@@ -12589,65 +12989,66 @@ Andy. ❤️</div>
             ctx.lineTo(ancho * 0.58, alto * 0.75);
             ctx.stroke();
 
-            // Parrilla frontal cromada clásica de la Datsun 1200
-            ctx.strokeStyle = '#94a3b8';
-            ctx.lineWidth = 1.5;
+            // Parrilla frontal cromada
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1.8;
             ctx.beginPath();
             ctx.moveTo(ancho * 0.88, alto * 0.62);
             ctx.lineTo(ancho * 0.98, alto * 0.62);
             ctx.stroke();
 
             // Moldura lateral cromada clásica
-            ctx.strokeStyle = '#cbd5e1';
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = '#f1f5f9';
+            ctx.lineWidth = 1.2;
             ctx.beginPath();
             ctx.moveTo(0, alto * 0.53);
             ctx.lineTo(ancho * 0.88, alto * 0.53);
             ctx.stroke();
 
-            // Parachoques (Bumper) delantero cromado
-            ctx.fillStyle = '#cbd5e1';
+            // Parachoques cromados (delantero y trasero)
+            ctx.fillStyle = '#e2e8f0';
             ctx.fillRect(ancho * 0.92, alto * 0.72, ancho * 0.08, alto * 0.05);
-
-            // Parachoques trasero cromado
             ctx.fillRect(-ancho * 0.02, alto * 0.72, ancho * 0.06, alto * 0.05);
 
-            // Faro delantero amarillo clásico
-            ctx.fillStyle = '#fde047'; 
+            // Faro delantero con brillo
+            ctx.fillStyle = '#fef08a'; 
+            ctx.shadowColor = '#facc15';
+            ctx.shadowBlur = 8;
             ctx.beginPath();
-            ctx.arc(ancho * 0.98, alto * 0.59, 3, 0, Math.PI * 2);
+            ctx.arc(ancho * 0.98, alto * 0.59, 3.5, 0, Math.PI * 2);
             ctx.fill();
+            ctx.shadowBlur = 0;
             
             // Faro trasero rojo
             ctx.fillStyle = '#ef4444';
-            ctx.fillRect(0, alto * 0.48, 2, 6);
+            ctx.fillRect(0, alto * 0.48, 2.5, 6);
 
-            // Peluche de Kuromi de copiloto en el cajón trasero (imagen)
+            // 5. Kuromi en el cajón trasero como copiloto / pasajera VIP 😈
+            const reboteCopiloto = Math.sin(Date.now() * 0.01) * 1.5;
             if (canvasKuromiChico) {
-                ctx.drawImage(canvasKuromiChico, ancho * 0.28 - 9, alto * 0.30 - 9);
+                ctx.drawImage(canvasKuromiChico, ancho * 0.28 - 9, alto * 0.30 - 9 + reboteCopiloto);
             } else if (imgKuromi.complete && imgKuromi.naturalWidth !== 0) {
-                const kWidth = 18;
-                const kHeight = 18;
-                ctx.drawImage(imgKuromi, ancho * 0.28 - kWidth / 2, alto * 0.30 - kHeight / 2, kWidth, kHeight);
+                const kWidth = 19;
+                const kHeight = 19;
+                ctx.drawImage(imgKuromi, ancho * 0.28 - kWidth / 2, alto * 0.30 - kHeight / 2 + reboteCopiloto, kWidth, kHeight);
             } else {
                 ctx.font = '14px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText('😈', ancho * 0.28, alto * 0.30);
+                ctx.fillText('😈', ancho * 0.28, alto * 0.30 + reboteCopiloto);
             }
 
-            // Rueda Trasera (Normal, perfil bajo clásica)
+            // Ruedas clásicas de Datsun con rotación
             ctx.save();
             ctx.translate(ancho * 0.21, alto * 0.77);
             ctx.rotate(rotacionRuedas);
-            dibujarRueda(ctx, 8);
+            dibujarRueda(ctx, 8.5);
             ctx.restore();
 
-            // Rueda Delantera (Normal, perfil bajo clásica)
             ctx.save();
             ctx.translate(ancho * 0.8, alto * 0.77);
             ctx.rotate(rotacionRuedas);
-            dibujarRueda(ctx, 8);
+            dibujarRueda(ctx, 8.5);
             ctx.restore();
 
             ctx.restore();
