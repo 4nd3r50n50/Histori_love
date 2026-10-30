@@ -2273,28 +2273,95 @@
             box-shadow: var(--shadow-sm);
         }
 
-        /* Estilos Juego Pantalla Completa */
+        /* Estilos Modo Cine / Pantalla Completa Real para Juegos Móviles */
         .game-controls-overlay {
             position: absolute;
             top: 10px;
             right: 10px;
-            z-index: 20;
+            z-index: 25;
             display: flex;
             gap: 8px;
         }
         .game-btn-icon {
-            background: rgba(17, 24, 39, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: white;
-            border-radius: 5px;
-            padding: 5px 10px;
+            border-radius: 999px;
+            padding: 6px 12px;
             cursor: pointer;
-            backdrop-filter: blur(5px);
-            font-size: 1.2rem;
+            backdrop-filter: blur(8px);
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
             transition: 0.2s;
         }
         .game-btn-icon:hover {
-            background: rgba(236, 72, 153, 0.7);
+            background: rgba(236, 72, 153, 0.9);
+            transform: scale(1.05);
+        }
+
+        /* Clase activa para pantalla completa real inmersiva */
+        .juego-fullscreen-real {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: none !important;
+            z-index: 999999 !important;
+            border-radius: 0 !important;
+            border: none !important;
+            background: #090514 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        .juego-fullscreen-real canvas {
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 100vh !important;
+            object-fit: contain !important;
+        }
+
+        /* Selector de Minijuegos */
+        .arcade-tabs-selector {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 6px 4px 14px 4px;
+            margin-bottom: 14px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .arcade-tab-btn {
+            flex: 1;
+            min-width: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 14px;
+            background: #ffffff;
+            border: 1.5px solid #fce7f3;
+            border-radius: 999px;
+            font-size: 0.86rem;
+            font-weight: 800;
+            color: #475569;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .arcade-tab-btn.active {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 6px 18px rgba(236,72,153,0.35);
+            transform: translateY(-1px);
         }
         
         .escondido {
@@ -7398,56 +7465,150 @@ Andy. ❤️</div>
             </div>
         </div>
 
-        <!-- PESTAÑA: MINI-JUEGO DATSUN RUN -->
+        <!-- PESTAÑA: ARCADE DE PAREJA (3 MINIJUEGOS CON PANTALLA COMPLETA) -->
         <div id="tab-juego" class="tab-content">
             <button type="button" class="btn-volver-hub" onclick="cambiarPestaña('mas')">← Volver a Especiales</button>
             <div class="retos-cabecera">
-                <span style="font-size: 2.5rem;">🎮</span>
-                <h3>Datsun Run: El Algoritmo del Amor</h3>
-                <p>Ayuda a Andy a conducir su pequeña Datsun 1200 roja, esquivar los Bugs de programación y recolectar corazones y peluches de Kuromi para Jessie. ¡Consigue 2019 puntos para una gran sorpresa! 😈❤️</p>
-                <div style="font-weight: 700; color: var(--primary); font-size: 1.1rem; margin-top: 4px;">Puntaje Máximo: <span id="game-highscore">0</span></div>
+                <span style="font-size: 2.5rem;">🕹️</span>
+                <h3>Arcade de Amor: Andy & Jessie</h3>
+                <p>Nuestra sala de minijuegos retro. ¡Elige tu favorito y juega a pantalla completa!</p>
             </div>
-            
-            <div id="juego-contenedor-canvas" style="position: relative; width: 100%; max-width: 600px; margin: 0 auto; background: #111827; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--primary-light); touch-action: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+            <!-- Selector de Juegos -->
+            <div class="arcade-tabs-selector">
+                <button type="button" class="arcade-tab-btn active" id="btn-arcade-datsun" onclick="cambiarMinijuegoArcade('datsun')">
+                    <span>🛻</span> Datsun Run
+                </button>
+                <button type="button" class="arcade-tab-btn" id="btn-arcade-catch" onclick="cambiarMinijuegoArcade('catch')">
+                    <span>🧺</span> Corazón Catch
+                </button>
+                <button type="button" class="arcade-tab-btn" id="btn-arcade-flappy" onclick="cambiarMinijuegoArcade('flappy')">
+                    <span>🐧</span> Flappy Love
+                </button>
+            </div>
+
+            <!-- JUEGO 1: DATSUN RUN -->
+            <div id="arcade-wrap-datsun" class="arcade-game-panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px; font-weight: 700; color: var(--primary); font-size: 0.95rem;">
+                    <span>🛻 Datsun 1200 en Ruta</span>
+                    <span>Récord: <span id="game-highscore">0</span> pts</span>
+                </div>
                 
-                <!-- Botones de Overlay del juego -->
-                <div class="game-controls-overlay">
-                    <button class="game-btn-icon" onclick="toggleJuegoPantallaCompleta()" title="Pantalla Completa">⛶</button>
+                <div id="juego-contenedor-canvas" style="position: relative; width: 100%; max-width: 600px; margin: 0 auto; background: #111827; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--primary-light); touch-action: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    
+                    <!-- Botón Modo Cine / Pantalla Completa Real -->
+                    <div class="game-controls-overlay">
+                        <button type="button" class="game-btn-icon" onclick="toggleModoCineJuego('juego-contenedor-canvas')" title="Pantalla Completa Inmersiva">
+                            <span>⛶</span> Modo Cine
+                        </button>
+                    </div>
+
+                    <!-- Marcador y Estado en pantalla -->
+                    <div style="position: absolute; top: 12px; left: 16px; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; gap: 8px; pointer-events: none;">
+                        <div style="background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(236,72,153,0.4); font-size: 0.95rem; font-weight: 800; color: white;">
+                            Score: <span id="game-score" style="color: #ec4899;">0</span>
+                        </div>
+                        <div id="game-bioma-badge" style="background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; font-weight: 700; color: #fbcfe8;">
+                            🌆 Ciudad Neón
+                        </div>
+                        <div id="game-powerup-badge" style="display: none; background: linear-gradient(135deg, #ec4899, #8b5cf6); padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 800; color: white; box-shadow: 0 0 12px rgba(236,72,153,0.6); animation: palpitacion 0.8s infinite;">
+                            🛡️ ESCUDO ACTIVO
+                        </div>
+                    </div>
+                    
+                    <!-- Pantalla de inicio/fin del juego overlay -->
+                    <div id="game-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.88); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 15; color: white; padding: 20px; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif;">
+                        <span id="game-overlay-icon" style="font-size: 3rem; margin-bottom: 10px; animation: palpitacion 1.5s infinite;">🛻</span>
+                        <h2 id="game-overlay-title" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; color: var(--primary);">Datsun Run</h2>
+                        <p id="game-overlay-text" style="font-size: 0.88rem; max-width: 380px; color: #cbd5e1; margin-bottom: 15px; line-height: 1.4;">
+                            <strong>Toca o presiona ESPACIO para saltar.</strong><br>
+                            🛡️ Escudo • ⚡ Turbo • 🌟 Amor x2 • 👾 Bugs (Esquiva)
+                        </p>
+                        <button class="btn btn-primario" id="btn-juego-play" onclick="iniciarOReiniciarJuego()" style="min-width: 160px; padding: 12px 24px; font-size: 1.1rem;">Jugar Ahora 🎮</button>
+                        <button class="btn btn-secundario" onclick="toggleModoCineJuego('juego-contenedor-canvas')" style="margin-top: 10px; padding: 8px 16px; font-size: 0.88rem;">📱 Modo Pantalla Completa</button>
+                    </div>
+                    
+                    <canvas id="game-canvas" width="600" height="300" style="display: block; width: 100%; height: auto; object-fit: contain; max-height: 100vh;"></canvas>
+
+                    <!-- Botón de salto táctil gigante -->
+                    <div style="position: absolute; bottom: 14px; right: 16px; z-index: 22;">
+                        <button type="button" id="btn-juego-saltar" onclick="hacerSaltarDatsun()" style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, rgba(236,72,153,0.92), rgba(139,92,246,0.92)); border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 8px 20px rgba(236,72,153,0.45); color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); user-select: none; -webkit-tap-highlight-color: transparent;">
+                            🚀
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JUEGO 2: CORAZÓN CATCH (ATRAPA EL AMOR) -->
+            <div id="arcade-wrap-catch" class="arcade-game-panel" style="display: none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px; font-weight: 700; color: #ec4899; font-size: 0.95rem;">
+                    <span>🧺 Atrapa el Amor con el Pulgar</span>
+                    <span>Récord: <span id="catch-highscore">0</span> pts</span>
                 </div>
 
-                <!-- Marcador y Estado en pantalla -->
-                <div style="position: absolute; top: 12px; left: 16px; z-index: 10; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; align-items: center; gap: 10px; pointer-events: none;">
-                    <div style="background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(236,72,153,0.4); font-size: 0.95rem; font-weight: 800; color: white;">
-                        Score: <span id="game-score" style="color: #ec4899;">0</span>
+                <div id="catch-contenedor-canvas" style="position: relative; width: 100%; max-width: 440px; margin: 0 auto; background: #0f172a; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid #ec4899; touch-action: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="game-controls-overlay">
+                        <button type="button" class="game-btn-icon" onclick="toggleModoCineJuego('catch-contenedor-canvas')">
+                            <span>⛶</span> Modo Cine
+                        </button>
                     </div>
-                    <div id="game-bioma-badge" style="background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; font-weight: 700; color: #fbcfe8;">
-                        🌆 Noche Neón
-                    </div>
-                    <div id="game-powerup-badge" style="display: none; background: linear-gradient(135deg, #ec4899, #8b5cf6); padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 800; color: white; box-shadow: 0 0 12px rgba(236,72,153,0.6); animation: palpitacion 0.8s infinite;">
-                        🛡️ ESCUDO ACTIVO
-                    </div>
-                </div>
-                
-                <!-- Pantalla de inicio/fin del juego overlay -->
-                <div id="game-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 15; color: white; padding: 20px; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif;">
-                    <span id="game-overlay-icon" style="font-size: 3rem; margin-bottom: 10px; animation: palpitacion 1.5s infinite;">🛻</span>
-                    <h2 id="game-overlay-title" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; color: var(--primary);">Datsun Run</h2>
-                    <p id="game-overlay-text" style="font-size: 0.9rem; max-width: 380px; color: #cbd5e1; margin-bottom: 15px; line-height: 1.4;">
-                        <strong>Toca o presiona ESPACIO para saltar.</strong><br>
-                        ✅ Atrapa <span style="color:#ec4899">Corazones</span> y <span style="color:#a855f7">Kuromi</span> (+Puntos)<br>
-                        ❌ Esquiva los <span style="color:#ef4444">Bugs</span> (Pierdes)
-                    </p>
-                    <button class="btn btn-primario" id="btn-juego-play" onclick="iniciarOReiniciarJuego()" style="min-width: 160px; padding: 12px 24px; font-size: 1.1rem;">Jugar Ahora 🎮</button>
-                    <button class="btn btn-secundario" onclick="toggleJuegoPantallaCompleta()" style="margin-top: 10px; padding: 8px 16px; font-size: 0.9rem;">📱 Jugar en Pantalla Completa</button>
-                </div>
-                
-                <canvas id="game-canvas" width="600" height="300" style="display: block; width: 100%; height: auto; object-fit: contain; max-height: 100vh;"></canvas>
 
-                <!-- Botón de salto gigante flotante para jugar cómodo con el pulgar en móvil -->
-                <div style="position: absolute; bottom: 14px; right: 16px; z-index: 12;">
-                    <button type="button" id="btn-juego-saltar" onclick="hacerSaltarDatsun()" style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, rgba(236,72,153,0.9), rgba(139,92,246,0.9)); border: 2px solid rgba(255,255,255,0.85); box-shadow: 0 8px 20px rgba(236,72,153,0.45); color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); user-select: none; -webkit-tap-highlight-color: transparent;">
-                        🚀
-                    </button>
+                    <div style="position: absolute; top: 12px; left: 16px; z-index: 10; display: flex; align-items: center; gap: 8px; pointer-events: none;">
+                        <div style="background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(236,72,153,0.4); font-size: 0.95rem; font-weight: 800; color: white;">
+                            Score: <span id="catch-score" style="color: #ec4899;">0</span>
+                        </div>
+                        <div style="background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(239,68,68,0.4); font-size: 0.88rem; font-weight: 800; color: #f87171;">
+                            Vidas: <span id="catch-vidas">❤️❤️❤️</span>
+                        </div>
+                    </div>
+
+                    <div id="catch-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.88); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 15; color: white; padding: 20px; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif;">
+                        <span id="catch-overlay-icon" style="font-size: 3rem; margin-bottom: 10px; animation: palpitacion 1.5s infinite;">🧺</span>
+                        <h2 id="catch-overlay-title" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; color: #ec4899;">Corazón Catch</h2>
+                        <p id="catch-overlay-text" style="font-size: 0.88rem; max-width: 320px; color: #cbd5e1; margin-bottom: 15px; line-height: 1.4;">
+                            Desliza tu pulgar a los lados para mover la cesta.<br>
+                            💖 Corazones (+50) • 😈 Kuromi (+150)<br>
+                            ❌ ¡Esquiva los Bugs de error o perderás vidas!
+                        </p>
+                        <button class="btn btn-primario" onclick="iniciarOReiniciarCatch()" style="min-width: 160px; padding: 12px 24px; font-size: 1.1rem;">Jugar Ahora 🧺</button>
+                    </div>
+
+                    <canvas id="catch-canvas" width="400" height="520" style="display: block; width: 100%; height: auto; object-fit: contain; max-height: 85vh;"></canvas>
+                </div>
+            </div>
+
+            <!-- JUEGO 3: FLAPPY LOVE (VUELO DE PAREJA) -->
+            <div id="arcade-wrap-flappy" class="arcade-game-panel" style="display: none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px; font-weight: 700; color: #8b5cf6; font-size: 0.95rem;">
+                    <span>🐧 Flappy Love: Aletea y Vuela</span>
+                    <span>Récord: <span id="flappy-highscore">0</span> pts</span>
+                </div>
+
+                <div id="flappy-contenedor-canvas" style="position: relative; width: 100%; max-width: 440px; margin: 0 auto; background: #1e1b4b; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid #8b5cf6; touch-action: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div class="game-controls-overlay">
+                        <button type="button" class="game-btn-icon" onclick="toggleModoCineJuego('flappy-contenedor-canvas')">
+                            <span>⛶</span> Modo Cine
+                        </button>
+                    </div>
+
+                    <div style="position: absolute; top: 12px; left: 16px; z-index: 10; display: flex; align-items: center; gap: 8px; pointer-events: none;">
+                        <div style="background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(139,92,246,0.4); font-size: 0.95rem; font-weight: 800; color: white;">
+                            Score: <span id="flappy-score" style="color: #c084fc;">0</span>
+                        </div>
+                    </div>
+
+                    <div id="flappy-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.88); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 15; color: white; padding: 20px; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif;">
+                        <span id="flappy-overlay-icon" style="font-size: 3rem; margin-bottom: 10px; animation: palpitacion 1.5s infinite;">🐧</span>
+                        <h2 id="flappy-overlay-title" style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; color: #c084fc;">Flappy Love</h2>
+                        <p id="flappy-overlay-text" style="font-size: 0.88rem; max-width: 320px; color: #cbd5e1; margin-bottom: 15px; line-height: 1.4;">
+                            Toca la pantalla para aletear y elevar a Andy y Jessie.<br>
+                            Atraviesa las columnas de nubes sin chocar.<br>
+                            ¡Cada columna superada suma amor! 💖
+                        </p>
+                        <button class="btn btn-primario" onclick="iniciarOReiniciarFlappy()" style="min-width: 160px; padding: 12px 24px; font-size: 1.1rem; background: linear-gradient(135deg, #8b5cf6, #ec4899);">Aletear Ahora 🐧</button>
+                    </div>
+
+                    <canvas id="flappy-canvas" width="400" height="520" style="display: block; width: 100%; height: auto; object-fit: contain; max-height: 85vh;"></canvas>
                 </div>
             </div>
         </div>
@@ -8302,19 +8463,21 @@ Andy. ❤️</div>
         </div>
     </div>
 
-    <!-- MODAL DE HITO 2019 ALCANZADO EN EL JUEGO -->
+    <!-- MODAL DE ANIVERSARIO MENSUAL (CADA 20 DE MES) DESBLOQUEADO EN EL JUEGO -->
     <div class="modal-overlay" id="modal-hito-juego">
-        <div class="modal-content" style="max-width: 450px; background: linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%); border: 3px solid var(--primary);">
-            <span class="modal-icon" style="font-size: 3.5rem; animation: palpitacion 1s infinite; display: inline-block;">💝</span>
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--primary-hover); font-size: 1.8rem; margin-bottom: 8px;">¡Felicidades, Compiladores del Amor!</h2>
-            <h3 style="font-size: 1.2rem; color: var(--secondary); margin-bottom: 12px;">Lograron 2019 Puntos</h3>
+        <div class="modal-content" style="max-width: 480px; background: linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%); border: 3px solid var(--primary); border-radius: 24px; padding: 26px 20px;">
+            <span class="modal-icon" id="hito-juego-icono" style="font-size: 3.5rem; animation: palpitacion 1s infinite; display: inline-block;">🎉</span>
+            <h2 id="hito-juego-titulo" style="font-family: 'Playfair Display', serif; color: var(--primary-hover); font-size: 1.7rem; margin-bottom: 6px;">¡Feliz Día 20 Mi Amor!</h2>
+            <h3 id="hito-juego-subtitulo" style="font-size: 1.05rem; color: var(--secondary); margin-bottom: 12px; font-weight: 700;">Compilando un nuevo mes de amor</h3>
             
-            <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; line-height: 1.4; color: #451a03; margin-bottom: 20px;">
-                "2019: El año en que Andy y Jessie iniciaron su gran historia de amor (20 de junio de 2019). Su código compiló a la perfección, esquivando todos los bugs y juntando todo el amor (¡y peluches de Kuromi!) posibles. ¡Feliz aniversario de código y corazón!"
-            </p>
+            <div style="background: rgba(255,255,255,0.7); border-radius: 16px; padding: 16px; margin-bottom: 18px; border: 1px dashed #f472b6;">
+                <p id="hito-juego-mensaje" style="font-family: 'Dancing Script', cursive; font-size: 1.65rem; line-height: 1.4; color: #451a03; margin: 0;">
+                    <!-- Mensaje dinámico según el mes -->
+                </p>
+            </div>
             
-            <div class="modal-acciones">
-                <button class="btn btn-primario" onclick="cerrarHitoJuego()">Continuar Jugando 🎮</button>
+            <div class="modal-acciones" style="display:flex; flex-direction:column; gap:8px;">
+                <button class="btn btn-primario" onclick="cerrarHitoJuego()">Seguir Jugando 🎮</button>
             </div>
         </div>
     </div>
@@ -12563,9 +12726,18 @@ Andy. ❤️</div>
                     gameSpeed += 0.45;
                 }
                 
-                if (gameScore >= 2019 && !gameShownMilestoneThisRun) {
-                    gameShownMilestoneThisRun = true;
-                    mostrarHitoJuego();
+                // Comprobar si hoy es día 20 (Cumplemes de amor) o si supera su propio récord
+                if (!gameShownMilestoneThisRun) {
+                    const hoy = new Date();
+                    const esDia20 = hoy.getDate() === 20;
+                    if (esDia20 && gameScore >= 500) {
+                        gameShownMilestoneThisRun = true;
+                        mostrarHitoJuego();
+                    } else if (!esDia20 && gameScore > gameHighscore && gameHighscore > 300 && gameScore === gameHighscore + 1) {
+                        // Al romper su récord personal
+                        playRetroSound('powerup');
+                        lanzarParticulasRecogida(datsun.x + datsun.ancho / 2, datsun.y - 10, '#ec4899');
+                    }
                 }
             }
             
@@ -12877,7 +13049,41 @@ Andy. ❤️</div>
             gameIsPlaying = false;
             if (gameAnimationId) cancelAnimationFrame(gameAnimationId);
             
+            const hoy = new Date();
+            const mesIdx = hoy.getMonth(); // 0 a 11
+            const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            const nombreMes = nombresMeses[mesIdx];
+
+            // 12 Mensajes únicos para cada 20 de mes del año
+            const mensajesPorMes = [
+                `"Un nuevo año comienza y mi mayor certeza sigue siendo amarte cada segundo más. ¡Feliz día 20 de ${nombreMes}, mi vida hermosa! Gracias por ser mi lugar favorito." ❤️❄️`,
+                `"En el mes del amor celebramos cada día juntos, pero este 20 es aún más especial. Gracias por cada risa, cada abrazo y cada momento a tu lado. ¡Te amo infinitamente!" 💘✨`,
+                `"Marzo florece como nuestro amor día con día. Gracias por ser mi compañera incondicional de vida, código y sueños. ¡Feliz 20 de ${nombreMes} mi Jessie preciosa!" 🌸🚗`,
+                `"No hay distancia, rutina ni bug que opaque la felicidad de tenerte en mi vida. ¡Feliz día 20 de ${nombreMes}! Sigamos construyendo nuestra historia de amor juntos." 🌷💑`,
+                `"Mayo nos recuerda lo afortunado que soy de tenerte a mi lado. Gracias por tu ternura, tu paciencia y por llenar mis días de alegría. ¡Te amo con todo mi ser!" 🌺💖`,
+                `"¡NUESTRO MES DE ANIVERSARIO! El 20 de junio de 2019 comenzó la historia más bella del mundo. Gracias por estos años maravillosos juntos. Eres el amor de mi vida entera." 💍🎉❤️`,
+                `"Mitad de año y mi amor por ti sigue creciendo a pasos agigantados. ¡Feliz 20 de ${nombreMes}! Cada kilómetro recorrido en esta Datsun 1200 vale oro contigo." ☀️🌊`,
+                `"Bajo el cielo de agosto y el viento andino, mi corazón solo sabe latir por ti. ¡Feliz día 20 mi amor! Eres mi hogar y mi mayor tesoro." 🪁🍃`,
+                `"Septiembre nos abraza con nuevos proyectos y metas compartidas. ¡Feliz 20 de ${nombreMes}! Siempre juntos, apoyándonos y amándonos sin límites." 🍂💫`,
+                `"¡Feliz 20 de octubre mi reina! Celebramos un mes más de complicidad, peluches de Kuromi, risas y amor puro del que dura para siempre." 🎃😈❤️`,
+                `"Noviembre nos acerca a fin de año y mirar atrás solo me hace agradecerle a la vida por haberte puesto en mi camino. ¡Feliz 20 de ${nombreMes} mi amor!" 🍁☕`,
+                `"Diciembre, el mes más mágico del año, y mi mejor regalo siempre serás tú. ¡Feliz día 20 de ${nombreMes}! Gracias por un año más de amor incondicional." 🎄🎁✨`
+            ];
+
+            const iconosPorMes = ['❄️', '💘', '🌸', '🌷', '🌺', '💍', '☀️', '🍃', '🍂', '😈', '🍁', '🎄'];
+
+            const elIcono = document.getElementById('hito-juego-icono');
+            const elTitulo = document.getElementById('hito-juego-titulo');
+            const elSub = document.getElementById('hito-juego-subtitulo');
+            const elMsg = document.getElementById('hito-juego-mensaje');
+
+            if (elIcono) elIcono.innerText = iconosPorMes[mesIdx] || '🎉';
+            if (elTitulo) elTitulo.innerText = `¡Feliz 20 de ${nombreMes}!`;
+            if (elSub) elSub.innerText = `Un mes más de amor juntos (Andy & Jessie)`;
+            if (elMsg) elMsg.innerText = mensajesPorMes[mesIdx];
+            
             document.getElementById('modal-hito-juego').classList.add('active');
+            playRetroSound('powerup');
             lanzarConfeti();
         }
         
@@ -13168,26 +13374,454 @@ Andy. ❤️</div>
             ctx.restore();
         }
 
-        function toggleJuegoPantallaCompleta() {
-            const contenedor = document.getElementById('juego-contenedor-canvas');
-            if (!contenedor) return;
-            if (!document.fullscreenElement) {
-                if (contenedor.requestFullscreen) {
-                    contenedor.requestFullscreen();
-                } else if (contenedor.webkitRequestFullscreen) {
-                    contenedor.webkitRequestFullscreen();
-                } else if (contenedor.msRequestFullscreen) {
-                    contenedor.msRequestFullscreen();
+        // ==============================================================
+        // --- ARCADE MULTIJUEGOS & MODO CINE / PANTALLA COMPLETA REAL ---
+        // ==============================================================
+        function cambiarMinijuegoArcade(juego) {
+            const panels = document.querySelectorAll('.arcade-game-panel');
+            panels.forEach(p => p.style.display = 'none');
+            const btns = document.querySelectorAll('.arcade-tab-btn');
+            btns.forEach(b => b.classList.remove('active'));
+
+            const btnActivo = document.getElementById(`btn-arcade-${juego}`);
+            if (btnActivo) btnActivo.classList.add('active');
+
+            const wrap = document.getElementById(`arcade-wrap-${juego}`);
+            if (wrap) wrap.style.display = 'block';
+
+            if (juego === 'datsun') {
+                if (!gameCanvas) inicializarJuego();
+            } else if (juego === 'catch') {
+                if (!catchCanvas) inicializarCatch();
+            } else if (juego === 'flappy') {
+                if (!flappyCanvas) inicializarFlappy();
+            }
+        }
+
+        function toggleModoCineJuego(containerId) {
+            const el = document.getElementById(containerId);
+            if (!el) return;
+
+            const estaEnCine = el.classList.contains('juego-fullscreen-real');
+            if (estaEnCine) {
+                el.classList.remove('juego-fullscreen-real');
+                document.body.style.overflow = '';
+                const btn = el.querySelector('.game-btn-icon');
+                if (btn) btn.innerHTML = '<span>⛶</span> Modo Cine';
+                if (document.fullscreenElement) {
+                    try { document.exitFullscreen(); } catch (e) {}
                 }
             } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
+                el.classList.add('juego-fullscreen-real');
+                document.body.style.overflow = 'hidden';
+                const btn = el.querySelector('.game-btn-icon');
+                if (btn) btn.innerHTML = '<span>✕</span> Salir Cine';
+                // Intentar también fullscreen nativo si el navegador lo permite
+                if (el.requestFullscreen) {
+                    el.requestFullscreen().catch(() => {});
+                } else if (el.webkitRequestFullscreen) {
+                    el.webkitRequestFullscreen().catch(() => {});
                 }
             }
+        }
+
+        // ==============================================================
+        // --- JUEGO 2: CORAZÓN CATCH (ATRAPA EL AMOR CON EL PULGAR) ---
+        // ==============================================================
+        let catchCanvas = null;
+        let catchCtx = null;
+        let catchScore = 0;
+        let catchHighscore = parseInt(localStorage.getItem('catchRunHighScore')) || 0;
+        let catchVidas = 3;
+        let catchIsPlaying = false;
+        let catchAnimationId = null;
+        let catchBasket = { x: 160, y: 460, width: 80, height: 35, speed: 8 };
+        let catchItems = [];
+        let catchParticles = [];
+        let catchLastSpawnTime = 0;
+
+        function inicializarCatch() {
+            catchCanvas = document.getElementById('catch-canvas');
+            if (!catchCanvas) return;
+            catchCtx = catchCanvas.getContext('2d');
+            document.getElementById('catch-highscore').innerText = catchHighscore;
+
+            // Control táctil suave deslizante en celular
+            const moverCesta = (clientX) => {
+                const rect = catchCanvas.getBoundingClientRect();
+                const scaleX = catchCanvas.width / rect.width;
+                const touchX = (clientX - rect.left) * scaleX;
+                catchBasket.x = Math.max(10, Math.min(catchCanvas.width - catchBasket.width - 10, touchX - catchBasket.width / 2));
+            };
+
+            catchCanvas.addEventListener('touchmove', (e) => {
+                if (catchIsPlaying && e.touches.length > 0) {
+                    e.preventDefault();
+                    moverCesta(e.touches[0].clientX);
+                }
+            }, { passive: false });
+
+            catchCanvas.addEventListener('touchstart', (e) => {
+                if (catchIsPlaying && e.touches.length > 0) {
+                    moverCesta(e.touches[0].clientX);
+                }
+            }, { passive: true });
+
+            catchCanvas.addEventListener('mousemove', (e) => {
+                if (catchIsPlaying) {
+                    moverCesta(e.clientX);
+                }
+            });
+
+            // Teclado flechas
+            window.addEventListener('keydown', (e) => {
+                if (!catchIsPlaying) return;
+                if (e.key === 'ArrowLeft') {
+                    catchBasket.x = Math.max(10, catchBasket.x - 25);
+                } else if (e.key === 'ArrowRight') {
+                    catchBasket.x = Math.min(catchCanvas.width - catchBasket.width - 10, catchBasket.x + 25);
+                }
+            });
+        }
+
+        function iniciarOReiniciarCatch() {
+            document.getElementById('catch-overlay').style.display = 'none';
+            catchScore = 0;
+            catchVidas = 3;
+            document.getElementById('catch-score').innerText = '0';
+            actualizarVidasCatchUI();
+            catchItems = [];
+            catchParticles = [];
+            catchBasket.x = (catchCanvas.width - catchBasket.width) / 2;
+            catchIsPlaying = true;
+            catchLastSpawnTime = Date.now();
+
+            if (catchAnimationId) cancelAnimationFrame(catchAnimationId);
+            bucleCatch();
+        }
+
+        function actualizarVidasCatchUI() {
+            const el = document.getElementById('catch-vidas');
+            if (el) {
+                el.innerText = '❤️'.repeat(Math.max(0, catchVidas)) || '💔';
+            }
+        }
+
+        function bucleCatch() {
+            if (!catchIsPlaying) return;
+
+            catchCtx.clearRect(0, 0, catchCanvas.width, catchCanvas.height);
+
+            // Fondo noche romántica
+            const grad = catchCtx.createLinearGradient(0, 0, 0, catchCanvas.height);
+            grad.addColorStop(0, '#0f172a');
+            grad.addColorStop(0.7, '#1e1b4b');
+            grad.addColorStop(1, '#4a044e');
+            catchCtx.fillStyle = grad;
+            catchCtx.fillRect(0, 0, catchCanvas.width, catchCanvas.height);
+
+            // Estrellas
+            catchCtx.fillStyle = 'rgba(255,255,255,0.7)';
+            for (let i = 0; i < 20; i++) {
+                catchCtx.fillRect((i * 37) % catchCanvas.width, (i * 29) % (catchCanvas.height - 100), 2, 2);
+            }
+
+            // Spawn de ítems
+            const ahora = Date.now();
+            const spawnRate = Math.max(750 - catchScore * 0.4, 380);
+            if (ahora - catchLastSpawnTime > spawnRate) {
+                const rand = Math.random();
+                let item = {
+                    x: Math.random() * (catchCanvas.width - 40) + 10,
+                    y: -30,
+                    size: 32,
+                    speed: 3 + Math.random() * 2 + (catchScore * 0.002)
+                };
+                if (rand < 0.22) {
+                    item.type = 'bug';
+                    item.emoji = '👾';
+                } else if (rand < 0.38) {
+                    item.type = 'bomb';
+                    item.emoji = '⚠️';
+                } else if (rand < 0.52) {
+                    item.type = 'kuromi';
+                    item.emoji = '😈';
+                    item.points = 150;
+                } else if (rand < 0.75) {
+                    item.type = 'star';
+                    item.emoji = '⭐';
+                    item.points = 80;
+                } else {
+                    item.type = 'heart';
+                    item.emoji = '💖';
+                    item.points = 50;
+                }
+                catchItems.push(item);
+                catchLastSpawnTime = ahora;
+            }
+
+            // Dibujar Cesta / Baúl de Recuerdos
+            catchCtx.save();
+            const basketGrad = catchCtx.createLinearGradient(catchBasket.x, 0, catchBasket.x + catchBasket.width, 0);
+            basketGrad.addColorStop(0, '#f43f5e');
+            basketGrad.addColorStop(1, '#ec4899');
+            catchCtx.fillStyle = basketGrad;
+            catchCtx.beginPath();
+            catchCtx.roundRect(catchBasket.x, catchBasket.y, catchBasket.width, catchBasket.height, 12);
+            catchCtx.fill();
+            catchCtx.strokeStyle = '#ffffff';
+            catchCtx.lineWidth = 2;
+            catchCtx.stroke();
+            catchCtx.font = '18px Arial';
+            catchCtx.textAlign = 'center';
+            catchCtx.textBaseline = 'middle';
+            catchCtx.fillText('🧺', catchBasket.x + catchBasket.width / 2, catchBasket.y + catchBasket.height / 2);
+            catchCtx.restore();
+
+            // Mover y colisionar ítems
+            for (let i = catchItems.length - 1; i >= 0; i--) {
+                const it = catchItems[i];
+                it.y += it.speed;
+
+                // Dibujar ítem
+                catchCtx.font = '24px Arial';
+                catchCtx.textAlign = 'center';
+                catchCtx.textBaseline = 'middle';
+                catchCtx.fillText(it.emoji, it.x + it.size / 2, it.y + it.size / 2);
+
+                // Colisión con la cesta
+                if (it.y + it.size >= catchBasket.y &&
+                    it.y <= catchBasket.y + catchBasket.height &&
+                    it.x + it.size >= catchBasket.x &&
+                    it.x <= catchBasket.x + catchBasket.width) {
+
+                    if (it.type === 'bug' || it.type === 'bomb') {
+                        catchVidas--;
+                        actualizarVidasCatchUI();
+                        playRetroSound('crash');
+                        if (catchVidas <= 0) {
+                            finalizarCatch();
+                            return;
+                        }
+                    } else {
+                        catchScore += it.points;
+                        document.getElementById('catch-score').innerText = catchScore;
+                        playRetroSound('coin');
+                    }
+                    catchItems.splice(i, 1);
+                    continue;
+                }
+
+                // Si cae al fondo
+                if (it.y > catchCanvas.height + 20) {
+                    catchItems.splice(i, 1);
+                }
+            }
+
+            catchAnimationId = requestAnimationFrame(bucleCatch);
+        }
+
+        function finalizarCatch() {
+            catchIsPlaying = false;
+            if (catchAnimationId) cancelAnimationFrame(catchAnimationId);
+
+            if (catchScore > catchHighscore) {
+                catchHighscore = catchScore;
+                localStorage.setItem('catchRunHighScore', catchHighscore);
+                document.getElementById('catch-highscore').innerText = catchHighscore;
+            }
+
+            document.getElementById('catch-overlay-icon').innerText = '💔';
+            document.getElementById('catch-overlay-title').innerText = 'Fin del Juego';
+            document.getElementById('catch-overlay-text').innerHTML = `¡Gran intento mi amor!<br>Puntaje logrado: <span style="color:#ec4899; font-weight:800; font-size:1.2rem;">${catchScore} pts</span>`;
+            document.getElementById('catch-overlay').style.display = 'flex';
+        }
+
+        // ==============================================================
+        // --- JUEGO 3: FLAPPY LOVE (VUELO DE PAREJA: ANDY & JESSIE) ---
+        // ==============================================================
+        let flappyCanvas = null;
+        let flappyCtx = null;
+        let flappyScore = 0;
+        let flappyHighscore = parseInt(localStorage.getItem('flappyRunHighScore')) || 0;
+        let flappyIsPlaying = false;
+        let flappyAnimationId = null;
+        let bird = { x: 70, y: 220, radius: 18, vy: 0, gravity: 0.38, jump: -6.8 };
+        let flappyPipes = [];
+        let flappyLastSpawnTime = 0;
+
+        function inicializarFlappy() {
+            flappyCanvas = document.getElementById('flappy-canvas');
+            if (!flappyCanvas) return;
+            flappyCtx = flappyCanvas.getContext('2d');
+            document.getElementById('flappy-highscore').innerText = flappyHighscore;
+
+            const aletear = () => {
+                if (flappyIsPlaying) {
+                    bird.vy = bird.jump;
+                    playRetroSound('jump');
+                }
+            };
+
+            flappyCanvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                aletear();
+            }, { passive: false });
+
+            flappyCanvas.addEventListener('mousedown', aletear);
+            window.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && flappyIsPlaying) {
+                    e.preventDefault();
+                    aletear();
+                }
+            });
+        }
+
+        function iniciarOReiniciarFlappy() {
+            document.getElementById('flappy-overlay').style.display = 'none';
+            flappyScore = 0;
+            document.getElementById('flappy-score').innerText = '0';
+            bird.y = 220;
+            bird.vy = 0;
+            flappyPipes = [];
+            flappyIsPlaying = true;
+            flappyLastSpawnTime = Date.now();
+
+            if (flappyAnimationId) cancelAnimationFrame(flappyAnimationId);
+            bucleFlappy();
+        }
+
+        function bucleFlappy() {
+            if (!flappyIsPlaying) return;
+
+            flappyCtx.clearRect(0, 0, flappyCanvas.width, flappyCanvas.height);
+
+            // Fondo cielo pastel al atardecer
+            const grad = flappyCtx.createLinearGradient(0, 0, 0, flappyCanvas.height);
+            grad.addColorStop(0, '#312e81');
+            grad.addColorStop(0.5, '#701a75');
+            grad.addColorStop(1, '#f43f5e');
+            flappyCtx.fillStyle = grad;
+            flappyCtx.fillRect(0, 0, flappyCanvas.width, flappyCanvas.height);
+
+            // Física del pájaro (Andy + Kuromi)
+            bird.vy += bird.gravity;
+            bird.y += bird.vy;
+
+            // Spawn de columnas de nubes de amor
+            const ahora = Date.now();
+            if (ahora - flappyLastSpawnTime > 1600) {
+                const gap = 145; // Espacio cómodo para pasar
+                const topHeight = Math.random() * (flappyCanvas.height - gap - 120) + 40;
+                flappyPipes.push({
+                    x: flappyCanvas.width + 10,
+                    topHeight: topHeight,
+                    bottomY: topHeight + gap,
+                    width: 52,
+                    passed: false
+                });
+                flappyLastSpawnTime = ahora;
+            }
+
+            // Dibujar y mover columnas
+            for (let i = flappyPipes.length - 1; i >= 0; i--) {
+                const p = flappyPipes[i];
+                p.x -= 2.6;
+
+                // Columna Superior
+                const gradPipe = flappyCtx.createLinearGradient(p.x, 0, p.x + p.width, 0);
+                gradPipe.addColorStop(0, '#c084fc');
+                gradPipe.addColorStop(1, '#818cf8');
+                flappyCtx.fillStyle = gradPipe;
+                flappyCtx.beginPath();
+                flappyCtx.roundRect(p.x, 0, p.width, p.topHeight, [0, 0, 14, 14]);
+                flappyCtx.fill();
+                flappyCtx.strokeStyle = '#ffffff';
+                flappyCtx.lineWidth = 1.5;
+                flappyCtx.stroke();
+
+                // Columna Inferior
+                flappyCtx.beginPath();
+                flappyCtx.roundRect(p.x, p.bottomY, p.width, flappyCanvas.height - p.bottomY, [14, 14, 0, 0]);
+                flappyCtx.fill();
+                flappyCtx.stroke();
+
+                // Corazones flotantes decorativos en los bordes
+                flappyCtx.font = '16px Arial';
+                flappyCtx.fillText('💖', p.x + p.width / 2 - 8, p.topHeight - 8);
+                flappyCtx.fillText('💖', p.x + p.width / 2 - 8, p.bottomY + 18);
+
+                // Colisiones
+                if (bird.x + bird.radius > p.x && bird.x - bird.radius < p.x + p.width) {
+                    if (bird.y - bird.radius < p.topHeight || bird.y + bird.radius > p.bottomY) {
+                        playRetroSound('crash');
+                        finalizarFlappy();
+                        return;
+                    }
+                }
+
+                // Sumar punto al pasar
+                if (!p.passed && p.x + p.width < bird.x) {
+                    p.passed = true;
+                    flappyScore++;
+                    document.getElementById('flappy-score').innerText = flappyScore;
+                    playRetroSound('coin');
+                }
+
+                if (p.x < -60) flappyPipes.splice(i, 1);
+            }
+
+            // Suelo y techo
+            if (bird.y + bird.radius >= flappyCanvas.height || bird.y - bird.radius <= 0) {
+                playRetroSound('crash');
+                finalizarFlappy();
+                return;
+            }
+
+            // Dibujar Andy 🐧 volando con Kuromi 😈
+            flappyCtx.save();
+            flappyCtx.translate(bird.x, bird.y);
+            const rot = Math.min(Math.PI / 4, Math.max(-Math.PI / 4, bird.vy * 0.08));
+            flappyCtx.rotate(rot);
+
+            // Aura de amor
+            flappyCtx.fillStyle = 'rgba(236,72,153,0.3)';
+            flappyCtx.beginPath();
+            flappyCtx.arc(0, 0, bird.radius + 6, 0, Math.PI * 2);
+            flappyCtx.fill();
+
+            // Andy Pingüino
+            flappyCtx.font = '26px Arial';
+            flappyCtx.textAlign = 'center';
+            flappyCtx.textBaseline = 'middle';
+            flappyCtx.fillText('🐧', -6, 0);
+
+            // Kuromi montada atrás
+            flappyCtx.font = '18px Arial';
+            flappyCtx.fillText('😈', 14, -8);
+            flappyCtx.restore();
+
+            flappyAnimationId = requestAnimationFrame(bucleFlappy);
+        }
+
+        function finalizarFlappy() {
+            flappyIsPlaying = false;
+            if (flappyAnimationId) cancelAnimationFrame(flappyAnimationId);
+
+            if (flappyScore > flappyHighscore) {
+                flappyHighscore = flappyScore;
+                localStorage.setItem('flappyRunHighScore', flappyHighscore);
+                document.getElementById('flappy-highscore').innerText = flappyHighscore;
+            }
+
+            document.getElementById('flappy-overlay-icon').innerText = '💥';
+            document.getElementById('flappy-overlay-title').innerText = '¡Casi lo logran!';
+            document.getElementById('flappy-overlay-text').innerHTML = `Superaron <span style="color:#c084fc; font-weight:800; font-size:1.2rem;">${flappyScore} columnas de amor</span>. ¿Listos para volar más alto?`;
+            document.getElementById('flappy-overlay').style.display = 'flex';
+        }
+
+        function toggleJuegoPantallaCompleta() {
+            toggleModoCineJuego('juego-contenedor-canvas');
         }
         /* --- LÓGICA V2.0: DIARIO, FECHAS, MAPA, CARTAS --- */
         
