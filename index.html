@@ -3922,44 +3922,46 @@
             transform: scale(0.96);
         }
 
-        /* --- NOTIFICACIONES EN VIVO ESTILO COUPLE360 (IN-APP TOASTS) --- */
+        /* --- NOTIFICACIONES EN VIVO ESTILO COUPLE360 PRO (ALTO CONTRASTE Y BAJO SAFE-AREA) --- */
         .couple-toast-container {
             position: fixed;
-            top: 20px;
+            top: calc(64px + env(safe-area-inset-top, 14px));
             left: 50%;
             transform: translateX(-50%);
-            z-index: 99999;
-            width: 90%;
-            max-width: 440px;
+            z-index: 999999;
+            width: calc(100% - 24px);
+            max-width: 430px;
             display: flex;
             flex-direction: column;
             gap: 10px;
             pointer-events: none;
         }
         .couple-toast-item {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(244, 114, 182, 0.35);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.97) 0%, rgba(59, 7, 100, 0.96) 100%);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 2px solid #f472b6;
             border-radius: 22px;
-            padding: 14px 18px;
+            padding: 14px 16px 16px 16px;
             display: flex;
-            align-items: center;
-            gap: 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(244, 114, 182, 0.15);
+            align-items: flex-start;
+            gap: 12px;
+            box-shadow: 0 18px 38px rgba(15, 23, 42, 0.42), 0 0 22px rgba(236, 72, 153, 0.32);
             pointer-events: auto;
-            animation: slideDownToast 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideDownToast 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transition: all 0.3s ease;
             cursor: pointer;
         }
         .couple-toast-item.ocultando {
             opacity: 0;
-            transform: translateY(-20px) scale(0.95);
+            transform: translateY(-24px) scale(0.95);
         }
         @keyframes slideDownToast {
             from {
                 opacity: 0;
-                transform: translateY(-30px) scale(0.92);
+                transform: translateY(-36px) scale(0.92);
             }
             to {
                 opacity: 1;
@@ -3967,38 +3969,107 @@
             }
         }
         .couple-toast-avatar {
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #ffffff;
-            box-shadow: 0 4px 10px rgba(244, 114, 182, 0.25);
+            border: 2.5px solid #f472b6;
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.4);
             flex-shrink: 0;
+            margin-top: 2px;
         }
         .couple-toast-cuerpo {
             flex: 1;
             min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .couple-toast-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+        .couple-toast-badge {
+            background: rgba(244, 114, 182, 0.22);
+            border: 1px solid rgba(244, 114, 182, 0.5);
+            color: #fbcfe8;
+            font-size: 0.62rem;
+            font-weight: 800;
+            padding: 1px 7px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
         }
         .couple-toast-titulo {
-            font-size: 0.92rem;
+            font-size: 0.94rem;
             font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 2px;
+            color: #ffffff;
             letter-spacing: -0.2px;
+            line-height: 1.25;
         }
         .couple-toast-mensaje {
-            font-size: 0.8rem;
-            color: #64748b;
-            white-space: nowrap;
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: #f1f5f9;
+            white-space: normal;
+            line-height: 1.38;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
             overflow: hidden;
-            text-overflow: ellipsis;
+            word-break: break-word;
         }
         .couple-toast-hora {
             font-size: 0.68rem;
             font-weight: 700;
-            color: #94a3b8;
-            margin-left: 6px;
+            color: #cbd5e1;
             flex-shrink: 0;
+        }
+        .couple-toast-acciones {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .couple-toast-close {
+            background: rgba(255, 255, 255, 0.14);
+            border: none;
+            color: #ffffff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 0.78rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .couple-toast-ver-pill {
+            background: #ec4899;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .couple-toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3.5px;
+            background: linear-gradient(90deg, #f472b6, #a855f7);
+            width: 100%;
+            animation: toastProgressShrink 7s linear forwards;
+        }
+        @keyframes toastProgressShrink {
+            from { width: 100%; }
+            to { width: 0%; }
         }
 
         /* Selector de identidad del dispositivo */
@@ -8717,19 +8788,36 @@ Andy. ❤️</div>
         <div class="c360-fs-navbar">
             <button type="button" class="c360-fs-back" onclick="cerrarVistaC360('bandeja')">‹</button>
             <span class="c360-fs-title">Bandeja de entrada</span>
-            <div class="c360-fs-action"></div>
+            <button type="button" class="c360-fs-action" onclick="limpiarBandejaNotificacionesC360()" title="Marcar todas como leídas" style="font-size:0.78rem; width:auto; padding:0 10px; border-radius:999px; background:#f1f5f9; color:#475569; font-weight:800;">✓ Leídas</button>
         </div>
         <div class="c360-fs-body" style="background:#ffffff; padding:0;">
+            <!-- Barra de control y prueba rápida de notificaciones -->
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 16px; background:linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 100%); border-bottom:1px solid #fbcfe8;">
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <span style="font-size:0.82rem; font-weight:800; color:#831843;">🔔 Centro de Alertas en Vivo</span>
+                    <span style="font-size:0.71rem; color:#6b21a8;">Toca cualquier alerta para ir directo a la pantalla</span>
+                </div>
+                <div style="display:flex; gap:6px; flex-shrink:0;">
+                    <button type="button" onclick="solicitarPermisoNotificaciones()" style="border:1px solid #f472b6; background:#ffffff; color:#be185d; font-size:0.72rem; font-weight:800; padding:7px 10px; border-radius:999px; cursor:pointer;">Permiso SO</button>
+                    <button type="button" onclick="probarNotificacionEnVivoC360()" style="border:none; background:linear-gradient(135deg, #ec4899, #8b5cf6); color:#ffffff; font-size:0.74rem; font-weight:800; padding:7px 12px; border-radius:999px; cursor:pointer; box-shadow:0 4px 12px rgba(236,72,153,0.3);">🔔 Probar banner</button>
+                </div>
+            </div>
             <!-- Fila Cyclebot / LoveBot -->
             <div onclick="cambiarPestaña('bienestar'); cerrarVistaC360('bandeja');" style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:6px solid #f8fafc; cursor:pointer;">
                 <div style="display:flex; align-items:center; gap:12px;">
                     <div style="width:44px; height:44px; border-radius:50%; background:#fce7f3; display:flex; align-items:center; justify-content:center; font-size:1.35rem;">🤖</div>
-                    <span style="font-size:0.98rem; font-weight:800; color:#0f172a;">Cyclebot & Cuidado</span>
+                    <div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#0f172a;">Cyclebot & Cuidado Mutuo</div>
+                        <div style="font-size:0.74rem; color:#64748b;">Hidratación, salud y hábitos diarios de pareja</div>
+                    </div>
                 </div>
                 <span style="color:#94a3b8; font-size:1.2rem; font-weight:700;">›</span>
             </div>
-            <div style="padding:14px 18px 8px 18px; font-size:0.95rem; font-weight:800; color:#0f172a;">Notificaciones</div>
-            <div id="c360-bandeja-lista" style="display:flex; flex-direction:column;">
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 18px 8px 18px;">
+                <span style="font-size:0.95rem; font-weight:800; color:#0f172a;">Historial de Notificaciones</span>
+                <span id="c360-bandeja-contador" style="font-size:0.74rem; font-weight:800; color:#ec4899; background:#fdf2f8; padding:3px 10px; border-radius:999px;">Recientes</span>
+            </div>
+            <div id="c360-bandeja-lista" style="display:flex; flex-direction:column; padding-bottom:32px;">
                 <!-- Se llena dinámicamente con el historial real + alertas inteligentes Couple360 -->
             </div>
         </div>
@@ -14688,11 +14776,18 @@ Andy. ❤️</div>
         }
 
         function notificarMensajeRemoto(miId, miNombre, resumen) {
+            const detalleLimpio = resumen.length > 140 ? resumen.substring(0, 140) + '...' : resumen;
+            const tituloNotif = `💌 Mensaje de ${miNombre}`;
+            if (typeof registrarEventoBandejaC360 === 'function') {
+                registrarEventoBandejaC360(tituloNotif, detalleLimpio, '💬', 'chat', miId);
+            }
             if (typeof fbDb !== 'undefined' && fbDb) {
                 fbDb.ref('notificaciones/ultima').set({
+                    id: Date.now(),
                     autor: miId,
-                    titulo: `💌 Mensaje de ${miNombre}`,
-                    detalle: resumen.length > 50 ? resumen.substring(0, 50) + '...' : resumen,
+                    tipo: 'chat',
+                    titulo: tituloNotif,
+                    detalle: detalleLimpio,
                     timestamp: Date.now()
                 });
             }
@@ -15060,13 +15155,18 @@ Andy. ❤️</div>
             } catch (e) {}
         }
 
-        function mostrarToastNotificacion(titulo, mensaje, avatarUrl) {
+        function mostrarToastNotificacion(titulo, mensaje, avatarUrl, destino = 'bandeja') {
             const contenedor = document.getElementById('couple-toast-container');
             if (!contenedor) return;
 
+            // Mantener máximo 2 alertas simultáneas en pantalla para que nunca se salgan ni estorben
+            while (contenedor.children.length >= 2) {
+                contenedor.firstElementChild.remove();
+            }
+
             reproducirCampanaNotificacion();
             if (navigator.vibrate) {
-                try { navigator.vibrate([100, 60, 100]); } catch(e) {}
+                try { navigator.vibrate([120, 60, 120]); } catch(e) {}
             }
 
             const toast = document.createElement('div');
@@ -15074,27 +15174,53 @@ Andy. ❤️</div>
             const ahora = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             toast.innerHTML = `
-                <img src="${avatarUrl || 'imagenes/icono_pareja.png'}" class="couple-toast-avatar" alt="Avatar">
-                <div class="couple-toast-cuerpo">
-                    <div class="couple-toast-titulo">${titulo}</div>
-                    <div class="couple-toast-mensaje">${mensaje}</div>
+                <div class="couple-toast-avatar-wrap">
+                    <img src="${avatarUrl || 'imagenes/icono_pareja.png'}" class="couple-toast-avatar" alt="Avatar">
                 </div>
-                <div class="couple-toast-hora">${ahora}</div>
+                <div class="couple-toast-cuerpo">
+                    <div class="couple-toast-top-row">
+                        <span class="couple-toast-badge">AHORA</span>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <span class="couple-toast-hora">${ahora}</span>
+                            <span class="couple-toast-ver-pill">Ver ›</span>
+                        </div>
+                    </div>
+                    <div class="couple-toast-titulo">${titulo || 'Notificación de Pareja'}</div>
+                    <div class="couple-toast-mensaje">${mensaje || ''}</div>
+                </div>
+                <button type="button" class="couple-toast-close" aria-label="Cerrar">✕</button>
+                <div class="couple-toast-progress" style="animation-duration: 7s;"></div>
             `;
+
+            const btnClose = toast.querySelector('.couple-toast-close');
+            if (btnClose) {
+                btnClose.onclick = (ev) => {
+                    ev.stopPropagation();
+                    toast.classList.add('ocultando');
+                    setTimeout(() => toast.remove(), 280);
+                };
+            }
 
             toast.onclick = () => {
                 toast.classList.add('ocultando');
-                setTimeout(() => toast.remove(), 300);
+                setTimeout(() => toast.remove(), 280);
+                if (typeof navegarDesdeNotificacionC360 === 'function') {
+                    navegarDesdeNotificacionC360(destino);
+                }
             };
 
             contenedor.appendChild(toast);
+
+            // Activar el punto rojo de la bandeja de entrada en Home
+            const dot = document.getElementById('c360-inbox-badge-dot');
+            if (dot) dot.style.display = 'block';
 
             setTimeout(() => {
                 if (toast.parentNode) {
                     toast.classList.add('ocultando');
                     setTimeout(() => toast.remove(), 300);
                 }
-            }, 5500);
+            }, 7000);
         }
 
         function lanzarNotificacionNativa(titulo, mensaje, avatarUrl) {
@@ -15106,7 +15232,7 @@ Andy. ❤️</div>
                                 body: mensaje,
                                 icon: avatarUrl || 'imagenes/icono_pareja.png',
                                 badge: 'imagenes/icono_pareja.png',
-                                vibrate: [100, 50, 100]
+                                vibrate: [120, 60, 120]
                             });
                         });
                     } else {
@@ -15121,13 +15247,36 @@ Andy. ❤️</div>
             }
         }
 
+        function obtenerIconoPorTipoNotif(tipo) {
+            const mapa = {
+                chat: '💬',
+                historia: '📸',
+                historias: '📸',
+                mood: '💞',
+                gps: '📍',
+                mapa: '📍',
+                salud: '🌿',
+                bienestar: '🌿',
+                finanzas: '💰',
+                compras: '🛒',
+                carta: '💌',
+                reto: '🏆',
+                checkin: '🐶'
+            };
+            return mapa[tipo] || '🔔';
+        }
+
         function emitirNotificacionFirebase(autor, tipo, titulo, detalle) {
+            // Siempre guardar en el historial persistente de Bandeja de Entrada para que nunca se pierda
+            if (typeof registrarEventoBandejaC360 === 'function') {
+                registrarEventoBandejaC360(titulo, detalle, obtenerIconoPorTipoNotif(tipo), tipo || 'bandeja', autor);
+            }
             if (!fbDb) return;
             try {
                 fbDb.ref('notificaciones/ultima').set({
                     id: Date.now(),
                     autor: autor,
-                    tipo: tipo,
+                    tipo: tipo || 'bandeja',
                     titulo: titulo,
                     detalle: detalle,
                     timestamp: Date.now()
@@ -15249,8 +15398,24 @@ Andy. ❤️</div>
                 // Si la notificación es nueva y NO fue emitida por mí, lanzar alerta sonora, toast y nativa
                 if (notif.timestamp > inicioSesionApp && notif.autor !== miId) {
                     const avatar = notif.autor === 'andy' ? 'imagenes/pinguino_avatar_3d.jpg' : 'imagenes/kuromi_avatar_3d.jpg';
-                    mostrarToastNotificacion(notif.titulo, notif.detalle, avatar);
+                    mostrarToastNotificacion(notif.titulo, notif.detalle, avatar, notif.tipo || 'bandeja');
                     lanzarNotificacionNativa(notif.titulo, notif.detalle, avatar);
+                }
+            });
+
+            // 8b. Sincronización persistente de la Bandeja de Entrada (nunca se pierden notificaciones)
+            fbDb.ref('c360/bandeja').on('value', (snap) => {
+                const val = snap.val();
+                if (val && Array.isArray(val)) {
+                    localStorage.setItem('c360_bandeja_notifs', JSON.stringify(val));
+                    const dot = document.getElementById('c360-inbox-badge-dot');
+                    if (dot) {
+                        const hayNoLeidas = val.some(item => item.dot !== false);
+                        dot.style.display = hayNoLeidas ? 'block' : 'none';
+                    }
+                    if (typeof renderizarBandejaEntradaC360 === 'function') {
+                        renderizarBandejaEntradaC360();
+                    }
                 }
             });
 
@@ -15980,19 +16145,89 @@ Andy. ❤️</div>
             }
         }
 
-        // --- 5. BANDEJA DE ENTRADA (00:22 - 00:27 del video) ---
-        function registrarEventoBandejaC360(titulo, detalle, icono = '📍') {
+        // --- 5. BANDEJA DE ENTRADA Y NAVEGACIÓN DE NOTIFICACIONES (00:22 - 00:27 del video) ---
+        function navegarDesdeNotificacionC360(destino) {
+            if (typeof cerrarVistaC360 === 'function') {
+                cerrarVistaC360('bandeja');
+            }
+            const ruta = (destino || 'bandeja').toLowerCase();
+            if (ruta === 'chat') {
+                cambiarPestaña('chat');
+            } else if (ruta === 'historia' || ruta === 'historias') {
+                cambiarPestaña('nosotros');
+                if (typeof abrirVistaC360 === 'function') abrirVistaC360('historias');
+            } else if (ruta === 'gps' || ruta === 'mapa') {
+                cambiarPestaña('mapa');
+            } else if (ruta === 'salud' || ruta === 'bienestar') {
+                cambiarPestaña('bienestar');
+            } else if (ruta === 'finanzas' || ruta === 'compras') {
+                cambiarPestaña('finanzas');
+            } else if (ruta === 'carta' || ruta === 'cartas') {
+                cambiarPestaña('cartas');
+            } else if (ruta === 'reto' || ruta === 'retos') {
+                cambiarPestaña('retos');
+            } else if (ruta === 'mood' || ruta === 'checkin' || ruta === 'nosotros') {
+                cambiarPestaña('nosotros');
+            } else {
+                if (typeof abrirVistaC360 === 'function') abrirVistaC360('bandeja');
+            }
+        }
+
+        function registrarEventoBandejaC360(titulo, detalle, icono = '📍', destino = 'nosotros', autor = '') {
             const lista = JSON.parse(localStorage.getItem('c360_bandeja_notifs') || '[]');
             const hoy = new Date();
             const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-            lista.unshift({
+            const horaStr = hoy.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const nuevoItem = {
                 id: Date.now(),
                 titulo,
                 detalle,
                 icono,
-                fecha: `${meses[hoy.getMonth()]} ${String(hoy.getDate()).padStart(2, '0')}`
-            });
-            localStorage.setItem('c360_bandeja_notifs', JSON.stringify(lista.slice(0, 25)));
+                destino: destino || 'nosotros',
+                autor: autor || '',
+                dot: true,
+                fecha: `${meses[hoy.getMonth()]} ${String(hoy.getDate()).padStart(2, '0')} • ${horaStr}`
+            };
+            lista.unshift(nuevoItem);
+            const recortada = lista.slice(0, 35);
+            localStorage.setItem('c360_bandeja_notifs', JSON.stringify(recortada));
+
+            const dot = document.getElementById('c360-inbox-badge-dot');
+            if (dot) dot.style.display = 'block';
+
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                try {
+                    fbDb.ref('c360/bandeja').set(recortada);
+                } catch (e) {}
+            }
+            if (typeof renderizarBandejaEntradaC360 === 'function') {
+                renderizarBandejaEntradaC360();
+            }
+        }
+
+        function limpiarBandejaNotificacionesC360() {
+            const lista = JSON.parse(localStorage.getItem('c360_bandeja_notifs') || '[]').map(item => ({
+                ...item,
+                dot: false
+            }));
+            localStorage.setItem('c360_bandeja_notifs', JSON.stringify(lista));
+            const dot = document.getElementById('c360-inbox-badge-dot');
+            if (dot) dot.style.display = 'none';
+            if (typeof fbDb !== 'undefined' && fbDb) {
+                try { fbDb.ref('c360/bandeja').set(lista); } catch (e) {}
+            }
+            renderizarBandejaEntradaC360();
+        }
+
+        function probarNotificacionEnVivoC360() {
+            const miId = typeof obtenerMiIdentidad === 'function' ? obtenerMiIdentidad() : (localStorage.getItem('mi_identidad_pareja') || 'andy');
+            const parejaNombre = miId === 'andy' ? 'Jessie' : 'Andy';
+            const parejaAvatar = miId === 'andy' ? 'imagenes/kuromi_avatar_3d.jpg' : 'imagenes/pinguino_avatar_3d.jpg';
+            const titulo = `💖 ${parejaNombre} te envió un toque de amor`;
+            const detalle = `¡Alerta verificada! Así se ven ahora tus notificaciones en vivo: debajo del reloj, con alto contraste y guardadas en tu bandeja.`;
+            registrarEventoBandejaC360(titulo, detalle, '💞', 'chat', miId === 'andy' ? 'jessie' : 'andy');
+            mostrarToastNotificacion(titulo, detalle, parejaAvatar, 'chat');
+            lanzarNotificacionNativa(titulo, detalle, parejaAvatar);
         }
 
         function renderizarBandejaEntradaC360() {
@@ -16001,28 +16236,36 @@ Andy. ❤️</div>
 
             const guardadas = JSON.parse(localStorage.getItem('c360_bandeja_notifs') || '[]');
             const predeterminadas = [
-                { icono: '🎉', bg: '#fce7f3', titulo: '¡Es hoy!', detalle: '¡Celebramos 88 meses y cada día juntos!', fecha: 'Oct 20', dot: true },
-                { icono: '💞', bg: '#f3e8ff', titulo: 'Jessie actualizó las interacciones de hoy.', detalle: '¡Échale un vistazo a su estado y ubicación!', fecha: 'Oct 18', dot: true },
-                { icono: '📍', bg: '#ede9fe', titulo: 'Batería de Jessie sincronizada', detalle: '⚡ El radar de conexión GPS está activo entre Tulcán y ustedes.', fecha: 'Oct 15', dot: false },
-                { icono: '💬', bg: '#ffe4e6', titulo: 'Jessie respondió a tu recuerdo', detalle: 'Te amo ❤️', fecha: 'Sep 20', dot: false },
-                { icono: '🎁', bg: '#ffedd5', titulo: 'Recuerdo especial guardado', detalle: '7 añitos juntos ❤️ en el álbum de pareja', fecha: 'Jun 20', dot: false }
+                { icono: '🎉', bg: '#fce7f3', titulo: '¡Es hoy!', detalle: '¡Celebramos 88 meses y cada día juntos!', fecha: 'Oct 20', dot: false, destino: 'nosotros' },
+                { icono: '💞', bg: '#f3e8ff', titulo: 'Jessie actualizó las interacciones de hoy.', detalle: '¡Échale un vistazo a su estado y ubicación!', fecha: 'Oct 18', dot: false, destino: 'nosotros' },
+                { icono: '📍', bg: '#ede9fe', titulo: 'Batería de Jessie sincronizada', detalle: '⚡ El radar de conexión GPS está activo entre Tulcán y ustedes.', fecha: 'Oct 15', dot: false, destino: 'mapa' },
+                { icono: '💬', bg: '#ffe4e6', titulo: 'Jessie respondió a tu recuerdo', detalle: 'Te amo ❤️', fecha: 'Sep 20', dot: false, destino: 'chat' },
+                { icono: '🎁', bg: '#ffedd5', titulo: 'Recuerdo especial guardado', detalle: '7 añitos juntos ❤️ en el álbum de pareja', fecha: 'Jun 20', dot: false, destino: 'nosotros' }
             ];
 
-            const todas = [...guardadas.map(g => ({ ...g, bg: '#fce7f3', dot: true })), ...predeterminadas];
+            const todas = [...guardadas.map(g => ({ ...g, bg: g.dot !== false ? '#fdf2f8' : '#f8fafc', dot: g.dot !== false })), ...predeterminadas];
+            const noLeidas = todas.filter(x => x.dot).length;
+            const badgeCont = document.getElementById('c360-bandeja-contador');
+            if (badgeCont) {
+                badgeCont.textContent = noLeidas > 0 ? `${noLeidas} nuevas` : `${todas.length} alertas`;
+            }
 
             cont.innerHTML = todas.map(item => `
-                <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid #f1f5f9;">
-                    <div style="display:flex; align-items:flex-start; gap:12px;">
-                        <div style="position:relative; width:44px; height:44px; border-radius:50%; background:${item.bg || '#f3e8ff'}; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">
+                <div onclick="navegarDesdeNotificacionC360('${item.destino || 'nosotros'}')" style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:14px 18px; border-bottom:1px solid #f1f5f9; background:${item.dot ? '#fffafd' : '#ffffff'}; cursor:pointer; transition:background 0.15s ease;">
+                    <div style="display:flex; align-items:flex-start; gap:12px; flex:1; min-width:0;">
+                        <div style="position:relative; width:44px; height:44px; border-radius:50%; background:${item.bg || '#f3e8ff'}; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; border:1px solid #fbcfe8;">
                             ${item.icono || '💞'}
-                            ${item.dot ? '<span style="position:absolute; top:2px; right:2px; width:8px; height:8px; border-radius:50%; background:#ef4444; border:1.5px solid #fff;"></span>' : ''}
+                            ${item.dot ? '<span style="position:absolute; top:1px; right:1px; width:10px; height:10px; border-radius:50%; background:#ef4444; border:2px solid #fff;"></span>' : ''}
                         </div>
-                        <div>
-                            <div style="font-size:0.92rem; font-weight:800; color:#0f172a; margin-bottom:2px;">${item.titulo}</div>
-                            <div style="font-size:0.78rem; color:#64748b; line-height:1.35;">${item.detalle}</div>
+                        <div style="flex:1; min-width:0;">
+                            <div style="font-size:0.9rem; font-weight:800; color:#0f172a; margin-bottom:3px; line-height:1.25;">${item.titulo}</div>
+                            <div style="font-size:0.79rem; color:#475569; line-height:1.4; word-break:break-word;">${item.detalle}</div>
                         </div>
                     </div>
-                    <span style="font-size:0.72rem; color:#94a3b8; font-weight:600; white-space:nowrap;">${item.fecha}</span>
+                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0;">
+                        <span style="font-size:0.69rem; color:#94a3b8; font-weight:700; white-space:nowrap;">${item.fecha}</span>
+                        <span style="font-size:0.7rem; color:#ec4899; font-weight:800;">Ir ›</span>
+                    </div>
                 </div>
             `).join('');
         }
